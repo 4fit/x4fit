@@ -43,6 +43,7 @@ public class Demo extends HttpServlet {
 		
 		MongoClientURI uri = new MongoClientURI(
 		    "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
+		
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("X4FIT");
 		MongoCollection<Document> collection = database.getCollection("POST");
@@ -57,7 +58,8 @@ public class Demo extends HttpServlet {
 		//collection.insertOne(doc);
 		Document myDoc = collection.find().first();
 		mongoClient.close();
-		response.getWriter().append(myDoc.toJson());
+		String json = myDoc.toJson();
+		response.getWriter().append(json);
 	}
 
 	/**

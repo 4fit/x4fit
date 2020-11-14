@@ -7,7 +7,6 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	<hr>
 	<form action="${pageContext.request.contextPath}/Demo">
 		<input type="submit" value="Submit">
 	</form>
