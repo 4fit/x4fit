@@ -1,5 +1,4 @@
-# X4FIT
-## IT'S FOR FIT - WEB HỎI ĐÁP DÀNH CHO FIT
+# X4FIT - *IT'S FOR FIT* WEB HỎI ĐÁP DÀNH CHO FIT
 
 ![GitHub contributors](https://img.shields.io/github/contributors/4fit/x4fit)
 ![GitHub issues](https://img.shields.io/github/issues/4fit/x4fit?color=red)
