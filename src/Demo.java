@@ -45,7 +45,7 @@ public class Demo extends HttpServlet {
 		    "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("X4FIT");
-		MongoCollection<Document> collection = database.getCollection("USER");
+		MongoCollection<Document> collection = database.getCollection("POST");
 		
 		Document doc = new Document("id", "18110")
 				.append("name", "Nguyễn Huỳnh Minh Tiến")
@@ -54,11 +54,9 @@ public class Demo extends HttpServlet {
 									.append("major", "Information Technology")
 									.append("faculty", "Faculty of Information Technology"));
 		
-		collection.insertOne(doc);
+		//collection.insertOne(doc);
 		Document myDoc = collection.find().first();
 		mongoClient.close();
-		System.out.println(myDoc.toJson());
-		System.out.print("~~~~~~~~~~~~~~~~~");
 		response.getWriter().append(myDoc.toJson());
 	}
 
