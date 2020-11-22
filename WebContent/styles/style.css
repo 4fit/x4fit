@@ -1,4 +1,18 @@
 @charset "UTF-8";
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+.logo {
+	font-family: 'Bungee Shade', cursive;
+	font-size: 2vw
+}
+
 ol {
     counter-reset: section;
     list-style-type: none;

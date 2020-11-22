@@ -11,10 +11,13 @@ import org.bson.BsonDocument;
 import org.bson.Document;
 
 import com.mongodb.ConnectionString;
+import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 /**
  * Servlet implementation class Demo
@@ -41,24 +44,33 @@ public class Demo extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
+		//Kết nối đến CSDL
 		MongoClientURI uri = new MongoClientURI(
 		    "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
-		
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("X4FIT");
-		MongoCollection<Document> collection = database.getCollection("POST");
 		
+		// Kết nối đến 1 collection cụ thể
+		MongoCollection<Document> collection = database.getCollection("POST");
+		// Tạo một Document cho collection trên
 		Document doc = new Document("id", "18110")
 				.append("name", "Nguyễn Huỳnh Minh Tiến")
 				.append("email", "ngotienhoang09@gmail.com")
 				.append("class", new Document("id", "181101B")
 									.append("major", "Information Technology")
 									.append("faculty", "Faculty of Information Technology"));
+		// Insert document vừa tạo vào collection
+		// collection.insertOne(doc);
+		// Update 1 document có id=18110
+		// collection.updateOne(Filters.eq("id", "18110"), Updates.set("class.id", "181101"));
 		
-		//collection.insertOne(doc);
+		// Lấy ra document đầu tiên của collection
 		Document myDoc = collection.find().first();
+		// Đóng kết nối đến CSDL
 		mongoClient.close();
+		// Chuyển docment lấy được sang định dạng JSON
 		String json = myDoc.toJson();
+		// Trả về trang JSP
 		response.getWriter().append(json);
 	}
 
