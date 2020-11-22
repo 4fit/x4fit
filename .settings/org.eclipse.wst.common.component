@@ -11,6 +11,9 @@
         <dependent-module archiveName="bson-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Programs/MongoDB/bson-3.2.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="json-20201115.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Programs/json-20201115.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="x4fit"/>
         <property name="java-output-path" value="/x4fit/build/classes"/>
     </wb-module>
