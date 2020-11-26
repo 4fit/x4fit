@@ -61,14 +61,14 @@ public class Demo extends HttpServlet {
 									.append("major", "Information Technology")
 									.append("faculty", "Faculty of Information Technology"));
 		// Insert document vừa tạo vào collection
-		// collection.insertOne(doc);
+		collection.insertOne(doc);
 		// Update 1 document có id=18110
-		// collection.updateOne(Filters.eq("id", "18110"), Updates.set("class.id", "181101"));
+		collection.updateOne(Filters.eq("id", "18110"), Updates.set("class.id", "181101"));
 		
 		// Lấy ra document đầu tiên của collection
 		Document myDoc = collection.find().first();
 		// Đóng kết nối đến CSDL
-		mongoClient.close();
+		//mongoClient.close();
 		// Chuyển docment lấy được sang định dạng JSON
 		String json = myDoc.toJson();
 		// Trả về trang JSP
