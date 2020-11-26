@@ -23,6 +23,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import model.DB_conn;
 import sun.security.provider.SHA;
 
 /**
@@ -46,50 +47,26 @@ public class CreatePost extends HttpServlet {
     	response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		//Connect to collection POST
+    	DB_conn db = new DB_conn();
+		//post_id
 		
-    	//MongoClientURI uri = new MongoClientURI(
-    	//	    "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
-		//MongoClient mongoClient = new MongoClient(uri);
-		//MongoDatabase database = mongoClient.getDatabase("X4FIT");
-		// Kết nối đến 1 collection cụ thể
-		//MongoCollection<Document> collection = database.getCollection("POST");
-		
-		//Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
-		//String id = (String) lastInsertion.get("id");
-		String id="123";
-		//
+		//title
 		String title = request.getParameter("title");
+		//tags
 		String tags = request.getParameter("tags");
+		//image
 		String image = request.getParameter("image");
+		//contents
 		String contents = request.getParameter("contents");
-		// slug
-		LocalDateTime currentDateTime = java.time.LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-		String formattedDateTime = currentDateTime.format(formatter);
-		String slug = "0";
-		try {
-			slug = x4fit.Utilities.sha1(formattedDateTime);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		//user_id
-		String user_id = "123";
-		//transliterated
-		String transliterated = x4fit.Utilities.removeAccent(title);
+		//id
+		int currentPostId = Integer.parseInt(db.getLastestID("POST"));
+		String id = Integer.toString(currentPostId + 1);
 		//status
 		String status = "public";
-		//points
-		String points = "0";
-		//views_count
-		String views_count = "0";
-		//comments_count
-		String comments_count="0";
-		//created_at
-		String created_at = formattedDateTime;
-		
 ;		
 		String url = "/post";
-		response.sendRedirect(request.getContextPath() + url + "?id=" + id + transliterated);
+		response.sendRedirect(request.getContextPath() + url + "?id=" + id);
 	}
 
 	/**

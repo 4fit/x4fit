@@ -39,7 +39,7 @@
 		<div class="row">
 			<div class="col-sm-2">
 				<h3>Left</h3>
-				<%= request.getParameter("id")%>
+				<!-- <%= request.getParameter("id")%> -->
 			</div>
 			<div class="col-sm-8">
 				<textarea id="contents" name="contents">${contents}</textarea>
@@ -100,7 +100,15 @@
 								"unordered-list", "ordered-list", "link", "image", "table", "horizontal-rule", "|",
 								"quote", "code", "|",
 								"preview", "side-by-side", "fullscreen", "clean-block", "|",
-								"guide",],
+								{
+									name: "guide",
+									action: (editor) => {
+										var win = window.open("https://www.markdownguide.org/cheat-sheet/", '_blank');
+										win.focus();
+									},
+									className: "fa fa-question-circle",
+									title: "Markdown Guide",
+								},],
 			spellChecker: false,
 			promptURLs: true,
 			placeholder: "Bình luận có thể hiển thị với định dạng Markdown.",
