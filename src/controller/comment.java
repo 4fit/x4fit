@@ -1,5 +1,5 @@
 
-
+package controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Controller
+ * Servlet implementation class comment
  */
-@WebServlet("/Controller")
-public class Controller extends HttpServlet {
+@WebServlet("/comment")
+public class comment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Controller() {
+    public comment() {
         super();
         // TODO Auto-generated constructor stub
     }
