@@ -39,18 +39,34 @@
 		<div class="row">
 			<div class="col-sm-2">
 				<h3>Left</h3>
+				<%= request.getParameter("id")%>
 			</div>
 			<div class="col-sm-8">
-				<textarea id="content">${content}</textarea>
+				<textarea id="contents" name="contents">${contents}</textarea>
+				<br>
+				<h4>Bình luận</h4>
+				<form action="${pageContext.request.contextPath}/comment">
+					<textarea id="cmt" name="cmt"></textarea>
+					<input class="btn btn-primary" type="submit" value="Bình luận">
+				</form>
+				<br>
+				<textarea id="comments" name="comments">${comments}</textarea>
 			</div>
 			<div class="col-sm-2">
 				<h3>Right</h3>
 			</div>
 		</div>
+		<hr>
   </div>
   <script type="text/javascript">
-	 	const simplemde = new SimpleMDE({
-			element: document.getElementById("content"),
+	 	const content = new SimpleMDE({
+			element: document.getElementById("contents"),
+			toolbar: ["bold", "italic", "strikethrough", "|",
+								"heading-1", "heading-2", "heading-3","|",
+								"unordered-list", "ordered-list", "link", "image", "table", "horizontal-rule", "|",
+								"quote", "code", "|",
+								"preview", "side-by-side", "fullscreen", "clean-block", "|",
+								"guide",],
 			status: false,
 			toolbar: false,
 			spellChecker: false,
@@ -58,7 +74,41 @@
 		        codeSyntaxHighlighting: true,
 		  },
 		});
-		simplemde.togglePreview();
+	 	content.togglePreview();
+		
+		const comments = new SimpleMDE({
+			element: document.getElementById("comments"),
+			toolbar: ["bold", "italic", "strikethrough", "|",
+								"heading-1", "heading-2", "heading-3","|",
+								"unordered-list", "ordered-list", "link", "image", "table", "horizontal-rule", "|",
+								"quote", "code", "|",
+								"preview", "side-by-side", "fullscreen", "clean-block", "|",
+								"guide",],
+			status: false,
+			toolbar: false,
+			spellChecker: false,
+			renderingConfig: {
+		        codeSyntaxHighlighting: true,
+		  },
+		});
+		comments.togglePreview();
+		
+		const cmt = new SimpleMDE({
+			element: document.getElementById("cmt"),
+			toolbar: ["bold", "italic", "strikethrough", "|",
+								"heading-1", "heading-2", "heading-3","|",
+								"unordered-list", "ordered-list", "link", "image", "table", "horizontal-rule", "|",
+								"quote", "code", "|",
+								"preview", "side-by-side", "fullscreen", "clean-block", "|",
+								"guide",],
+			spellChecker: false,
+			promptURLs: true,
+			placeholder: "Bình luận có thể hiển thị với định dạng Markdown.",
+			renderingConfig: {
+		        codeSyntaxHighlighting: true,
+		  },
+		});
+		
   </script>
 </body>
 </html>

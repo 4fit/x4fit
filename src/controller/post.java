@@ -1,72 +1,72 @@
 
-
+package controller;
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.bson.Document;
+import org.json.JSONObject;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 /**
- * Servlet implementation class CreatePost
+ * Servlet implementation class post
  */
-@WebServlet("/CreatePost")
-public class CreatePost extends HttpServlet {
+@WebServlet("/post")
+public class post extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreatePost() {
+    public post() {
         super();
-        // TODO Auto-generated constructor stub
     }
-    
-    private void CreatePost(HttpServletRequest request, HttpServletResponse response) 
-    		throws ServletException, IOException 
-    {
+
+    protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-    	MongoClientURI uri = new MongoClientURI(
-    		    "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
+		MongoClientURI uri = new MongoClientURI(
+		    "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
+		
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("X4FIT");
-		// Kết nối đến 1 collection cụ thể
 		MongoCollection<Document> collection = database.getCollection("POST");
+
+		//Document myDoc = collection.find().first();
+		//mongoClient.close();
+		//String json = myDoc.toJson();
 		
-		String title = request.getParameter("title");
-		String tags = request.getParameter("tags");
-		String thumbnail = request.getParameter("thumbnail");
-		String content = request.getParameter("content");
+		//String content = json;
+		String id = (String) request.getParameter("id");
 		
-		System.out.println(title);
-		System.out.println(content);
+		HttpSession session = request.getSession();
+		String content = (String) session.getAttribute("content");
 		
-		String url = "/Post";
-		request.setAttribute("title", title);
 		request.setAttribute("content", content);
-		
+		String url = "/post.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
-	}
-
+		//response.sendRedirect(request.getContextPath() + url);
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		CreatePost(request, response);
+		process(request, response);
 	}
 
 	/**
