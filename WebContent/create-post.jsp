@@ -44,7 +44,7 @@
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroupFileAddon01">Ảnh thumbnail</span>
 					  </div>
-					  <input type="text" class="form-control" placeholder="Nhập đường link đến ảnh thumbnail" name="image">
+					  <input type="text" class="form-control" placeholder="Nhập đường link đến ảnh thumbnail" name="thumbnail_url">
 					  <!-- 
 					  <div class="custom-file">
 					    <input type="file" class="custom-file-input" name="image" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
@@ -53,7 +53,7 @@
 					  -->
 					</div>
 				</div>
-				<textarea name="contents" id="contents"></textarea>
+				<textarea name="content" id="content"></textarea>
 				<input class="btn btn-primary btn-sm btn-block" type="submit" value="Post">
 			</div>
 		</form>
@@ -62,7 +62,7 @@
 	
 	<script type="text/javascript">
   const simplemde = new SimpleMDE({
-		element: document.getElementById("contents"),
+		element: document.getElementById("content"),
 		toolbar: ["bold", "italic", "strikethrough", "|",
 							"heading-1", "heading-2", "heading-3","|",
 							"unordered-list", "ordered-list", "link", "image", "table", "horizontal-rule", "|",

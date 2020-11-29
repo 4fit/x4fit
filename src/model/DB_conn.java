@@ -1,15 +1,14 @@
 package model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 public class DB_conn 
 {
@@ -32,21 +31,15 @@ public class DB_conn
 		collection.insertOne(doc);
 	}
 	
-	public String getLastestID(String collectionName)
+	public int getLastestID(String collectionName)
 	{
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
-		String id = (String) lastInsertion.get("id");
+		int id = (int) lastInsertion.get("id");
 		return id;
 	}
 	
-	public Document getUserInfo(String user_id)
-	{
-		MongoCollection<Document> collection = database.getCollection("USER");
-		Document doc = new Document();
-		return doc;
-	}
-	
+	//TODO
 	public Document getTagInfo(String tag)
 	{
 		MongoCollection<Document> collection = database.getCollection("TAGS");
@@ -54,27 +47,11 @@ public class DB_conn
 		return doc;
 	}
 	
-	public void Insert_Post(String title, String user_id, String content, boolean is_public, String thumbnail_url, String tags)
+	//TODO
+	public void getAllComments(String post_id)
 	{
-		//id
-		int currentPostId = Integer.parseInt(this.getLastestID("POST"));
-		String id = Integer.toString(currentPostId + 1);
-		//transliterated
-		String transliterated = x4fit.Utilities.removeAccent(title);
-		LocalDateTime currentDateTime = java.time.LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-		String published_at = currentDateTime.format(formatter);
-		Document user = getUserInfo(user_id);
-		
-		Document doc = new Document("id", id)
-							.append("title", title)
-							.append("user_id", user_id)
-							.append("transliterated", transliterated)
-							.append("content", content)
-							.append("published_at", published_at)
-							.append("is_public", is_public)
-							.append("thumbnail_url", thumbnail_url)
-							.append("user", user);
-		Insert(doc, "POST");
+		MongoCollection<Document> collection = database.getCollection("POST");
+		Document doc = collection.find(Filters.eq("id", post_id)).first();
+		Bson cmts = (Bson) doc.get("comments");
 	}
 }

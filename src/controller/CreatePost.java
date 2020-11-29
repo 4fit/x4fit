@@ -2,6 +2,10 @@
 package controller;
 
 import x4fit.*;
+
+import model.DB_conn;
+import model.Post;
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -23,7 +27,6 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import model.DB_conn;
 import sun.security.provider.SHA;
 
 /**
@@ -47,23 +50,27 @@ public class CreatePost extends HttpServlet {
     	response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		//Connect to collection POST
-    	DB_conn db = new DB_conn();
-		//post_id
 		
 		//title
 		String title = request.getParameter("title");
+		//user_id
+		String user_id = request.getParameter("user_id");
+		//is_public
+		boolean is_public = request.getParameter("is_public") != null;
 		//tags
 		String tags = request.getParameter("tags");
 		//image
-		String image = request.getParameter("image");
+		String thumbnail_url = request.getParameter("thumbnail_url");
 		//contents
-		String contents = request.getParameter("contents");
+		String content = request.getParameter("content");
+		
+		//Tạo đối tượng post
+		Post post = new Post(title, user_id, content, is_public, thumbnail_url, tags);
+		
 		//id
-		int currentPostId = Integer.parseInt(db.getLastestID("POST"));
-		String id = Integer.toString(currentPostId + 1);
-		//status
-		String status = "public";
+		int id = post.p_id;
+		
+		post.Insert_Post();
 ;		
 		String url = "/post";
 		response.sendRedirect(request.getContextPath() + url + "?id=" + id);
