@@ -31,13 +31,14 @@ public class DB_conn
 		collection.insertOne(doc);
 	}
 	
-	public int getLastestID(String collectionName)
+	public Integer getLastestID(String collectionName)
 	{
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
-		int id = (int) lastInsertion.get("id");
+		Integer id = (Integer) lastInsertion.get("id");
 		return id;
 	}
+	
 	
 	//TODO
 	public Document getTagInfo(String tag)
@@ -54,4 +55,6 @@ public class DB_conn
 		Document doc = collection.find(Filters.eq("id", post_id)).first();
 		Bson cmts = (Bson) doc.get("comments");
 	}
+	
+
 }

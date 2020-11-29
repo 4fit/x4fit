@@ -27,7 +27,6 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import sun.security.provider.SHA;
 
 /**
  * Servlet implementation class CreatePost
