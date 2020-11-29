@@ -1,5 +1,5 @@
 
-package model;
+package controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,7 +68,7 @@ public class Demo extends HttpServlet {
 		// Lấy ra document đầu tiên của collection
 		Document myDoc = collection.find().first();
 		// Đóng kết nối đến CSDL
-		//mongoClient.close();
+		// mongoClient.close();
 		// Chuyển docment lấy được sang định dạng JSON
 		String json = myDoc.toJson();
 		// Trả về trang JSP

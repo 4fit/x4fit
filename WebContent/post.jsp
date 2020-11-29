@@ -42,7 +42,7 @@
 				<!-- <%= request.getParameter("id")%> -->
 			</div>
 			<div class="col-sm-8">
-				<textarea id="contents" name="contents">${contents}</textarea>
+				<textarea id="content" name="content">${contents}</textarea>
 				<br>
 				<h4>Bình luận</h4>
 				<form action="${pageContext.request.contextPath}/comment">
@@ -60,7 +60,7 @@
   </div>
   <script type="text/javascript">
 	 	const content = new SimpleMDE({
-			element: document.getElementById("contents"),
+			element: document.getElementById("content"),
 			toolbar: ["bold", "italic", "strikethrough", "|",
 								"heading-1", "heading-2", "heading-3","|",
 								"unordered-list", "ordered-list", "link", "image", "table", "horizontal-rule", "|",
