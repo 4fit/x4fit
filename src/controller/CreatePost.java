@@ -29,9 +29,6 @@ import com.mongodb.client.MongoDatabase;
 
 import sun.security.provider.SHA;
 
-/**
- * Servlet implementation class CreatePost
- */
 @WebServlet("/CreatePost")
 public class CreatePost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +38,6 @@ public class CreatePost extends HttpServlet {
      */
     public CreatePost() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     private void Create(HttpServletRequest request, HttpServletResponse response) 
@@ -76,18 +72,12 @@ public class CreatePost extends HttpServlet {
 		response.sendRedirect(request.getContextPath() + url + "?id=" + id);
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException
 	{
 		Create(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{
