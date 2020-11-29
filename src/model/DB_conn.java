@@ -33,11 +33,11 @@ public class DB_conn
 		collection.insertOne(doc);
 	}
 	
-	public Integer getLastestID(String collectionName)
+	public int getLastestID(String collectionName)
 	{
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
-		Integer id = (Integer) lastInsertion.get("id");
+		int id = Integer.parseInt(lastInsertion.get("id").toString());
 		return id;
 	}
 	
