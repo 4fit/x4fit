@@ -27,7 +27,6 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import sun.security.provider.SHA;
 
 @WebServlet("/CreatePost")
 public class CreatePost extends HttpServlet {
@@ -64,7 +63,7 @@ public class CreatePost extends HttpServlet {
 		Post post = new Post(title, user_id, content, is_public, thumbnail_url, tags);
 		
 		//id
-		int id = post.p_id;
+		int id = post.getP_id();
 		
 		post.Insert_Post();
 ;		
