@@ -1,9 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
@@ -287,7 +294,7 @@ public class Post
 	
 	public List<Post> readAllPersonalPost(int iduser) {
 		
-		MongoCollection<Document> collection = database.getCollection("POST");
+		MongoCollection<Document> collection = DB_conn.database.getCollection("POST");
 		//DBCollection  col = (DBCollection) database.getCollection("POST");
 		FindIterable<Document> cursor = collection.find(new BasicDBObject("user_id",iduser));		
 		Iterator<Document> it = cursor.iterator();
