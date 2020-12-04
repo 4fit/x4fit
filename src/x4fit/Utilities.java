@@ -2,6 +2,10 @@ package x4fit;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class Utilities {
@@ -69,5 +73,18 @@ public class Utilities {
             sb.setCharAt(i, removeAccent(sb.charAt(i)));
         }
         return sb.toString();
+    }
+    
+    public static String GetCurrentDateTime()
+    {
+    	LocalDateTime currentDateTime = java.time.LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		return currentDateTime.format(formatter);
+    }
+    
+    public static String GetHash()
+    {
+    	int currentDateTime = java.time.LocalDateTime.now().hashCode();
+		return Integer.toString(currentDateTime);
     }
 }

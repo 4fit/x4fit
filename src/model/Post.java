@@ -1,30 +1,34 @@
 package model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
 
-public class Post extends DB_conn
+import x4fit.Utilities;
+
+public class Post
 {
-	
 	private int p_id;
+	private String p_title;
+	private String p_user_id;
+	private String p;
+	private String p_content;
+	private String p_published_at;
+	private String p_updated_at;
+	private int p_views_count;
+	private int p_points;
+	private int p_clips_count;
+	private boolean p_is_public;
+	private String p_thumbnail_url;
+	private String p_tags;
+	private Document p_user;
+	private DB_conn p_db;
+	private String p_author;
+	
 	public int getP_id() {
 		return p_id;
 	}
@@ -54,7 +58,7 @@ public class Post extends DB_conn
 	}
 
 	public void setP(String p) {
-		this.p=p;
+		this.p = p;
 	}
 
 	public String getP_content() {
@@ -73,6 +77,14 @@ public class Post extends DB_conn
 		this.p_published_at = p_published_at;
 	}
 
+	public String getP_updated_at() {
+		return p_updated_at;
+	}
+
+	public void setP_updated_at(String p_updated_at) {
+		this.p_updated_at = p_updated_at;
+	}
+	
 	public int getP_views_count() {
 		return p_views_count;
 	}
@@ -137,36 +149,12 @@ public class Post extends DB_conn
 		this.p_db = p_db;
 	}
 	
-	public String getP_author() {
-		return p_author;
-	}
-
-	public void setP_author(String p_author) {
-		this.p_author = p_author;
-	}
-
-	
-	private String p_title;
-	private String p_user_id;
-	private String p;
-	private String p_content;
-	private String p_published_at;
-	private int p_views_count;
-	private int p_points;
-	private int p_clips_count;
-	private boolean p_is_public;
-	private String p_thumbnail_url;
-	private String p_tags;
-	private Document p_user;
-	private DB_conn p_db;
-	private String p_author;
-	
 	public Post()
 	{
 		this.p_id = 0;
 		this.p_title = "";
 		this.p_user_id = "";
-		this.p= "";
+		this.p = Utilities.GetCurrentDateTime();
 		this.p_content = "";
 		this.p_published_at = "";
 		this.p_views_count = 0;
@@ -178,19 +166,15 @@ public class Post extends DB_conn
 		this.p_user = new Document();
 	}
 	
-	public Post(String title, String user_id, String content, boolean is_public, String thumbnail_url, String tags)
+	public Post(String title, String user_id, String content, boolean is_public, 
+			String thumbnail_url, String tags)
 	{
-		//published_at
-		LocalDateTime currentDateTime = java.time.LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-		String published_at = currentDateTime.format(formatter);
-		
 		this.p_id = getPostID();
 		this.p_title = title;
 		this.p_user_id = user_id;
-		this.p = x4fit.Utilities.removeAccent(title);
+		this.p = Utilities.removeAccent(title).replaceAll("\\W", "-") + "-" + Utilities.GetHash();
 		this.p_content = content;
-		this.p_published_at = published_at;
+		this.p_published_at = Utilities.GetCurrentDateTime();
 		this.p_views_count = 0;
 		this.p_points = 0;
 		this.p_clips_count = 0;
@@ -200,26 +184,46 @@ public class Post extends DB_conn
 		this.p_user = new User().getUserInfo(user_id);
 	}
 	
+	public Post(int id, String title, String user_id, String p, String content,
+			String published_at, String updated_at, boolean is_public, int views_count, int points, 
+			int clips_count, String thumbnail_url, String tags, Document user)
+	{
+		this.p_id = id;
+		this.p_title = title;
+		this.p_user_id = user_id;
+		this.p = p;
+		this.p_content = content;
+		this.p_published_at = published_at;
+		this.p_updated_at = updated_at;
+		this.p_views_count = views_count;
+		this.p_points = points;
+		this.p_clips_count = clips_count;
+		this.p_is_public = is_public;
+		this.p_thumbnail_url = thumbnail_url;
+		this.p_tags = tags;
+		this.p_user = user;
+	}
+	
 	public int getPostID()
 	{
-		return super.getLastestID("POST") + 1;
+		return DB_conn.getLastestID("POST") + 1;
 	}
 	
 	public void Insert_Post()
 	{
-		Insert_Post(this.p_id, this.p_title, this.p_user_id, this.p,this.p_content,
+		Insert_Post(this.p_id, this.p_title, this.p_user_id, this.p, this.p_content,
 					this.p_published_at, this.p_is_public, this.p_views_count, this.p_points, 
 					this.p_clips_count, this.p_thumbnail_url, this.p_tags, this.p_user);
 	}
 	
-	public void Insert_Post(int id, String title, String user_id, String transliterated, String content,
+	public void Insert_Post(int id, String title, String user_id, String p, String content,
 							String published_at, boolean is_public, int views_count, int points, 
 							int clips_count, String thumbnail_url, String tags, Document user)
 	{
 		Document doc = new Document("id", id)
 							.append("title", title)
 							.append("user_id", user_id)
-							.append("transliterated", transliterated)
+							.append("p", p)
 							.append("content", content)
 							.append("published_at", published_at)
 							.append("updated_at", published_at)
@@ -229,7 +233,39 @@ public class Post extends DB_conn
 							.append("is_public", is_public)
 							.append("thumbnail_url", thumbnail_url)
 							.append("user", user);
-		Insert(doc, "POST");
+		DB_conn.Insert(doc, "POST");
+	}
+	
+	public static Post GetPost(String p)
+	{
+		MongoCollection<Document> collection = DB_conn.database.getCollection("POST");
+		Document doc = collection.find(Filters.eq("p", p))
+								 .first();
+		if (doc == null)
+			return new Post();
+		Post post = new Post();
+		try
+		{
+			post = new Post(doc.getInteger("id"),
+							  doc.getString("title"),
+							  doc.getString("user_id"),
+							  p,
+							  doc.getString("content"),
+							  doc.getString("published_at"),
+							  doc.getString("updated_at"),
+							  doc.getBoolean("is_public"),
+							  doc.getInteger("views_count"),
+							  doc.getInteger("points"),
+							  doc.getInteger("clips_count"),
+							  doc.getString("thumbnail_url"),
+							  doc.getString("tags"),
+							  (Document) doc.get("user")
+							  );
+		}
+		catch (Exception e) {
+			
+		}
+		return post;
 	}
 	
 	public Post ConverseToPost(Document doc)

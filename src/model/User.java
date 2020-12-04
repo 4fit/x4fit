@@ -6,7 +6,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
-public class User extends DB_conn
+public class User
 {
 	
 	private String username;
@@ -48,7 +48,7 @@ public class User extends DB_conn
 	//TODO
 	public Document getUserInfo(String user_id)
 	{
-		MongoCollection<Document> collection = database.getCollection("USER");
+		MongoCollection<Document> collection = DB_conn.database.getCollection("USER");
 		return collection.find(Filters.eq("id", user_id)).first();
 	}
 }

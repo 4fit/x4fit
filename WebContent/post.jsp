@@ -39,10 +39,9 @@
 		<div class="row">
 			<div class="col-sm-2">
 				<h3>Left</h3>
-				<!-- <%= request.getParameter("id")%> -->
 			</div>
 			<div class="col-sm-8">
-				<textarea id="content" name="content">${contents}</textarea>
+				<textarea id="content" name="content">${content}</textarea>
 				<br>
 				<h4>Bình luận</h4>
 				<form action="${pageContext.request.contextPath}/comment">
