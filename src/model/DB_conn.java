@@ -16,10 +16,10 @@ import com.mongodb.client.model.Filters;
 
 public class DB_conn 
 {
-	private MongoClientURI uri;
-	private MongoClient mongoClient;
-	private String mongoClientURI = "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority";
-	public static MongoDatabase database;
+	private static String mongoClientURI = "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority";
+	private static MongoClientURI uri = new MongoClientURI(mongoClientURI);
+	private static MongoClient mongoClient = new MongoClient(uri);
+	public static MongoDatabase database = mongoClient.getDatabase("X4FIT");
 	
 	
 	public DB_conn()
@@ -30,13 +30,13 @@ public class DB_conn
 		this.database = mongoClient.getDatabase("X4FIT");
 	}
 	
-	public void Insert(Document doc, String collectionName)
+	public static void Insert(Document doc, String collectionName)
 	{
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		collection.insertOne(doc);
 	}
 	
-	public int getLastestID(String collectionName)
+	public static int getLastestID(String collectionName)
 	{
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();

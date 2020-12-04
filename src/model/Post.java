@@ -1,20 +1,20 @@
 package model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import org.bson.Document;
 
+import com.mongodb.DB;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 
-public class Post extends DB_conn
+import x4fit.Utilities;
+
+public class Post
 {
 	private int p_id;
 	private String p_title;
 	private String p_user_id;
-	private String p_transliterated;
+	private String p;
 	private String p_content;
 	private String p_published_at;
 	private String p_updated_at;
@@ -51,12 +51,12 @@ public class Post extends DB_conn
 		this.p_user_id = p_user_id;
 	}
 
-	public String getP_transliterated() {
-		return p_transliterated;
+	public String getP() {
+		return p;
 	}
 
-	public void setP_transliterated(String p_transliterated) {
-		this.p_transliterated = p_transliterated;
+	public void setP(String p) {
+		this.p = p;
 	}
 
 	public String getP_content() {
@@ -152,7 +152,7 @@ public class Post extends DB_conn
 		this.p_id = 0;
 		this.p_title = "";
 		this.p_user_id = "";
-		this.p_transliterated = "";
+		this.p = Utilities.GetCurrentDateTime();
 		this.p_content = "";
 		this.p_published_at = "";
 		this.p_views_count = 0;
@@ -167,17 +167,12 @@ public class Post extends DB_conn
 	public Post(String title, String user_id, String content, boolean is_public, 
 			String thumbnail_url, String tags)
 	{
-		//published_at
-		LocalDateTime currentDateTime = java.time.LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-		String published_at = currentDateTime.format(formatter);
-		
 		this.p_id = getPostID();
 		this.p_title = title;
 		this.p_user_id = user_id;
-		this.p_transliterated = x4fit.Utilities.removeAccent(title);
+		this.p = Utilities.removeAccent(title).replaceAll("\\W", "-") + "-" + Utilities.GetHash();
 		this.p_content = content;
-		this.p_published_at = published_at;
+		this.p_published_at = Utilities.GetCurrentDateTime();
 		this.p_views_count = 0;
 		this.p_points = 0;
 		this.p_clips_count = 0;
@@ -187,14 +182,14 @@ public class Post extends DB_conn
 		this.p_user = new User().getUserInfo(user_id);
 	}
 	
-	public Post(int id, String title, String user_id, String transliterated, String content,
+	public Post(int id, String title, String user_id, String p, String content,
 			String published_at, String updated_at, boolean is_public, int views_count, int points, 
 			int clips_count, String thumbnail_url, String tags, Document user)
 	{
 		this.p_id = id;
 		this.p_title = title;
 		this.p_user_id = user_id;
-		this.p_transliterated = transliterated;
+		this.p = p;
 		this.p_content = content;
 		this.p_published_at = published_at;
 		this.p_updated_at = updated_at;
@@ -209,24 +204,24 @@ public class Post extends DB_conn
 	
 	public int getPostID()
 	{
-		return super.getLastestID("POST") + 1;
+		return DB_conn.getLastestID("POST") + 1;
 	}
 	
 	public void Insert_Post()
 	{
-		Insert_Post(this.p_id, this.p_title, this.p_user_id, this.p_transliterated,this.p_content,
+		Insert_Post(this.p_id, this.p_title, this.p_user_id, this.p, this.p_content,
 					this.p_published_at, this.p_is_public, this.p_views_count, this.p_points, 
 					this.p_clips_count, this.p_thumbnail_url, this.p_tags, this.p_user);
 	}
 	
-	public void Insert_Post(int id, String title, String user_id, String transliterated, String content,
+	public void Insert_Post(int id, String title, String user_id, String p, String content,
 							String published_at, boolean is_public, int views_count, int points, 
 							int clips_count, String thumbnail_url, String tags, Document user)
 	{
 		Document doc = new Document("id", id)
 							.append("title", title)
 							.append("user_id", user_id)
-							.append("transliterated", transliterated)
+							.append("p", p)
 							.append("content", content)
 							.append("published_at", published_at)
 							.append("updated_at", published_at)
@@ -236,30 +231,38 @@ public class Post extends DB_conn
 							.append("is_public", is_public)
 							.append("thumbnail_url", thumbnail_url)
 							.append("user", user);
-		Insert(doc, "POST");
+		DB_conn.Insert(doc, "POST");
 	}
 	
-	public static Post GetPost(String post_id)
+	public static Post GetPost(String p)
 	{
-		int id = Integer.parseInt(post_id);
-		MongoCollection<Document> collection = database.getCollection("POST");
-		Document doc = collection.find(Filters.eq("id", id))
+		MongoCollection<Document> collection = DB_conn.database.getCollection("POST");
+		Document doc = collection.find(Filters.eq("p", p))
 								 .first();
-		Post p = new Post(id,
-						  doc.getString("title"),
-						  doc.getString("user_id"),
-						  doc.getString("transliterated"),
-						  doc.getString("content"),
-						  doc.getString("published_at"),
-						  doc.getString("updated_at"),
-						  doc.getBoolean("is_public"),
-						  doc.getInteger("views_count"),
-						  doc.getInteger("points"),
-						  doc.getInteger("clips_count"),
-						  doc.getString("thumbnail_url"),
-						  doc.getString("tags"),
-						  (Document) doc.get("user")
-						  );
-		return p;
+		if (doc == null)
+			return new Post();
+		Post post = new Post();
+		try
+		{
+			post = new Post(doc.getInteger("id"),
+							  doc.getString("title"),
+							  doc.getString("user_id"),
+							  p,
+							  doc.getString("content"),
+							  doc.getString("published_at"),
+							  doc.getString("updated_at"),
+							  doc.getBoolean("is_public"),
+							  doc.getInteger("views_count"),
+							  doc.getInteger("points"),
+							  doc.getInteger("clips_count"),
+							  doc.getString("thumbnail_url"),
+							  doc.getString("tags"),
+							  (Document) doc.get("user")
+							  );
+		}
+		catch (Exception e) {
+			
+		}
+		return post;
 	}
 }

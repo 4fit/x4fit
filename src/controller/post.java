@@ -40,11 +40,11 @@ public class post extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		String id = (String) request.getParameter("id");
-		
+		String p = (String) request.getParameter("p");
+		System.out.println(p);
 		HttpSession session = request.getSession();
 		//String content = (String) session.getAttribute("content");
-		Post post = Post.GetPost(id);
+		Post post = Post.GetPost(p);
 		
 		String title = post.getP_title();
 		String content = post.getP_content();

@@ -63,13 +63,13 @@ public class CreatePost extends HttpServlet {
 		//Tạo đối tượng post
 		Post post = new Post(title, user_id, content, is_public, thumbnail_url, tags);
 		
-		//id
-		int id = post.getP_id();
+		//p
+		String p = post.getP();
 		
 		post.Insert_Post();
 ;		
 		String url = "/post";
-		response.sendRedirect(request.getContextPath() + url + "?id=" + id);
+		response.sendRedirect(request.getContextPath() + url + "?p=" + p);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
