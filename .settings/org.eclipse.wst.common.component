@@ -14,6 +14,15 @@
         <dependent-module archiveName="mongodb-driver-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/ExJAR/mongodb-driver-3.2.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="google-photos-library-client-1.6.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/ExJAR/google-photos-library-client-1.6.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-oauth-client-1.31.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/ExJAR/google-oauth-client-1.31.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-oauth-client-servlet-1.31.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/ExJAR/google-oauth-client-servlet-1.31.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="x4fit"/>
         <property name="java-output-path" value="/x4fit/build/classes"/>
     </wb-module>

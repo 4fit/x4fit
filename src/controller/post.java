@@ -19,6 +19,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import model.Post;
+
 /**
  * Servlet implementation class post
  */
@@ -38,28 +40,20 @@ public class post extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		MongoClientURI uri = new MongoClientURI(
-		    "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
-		
-		MongoClient mongoClient = new MongoClient(uri);
-		MongoDatabase database = mongoClient.getDatabase("X4FIT");
-		MongoCollection<Document> collection = database.getCollection("POST");
-
-		//Document myDoc = collection.find().first();
-		//mongoClient.close();
-		//String json = myDoc.toJson();
-		
-		//String content = json;
 		String id = (String) request.getParameter("id");
 		
 		HttpSession session = request.getSession();
-		String content = (String) session.getAttribute("content");
+		//String content = (String) session.getAttribute("content");
+		Post post = Post.GetPost(id);
 		
-		request.setAttribute("content", content);
+		String title = post.getP_title();
+		String content = post.getP_content();
+		request.setAttribute("title", title);
+;		request.setAttribute("content", content);
+		
 		String url = "/post.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
-		//response.sendRedirect(request.getContextPath() + url);
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
