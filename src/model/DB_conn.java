@@ -37,7 +37,7 @@ public class DB_conn
 	{
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
-		Integer id = (Integer) lastInsertion.get("id");
+		int id = Integer.parseInt(lastInsertion.get("id").toString());
 		return id;
 	}
 	
@@ -56,4 +56,5 @@ public class DB_conn
 		Document doc = collection.find(Filters.eq("id", post_id)).first();
 		Bson cmts = (Bson) doc.get("comments");
 	}
+	
 }

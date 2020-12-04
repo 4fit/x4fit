@@ -1,6 +1,8 @@
 
 package controller;
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,14 @@ public class comment extends HttpServlet {
      */
     public comment() {
         super();
+    }
+    
+    protected void process(HttpServletRequest request, HttpServletResponse response)
+    {
+    	String user_id = "";
+    	String post_id = "";
+    	Date created_at = Date.
+    	
     }
 
 	/**

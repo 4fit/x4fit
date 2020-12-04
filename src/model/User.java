@@ -17,6 +17,7 @@ public class User extends DB_conn
 	public Document getUserInfo(String user_id)
 	{
 		MongoCollection<Document> collection = database.getCollection("USER");
-		return collection.find(Filters.eq("id", user_id)).first();
+		Document doc =  collection.find(Filters.eq("id", user_id)).first();
+		return (Document)doc.get("data");
 	}
 }
