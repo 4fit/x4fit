@@ -13,11 +13,12 @@ import com.mongodb.client.model.Filters;
 public class DB_conn 
 {
 	private MongoClientURI uri;
-	private MongoClient mongoClient;
+	public MongoClient mongoClient;
 	private String mongoClientURI = "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority";
 	public MongoDatabase database;
 	public static int x=0;
 	
+
 	public DB_conn()
 	{
 		//Kết nối đến CSDL
@@ -37,7 +38,7 @@ public class DB_conn
 	{
 		MongoCollection<Document> collection = database.getCollection(collectionName);
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
-		Integer id = (Integer) lastInsertion.get("id");
+		int id = Integer.parseInt(lastInsertion.get("id").toString()) ;
 		return id;
 	}
 	
