@@ -1,6 +1,7 @@
 package model;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.mongodb.DB;
 import com.mongodb.client.MongoCollection;
@@ -26,6 +27,7 @@ public class Post
 	private String p_tags;
 	private Document p_user;
 	private DB_conn p_db;
+	private String p_author;
 	
 	public int getP_id() {
 		return p_id;
@@ -264,5 +266,46 @@ public class Post
 			
 		}
 		return post;
+	}
+	
+	public Post ConverseToPost(Document doc)
+	{
+		Post p = new Post();
+		p.setP_content((String) doc.get("content"));;
+		p.setP_id(Integer.parseInt( doc.get("id").toString()));
+		p.setP_title((String) doc.get("title"));
+		if(doc.get("published_at")!=null)
+		p.setP_published_at(doc.get("published_at").toString());
+		p.setP_clips_count(Integer.parseInt(doc.get("clips_count").toString()));
+		p.setP_views_count(Integer.parseInt(doc.get("views_count").toString()));
+		p.setP_user_id(doc.get("user_id").toString());		
+		return p;
+	}
+	
+	//Lấy tất cả các bài post của một user
+	//Truyền vào user id
+	
+	public List<Post> readAllPersonalPost(int iduser) {
+		
+		MongoCollection<Document> collection = database.getCollection("POST");
+		//DBCollection  col = (DBCollection) database.getCollection("POST");
+		FindIterable<Document> cursor = collection.find(new BasicDBObject("user_id",iduser));		
+		Iterator<Document> it = cursor.iterator();
+		List<Post> data = new ArrayList<Post>();	
+		if(it.hasNext())
+		{		
+			while (it.hasNext()) {
+				Document doc = it.next();
+				Post p = ConverseToPost(doc);
+				data.add(p);
+			}
+		}
+		return data;
+	
+	}
+		
+	private MongoClient getMongoClient() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

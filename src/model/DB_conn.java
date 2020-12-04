@@ -16,12 +16,12 @@ import com.mongodb.client.model.Filters;
 
 public class DB_conn 
 {
+
 	private static String mongoClientURI = "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority";
 	private static MongoClientURI uri = new MongoClientURI(mongoClientURI);
 	private static MongoClient mongoClient = new MongoClient(uri);
 	public static MongoDatabase database = mongoClient.getDatabase("X4FIT");
-	
-	
+
 	public DB_conn()
 	{
 		//Kết nối đến CSDL
@@ -44,6 +44,7 @@ public class DB_conn
 		return id;
 	}
 	
+	
 	//TODO
 	public Document getTagInfo(String tag)
 	{
@@ -59,6 +60,4 @@ public class DB_conn
 		Document doc = collection.find(Filters.eq("id", post_id)).first();
 		Bson cmts = (Bson) doc.get("comments");
 	}
-	
-	
 }
