@@ -1,6 +1,7 @@
 
 package controller;
 
+import model.PostDAO;
 import model.Post;
 
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class CreatePost extends HttpServlet {
 		//p
 		String p = post.getP();
 		
-		post.Insert_Post();
+		PostDAO.Insert_Post(post);
 ;		
 		String url = "/post";
 		response.sendRedirect(request.getContextPath() + url + "?p=" + p);

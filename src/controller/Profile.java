@@ -25,6 +25,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
+import model.PostDAO;
 import model.Post;
 
 @WebServlet("/Profile_p")
@@ -41,7 +42,7 @@ public class Profile extends HttpServlet {
     	
     	HttpSession session = request.getSession();
     	//MongoCollection<Document> collection= post.getPostbyIDuser(1);
-    	List<Post> posts=post.readAllPersonalPost(1); 	
+    	List<Post> posts=PostDAO.readAllPersonalPost(1); 	
     	session.setAttribute("listpost", posts);
     	
     }

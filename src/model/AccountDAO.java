@@ -13,11 +13,11 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
-public class DB_account extends DB_conn {
+public class AccountDAO extends DAO {
 	
 	public User isLoginSuccess(String collectionName, Account acc)
 	{
-		MongoCollection<Document> collection = database.getCollection(collectionName);
+		MongoCollection<Document> collection = db.getCollection(collectionName);
 		/*FindIterable<Document> iterDoc = collection.find(Filters.and(eq("username",  acc.getUsername()), eq("username",  acc.getUsername());
 		Iterator<Document> it = iterDoc.iterator();*/
 		BasicDBObject andQuery = new BasicDBObject();

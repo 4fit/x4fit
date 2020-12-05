@@ -1,6 +1,6 @@
 package model;
 
-import model.DB_conn;
+import model.DAO;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -12,7 +12,7 @@ import com.mongodb.client.model.Filters;
 import x4fit.Utilities;
 
 
-public class Account extends DB_conn{
+public class Account extends DAO{
 	
 	private String sUsername;
 	private String sPassword;

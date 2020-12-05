@@ -84,7 +84,7 @@ public class Utilities {
     
     public static String GetHash()
     {
-    	int currentDateTime = java.time.LocalDateTime.now().hashCode();
-		return Integer.toString(currentDateTime);
+    	int hash = java.time.LocalDateTime.now().hashCode();
+		return Integer.toString(Math.abs(hash));
     }
 }
