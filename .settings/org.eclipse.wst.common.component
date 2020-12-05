@@ -2,25 +2,34 @@
     <wb-module deploy-name="x4fit">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="bson-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ExJAR/bson-3.2.2.jar">
+        <dependent-module archiveName="google-photos-library-client-1.6.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/google-photos-library-client-1.6.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="mongodb-driver-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ExJAR/mongodb-driver-3.2.2.jar">
+        <dependent-module archiveName="mongodb-driver-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/mongodb-driver-3.2.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="json-20201115.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ExJAR/json-20201115.jar">
+        <dependent-module archiveName="bson-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/bson-3.2.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="mongodb-driver-core-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ExJAR/mongodb-driver-core-3.2.2.jar">
+        <dependent-module archiveName="google-oauth-client-servlet-1.31.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/google-oauth-client-servlet-1.31.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="google-photos-library-client-1.6.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/ExJAR/google-photos-library-client-1.6.0.jar">
+        <dependent-module archiveName="google-api-client-1.31.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/google-api-client-1.31.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="google-oauth-client-1.31.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/ExJAR/google-oauth-client-1.31.2.jar">
+        <dependent-module archiveName="google-oauth-client-1.30.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/google-oauth-client-1.30.4.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="google-oauth-client-servlet-1.31.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/ExJAR/google-oauth-client-servlet-1.31.2.jar">
+        <dependent-module archiveName="mongodb-driver-core-3.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/mongodb-driver-core-3.2.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="json-20201115.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/json-20201115.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jstl-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/jstl-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="google-oauth-client-1.31.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/x4fit/WebContent/WEB-INF/lib/google-oauth-client-1.31.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="x4fit"/>
