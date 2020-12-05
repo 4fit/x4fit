@@ -45,13 +45,12 @@ public class PostDAO extends DAO {
 							.append("is_public", is_public)
 							.append("thumbnail_url", thumbnail_url)
 							.append("user", user);
-		DAO.Insert(doc, "POST");
+		DAO.Insert(doc, POST);
 	}
 	
 	public static Post GetPost(String p)
 	{
-		Document doc = POST.find(Filters.eq("p", p))
-								 .first();
+		Document doc = POST.find(Filters.eq("p", p)).first();
 		if (doc == null)
 			return new Post();
 		Post post = new Post();

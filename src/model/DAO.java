@@ -29,6 +29,11 @@ public class DAO
 		this.db = mongoClient.getDatabase("X4FIT");
 	}
 	
+	public static void Insert(Document doc, MongoCollection<Document> collection)
+	{
+		collection.insertOne(doc);
+	}
+	
 	public static void Insert(Document doc, String collectionName)
 	{
 		MongoCollection<Document> collection = db.getCollection(collectionName);
