@@ -39,6 +39,7 @@ public class signUp extends HttpServlet {
     		url = "index.jsp";
     	else 
     		url = "signup.jsp";
+    	System.out.print(acc);
     	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
     	dispatcher.forward(request,response );
     	}

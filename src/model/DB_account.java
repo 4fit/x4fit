@@ -30,13 +30,38 @@ public class DB_account extends DB_conn {
 		//DBCursor cursor = collection.find(andQuery);
 		FindIterable<Document> cursor = collection.find(andQuery);
 		Iterator<Document> it = cursor.iterator();
+		
 		if(it.hasNext())
 			return true;
 		return false;
-		/*if(it.hasNext())
-			return true;
-		return false;*/
+		
 	}
+	
+	public User isLoginSuccessGetUser(String collectionName, Account acc)
+	{
+		MongoCollection<Document> collection = database.getCollection(collectionName);
+		/*FindIterable<Document> iterDoc = collection.find(Filters.and(eq("username",  acc.getUsername()), eq("username",  acc.getUsername());
+		Iterator<Document> it = iterDoc.iterator();*/
+		BasicDBObject andQuery = new BasicDBObject();
+		ArrayList<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+		obj.add(new BasicDBObject("username", acc.getUsername()));
+		obj.add(new BasicDBObject("password", acc.getPassword()));
+		andQuery.put("$and", obj);
+		System.out.println(andQuery.toString());
+		//DBCursor cursor = collection.find(andQuery);
+		FindIterable<Document> cursor = collection.find(andQuery);
+		Iterator<Document> it = cursor.iterator();
+		
+		if(it.hasNext())
+			{
+				Document doc = cursor.first();
+				User user = new User(doc.getString("username"), doc.getString("password"), doc.getString("email"));
+				return user;
+			}
+		return null;
+		
+	}
+	
 	
 	public void signUpSuccess(Account acc)
 	{

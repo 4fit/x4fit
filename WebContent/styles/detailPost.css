@@ -6,6 +6,10 @@ div{
     display: block;
 }
 
+button{
+	outline: none !important;
+}
+
 .text-muted{
     color: #9b9b9b !important;
 }
@@ -56,6 +60,7 @@ header{
 nav{
     position:sticky;
     box-shadow:0 3px 8px rgba(0, 0, 0, .20);
+    
 }
 
 ul{
@@ -394,6 +399,45 @@ button{
     margin-top: 4px;
 }
 
+#Write{
+	display:block;
+    margin-top: 5px;
+}
+
+.form_comment{
+	display: inline-block;
+    width:95%;
+    background-color:white;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius:3px;
+}
+
+#comment__contents{
+	display:inline-block;
+	margin-left:10px;
+	width:95%;
+	border:none;
+	outline: none;
+}
+
+.submit_comment{
+	display:block;
+	
+}
+
+#btnPostComment{
+	 margin-left: 70vw;
+    background-color: #0099CC;
+    color: #F6F7F8;
+    display:block;
+    margin-top:2px;
+    margin-bottom:5px;
+}
+
+.comment-form__edit-element{
+	display:inline-block;
+	
+}
 
 /*comment-form{
     display:block;
@@ -488,5 +532,89 @@ button{
     display:none;
     padding: 6px 12px;
     border: 1px solid #ccc;
-    border-top: none;
+    border: none;
+     box-shadow:0 1px 2px rgba(0, 0, 0, .20);
   }
+  
+ .list-comments{
+    display: block;
+    width:100%;
+} 
+
+.user_comment_post{
+	margin-top: 10px;
+	padding-top:5px;
+    display: block;
+    padding-left: 10px;
+    height:150px;
+     background-color: #fff;
+     border-radius: 3px;
+     box-shadow:0 1px 2px rgba(0, 0, 0, .20);
+}
+
+.info_user_comment{
+    display: block;
+   
+    height: 50px;
+   
+}
+
+.img_user_comment_post
+{
+    display:inline-block;
+   
+     height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+#avt_comment{
+	 height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+
+.info_username_comment{
+    display: inline-block;
+    width:70%;
+}
+
+.time_comment{
+    display: inline-block;
+     width:20%;
+}
+
+.content_comment{
+    display:block;
+}
+
+.vote_comment{
+    display:block;
+    padding-top:5px;
+    padding-bottom:5px;
+  
+}
+
+.score{
+	display:inline-block;
+	width:8%;
+}
+
+.action_with_comment{
+	display:inline-block;
+	width:84%;
+	margin-left:0px;
+}
+
+.more_comment{
+	display:inline-block;
+	text-align: center;
+	 margin-left: -10px;
+	width:8%;
+}
+
+.dropdown_comment{
+    margin-left: 0px;
+   
+}

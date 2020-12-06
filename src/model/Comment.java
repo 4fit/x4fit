@@ -2,6 +2,8 @@ package model;
 
 import java.util.Date;
 
+import org.bson.Document;
+
 public class Comment {
 
 	private String id;
@@ -16,8 +18,42 @@ public class Comment {
 	private Date updated_at;
 	private Date deleted_at;
 	private String contents;
+	private String name_user;
+	private String avatar_user;
+	private String url_user;
 	
 	
+	
+	public String getName_user() {
+		return name_user;
+	}
+
+
+	public void setName_user(String name_user) {
+		this.name_user = name_user;
+	}
+
+
+	public String getAvatar_user() {
+		return avatar_user;
+	}
+
+
+	public void setAvatar_user(String avatar_user) {
+		this.avatar_user = avatar_user;
+	}
+
+
+	public String getUrl_user() {
+		return url_user;
+	}
+
+
+	public void setUrl_user(String url_user) {
+		this.url_user = url_user;
+	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -158,7 +194,35 @@ public class Comment {
 
 	public Comment()
 	{
+		this.points = 0;
+	}
+	
+	public Comment(Document cmtDoc, Document userDoc)
+	{
+		this.user_id = cmtDoc.getString("user_id");
+		this.post_id = cmtDoc.getInteger("post_id");
 		
+		if(cmtDoc.getInteger("level")!= null)
+			this.level = cmtDoc.getInteger("level");
+		else this.level = 0;
+		
+		if(cmtDoc.getInteger("points")!= null)
+			this.points = cmtDoc.getInteger("points");
+		else this.points = 0;
+		
+
+		if(cmtDoc.getInteger("commentable_id")!= null)
+			this.commentable_id = cmtDoc.getInteger("commentable_id");
+		else this.commentable_id = 0;
+		
+		this.in_reply_to_comment = cmtDoc.getString("in_reply_to_comment");
+		this.in_reply_to_user = cmtDoc.getString("in_reply_to_user");
+		this.created_at = cmtDoc.getDate("created_at");
+		this.updated_at = cmtDoc.getDate("updated_at");
+		this.deleted_at = cmtDoc.getDate("deleted_at");
+		this.contents = cmtDoc.getString("contents");
+		this.name_user = userDoc.getString("username");
+		this.url_user = userDoc.getString("url");
 	}
 	
 	

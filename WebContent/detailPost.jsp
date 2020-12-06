@@ -21,7 +21,7 @@
 </head>
 
 <body>
-	<jsp:include page="/detailPost" ></jsp:include>
+	<!--<jsp:include page="/detailPost" ></jsp:include>-->
     <header>
         <div class="container-fluid">
             <nav class="navbar navbar-light bg-light">
@@ -95,7 +95,7 @@
         <div class="container post-body position-relative">
             <div class="row">
                 <div class="p-0 hidden-md-down col-lg-1">
-                    <div class="post-actions d-flex flex-column align-items-center mx-auto">
+                    <form class="post-actions d-flex flex-column align-items-center mx-auto">
                         <div class="votes post-actions__vote mb-1">
                             <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom" title="Upvote">
                                 <i aria-hidden="true" style="color: rgb(100, 100, 100);" class="fa fa-caret-up"></i>
@@ -111,19 +111,26 @@
                         </div>
 
                         <div class="subscribe mb-2">
-                            <button type="button " class=" button post-actions__clip el-button--default"
+                            <button type="submit " class=" button post-actions__clip el-button--default"
                                 data-toggle="tooltip" data-placement="bottom" title="Clip">
                                 <i class="fa fa-paperclip">
 
                                 </i>
                             </button>
                             <div class="social-sharing mb-2">
-                                <a data-toggle="tooltip" data-placement="bottom" title="Share to facebook">
+                                <a href="#" 
+                                onclick="
+										    window.open(
+										      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+										      'facebook-share-dialog', 
+										      'width=626,height=436'); 
+										    return false;"
+                                 data-toggle="tooltip" data-placement="bottom" title="Share to facebook">
                                     <i aria-hidden="true" class="fa fa-facebook"></i>
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <div class="post-body__main col-lg-8">
@@ -308,10 +315,35 @@
 					</div>
 					
 					<div id="Write" class="tabcontent">
-					  <form class = "form_comment">
+					<div class="img_user_comment_post">
+                                <img src="#" alt="avatar">
+                            </div>
+					  <form class = "form_comment" action = "comment" method = "post">
 					   <textarea id="comment__contents" name="comment_contents"
                                         placeholder="Test comment" style="height: 120px; "> </textarea>
+                        <div class="comment-form__edit-element">
+                                        <div class="element">
+                                            <Button class="smile" data-toggle="tooltip" data-placement="bottom"
+                                                title="Like">
+                                                <i class="fa fa-smile-o text-muted"></i>
+                                            </Button>
+                                        </div>
+                                        <div class="element">
+                                            <Button class="image" data-toggle="tooltip" data-placement="bottom"
+                                                title="Add image">
+                                                <i class="fa fa-image text-muted"></i>
+                                            </Button>
+                                        </div>
+                                        <div class="element">
+                                            <Button class="mackdown" data-toggle="tooltip" data-placement="bottom"
+                                                title="Mardown">
+                                                <i class="fa fa-question-circle text-muted"></i>
+                                            </Button>
+                                        </div>
+                                    </div>
+                         <div class = "submit_comment bg-light">
                         <input type="submit" id="btnPostComment" class="el-button btn btn-outline-primary" value  = "Post comment">
+                        </div>
 					  </form>
 					</div>
 					
@@ -323,7 +355,65 @@
                        
                     
                 </div>
-                
+
+
+					 <div class = "list-comments">
+					 <c:forEach  var = "cmt" items = "${listCmt}" >
+                    <div class = "user_comment_post">
+                        <div class = "info_user_comment">
+                            <div class = "img_user_comment_post">
+                                <img id = "avt_comment" class = "avatar--lg img-fluid" src="images/mainAboutMe.jpg" alt = "avatar">
+                            </div>
+                            <div class = "info_username_comment">
+                                <a href="${cmt.url_user}"><c:out value = "${cmt.name_user}"></c:out></a>
+                                <span class = "text-muted">@author</span>
+                            </div>
+                            <div class = "time_comment">
+                                <span class = "text-muted"><c:out value = "${cmt.created_at}"></c:out></span>
+                            </div>
+                        </div>
+                        <div class = "content_comment">
+                              <p><c:out value = "${cmt.contents}"></c:out></p>  
+                        </div>
+                        <footer class = "vote_comment">
+                            <div class = "score">
+                                <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom" title="Upvote">
+                                    <i aria-hidden="true"  class="fa fa-chevron-up text-muted"></i>
+                                </button>
+                                
+                                <span class = "point_vote_comment"><c:out value = "${cmt.points}"></c:out></span>
+                                <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom" title="downvote">
+                                    <i aria-hidden="true"  class="fa fa-chevron-down text-muted"></i>
+                                </button>
+                                
+                            </div>
+                            <div class="action_with_comment d">
+                                <a class="reply_comment">
+                                    <span class = "text-muted" id = "reply">Reply</span>
+                                </a>
+                                <a class="share_comment">
+                                    <span class = "text-muted">Share</span>
+                                </a>
+                            </div>
+                            <div class="more_comment">
+                                <div class="menu__post">
+                                    <div class="dropdown_comment">
+                                        <button type="button" class="dropbtn" data-toggle="tooltip" data-placement="bottom"
+                                            title="Show more active">
+                                            <i class="fa fa-ellipsis-h text-muted"></i>
+                                        </button>
+                                        <div class="dropdown-content">
+                                            <a href="#"> repost</a>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </footer>
+                    </div>
+                </c:forEach >
+                </div>                
             </div>
         </div>
     </div>

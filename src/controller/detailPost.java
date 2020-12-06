@@ -3,10 +3,10 @@ package controller;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import model.*;
-import model.DB_detailPost;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -38,6 +38,10 @@ public class detailPost extends HttpServlet {
     	/*String a = "day la tilte Post";
     	String url = "/detailPost.jsp";
     	request.setAttribute("title_post",a );*/
+    	response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+		
     	DB_detailPost db = new DB_detailPost();
     	Post p = new Post();
     	Document post = db.getPostByIdPost(1);
@@ -64,7 +68,20 @@ public class detailPost extends HttpServlet {
     	List<Post> listPost = new ArrayList<Post>();
     	listPost.add(p);
     	listPost.add(p);
+    	
+    	List<Comment> listCmt = getListComment(1);
+    	Collections.reverse(listCmt); // Đảo ngược list comment
+    	request.setAttribute("listCmt", listCmt);
     	request.setAttribute("listPost", listPost);
+    }
+    
+    
+    public List<Comment> getListComment(int post_id)
+    {
+    	DB_Comment db = new DB_Comment();
+    	List<Comment> listCmt = new ArrayList<Comment>();
+    	listCmt = db.getCommentByIdPost(post_id);
+    	return listCmt;
     }
 
 	/**

@@ -2,6 +2,8 @@ package controller;
 
 import model.Account;
 import model.DB_account;
+import model.User;
+
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
@@ -28,15 +30,21 @@ public class login extends HttpServlet {
     }
     
     protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NoSuchAlgorithmException {
-    	String url = "";
+    	String url = "/login.jsp";
     	String username = request.getParameter("username");
         String password = request.getParameter("pass");
         DB_account dao = new DB_account();
         Account userAccount = new Account(username, password);
-        boolean f = dao.isLoginSuccess("USER",userAccount );
-        if(f)
-        	url = "/index.jsp";
-        else url = "/login.jsp";
+//        boolean f = dao.isLoginSuccess("USER",userAccount );
+//        if(f)
+//        	url = "/index.jsp";
+//        
+//        else url = "/login.jsp";
+        if(dao.isLoginSuccessGetUser("USER", userAccount) != null)
+        {
+        	User user = dao.isLoginSuccessGetUser("USER", userAccount);
+        	url = "/create-post.jsp";
+        }
         
         RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
 	       
