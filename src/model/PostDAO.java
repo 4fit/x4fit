@@ -18,7 +18,7 @@ public class PostDAO extends DAO {
 	
 	public static int getPostID()
 	{
-		return DAO.getLastestID("POST") + 1;
+		return DAO.getLastestID(POST) + 1;
 	}
 	
 	public static void Insert_Post(Post p)

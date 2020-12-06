@@ -48,6 +48,12 @@ public class DAO
 		return id;
 	}
 	
+	public static int getLastestID(MongoCollection<Document> collection)
+	{
+		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
+		int id = Integer.parseInt(lastInsertion.get("id").toString());
+		return id;
+	}
 	
 	//TODO
 	public Document getTagInfo(String tag)
