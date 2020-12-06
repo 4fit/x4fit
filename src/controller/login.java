@@ -2,7 +2,7 @@ package controller;
 
 import model.Account;
 import org.bson.Document;
-import model.DB_account;
+import model.AccountDAO;
 import model.User;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class login extends HttpServlet {
     	String url = "";
     	String username = request.getParameter("username");
         String password = request.getParameter("pass");
-        DB_account dao = new DB_account();
+        AccountDAO dao = new AccountDAO();
         Account userAccount = new Account(username, password);
         User user = dao.isLoginSuccess("USER",userAccount );
         if(user!=null)

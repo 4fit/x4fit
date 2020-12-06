@@ -1,7 +1,7 @@
 package controller;
 
 import model.Account;
-import model.DB_account;
+import model.AccountDAO;
 import model.User;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class signUp extends HttpServlet {
     	String password = request.getParameter("password");
     	String email = request.getParameter("email");
     	Account acc = new Account(username, password, email);   
-    	DB_account dao = new DB_account();
+    	AccountDAO dao = new AccountDAO();
     	dao.signUpSuccess(acc);
     	if(dao.isLoginSuccess("USER", acc)!=null)
     	{

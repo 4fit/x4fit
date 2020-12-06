@@ -19,6 +19,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import model.PostDAO;
 import model.Post;
 
 /**
@@ -41,13 +42,12 @@ public class post extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String p = (String) request.getParameter("p");
-		System.out.println(p);
 		HttpSession session = request.getSession();
 		//String content = (String) session.getAttribute("content");
-		Post post = Post.GetPost(p);
+		Post post = PostDAO.GetPost(p);
 		
-		String title = post.getP_title();
-		String content = post.getP_content();
+		String title = post.getTitle();
+		String content = post.getContent();
 		request.setAttribute("title", title);
 ;		request.setAttribute("content", content);
 		

@@ -5,8 +5,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tạo bài viết</title>
-	<link rel="icon" type="image/png" href="images/logo.png"/>
-	<link rel="stylesheet" href="styles/style.css" type="text/css" />
+	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.png"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css" type="text/css" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
