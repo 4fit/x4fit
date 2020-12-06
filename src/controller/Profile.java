@@ -25,7 +25,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
-import model.PostDAO;
+import dao.PostDAO;
 import model.Post;
 
 @WebServlet("/Profile_p")

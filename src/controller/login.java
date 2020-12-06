@@ -2,7 +2,8 @@ package controller;
 
 import model.Account;
 import org.bson.Document;
-import model.AccountDAO;
+
+import dao.AccountDAO;
 import model.User;
 
 import java.io.IOException;
@@ -38,8 +39,8 @@ public class login extends HttpServlet {
         Account userAccount = new Account(username, password);
         User user = dao.isLoginSuccess("USER",userAccount );
         if(user!=null)
-        	url = "/Profile.jsp";
-        else url = "/login.jsp";
+        	url = "users/profile.jsp";
+        else url = "login/login.jsp";
         
         RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
 	       

@@ -1,7 +1,5 @@
 package model;
 
-import model.DAO;
-
 import java.security.NoSuchAlgorithmException;
 
 import org.bson.Document;
@@ -9,6 +7,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
+import dao.DAO;
 import x4fit.Utilities;
 
 

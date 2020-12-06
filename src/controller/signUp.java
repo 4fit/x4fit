@@ -1,7 +1,6 @@
 package controller;
 
 import model.Account;
-import model.AccountDAO;
 import model.User;
 
 import java.io.IOException;
@@ -13,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.AccountDAO;
 
 /**
  * Servlet implementation class signUp
@@ -41,11 +42,11 @@ public class signUp extends HttpServlet {
     	{
     		User user= dao.isLoginSuccess("USER", acc);
     		
-    		url = "/Profile.jsp";
+    		url = "users/profile.jsp";
 
     	}
     	else 
-    		url = "/signup.jsp";
+    		url = "login/signup.jsp";
     	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
     	dispatcher.forward(request,response );
     	}

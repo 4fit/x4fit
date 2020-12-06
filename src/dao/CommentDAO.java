@@ -1,9 +1,13 @@
-package model;
+package dao;
 
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+
+import dao.DAO;
+import model.Comment;
+import model.User;
 
 public class CommentDAO extends DAO {
 	

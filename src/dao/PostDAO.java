@@ -1,4 +1,4 @@
-package model;
+package dao;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +11,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+
+import dao.DAO;
+import model.Post;
 
 public class PostDAO extends DAO {
 	

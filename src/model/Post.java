@@ -2,6 +2,9 @@ package model;
 
 import org.bson.Document;
 
+import dao.DAO;
+import dao.PostDAO;
+import dao.UserDAO;
 import x4fit.Utilities;
 
 public class Post

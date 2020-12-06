@@ -19,7 +19,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import model.PostDAO;
+import dao.PostDAO;
 import model.Post;
 
 /**
@@ -51,7 +51,7 @@ public class post extends HttpServlet {
 		request.setAttribute("title", title);
 ;		request.setAttribute("content", content);
 		
-		String url = "/post.jsp";
+		String url = "posts/post.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
     }

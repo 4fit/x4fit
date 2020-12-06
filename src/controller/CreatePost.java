@@ -1,7 +1,6 @@
 
 package controller;
 
-import model.PostDAO;
 import model.Post;
 
 import java.io.IOException;
@@ -13,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import dao.PostDAO;
 
 @WebServlet("/CreatePost")
 public class CreatePost extends HttpServlet {

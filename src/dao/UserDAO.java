@@ -1,9 +1,12 @@
-package model;
+package dao;
+
 
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+
+import dao.DAO;
 
 public class UserDAO extends DAO {
 	

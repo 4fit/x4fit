@@ -1,4 +1,4 @@
-package model;
+package dao;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,8 +13,10 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
+import model.Account;
+import model.User;
+
 public class AccountDAO extends DAO {
-	
 	public User isLoginSuccess(String collectionName, Account acc)
 	{
 		MongoCollection<Document> collection = db.getCollection(collectionName);
