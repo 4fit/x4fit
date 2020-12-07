@@ -38,9 +38,6 @@ public class AdminController extends HttpServlet {
 			case "all-users":
 				getAllUsers(request, response);
 				break;
-			default:
-				getAllUsers(request, response);
-				break;
 		}
 	}
 
