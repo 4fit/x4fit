@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,33 +98,35 @@
                                               Tên người dùng
                                           </th>
                                           <th>
-                                              Số điện thoại
+                                              Avata
                                           </th>
                                           <th>
-                                              Địa chỉ
+                                              Total Posts
                                           </th>
                                           <th>
                                               Action
                                           </th>
                                       </thead>
                                       <tbody>
-                                          <tr>
+                                          <c:forEach items="${allUsers}" var="user">
+                                          	<tr>
                                               <td>
-                                                  123
+                                                  ${user.getUserId()}
                                               </td>
                                               <td>
-                                                  Nguyễn Thị A
+                                                  ${user.getName()}
                                               </td>
                                               <td>
-                                                  0333333333
+                                                 <a> ${user.getAvata()} </a>
                                               </td>
                                               <td>
-                                                  Thủ Đức
+                                                  ${user.getPostsCount() }
                                               </td>
                                               <td class="text-primary">
                                                   Xem chi tiết
                                               </td>
-                                          </tr>
+                                          	</tr>
+                                          </c:forEach>
                                       </tbody>
                                   </table>
                               </div>
