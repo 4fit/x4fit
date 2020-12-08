@@ -51,7 +51,7 @@
 }
 
 .nav-left ul li {
-    margin-top: 20px;
+    padding: 10px;
     font-size: 18px;
 }
 
@@ -152,9 +152,9 @@
 												      </div>
 												      <div class="modal-footer">
 												        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-												        <form action="" method="post">
-												        	<input name="userId" value="${user.getUserId()}" />
-												        	<button type="button" class="btn btn-danger">Delete</button>
+												        <form action="delete-user" method="post">
+												        	<input type="hidden" name="userId" value="${user.getUserId()}" />
+												        	<button type="submit" class="btn btn-danger">Delete</button>
 												        </form>
 												      </div>
 												    </div>

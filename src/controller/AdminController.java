@@ -37,6 +37,8 @@ public class AdminController extends HttpServlet {
 			case "/all-users":
 				getAllUsers(request, response);
 				break;
+			case "/delete-user":
+				deleteUser(request, response);
 		}
 	}
 
@@ -52,5 +54,11 @@ public class AdminController extends HttpServlet {
 		 List<User> allUsers = UserDAO.getAllUsers();
 		 request.setAttribute("allUsers", allUsers);
 		 request.getRequestDispatcher("admin/users.jsp").forward(request, response);
+	}
+	
+	protected void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userId = Integer.parseInt((String)request.getParameter("userId"));
+		UserDAO.deleteUserById(userId);
+		response.sendRedirect("/all-users");
 	}
 }

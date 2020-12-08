@@ -20,7 +20,7 @@
               </li>
               <div class="dropdown-divider"></div>
               <li>
-                  <a href="${pageContext.request.contextPath}/admin/all-users">
+                  <a href="${pageContext.request.contextPath}/all-users">
                       <i class="fa fa-user" aria-hidden="true"></i>
                       <span>Users</span> 
                   </a>

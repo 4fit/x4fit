@@ -53,4 +53,15 @@ public class UserDAO extends DAO {
 		MongoCollection<Document> collection = DAO.db.getCollection("USER");
 		return collection.find(Filters.eq("id", user_id)).first();
 	}
+	
+	public static boolean deleteUserById(int user_id) {
+		try {
+			USER.deleteOne(Filters.eq("id", user_id));
+			System.out.println("Delete user sucessfully!");
+			return true;
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 }
