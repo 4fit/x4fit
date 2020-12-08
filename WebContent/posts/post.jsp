@@ -70,15 +70,8 @@
 	    line-height: 1;
     }
     .share {
-			width: 40px;
-	    height: 40px;
-	    font-size: 18px;
-	    padding: 10px;
-	    margin: 10px;
-	    text-align: center;
-	    border: 2px solid #dbe3e8; 
-	    border-radius: 50%;
-	    box-shadow: 1px 3px 6px rgba(0,0,0,.2);
+			width: 48px;
+	    height: 48px;
 	    cursor: pointer;
 	    line-height: 1;
 	    outline: none!important;
@@ -121,12 +114,14 @@
 					</div>
 					<!-- Share -->
 					<div align="center">
-						<button type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook">
-							<i class="fa fa-facebook"></i>
-						</button>
-						<button type="button" class="share link--muted" data-original-title="Share bài viết lên Twitter">
-							<i class="fa fa-twitter"></i>
-						</button>
+						<a href="https://www.facebook.com/sharer.php?u=http://x4fit.herokuapp.com/post?p=${url}" target="_blank" 
+							type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook">
+							<img src="https://img.icons8.com/color/48/000000/facebook.png"/>
+						</a>
+						<a class="zalo-share-button share" data-href="" data-oaid="579745863508352884" data-layout="2" 
+							data-color="white" data-customize=true>
+							<img src="https://img.icons8.com/ios-filled/48/4a90e2/zalo.png"/>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -211,5 +206,6 @@
 		});
 		
   </script>
+  <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 </body>
 </html>

@@ -49,7 +49,7 @@ public class post extends HttpServlet {
 		String content = post.getContent();
 		request.setAttribute("title", title);
 ;		request.setAttribute("content", content);
-		
+		request.setAttribute("url", p);
 		String url = "/posts/post.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
