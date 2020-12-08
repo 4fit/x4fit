@@ -30,7 +30,8 @@
 		}
 		.icon-btn {
 	    display: inline-block;
-	    padding: 0;
+	    padding: 0px 10px 0px;
+	    margin: 0px 10px 0px;
 	    border: 0;
 	    background: none;
 	    cursor: pointer;
@@ -41,6 +42,7 @@
 	    font-size: 32px;
 	    color: #9b9b9b;
 	    outline: none!important;
+	    align-items: center;
 		}
 		.points{
 			font-size: .6em;
@@ -51,6 +53,7 @@
 	    font-size: 32px;
 	    text-align: center;
 	    outline: none!important;
+	    margin-left: 10px;
 		}
 		.clip {
 		  width: 40px;
@@ -66,6 +69,27 @@
 	    outline: none!important;
 	    line-height: 1;
     }
+    .share {
+			width: 40px;
+	    height: 40px;
+	    font-size: 18px;
+	    padding: 10px;
+	    margin: 10px;
+	    text-align: center;
+	    border: 2px solid #dbe3e8; 
+	    border-radius: 50%;
+	    box-shadow: 1px 3px 6px rgba(0,0,0,.2);
+	    cursor: pointer;
+	    line-height: 1;
+	    outline: none!important;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+    }
+    
+    .link--muted {
+    	color: #9b9b9b!important;
+		}
 	</style>
 </head>
 <body>
@@ -78,21 +102,30 @@
 		<div class="row">
 		<!-- Left -->
 			<div class="col-sm-2">
-				<div class="post-actions d-flex flex-column align-items-center mx-auto">
+				<div class="post-actions d-flex flex-column mx-auto">
 					<!-- Points -->
 					<div align="center">
 						<button class="icon-btn" data-original-title="Upvote">
 							<i class="fa fa-caret-up"></i>
 						</button>
-						<div class="points">100</div>
+						<div class="points">10</div>
 						<button class="icon-btn" data-original-title="Downvote">
 							<i class="fa fa-caret-down"></i>
 						</button>
 					</div>
 					<!-- Clips -->
-					<div>
+					<div  align="center">
 						<button type="button" class="clip" data-original-title="Clip this post">
 							<i class="fa fa-paperclip"></i>
+						</button>
+					</div>
+					<!-- Share -->
+					<div align="center">
+						<button type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook">
+							<i class="fa fa-facebook"></i>
+						</button>
+						<button type="button" class="share link--muted" data-original-title="Share bài viết lên Twitter">
+							<i class="fa fa-twitter"></i>
 						</button>
 					</div>
 				</div>
