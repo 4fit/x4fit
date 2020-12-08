@@ -43,15 +43,14 @@ public class post extends HttpServlet {
 		
 		String p = (String) request.getParameter("p");
 		HttpSession session = request.getSession();
-		//String content = (String) session.getAttribute("content");
 		Post post = PostDAO.GetPost(p);
 		
 		String title = post.getTitle();
 		String content = post.getContent();
 		request.setAttribute("title", title);
 ;		request.setAttribute("content", content);
-		
-		String url = "posts/post.jsp";
+		request.setAttribute("url", p);
+		String url = "/posts/post.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
     }
@@ -59,7 +58,6 @@ public class post extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		process(request, response);
 	}
 
@@ -67,7 +65,6 @@ public class post extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
