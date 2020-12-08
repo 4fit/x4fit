@@ -26,23 +26,24 @@
 	    top: 0;
 	    padding-top: 100px;
 	    padding-bottom: 100px;
-	    width: 50px;
+	    min-width: 50px;
+	    max-width: 150px;
+		}
+		.vote {
+			display: inline-block;
+			outline: none!important;
 		}
 		.icon-btn {
-	    display: inline-block;
 	    padding: 0px 10px 0px;
 	    margin: 0px 10px 0px;
 	    border: 0;
 	    background: none;
 	    cursor: pointer;
 	    text-decoration: none;
-	    outline: none;
 	    text-align: center;
 	    align-items: flex-start;
 	    font-size: 32px;
 	    color: #9b9b9b;
-	    outline: none!important;
-	    align-items: center;
 		}
 		.points{
 			font-size: .6em;
@@ -52,8 +53,7 @@
 	    font-weight: 500;
 	    font-size: 32px;
 	    text-align: center;
-	    outline: none!important;
-	    margin-left: 10px;
+	    align-content: center;
 		}
 		.clip {
 		  width: 40px;
@@ -104,11 +104,11 @@
 			<div class="col-sm-2">
 				<div class="post-actions d-flex flex-column mx-auto">
 					<!-- Points -->
-					<div align="center">
+					<div class="vote" align="center">
 						<button class="icon-btn" data-original-title="Upvote">
 							<i class="fa fa-caret-up"></i>
 						</button>
-						<div class="points">10</div>
+						<div class="points">+999</div>
 						<button class="icon-btn" data-original-title="Downvote">
 							<i class="fa fa-caret-down"></i>
 						</button>
