@@ -6,7 +6,7 @@
       <div class="logo" style="border-bottom: 1px solid #ccc">
           <a href="#">
               <img src="https://colorlib.com/polygon/adminator/assets/static/images/logo.png">
-              <span>Adminator</span>
+              <span>X4FIT</span>
           </a>
       </div>
       
@@ -20,7 +20,7 @@
               </li>
               <div class="dropdown-divider"></div>
               <li>
-                  <a href="#">
+                  <a href="${pageContext.request.contextPath}/admin/all-users">
                       <i class="fa fa-user" aria-hidden="true"></i>
                       <span>Users</span> 
                   </a>
