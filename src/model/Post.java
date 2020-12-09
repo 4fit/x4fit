@@ -11,7 +11,7 @@ public class Post
 {
 	private int id;
 	private String title;
-	private String user_id;
+	private int user_id;
 	private String p;
 	private String content;
 	private String published_at;
@@ -41,11 +41,11 @@ public class Post
 		this.title = title;
 	}
 
-	public String getUser_id() {
+	public int getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(String user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 
@@ -149,7 +149,7 @@ public class Post
 	{
 		this.id = 0;
 		this.title = "";
-		this.user_id = "";
+		this.user_id = 0;
 		this.p = Utilities.GetCurrentDateTime();
 		this.content = "";
 		this.published_at = "";
@@ -162,7 +162,7 @@ public class Post
 		this.user = new Document();
 	}
 	
-	public Post(String title, String user_id, String content, boolean is_public, 
+	public Post(String title, int user_id, String content, boolean is_public, 
 			String thumbnail_url, String tags)
 	{
 		this.id = PostDAO.getPostID();
@@ -185,7 +185,7 @@ public class Post
 		this.user = UserDAO.getUserInfo(user_id);
 	}
 	
-	public Post(int id, String title, String user_id, String p, String content,
+	public Post(int id, String title,int user_id, String p, String content,
 			String published_at, String updated_at, boolean is_public, int views_count, int points, 
 			int clips_count, String thumbnail_url, String tags, Document user)
 	{

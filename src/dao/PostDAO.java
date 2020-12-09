@@ -31,7 +31,7 @@ public class PostDAO extends DAO {
 					p.getClips_count(), p.getThumbnail_url(), p.getTags(), p.getUser());
 	}
 	
-	public static void Insert_Post(int id, String title, String user_id, String p, String content,
+	public static void Insert_Post(int id, String title, int user_id, String p, String content,
 							String published_at, boolean is_public, int views_count, int points, 
 							int clips_count, String thumbnail_url, String tags, Document user)
 	{
@@ -71,7 +71,7 @@ public class PostDAO extends DAO {
 	{
 		return new Post(doc.getInteger("id"),
 							  doc.getString("title"),
-							  doc.getString("user_id"),
+							  doc.getInteger("user_id"),
 							  doc.getString("p"),
 							  doc.getString("content"),
 							  doc.getString("published_at"),
@@ -89,7 +89,7 @@ public class PostDAO extends DAO {
 	//Lấy tất cả các bài post của một user
 	//Truyền vào user id
 	
-	public static List<Post> readAllPersonalPost(int iduser) {
+	public List<Post> readAllPersonalPost(int iduser) {
 		FindIterable<Document> cursor = POST.find(new BasicDBObject("user_id",iduser));		
 		Iterator<Document> it = cursor.iterator();
 		List<Post> data = new ArrayList<Post>();	
@@ -101,6 +101,7 @@ public class PostDAO extends DAO {
 				data.add(p);
 			}
 		}
+		System.out.print("hellllo");
 		return data;
 	
 	}

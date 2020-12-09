@@ -18,6 +18,24 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
+<style>
+@charset "UTF-8";
+
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	top: 50%;
+	left: 50%;
+}
+
+h3 {
+	font-size: 2vw;
+	text-align: center;
+	margin-top: 32px;
+	margin-bottom: 24px;
+}
+</style>
 <body>
 	<nav class="navbar navbar-light bg-light">
 		<a class="navbar-brand logo" href="${pageContext.request.contextPath}/">X4FIT</a>

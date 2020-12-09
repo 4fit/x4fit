@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>X4FIT</title>
 	<link rel="icon" type="image/png" href="images/logo.png"/>
-	<link rel="Stylesheet" href="styles/style.css" type="text/css" />
+	<link rel="Stylesheet" href="ProfileStyle.css" type="text/css" />
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
 					integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
 					crossorigin="anonymous">
@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 </head>
 <body>
+
 
 </body>
 </html>

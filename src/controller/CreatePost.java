@@ -36,7 +36,7 @@ public class CreatePost extends HttpServlet {
 		//title
 		String title = request.getParameter("title");
 		//user_id
-		String user_id = request.getParameter("user_id");
+		int user_id =Integer.parseInt(request.getParameter("user_id"));
 		//is_public
 		boolean is_public = request.getParameter("is_public") != null;
 		//tags

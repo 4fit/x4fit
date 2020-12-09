@@ -42,6 +42,7 @@ public class DAO {
 	{
 		MongoCollection<Document> collection = db.getCollection(collectionName);
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
+		if(lastInsertion.get("id")==null) return 0;
 		int id = Integer.parseInt(lastInsertion.get("id").toString());
 		return id;
 	}
