@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Trang chủ</title>
 <link rel="stylesheet" href="<c:url value='styles/home.css' />">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -664,9 +664,12 @@ li {
                     <button class="btn btn-primary mt-1" type="button">
                         <i class="fas fa-bell"></i>
                     </button>
-                    <button class="btn btn-secondary mt-1" type="button">
+                    <a href="posts/create-post.jsp">
+                     <button class="btn btn-secondary mt-1" type="button">
                         <i class="fas fa-edit"></i>
                     </button>
+                    </a>
+                   
                 </div>
             </div>
             <div class="img-pro">
@@ -677,7 +680,7 @@ li {
             </button>
             <div class="dropdown-menu dropdown-menu-right ">
                 <div class="dropdown-item profile-popup">
-                    <img class="img-profile" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
+                    <img class="img-profile" src="./images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
                     <div class="info-popup">
                         <h5 class="name-info"> Hoang</h5>
                         <p class="gmail-info">hoang1811@gmail.com</p>
@@ -696,7 +699,7 @@ li {
     </header>
     <div class="banner container-fluid">
         <div class="container px-0 pl-0">
-            <img class="img-banner img-fluid" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
+            <img class="img-banner img-fluid" src="/images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
         </div>
 
     </div>
@@ -716,7 +719,7 @@ li {
                                 </a>
                             </li>
                             <li class="feedbar-item">
-                                <a href="/newest" class="feed-link posts-newest">
+                                <a href="#" class="feed-link posts-newest">
                                     <div class="el-badge badge-has-new">
                                         Newest
                                         <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
@@ -724,7 +727,7 @@ li {
                             </li>
 
                             <li class="feedbar-item">
-                                <a href="/trending" class="feed-link posts-trending">
+                                <a href="#" class="feed-link posts-trending">
                                     <div class="el-badge badge-has-new">
                                         Trending
                                         <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
@@ -741,7 +744,7 @@ li {
                         </ul>
                     </div>
                 </div>
-                <a href="/publish/post" class="btn btn-primary float-right text-uppercase hidden-md-down mr-2" style=" font-size: 13px;font-weight: 600;font-family: sans-serif;">
+                <a href="posts/create-post.jsp" class="btn btn-primary float-right text-uppercase hidden-md-down mr-2" style=" font-size: 13px;font-weight: 600;font-family: sans-serif;">
                     <i aria-hidden="true" class="fas fa-pencil-alt"></i> Create Post</a>
             </div>
         </div>
