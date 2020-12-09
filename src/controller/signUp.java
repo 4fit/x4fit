@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.AccountDAO;
 
@@ -35,32 +36,29 @@ public class signUp extends HttpServlet {
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
     	String email = request.getParameter("email");
-    	Account acc = new Account(username, password, email);   
+    	User acc = new User(username, password, email);   
     	AccountDAO dao = new AccountDAO();
     	dao.signUpSuccess(acc);
     	if(dao.isLoginSuccess("USER", acc)!=null)
     	{
-    		User user= dao.isLoginSuccess("USER", acc);
     		
+    		User user= dao.isLoginSuccess("USER", acc);
+    		HttpSession session= request.getSession();
+    		session.setAttribute("USER", user);
     		url = "users/profile.jsp";
-
+    		System.out.print(user.getEmail());
     	}
     	else 
-    		url = "login/signup.jsp";
-    	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-    	dispatcher.forward(request,response );
+    		url = "/signup.jsp";
+    	System.out.print("Đăng nhập chưa được");
+    	response.sendRedirect(url);
+    	//RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+    	//dispatcher.forward(request,response );
     	}
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {

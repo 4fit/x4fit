@@ -1,13 +1,17 @@
 package controller;
 
 import model.Account;
+import model.Post;
+
 import org.bson.Document;
 
 import dao.AccountDAO;
+import dao.PostDAO;
 import model.User;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class login
@@ -30,26 +35,44 @@ public class login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    PostDAO post = new PostDAO();
     
     protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NoSuchAlgorithmException {
-    	String url = "";
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+    	String url = "/about.jsp";
     	String username = request.getParameter("username");
         String password = request.getParameter("pass");
+
         AccountDAO dao = new AccountDAO();
-        Account userAccount = new Account(username, password);
-        User user = dao.isLoginSuccess("USER",userAccount );
-        if(user!=null)
-        	url = "users/profile.jsp";
-        else url = "login/login.jsp";
+        User userAccount = new User(username, password," ");
+        //User user=new User();      
         
-        RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
-	       
-		dispatcher.forward(request, response);
+        HttpSession session = request.getSession();
+        if(dao.isLoginSuccess("USER",userAccount )!= null)
+        {
+       
+        	User user = dao.isLoginSuccess("USER",userAccount );
+        	url = "/users/profile.jsp";
+    		 session.setAttribute("USER", user);
+    		 session.setAttribute("Verification","Yes");
+    		 session.setAttribute("Page", "login");
+        }
+        else
+        {
+        	System.out.print("Tao toi day");
+        	url = "/login/signup.jsp";
+        	session.setAttribute("Verification", "No");
+        }
+        	
+       // response.sendRedirect(url);
+       RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);	       
+	   dispatcher.forward(request, response);
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			process(request,response);
@@ -59,9 +82,7 @@ public class login extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

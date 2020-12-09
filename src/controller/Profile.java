@@ -27,34 +27,56 @@ import com.mongodb.client.MongoCursor;
 
 import dao.PostDAO;
 import model.Post;
+import model.User;
 
-@WebServlet("/Profile_p")
+//@WebServlet("/profile")
 public class Profile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	Post post = new Post();
+	PostDAO post = new PostDAO();
     public Profile() {
        
     }
     
-    public void getListPost(HttpServletRequest request)
+    public void getListPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
     {
-    	
+    	response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+    	//String url="/index.jsp";
     	HttpSession session = request.getSession();
+    	User user=new User();
+    	if(session.getAttribute("Page")=="login" && session.getAttribute("Verification")=="Yes")
+    	{
+
+        	user= (User) session.getAttribute("USER");
+        	//System.out.print(user.getEmail()+ user.getId());
+        	if(user!=null)
+        	{
+        		System.out.print("vÀO JAVA "+ user.getName()+ user.getUserId());
+        		List<Post> posts=post.readAllPersonalPost(2);
+        		System.out.print("size"+posts.size());
+            	request.setAttribute("listpost", posts);
+            	//url="/users/profile.jsp";
+        	}  	
+    	}
+    	else
+    	{
+    		System.out.print( "ddasddads" +user.getName()+ user.getUserId());
+    		//url= "/login/login.jsp";
+    		
+    	}
+    	 //RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);	       
+		// dispatcher.forward(request, response);
     	//MongoCollection<Document> collection= post.getPostbyIDuser(1);
-    	List<Post> posts=PostDAO.readAllPersonalPost(1); 	
-    	session.setAttribute("listpost", posts);
-    	
+
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");
 		
-		getListPost(request);
+		getListPost(request, response);
 
 	}
 

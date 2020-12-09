@@ -29,7 +29,10 @@ public class UserDAO extends DAO {
 				doc.getString("password"),
 				doc.getString("email"),
 				doc.getString("avata"),
-				doc.getInteger("posts_count")
+				doc.getInteger("posts_count"),
+				doc.getInteger("following_count"),
+				doc.getInteger("follower_count"),
+				doc.getInteger("clips_count")
 		);
 	}
 	
@@ -48,7 +51,7 @@ public class UserDAO extends DAO {
 		return data;
 	}
 	
-	public static Document getUserInfo(String user_id)
+	public static Document getUserInfo(int user_id)
 	{
 		MongoCollection<Document> collection = DAO.db.getCollection("USER");
 		return collection.find(Filters.eq("id", user_id)).first();
