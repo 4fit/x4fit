@@ -18,6 +18,7 @@ public class CommentDAO extends DAO {
 		return DAO.getLastestID("COMMENT") + 1;
 	}
 	
+	
 	public static void Insert_Cmt(Comment cmt)
 	{
 		Insert_Cmt(cmt.getPost_id(), cmt.getCmt_id(), cmt.getReply_cmt_id(), cmt.getLevel(), 

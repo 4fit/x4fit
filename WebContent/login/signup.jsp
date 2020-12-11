@@ -236,8 +236,16 @@ a:hover{
 }
 
 
+.error_signup{
+	color: red !important;
+	padding:0;
+	
+}
+
+
 </style>
 <body>
+    
     <div class="login">
         <!-- <img class="wave" src="#"> -->
         <div class="container">
@@ -245,7 +253,7 @@ a:hover{
                 <img src="../images/createAccount.jpg" >
             </div>
             <div class="login-content">
-                <form action="../signUp" method = "post">
+                <form action="signUp" method = "post">
                     <img src="#">
                     <h2 class="title"> Account</h2>
                     <div class="input-div one">
@@ -254,36 +262,45 @@ a:hover{
                         </div>
                         <div class="div">
                             
-                            <input type="text" class="form-control" placeholder = "email" name = "email">
+                            <input type="text" class="form-control" placeholder = "email" name = "email" value = "${email}">
+                            
                         </div>
+                        
                     </div>
+                    <lable class = "error_signup"> <c:out value = "${errEmail}"></c:out></lable>
                     <div class="input-div pass">
                         <div class="i">
                             <i class="fas fa-user"></i>
                         </div>
                         <div class="div">
                             
-                            <input type="text" class="form-control" placeholder = "username" name = "username">
+                            <input type="text" class="form-control" placeholder = "username " name = "username" value = "${username}">
+                            
                         </div>
+                       
                     </div>
+                     <lable class = "error_signup"> <c:out value = "${errUsername}"></c:out></lable>
                     <div class="input-div pass">
                         <div class="i">
                             <i class="fas fa-lock"></i>
                         </div>
                         <div class="div">
                             
-                            <input type="password" class="form-control" placeholder = "password" name = "password">
+                            <input type="password" class="form-control" placeholder = "password" name = "password" value = "${password}">
+                           
                         </div>
+                        
                     </div>
+                     <lable class = "error_signup"> <c:out value = "${errPass}"></c:out></lable>
                     <a href="login.jsp"> Are you have account ?</a>
-                    <input type="submit" class="btn" value="sign up">
+                    <input type="submit" class="btn" value="sign up" >
                    
                 </form>
                 
             </div>
-            </div>
+            
         </div>
-        <script type="text/javascript" src="js/main.js"></script>
+        
 </body>
 
 </html>

@@ -56,4 +56,83 @@ public class UserDAO extends DAO {
 		MongoCollection<Document> collection = DAO.db.getCollection("USER");
 		return collection.find(Filters.eq("id", user_id)).first();
 	}
+	
+	//Yen them
+		public Document getDocUserByEmail(String email)
+		{
+			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			FindIterable<Document> cursor = collection.find(Filters.eq("email", email));
+			Iterator<Document> it = cursor.iterator();
+			if(it.hasNext())
+				return collection.find(Filters.eq("email", email)).first();
+			else return null;
+			
+			
+		}
+		 // Yen them
+		public Document getDocUserByUsername(String username)
+		{
+			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			FindIterable<Document> cursor = collection.find(Filters.eq("username", username));
+			Iterator<Document> it = cursor.iterator();
+			if(it.hasNext())
+				return collection.find(Filters.eq("username", username)).first();
+			else return null;
+			
+			
+		}
+		
+		public Document getDocUserByIdUser(int user_id)
+		{
+			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			FindIterable<Document> cursor = collection.find(Filters.eq("user_id", user_id));
+			Iterator<Document> it = cursor.iterator();
+			if(it.hasNext())
+				return collection.find(Filters.eq("user_id", user_id)).first();
+			else return null;
+			
+			
+		}
+		
+		
+		//Yen them
+		public void updateNewPass(String newPass, String username)
+		{
+			BasicDBObject query  = new BasicDBObject();
+			query.put("username", username);
+			
+			BasicDBObject newPassDoc = new BasicDBObject();
+			newPassDoc.put("password", newPass);
+			
+			BasicDBObject updateObject = new BasicDBObject();
+			updateObject.put("$set", newPassDoc);
+			
+			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+			collection.updateOne(query, updateObject);
+		}
+		
+		//Yen Them
+		
+		public void updateClipsItem(int user_id ,int post_id)
+		{
+			Document userDoc = new Document();
+			userDoc = this.getDocUserByIdUser(user_id);
+			
+			List<Integer> listIdPost = new ArrayList<Integer>();
+			listIdPost =(ArrayList) userDoc.get("clips_post");
+			listIdPost.add(post_id);
+			
+			BasicDBObject query = new BasicDBObject();
+			query.put("user_id", user_id);
+			
+			BasicDBObject newList = new BasicDBObject();
+			newList.put("clips_post", listIdPost);
+			
+			BasicDBObject updateObject = new BasicDBObject();
+			updateObject.put("$set",newList);
+			
+			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+			collection.updateOne(query, updateObject);
+		}
+		
 }
