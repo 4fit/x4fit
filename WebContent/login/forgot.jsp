@@ -20,7 +20,7 @@
                 <img src="./images/forgotmain.jpg">
             </div>
             <div class="login-content">
-                <form action="#">
+                <form action="forgot" method = "post">
                     <img src="#">
                     <h3 class="title"> Forgot password</h3>
                     <div class="input-div one">
@@ -29,11 +29,11 @@
                         </div>
                         <div class="div">
                             
-                            <input type="text" class="form-control" placeholder = "email">
+                            <input type="text" class="form-control" placeholder = "email" name = "email">
                         </div>
                     </div>
                     <a href="signUp.html"> Sign up</a>
-                    <input type="submit" class="btn" value="send mail">
+                    <input type="submit" class="btn" value="send mail" name = "forgot_password">
                     <a href="login.html" class = "btn-signup">Login</a>
                 </form>
                 
