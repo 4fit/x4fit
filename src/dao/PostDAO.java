@@ -115,6 +115,7 @@ public class PostDAO extends DAO {
 	public static String Update(String p, String title, String content,
 			boolean is_public, String thumbnail_url, String tags)
 	{
+		
 		String[] list_tags = tags.split("#");
 		String newURL = Utilities.createURL(title);
 		Document OldDoc = POST.find(Filters.eq("p", p)).first();
@@ -125,6 +126,6 @@ public class PostDAO extends DAO {
 				   .append("$set", new Document("updated_at", Utilities.GetCurrentDateTime()))
 				   .append("$set", new Document("thumbnail_url", thumbnail_url));
 		POST.updateOne(OldDoc, newDoc);
-	return newURL;
+		return newURL;
 	}
 }

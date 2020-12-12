@@ -127,6 +127,7 @@
 			</div>
 			<!-- Content -->
 			<div class="col-sm-8">
+				<h1>${title}</h1>
 				<textarea id="content" name="content">${content}</textarea>
 				<br>
 				<h4>Bình luận</h4>
