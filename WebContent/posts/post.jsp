@@ -140,7 +140,9 @@
 			<!-- Right -->
 			<div class="col-sm-2">
 				<div class="post-actions d-flex flex-column align-items-center mx-auto">
-					<h3>Right</h3>
+					<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
+						<input type="submit" value="EDIT" class="btn btn-primary">
+					</form>
 				</div>
 			</div>
 		</div>

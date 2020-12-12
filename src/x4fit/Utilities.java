@@ -9,6 +9,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class Utilities {
+	public static String createURL(String title)
+	{
+		String plaintText = Utilities.removeAccent(title).replaceAll("\\W", "-");
+		String tmp = plaintText.replace("-", "")+"A";
+		if (tmp.equals("A"))
+			return Utilities.GetHash();
+		else
+			return plaintText + "-" + Utilities.GetHash();
+	}
 	//Hash
 	public static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");

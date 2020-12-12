@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Tạo bài viết</title>
+	<title>[Edit] ${title}</title>
 	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.png"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css" type="text/css" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
@@ -18,49 +18,51 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
-	<style>
-		body, html {
-			margin: 0;
-			padding: 0;
-			height: 100%;
-			top: 50%;
-			left: 50%;
-		}
-		
-		h3 {
-			font-size: 2vw;
-			text-align: center;
-			margin-top: 32px;
-			margin-bottom: 24px;
-		}
-	</style>
+<style>
+@charset "UTF-8";
+
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	top: 50%;
+	left: 50%;
+}
+
+h3 {
+	font-size: 2vw;
+	text-align: center;
+	margin-top: 32px;
+	margin-bottom: 24px;
+}
+</style>
 <body>
 	<nav class="navbar navbar-light bg-light">
 		<a class="navbar-brand logo" href="${pageContext.request.contextPath}/">X4FIT</a>
 	  <a class="navbar-brand" href="${pageContext.request.contextPath}/about.jsp">ABOUT</a>
   </nav>
   <div class="container">
-  	<h3 align="center">TẠO BÀI VIẾT</h3>
-		<form action="${pageContext.request.contextPath}/CreatePost" method="post">
+  	<h3 align="center">CHỈNH SỬA BÀI VIẾT</h3>
+		<form action="${pageContext.request.contextPath}/save" method="post">
 			<div class="form-group">
 				<div class="input-group mb-3">
 				  <div class="input-group-prepend">
 				    <span class="input-group-text" id="basic-addon1">Tiêu đề</span>
 				  </div>
-				  <input type="text" class="form-control" placeholder="Tiêu đề bài viết" name="title">
+				  <input type="text" class="form-control" name="title" value="${title}">
 				</div>
 				<div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="basic-addon1">Tags</span>
 					  </div>
-					  <input type="text" class="form-control" placeholder="Tối đa 5 tags" name="tags">
+					  <input type="text" class="form-control" name="tags">${tags}
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
 					    <span class="input-group-text" id="inputGroupFileAddon01">Ảnh thumbnail</span>
 					  </div>
-					  <input type="text" class="form-control" placeholder="Nhập đường link đến ảnh thumbnail" name="thumbnail_url">
+					  <input type="text" class="form-control" name="thumbnail_url">${thumbnail_url}
 					  <!-- 
 					  <div class="custom-file">
 					    <input type="file" class="custom-file-input" name="image" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
@@ -69,8 +71,8 @@
 					  -->
 					</div>
 				</div>
-				<textarea name="content" id="content"></textarea>
-				<input class="btn btn-primary btn-sm btn-block" type="submit" value="Post">
+				<textarea name="content" id="content">${content}</textarea>
+				<input class="btn btn-primary btn-sm btn-block" type="submit" value="LƯU">
 			</div>
 		</form>
 	</div>
@@ -96,7 +98,6 @@
 							],
 		spellChecker: false,
 		promptURLs: true,
-		placeholder: "Bài viết có thể hiển thị với định dạng Markdown.",
 		renderingConfig: {
 	        codeSyntaxHighlighting: true,
 	  },
