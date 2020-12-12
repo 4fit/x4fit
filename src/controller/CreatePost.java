@@ -36,7 +36,7 @@ public class CreatePost extends HttpServlet {
 		//title
 		String title = request.getParameter("title");
 		//user_id
-		int user_id =Integer.parseInt(request.getParameter("user_id"));
+		int user_id = 1;//Integer.parseInt(request.getParameter("user_id"));
 		//is_public
 		boolean is_public = request.getParameter("is_public") != null;
 		//tags
@@ -52,7 +52,7 @@ public class CreatePost extends HttpServlet {
 		//p
 		String p = post.getP();
 		
-		PostDAO.Insert_Post(post);
+		PostDAO.Insert(post);
 ;		
 		String url = "/post";
 		response.sendRedirect(request.getContextPath() + url + "?p=" + p);

@@ -14,6 +14,7 @@ import com.mongodb.client.model.Filters;
 
 import dao.DAO;
 import model.Post;
+import x4fit.Utilities;
 
 public class PostDAO extends DAO {
 	
@@ -24,14 +25,14 @@ public class PostDAO extends DAO {
 		return DAO.getLastestID(POST) + 1;
 	}
 	
-	public static void Insert_Post(Post p)
+	public static void Insert(Post p)
 	{
-		Insert_Post(p.getID(), p.getTitle(), p.getUser_id(), p.getP(), p.getContent(),
+		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getP(), p.getContent(),
 					p.getPublished_at(), p.getIs_public(), p.getViews_count(), p.getPoints(), 
 					p.getClips_count(), p.getThumbnail_url(), p.getTags(), p.getUser());
 	}
 	
-	public static void Insert_Post(int id, String title, int user_id, String p, String content,
+	public static void Insert(int id, String title, int user_id, String p, String content,
 							String published_at, boolean is_public, int views_count, int points, 
 							int clips_count, String thumbnail_url, String tags, Document user)
 	{
@@ -109,5 +110,22 @@ public class PostDAO extends DAO {
 	private MongoClient getMongoClient() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static String Update(String p, String title, String content,
+			boolean is_public, String thumbnail_url, String tags)
+	{
+		
+		String[] list_tags = tags.split("#");
+		String newURL = Utilities.createURL(title);
+		Document OldDoc = POST.find(Filters.eq("p", p)).first();
+		Document newDoc = new Document("$set", new Document("p", newURL))
+				   .append("$set", new Document("content", content))
+				   .append("$set", new Document("tags", list_tags))
+				   .append("$set", new Document("is_public", is_public))
+				   .append("$set", new Document("updated_at", Utilities.GetCurrentDateTime()))
+				   .append("$set", new Document("thumbnail_url", thumbnail_url));
+		POST.updateOne(OldDoc, newDoc);
+		return newURL;
 	}
 }
