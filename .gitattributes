@@ -64,4 +64,4 @@
 
 *.rtf linguist-vendored
 *.RTF linguist-vendored
-*.jsp linguist-language=JSP
+*.jsp linguist-language=Java
