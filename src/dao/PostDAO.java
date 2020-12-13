@@ -11,11 +11,13 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 import dao.DAO;
 import model.Post;
 import x4fit.Utilities;
 
+//http://mongodb.github.io/mongo-java-driver/3.4/javadoc/com/mongodb/client/model/Updates.html
 public class PostDAO extends DAO {
 	
 	public static MongoCollection<Document> POST = db.getCollection("POST");
@@ -115,17 +117,18 @@ public class PostDAO extends DAO {
 	public static String Update(String p, String title, String content,
 			boolean is_public, String thumbnail_url, String tags)
 	{
-		
-		String[] list_tags = tags.split("#");
 		String newURL = Utilities.createURL(title);
-		Document OldDoc = POST.find(Filters.eq("p", p)).first();
-		Document newDoc = new Document("$set", new Document("p", newURL))
-				   .append("$set", new Document("content", content))
-				   .append("$set", new Document("tags", list_tags))
-				   .append("$set", new Document("is_public", is_public))
-				   .append("$set", new Document("updated_at", Utilities.GetCurrentDateTime()))
-				   .append("$set", new Document("thumbnail_url", thumbnail_url));
-		POST.updateOne(OldDoc, newDoc);
+		POST.updateOne(Filters.eq("p", p), 
+						Updates.combine(
+							Updates.set("p", newURL),
+							Updates.set("title", title),
+							Updates.set("content", content),
+							Updates.set("tags", tags),
+							Updates.set("is_public", is_public),
+							Updates.set("updated_at", Utilities.GetCurrentDateTime()),
+							Updates.set("thumbnail_url", thumbnail_url)
+						)
+					  );
 		return newURL;
 	}
 }

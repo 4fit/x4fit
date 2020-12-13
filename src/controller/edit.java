@@ -41,6 +41,7 @@ public class edit extends HttpServlet {
 		String content = post.getContent();
 		request.setAttribute("title", title);
 		request.setAttribute("content", content);
+		request.setAttribute("p", p);
 		
 		String url = "/posts/edit.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
