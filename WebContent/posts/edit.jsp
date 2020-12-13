@@ -43,7 +43,7 @@ h3 {
   </nav>
   <div class="container">
   	<h3 align="center">CHỈNH SỬA BÀI VIẾT</h3>
-		<form action="${pageContext.request.contextPath}/save" method="post">
+		<form action="${pageContext.request.contextPath}/save?p=${p}" method="post">
 			<div class="form-group">
 				<div class="input-group mb-3">
 				  <div class="input-group-prepend">

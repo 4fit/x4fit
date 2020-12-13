@@ -33,7 +33,6 @@ public class save extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String p = (String) request.getParameter("p");	// để biết bài viết nào được save
-		
 		//title
 		String title = request.getParameter("title");
 		//is_public
