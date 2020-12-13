@@ -64,4 +64,4 @@
 
 *.rtf linguist-vendored
 *.RTF linguist-vendored
-*.jsp linguist-language=Java
+*.jsp linguist-language=Java-Scripting-Preprocessor
