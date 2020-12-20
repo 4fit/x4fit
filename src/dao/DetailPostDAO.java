@@ -2,6 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import model.*;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
@@ -21,12 +23,18 @@ public class DetailPostDAO extends DAO {
 		return listPost.first();
 	}
 	
-	public Iterator<Document> getPostOfUser(String idUser)
+	public List<Post> getPostOfUser(int idUser)
 	{
+		List<Post> lPost = new ArrayList<Post>();
 		MongoCollection<Document> collection  =  DAO.db.getCollection("POST");
 		FindIterable<Document> listPost = collection.find(Filters.eq("user_id", idUser));
 		Iterator<Document> list = listPost.iterator();
-		return list;
+		while(list.hasNext())
+		{
+			lPost.add(ConverseToPost(list.next()));
+		}
+		
+		return lPost;
 	}
 	
 	public Post ConverseToPost(Document Obj)
