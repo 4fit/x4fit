@@ -355,6 +355,7 @@ button{
     border-radius: .25rem;
     border: 1px solid rgba(27,27,27,.125);
     width: 270px;
+    height:150px;
 }
 
 .card-body{
@@ -425,6 +426,7 @@ button{
     display:inline-block;
     margin-left: 4px;
     margin-top: 4px;
+    
 }
 
 #Write{
@@ -906,10 +908,10 @@ ul.social-network li {
                                 <div class="card shadow-sm">
                                     <div class="card-body">
                                         <div class="card-body__title text-dark word-break mb-05">
-                                            <a href="#"><c:out value = "${postByAuthor.title}"></c:out></a>
+                                            <span><a href="#"><c:out value = "${postByAuthor.title}"></c:out></a></span>
                                         </div>
                                         <div class="card-body__author">
-                                            <a href="#" class="text-primary">${name_author}</a>
+                                           <span> <a href="#" class="text-primary">${name_author}</a></span>
                                         </div>
                                         <span title="21 min read" class = "text-muted post-reading__time">
                                             21 min read
@@ -998,7 +1000,7 @@ ul.social-network li {
                     <div class = "user_comment_post">
                         <div class = "info_user_comment">
                             <div class = "img_user_comment_post">
-                                <img id = "avt_comment" class = "avatar--lg img-fluid" src="${pageContext.request.contextPath}/images/mainAboutMe.jpg" alt = "avatar">
+                                <img id = "avt_comment" class = "avatar--lg img-fluid" src="${pageContext.request.contextPath}/images/mainAboutMe.jpg" alt = "">
                             </div>
                             <div class = "info_username_comment">
                                 <a href="${cmt.url_user}"><c:out value = "${cmt.name_user}"></c:out></a>

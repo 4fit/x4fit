@@ -37,5 +37,9 @@
 </form>
 
 -->
+<form  action = "${pageContext.request.contextPath}/detailPost" method = "get">
+	<input name = "test" value = "1">
+	<input type = "submit">
+</form>
 </body>
 </html>
