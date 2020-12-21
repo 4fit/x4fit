@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.PostDAO;
 import dao.UserDAO;
+import model.Post;
 import model.User;
 
 /**
@@ -37,6 +39,8 @@ public class AdminController extends HttpServlet {
 			case "/all-users":
 				getAllUsers(request, response);
 				break;
+			case "/all-posts":
+				getAllPosts(request, response);
 		}
 	}
 
@@ -52,5 +56,11 @@ public class AdminController extends HttpServlet {
 		 List<User> allUsers = UserDAO.getAllUsers();
 		 request.setAttribute("allUsers", allUsers);
 		 request.getRequestDispatcher("admin/users.jsp").forward(request, response);
+	}
+	
+	protected void getAllPosts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Post> allPosts = PostDAO.getAllPosts();
+		request.setAttribute("allPosts", allPosts);
+		request.getRequestDispatcher("admin/posts.jsp").forward(request, response);
 	}
 }

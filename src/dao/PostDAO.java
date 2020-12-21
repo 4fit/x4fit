@@ -15,6 +15,7 @@ import com.mongodb.client.model.Updates;
 
 import dao.DAO;
 import model.Post;
+import model.User;
 import x4fit.Utilities;
 
 //http://mongodb.github.io/mongo-java-driver/3.4/javadoc/com/mongodb/client/model/Updates.html
@@ -25,6 +26,21 @@ public class PostDAO extends DAO {
 	public static int getPostID()
 	{
 		return DAO.getLastestID(POST) + 1;
+	}
+	
+	public static List<Post> getAllPosts() {
+		FindIterable<Document> cursor = POST.find();		
+		Iterator<Document> it = cursor.iterator();
+		List<Post> data = new ArrayList<Post>();	
+		if(it.hasNext())
+		{		
+			while (it.hasNext()) {
+				Document doc = it.next();
+				Post post = Doc2Post(doc);
+				data.add(post);
+			}
+		}
+		return data;
 	}
 	
 	public static void Insert(Post p)

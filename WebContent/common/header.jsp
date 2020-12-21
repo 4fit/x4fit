@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 <div class="row">
   <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
       <div class="logo" style="border-bottom: 1px solid #ccc">
@@ -12,22 +12,22 @@
       
       <div class="nav-left">
           <ul>
-              <li>
-                  <a href="#">
+              <li id="dashboard">
+                  <a id="a1" href="#">
                       <i class="fa fa-home" aria-hidden="true"></i>
                       <span>Dashboard</span> 
                   </a>
               </li>
               <div class="dropdown-divider"></div>
-              <li>
-                  <a href="${pageContext.request.contextPath}/admin/all-users">
+              <li id="user">
+                  <a id="a2" href="${pageContext.request.contextPath}/all-users">
                       <i class="fa fa-user" aria-hidden="true"></i>
                       <span>Users</span> 
                   </a>
               </li>
               <div class="dropdown-divider"></div>
-              <li>
-                  <a href="#">
+              <li id="post">
+                  <a id="a3" href="#">
                       <i class="fa fa-book" aria-hidden="true"></i>
                       <span>Posts</span> 
                   </a>
