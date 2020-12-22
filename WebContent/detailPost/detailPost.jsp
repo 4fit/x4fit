@@ -599,7 +599,7 @@ button{
   color: white;
   margin-top:100px;
   padding-top:20px;
-  height: 45vh;
+  height: 70vh;
 }
 
 a{
@@ -675,7 +675,7 @@ ul.social-network li {
 	// String idPostCurrent = request.getparameter();	 
 		  
 		  int userIdCurrent = 2;
-		  request.setAttribute("userIdCurrent", userIdCurrent);
+		  session.setAttribute("userIdCurrent", userIdCurrent);
 	
 %>	
 

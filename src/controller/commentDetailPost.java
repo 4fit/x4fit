@@ -47,6 +47,9 @@ public class commentDetailPost extends HttpServlet {
 //    	 RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
 //	       
 // 		dispatcher.forward(request, response);
+    	
+//    	String url = "/detailPost";
+//		response.sendRedirect(request.getContextPath() + url);
     	response.sendRedirect(url);
     	
     }

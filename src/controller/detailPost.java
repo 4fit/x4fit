@@ -64,7 +64,7 @@ public class detailPost extends HttpServlet {
 		if(session.getAttribute("idPostMain") != null)
 			idPostMain = (int)(session.getAttribute("idPostMain"));
 		
-		int idIndex  = 22; // test id post
+	
     	Document post = detailPost.dbDetail.getPostByIdPost(idPostMain);
     	if(post != null)
     	{
@@ -110,16 +110,28 @@ public class detailPost extends HttpServlet {
     	session.setAttribute("idPostMain", idPostMain);
     	
     	if(request.getParameter("userCurrentAction")!= null)
-	    	if(request.getParameter("userCurrentAction").equals("follow"))
+    	{
+    		if(request.getParameter("userCurrentAction").equals("follow"))
 	    	{
-	    		int userIdCurrent = Integer.parseInt(request.getParameter("userIdCurrent"));
-	    		detailPost.dbUser.addFollowingForIdUser(p.getID() ,userIdCurrent);
-	    		response.sendRedirect("/detailPost/detailPost.jsp");
+	    		int userIdCurrent = (int)(session.getAttribute("userIdCurrent"));
+	    		detailPost.dbUser.addFollowingForIdUser(p.getUser_id(),userIdCurrent);
+	    		RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
+		   	   	dispatcher.forward(request, response);
 	    	}
+    	
+	    	else if(request.getParameter("userCurrentAction").equals("follow")){
+	    		
+	    	}
+    	}
+	    else
+	    {
 
-    	RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
-   	   	dispatcher.forward(request, response);
-   	   
+	    	RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
+	   	   	dispatcher.forward(request, response);
+	    	
+	    }
+    	   
+
 	}
 
     public void updateClipsCount(int user_id, int post_id, int clips_count)

@@ -38,7 +38,7 @@
 
 -->
 <form  action = "${pageContext.request.contextPath}/detailPost" method = "get">
-	<input name = "test" value = "1">
+	<input name = "test" value = "22">
 	<input type = "submit">
 </form>
 </body>
