@@ -57,6 +57,31 @@ public class UserDAO extends DAO {
 		return collection.find(Filters.eq("id", user_id)).first();
 	}
 	
+	
+	public void addFollowingForIdUser(int idUserMain,int idUserFollow) // idUserMain là user sẽ được user đang đăng nhâp follow (idUserFollow)
+	{
+		Document user = getUserInfo(idUserFollow);
+		int[] following = (int[])user.get("following");
+		following[following.length] = idUserMain;
+		
+		
+		//update following
+		BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh 
+		query.put("user_id", idUserFollow);
+		
+		BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách following
+		newList.put("following", following);
+		
+		BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update following
+		updateObject.put("$set",newList);
+		
+		MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+		collection.updateOne(query, updateObject);
+	}
+	
+
+	
+	
 	//Yen them
 		public Document getDocUserByEmail(String email)
 		{
@@ -119,7 +144,7 @@ public class UserDAO extends DAO {
 			userDoc = this.getDocUserByIdUser(user_id);
 			
 			List<Integer> listIdPost = new ArrayList<Integer>();
-			listIdPost =(ArrayList) userDoc.get("clips_post");
+			listIdPost =(ArrayList)userDoc.get("clips_post");
 			listIdPost.add(post_id);
 			
 			BasicDBObject query = new BasicDBObject();
@@ -134,5 +159,6 @@ public class UserDAO extends DAO {
 			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
 			collection.updateOne(query, updateObject);
 		}
+		
 		
 }

@@ -64,9 +64,23 @@ public class DetailPostDAO extends DAO {
 		collection.updateOne(query, updateObject);
 	}
 	
-	public int countComment(String post_id)
+	public int countComment(int post_id)
 	{
-		return 1;
+		MongoCollection<Document> collection =  DAO.db.getCollection("COMMENT");
+		FindIterable<Document> listCMT = collection.find(Filters.eq("post_id", post_id));
+		Iterator<Document> lCMT = listCMT.iterator();
+		
+		int count = 0;
+		while(lCMT.hasNext())
+		{
+			lCMT.next();
+			count ++;
+		}
+		return count;
 	}
+	
+
+	
+	
 	
 }

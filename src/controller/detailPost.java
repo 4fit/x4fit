@@ -27,6 +27,7 @@ public class detailPost extends HttpServlet {
 	
 	public static UserDAO dbUser = new UserDAO();
 	public static DetailPostDAO dbDetail = new DetailPostDAO();
+	public static int idPostMain;
 	
 	private static final long serialVersionUID = 1L;
        
@@ -43,19 +44,55 @@ public class detailPost extends HttpServlet {
     	
     	response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-
-		System.out.print("daden");
-		Post p = new Post();
-		int idIndext = Integer.parseInt(request.getParameter("test")); // Nhận ID bài post từ trang home
 		
-    	Document post = detailPost.dbDetail.getPostByIdPost(idIndext);
-    	p = detailPost.dbDetail.ConverseToPost(post);
-    	System.out.print(post);
+//		String pUrl = (String) request.getParameter("p");
+//		HttpSession session = request.getSession();
+//		Post postMain = PostDAO.GetPost(pUrl); 
+		String username_author = "";
+		String nameAuthor = "";
+		String tilte = "";
+		String contentMain = "Bài viết không tồn tại !";
+		int clips_count = 0;
+		int view = 0;
+		int countComment = 0;
+		
+		HttpSession session = request.getSession();
+		
+		Post p = new Post();
+		if(request.getParameter("test")!= null)
+			idPostMain = Integer.parseInt(request.getParameter("test")); // Nhận ID bài post từ trang home
+		if(session.getAttribute("idPostMain") != null)
+			idPostMain = (int)(session.getAttribute("idPostMain"));
+		
+		int idIndex  = 22; // test id post
+    	Document post = detailPost.dbDetail.getPostByIdPost(idPostMain);
+    	if(post != null)
+    	{
+    		
+	    	Document author = (Document)post.get("user");
+	       	username_author = author.getString("username");
+	       	nameAuthor = author.getString("name");
+	       	
+	       	p = detailPost.dbDetail.ConverseToPost(post);
+	       	tilte = p.getTitle();
+	       	view = p.getViews_count();
+	       	clips_count = p.getClips_count();
+	       	contentMain = p.getContent();
+	       	countComment = detailPost.dbDetail.countComment(idPostMain);
+	       	
+	       	// POST của user về bài viết đó
+	       	List<Post> listPost = detailPost.dbDetail.getPostOfUser(p.getID());
+	    	
+	    	//List comment của bài viết đó
+	    	List<CommentDetailPost> listCmt = getListComment(idPostMain);
+	    	Collections.reverse(listCmt); // Đảo ngược list comment
+	    	session.setAttribute("listCmt", listCmt);
+	    	session.setAttribute("listPost", listPost);
+       	
+    	}
     	
-    	String tilte = p.getTitle();
-    	int view = p.getViews_count();
-    	int clips_count = p.getClips_count();
-    	String nameAuthor = (detailPost.dbUser.getUserInfo(p.getID())).getString("name");
+    	if (username_author == null || username_author == "")
+    		username_author = " UsernameAuthor";
     	
     	if (nameAuthor == null || nameAuthor == "")
     		nameAuthor = "Name Author";
@@ -63,27 +100,28 @@ public class detailPost extends HttpServlet {
     	if(tilte == null || tilte == "")
     		tilte = "Title post";
     	
-    	request.setAttribute("content", p.getContent());
-    	request.setAttribute("name_author", nameAuthor);
-    	request.setAttribute("title_post",tilte );
-    	request.setAttribute("view_post", view);
-    	request.setAttribute("Clip_post_count", clips_count);
-    	//request.setAttribute("post", p);
+    	session.setAttribute("username_author", username_author);
+    	session.setAttribute("content", contentMain);
+    	session.setAttribute("name_author", nameAuthor);
+    	session.setAttribute("title_post",tilte );
+    	session.setAttribute("view_post", view);
+    	session.setAttribute("Clip_post_count", clips_count);
+    	session.setAttribute("countComment", countComment);
+    	session.setAttribute("idPostMain", idPostMain);
     	
-    	
-    	// POST của user về bài viết đó
-    	List<Post> listPost = detailPost.dbDetail.getPostOfUser(p.getID());
-    	
-    	List<CommentDetailPost> listCmt = getListComment(idIndext);
-    	Collections.reverse(listCmt); // Đảo ngược list comment
-    	request.setAttribute("listCmt", listCmt);
-    	request.setAttribute("listPost", listPost);
-    	System.out.print("Hello");
-    	  RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
-   	   dispatcher.forward(request, response);
-		}
-   // }
-    
+    	if(request.getParameter("userCurrentAction")!= null)
+	    	if(request.getParameter("userCurrentAction").equals("follow"))
+	    	{
+	    		int userIdCurrent = Integer.parseInt(request.getParameter("userIdCurrent"));
+	    		detailPost.dbUser.addFollowingForIdUser(p.getID() ,userIdCurrent);
+	    		response.sendRedirect("/detailPost/detailPost.jsp");
+	    	}
+
+    	RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
+   	   	dispatcher.forward(request, response);
+   	   
+	}
+
     public void updateClipsCount(int user_id, int post_id, int clips_count)
     {
     	
