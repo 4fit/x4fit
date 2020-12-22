@@ -19,6 +19,8 @@ public class User
 	private int following_count;
 	private int follower_count;	
 	private int clips_count;
+	private int follower[]; // Tạo mảng follower
+	private int following[]; // Tạo mảng following
 	
 	public User(int userId, String username, 
 			String name, String pass, String email, 
@@ -45,7 +47,12 @@ public class User
 		this.setFollowing_count(0);
 		this.setPostsCount(0);
 		this.setName("");
-		this.setAvata("");	
+		this.setAvata("");
+		int follow[] = new int[1000]; // set số lượng follow có thể có là 1000
+		this.setFollower(follow);
+		this.setFollowing(follow);
+		
+		
 		this.userId=(int) DAO.getLastestID("USER")+1;
 		
 	
@@ -95,12 +102,15 @@ public class User
 	public int getFollowing_count() {
 		return following_count;
 	}
+	
 	public void setFollowing_count(int following_count) {
 		this.following_count = following_count;
 	}
+	
 	public int getFollower_count() {
 		return follower_count;
 	}
+	
 	public void setFollower_count(int follower_count) {
 		this.follower_count = follower_count;
 	}
@@ -108,21 +118,51 @@ public class User
 	public String getUsername() {
 		return username;
 	}
+	
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public int[] getFollower() {
+		return follower;
+	}
+
+	public void setFollower(int[] follower) {
+		this.follower = follower;
+	}
+
+	public int[] getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(int[] following) {
+		this.following = following;
+	}
+
+	public int getClips_count() {
+		return clips_count;
+	}
+
+	public void setClips_count(int clips_count) {
+		this.clips_count = clips_count;
+	}
+	
 	/*
 <<<<<<< HEAD
 =======
@@ -169,12 +209,6 @@ public class User
 	}*/
 	//TODO
 
-	public int getClips_count() {
-		return clips_count;
-	}
-
-	public void setClips_count(int clips_count) {
-		this.clips_count = clips_count;
-	}
+	
 
 }

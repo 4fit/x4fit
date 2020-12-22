@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset= UTF-8"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.io.*,model.User,java.util.Date,java.text.SimpleDateFormat,java.util.ArrayList,javax.annotation.Resource,javax.sql.DataSource"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -660,6 +661,24 @@ ul.social-network li {
 
 </style>
 <body>
+
+<%
+	/*User user=(User)session.getAttribute("USER");
+	String ver=(String)session.getAttribute("Verification");
+	if(user==null){
+		System.out.print("Vào rồi nahaaaaaaaaaaaaaaa");
+		response.sendRedirect("/login/signup.jsp");
+		
+	}
+	else{
+		  String nameuser= user.getName();*/
+	// String idPostCurrent = request.getparameter();	 
+		  
+		  int userIdCurrent = 2;
+		  request.setAttribute("userIdCurrent", userIdCurrent);
+	
+%>	
+
     <header>
         <div class="container-fluid">
             <nav class="navbar navbar-light bg-light">
@@ -780,7 +799,7 @@ ul.social-network li {
                                         <div class="post-author__avatar">
                                             <a class="d-flex mr-05" href="#" target="_blank">
                                                 <div class="d-inline-block avatar--lg">
-                                                    <img src="${pageContext.request.contextPath}/images/mainAboutMe.jpg" alt="avatar"
+                                                    <img src="${pageContext.request.contextPath}/images/mainAboutMe.jpg" alt=""
                                                         class="avatar avatar--lg img-fluid">
                                                 </div>
                                             </a>
@@ -789,13 +808,13 @@ ul.social-network li {
                                             <div class="d-flex">
                                                 <div class="overflow-hidden flex-fix mr-05">
                                                     <a class="text-bold post-author__name" href="#">${name_author}</a>
-                                                    <span class="text-muted"> @accountAuthor</span>
+                                                    <span class="text-muted"> @<c:out value = "${username_author}"></c:out></span>
                                                 </div>
-                                                <div class="subscribe_follow">
-                                                    <button type="button" class="following">
+                                                <form class="subscribe_follow" action = "${pageContext.request.contextPath}/detailPost" method = "post">
+                                                    <button type="submit" class="following" value = "follow" name = "userCurrentAction">
                                                         <span>Follow</span>
                                                     </button>
-                                                </div>
+                                                </form>
                                             </div>
                                             <div class="stats align-items-center">
                                                 <span class="stat-item text-muted" data-toggle="tooltip"
@@ -828,11 +847,11 @@ ul.social-network li {
                                             </div>
                                             <div class="post-meta__item mr-1">
                                                 <button type="button " class=" button " data-toggle="tooltip"
-                                                    data-placement="bottom" title="Comment:  ${comment_post_count} ">
+                                                    data-placement="bottom" title="Comment:  ${countComment} ">
                                                     <i class="fa fa-comments">
 
                                                     </i>
-                                                    <span> ${comment_post_count} </span>
+                                                    <span> ${countComment} </span>
                                                 </button>
                                                 <button type="button " class=" button " data-toggle="tooltip"
                                                     data-placement="bottom" title="Clip: ${Clip_post_count}">
@@ -1104,6 +1123,8 @@ ul.social-network li {
     		</div>
     	</div>
     </footer>
+    
+ <%//} %>
     
     <script type = "text/javascript">
     

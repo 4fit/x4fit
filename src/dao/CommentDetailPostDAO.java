@@ -18,7 +18,7 @@ public class CommentDetailPostDAO extends DAO {
 	
 	public static int getCmtID()
 	{
-		return DAO.getLastestID(CMT) + 1;
+		return DAO.getLastestID("COMMENT") + 1;
 	}
 	
 	public void insertCommentByIdUserAndIdPost( CommentDetailPost cmt)
