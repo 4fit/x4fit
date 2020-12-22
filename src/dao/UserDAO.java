@@ -60,27 +60,68 @@ public class UserDAO extends DAO {
 	
 	public void addFollowingForIdUser(int idUserMain,int idUserFollow) // idUserMain là user sẽ được user đang đăng nhâp follow (idUserFollow)
 	{
-		Document user = getUserInfo(idUserFollow);
-		int[] following = (int[])user.get("following");
-		following[following.length] = idUserMain;
+		updateFollow("following", idUserFollow, idUserMain);		
+		updateFollowCount("following_count", idUserFollow);
 		
+		updateFollow("follower", idUserMain, idUserFollow);
+		updateFollowCount("follower_count", idUserMain);
 		
-		//update following
+	}
+	
+	public void updateFollowCount(String nameField,  int idMain)
+	{
+		Document user = getUserInfo(idMain);
+		int count = user.getInteger(nameField) + 1;
+		
 		BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh 
-		query.put("user_id", idUserFollow);
+		query.put("id", idMain);
 		
-		BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách following
-		newList.put("following", following);
+		BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách follow
+		newList.put(nameField, count);
 		
-		BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update following
+		BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
 		updateObject.put("$set",newList);
 		
 		MongoCollection<Document> collection =   DAO.db.getCollection("USER");
 		collection.updateOne(query, updateObject);
 	}
 	
-
 	
+	public void updateFollow(String nameField, int idMain, int id) // idMain là ai được update thuộc tính follow
+	{
+		Document user = getUserInfo(idMain);
+		System.out.print(user.get(nameField));
+		List<Integer> follow = (ArrayList<Integer>)user.get(nameField);
+		if(isExitInArray(follow, id) == 0) // Kiểm tra xem user đó đã thực hiện follow chưa, nếu có thì không cần update
+		{
+			follow.add(id);
+			
+			BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh 
+			query.put("id", idMain);
+			
+			BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách follow
+			newList.put(nameField, follow);
+			
+			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
+			updateObject.put("$set",newList);
+			
+			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+			collection.updateOne(query, updateObject);
+			
+		}
+	}
+	
+	
+	public int isExitInArray(List<Integer> list, int x)
+	{
+		for(int i = 0; i < list.size(); i++)
+			if(list.get(i) == x)
+				return 1;
+		return 0;
+	}
+	
+
+
 	
 	//Yen them
 		public Document getDocUserByEmail(String email)
