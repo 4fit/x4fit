@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -26,6 +28,15 @@ public class DAO {
 		this.mongoClient = new MongoClient(uri);
 		this.db = mongoClient.getDatabase("X4FIT");
 	}
+	
+	public int isExitInArray(List<Integer> list, int x)
+	{
+		for(int i = 0; i < list.size(); i++)
+			if(list.get(i) == x)
+				return 1;
+		return 0;
+	}
+	
 	
 	public static void Insert(Document doc, MongoCollection<Document> collection)
 	{
@@ -69,4 +80,6 @@ public class DAO {
 		Document doc = collection.find(Filters.eq("id", post_id)).first();
 		Bson cmts = (Bson) doc.get("comments");
 	}
+	
+	
 }

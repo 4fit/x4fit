@@ -752,9 +752,9 @@ ul.social-network li {
         <div class="container post-body position-relative">
             <div class="row">
                 <div class="p-0 hidden-md-down col-lg-1">
-                    <form class="post-actions d-flex flex-column align-items-center mx-auto" action = "detailPost">
+                    <form class="post-actions d-flex flex-column align-items-center mx-auto" action = "detailPost" method = "post">
                         <div class="votes post-actions__vote mb-1">
-                            <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom" title="Upvote">
+                            <button type = "submit" name = "userCurrentAction" value = "add_upvote" class="icon-btn vote" data-toggle="tooltip" data-placement="bottom" title="Upvote">
                                 <i aria-hidden="true" style="color: rgb(100, 100, 100);" class="fa fa-caret-up"></i>
                             </button>
 
@@ -762,14 +762,14 @@ ul.social-network li {
                                 0
                             </div>
                             <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom"
-                                title="Downvote">
+                                title="Downvote" name = "userCurrentAction" value = "add_downvote">
                                 <i aria-hidden="true" style="color: rgb(100, 100, 100);" class="fa fa-caret-down"></i>
                             </button>
                         </div>
 
                         <div class="subscribe mb-2">
                             <button type="submit " class=" button post-actions__clip el-button--default"
-                                data-toggle="tooltip" data-placement="bottom" title="Clip" name = "active" value = "add_clips">
+                                data-toggle="tooltip" data-placement="bottom" title="Clip" name = "userCurrentAction" value = "add_clips">
                                 <i class="fa fa-paperclip">
 
                                 </i>

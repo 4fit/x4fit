@@ -61,14 +61,14 @@ public class UserDAO extends DAO {
 	public void addFollowingForIdUser(int idUserMain,int idUserFollow) // idUserMain là user sẽ được user đang đăng nhâp follow (idUserFollow)
 	{
 		updateFollow("following", idUserFollow, idUserMain);		
-		updateFollowCount("following_count", idUserFollow);
+		updateCount("following_count", idUserFollow);
 		
 		updateFollow("follower", idUserMain, idUserFollow);
-		updateFollowCount("follower_count", idUserMain);
+		updateCount("follower_count", idUserMain);
 		
 	}
 	
-	public void updateFollowCount(String nameField,  int idMain)
+	public void updateCount(String nameField,  int idMain)
 	{
 		Document user = getUserInfo(idMain);
 		int count = user.getInteger(nameField) + 1;
@@ -87,6 +87,7 @@ public class UserDAO extends DAO {
 	}
 	
 	
+	// Follow bao gồm follower, following
 	public void updateFollow(String nameField, int idMain, int id) // idMain là ai được update thuộc tính follow
 	{
 		Document user = getUserInfo(idMain);
@@ -112,13 +113,6 @@ public class UserDAO extends DAO {
 	}
 	
 	
-	public int isExitInArray(List<Integer> list, int x)
-	{
-		for(int i = 0; i < list.size(); i++)
-			if(list.get(i) == x)
-				return 1;
-		return 0;
-	}
 	
 
 
@@ -177,6 +171,8 @@ public class UserDAO extends DAO {
 			collection.updateOne(query, updateObject);
 		}
 		
+		
+		
 		//Yen Them
 		
 		public void updateClipsItem(int user_id ,int post_id)
@@ -186,19 +182,25 @@ public class UserDAO extends DAO {
 			
 			List<Integer> listIdPost = new ArrayList<Integer>();
 			listIdPost =(ArrayList)userDoc.get("clips_post");
-			listIdPost.add(post_id);
 			
-			BasicDBObject query = new BasicDBObject();
-			query.put("user_id", user_id);
-			
-			BasicDBObject newList = new BasicDBObject();
-			newList.put("clips_post", listIdPost);
-			
-			BasicDBObject updateObject = new BasicDBObject();
-			updateObject.put("$set",newList);
-			
-			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
-			collection.updateOne(query, updateObject);
+			if(isExitInArray(listIdPost, post_id) == 0)
+			{
+				listIdPost.add(post_id);
+				
+				BasicDBObject query = new BasicDBObject();
+				query.put("user_id", user_id);
+				
+				BasicDBObject newList = new BasicDBObject();
+				newList.put("clips_post", listIdPost);
+				
+				BasicDBObject updateObject = new BasicDBObject();
+				updateObject.put("$set",newList);
+				
+				MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+				collection.updateOne(query, updateObject);
+				
+				updateCount("clips_count", user_id);
+			}
 		}
 		
 		

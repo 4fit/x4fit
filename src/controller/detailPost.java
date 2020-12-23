@@ -111,15 +111,25 @@ public class detailPost extends HttpServlet {
     	
     	if(request.getParameter("userCurrentAction")!= null)
     	{
+    		int userIdCurrent = (int)(session.getAttribute("userIdCurrent"));
     		if(request.getParameter("userCurrentAction").equals("follow"))
 	    	{
-	    		int userIdCurrent = (int)(session.getAttribute("userIdCurrent"));
+	    		
 	    		detailPost.dbUser.addFollowingForIdUser(p.getUser_id(),userIdCurrent);
 	    		RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
 		   	   	dispatcher.forward(request, response);
 	    	}
     	
-	    	else if(request.getParameter("userCurrentAction").equals("follow")){
+	    	else if(request.getParameter("userCurrentAction").equals("add_clips")){
+	    		
+	    		updateClipsCount(userIdCurrent, p.getID(), p.getClips_count());
+	    	}
+    		
+	    	else if(request.getParameter("userCurrentAction").equals("add_downvote")){
+	    		
+	    	}
+    		
+	    	else if(request.getParameter("userCurrentAction").equals("add_upvote")){
 	    		
 	    	}
     	}
@@ -163,7 +173,7 @@ public class detailPost extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		process(request, response);
 	}
 
 }

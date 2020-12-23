@@ -15,6 +15,31 @@ import org.bson.conversions.Bson;
 
 public class DetailPostDAO extends DAO {
 
+	
+	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote
+	{
+		Document post =getPostByIdPost(idPost);
+		//System.out.print(post.get(nameField));
+		List<Integer> vote = (ArrayList<Integer>)post.get(nameField);
+		if(isExitInArray(vote, idUserVote) == 0) // Kiểm tra xem user đó đã thực hiện vote chưa, nếu có thì không cần update
+		{
+			vote.add(idUserVote);
+			
+			BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh 
+			query.put("id", idPost);
+			
+			BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách follow
+			newList.put(nameField, vote);
+			
+			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
+			updateObject.put("$set",newList);
+			
+			MongoCollection<Document> collection =   DAO.db.getCollection("POST");
+			collection.updateOne(query, updateObject);
+			
+		}
+	}
+	
 	public Document getPostByIdPost(int idPost)
 	{
 		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
