@@ -37,7 +37,7 @@ public class signUp extends HttpServlet {
     	response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-    	
+		System.out.print("Đăng nhập chưa được");
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
     	String email = request.getParameter("email");
@@ -81,6 +81,7 @@ public class signUp extends HttpServlet {
     	
     	if(error == 0) 	
     	{
+    		System.out.print("vao ham tao user");
 	    	User acc = new User(username, password, email);   
 	    	AccountDAO dao = new AccountDAO();
 	    	dao.signUpSuccess(acc);

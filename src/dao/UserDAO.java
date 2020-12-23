@@ -181,17 +181,17 @@ public class UserDAO extends DAO {
 			userDoc = this.getDocUserByIdUser(user_id);
 			
 			List<Integer> listIdPost = new ArrayList<Integer>();
-			listIdPost =(ArrayList)userDoc.get("clips_post");
+			listIdPost =(ArrayList)userDoc.get("clips");
 			
 			if(isExitInArray(listIdPost, post_id) == 0)
 			{
 				listIdPost.add(post_id);
 				
 				BasicDBObject query = new BasicDBObject();
-				query.put("user_id", user_id);
+				query.put("id", user_id);
 				
 				BasicDBObject newList = new BasicDBObject();
-				newList.put("clips_post", listIdPost);
+				newList.put("clips", listIdPost);
 				
 				BasicDBObject updateObject = new BasicDBObject();
 				updateObject.put("$set",newList);

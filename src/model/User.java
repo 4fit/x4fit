@@ -21,8 +21,17 @@ public class User
 	private int clips_count;
 	private int follower[]; // Tạo mảng follower
 	private int following[]; // Tạo mảng following
+	private int clips[]; // Tạo mảng clips id bài post
 	
 	
+	public int[] getClips() {
+		return clips;
+	}
+
+	public void setClips(int[] clips) {
+		this.clips = clips;
+	}
+
 	public User(int userId, String username, 
 			String name, String pass, String email, 
 			String avata, int posts_count, int following_count, int follower_count, int clips_count) {
@@ -49,9 +58,11 @@ public class User
 		this.setPostsCount(0);
 		this.setName("");
 		this.setAvata("");
-		int follow[] = new int[1000]; // set số lượng follow có thể có là 1000
+		int follow[] = new int[] {}; // set số lượng follow
 		this.setFollower(follow);
 		this.setFollowing(follow);
+		this.setClips(follow);
+		//System.out.print("Da toi luc tao nhan viên");
 		
 		
 		this.userId=(int) DAO.getLastestID("USER")+1;
