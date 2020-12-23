@@ -122,15 +122,15 @@ public class detailPost extends HttpServlet {
     	
 	    	else if(request.getParameter("userCurrentAction").equals("add_clips")){
 	    		
-	    		updateClipsCount(userIdCurrent, p.getID(), p.getClips_count());
+	    		updateClipsCount(userIdCurrent, p.getID());
 	    	}
     		
 	    	else if(request.getParameter("userCurrentAction").equals("add_downvote")){
-	    		
+	    		updateVote("downvote", userIdCurrent , p.getID());
 	    	}
     		
 	    	else if(request.getParameter("userCurrentAction").equals("add_upvote")){
-	    		
+	    		updateVote("upvote", userIdCurrent , p.getID());
 	    	}
     	}
 	    else
@@ -143,13 +143,22 @@ public class detailPost extends HttpServlet {
     	   
 
 	}
+    
+    public void updateVote(String nameField, int user_id, int post_id)
+    {	
+    	detailPost.dbDetail.updateItem(nameField, user_id, post_id); // update lại số user đã gim bài viết   	
+    }
 
-    public void updateClipsCount(int user_id, int post_id, int clips_count)
+    public void updateClipsCount(int user_id, int post_id)
     {
     	
-    	detailPost.dbDetail.updateClipsCountOfPost(post_id, clips_count + 1);
-    	detailPost.dbUser.updateClipsItem(user_id, post_id);
+    	detailPost.dbDetail.updateItem("clips", user_id, post_id); // update lại số user đã gim bài viết 
+    	
+    	detailPost.dbUser.updateClipsItem(user_id, post_id); // update clips id của bài post cho user hiện tại
+    	
     }
+    
+    
     
     
     public List<CommentDetailPost> getListComment(int post_id)

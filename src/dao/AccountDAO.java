@@ -96,6 +96,7 @@ public class AccountDAO extends DAO {
 		doc.append("clips_count", user.getClips_count());
 		doc.append("follower", user.getFollower());
 		doc.append("following", user.getFollowing());
+		doc.append("clips", user.getClips());
 		DAO.Insert(doc, "USER");
 		
 	}
