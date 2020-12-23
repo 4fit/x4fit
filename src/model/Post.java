@@ -27,6 +27,17 @@ public class Post
 	
 	private int[] upvote;
 	private int[] downvote;
+	private int[] clips;
+	
+	public int[] getClips() {
+		return clips;
+	}
+
+	public void setClips(int[] clips) {
+		this.clips = clips;
+	}
+
+	
 	
 	public int[] getUpvote() {
 		return upvote;
@@ -183,6 +194,7 @@ public class Post
 		this.user = new Document();
 		this.upvote = new int[] {}; //bảng upvote
 		this.downvote = new int[] {}; // bảng downvote
+		this.clips = new int[] {}; // bảng clips
 		
 	}
 	
