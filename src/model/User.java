@@ -22,6 +22,7 @@ public class User
 	private int follower[]; // Tạo mảng follower
 	private int following[]; // Tạo mảng following
 	
+	
 	public User(int userId, String username, 
 			String name, String pass, String email, 
 			String avata, int posts_count, int following_count, int follower_count, int clips_count) {

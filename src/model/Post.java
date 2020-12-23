@@ -25,6 +25,27 @@ public class Post
 	private Document user;
 	private DAO db;
 	
+	private int[] upvote;
+	private int[] downvote;
+	
+	public int[] getUpvote() {
+		return upvote;
+	}
+
+	public void setUpvote(int[] upvote) {
+		this.upvote = upvote;
+	}
+
+	public int[] getDownvote() {
+		return downvote;
+	}
+
+	public void setDownvote(int[] downvote) {
+		this.downvote = downvote;
+	}
+
+	
+	
 	public int getID() {
 		return id;
 	}
@@ -160,6 +181,9 @@ public class Post
 		this.thumbnail_url = "";
 		this.tags = "";
 		this.user = new Document();
+		this.upvote = new int[] {}; //bảng upvote
+		this.downvote = new int[] {}; // bảng downvote
+		
 	}
 	
 	public Post(String title, int user_id, String content, boolean is_public, 
