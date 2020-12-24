@@ -27,7 +27,7 @@
               </li>
               <div class="dropdown-divider"></div>
               <li id="post">
-                  <a id="a3" href="#">
+                  <a id="a3" href="${pageContext.request.contextPath}/all-posts">
                       <i class="fa fa-book" aria-hidden="true"></i>
                       <span>Posts</span> 
                   </a>

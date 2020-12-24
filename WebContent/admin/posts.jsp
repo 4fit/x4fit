@@ -89,6 +89,10 @@
 .color-white {
     color: white;
 }
+
+.align-center {
+	text-align: center;
+}
 </style>
 </head>
 <body>	
@@ -96,7 +100,6 @@
 	<div class="main-panel mt-3">
       <div class="content">
           <div class="container-fluid">
-          	<a href="#" class="btn btn-success mb-1">New User</a>
               <div class="row">
                   <div class="col-md-12">
                       <div class="card card-plain">
@@ -123,7 +126,7 @@
                                               Action
                                           </th>
                                           <th>
-                                              Delete
+                                          	Allow Post
                                           </th>
                                       </thead>
                                       <tbody>
@@ -135,17 +138,19 @@
                                               <td>
                                                   ${post.getTitle()}
                                               </td>
-                                              <td>
+                                              <td class="align-center">
                                               	  ${post.getViews_count()}
                                               </td>
                                               <td>
 											      ${post.getIs_public() }
                                               </td>
                                               <td class="text-primary">
-                                                 <a href="#">Details</a> 
-                                              <td>
-                                              	<a type="button" data-toggle="modal" data-target="#delete-user"><i style="color: red;" class="fa fa-trash"></i></a>
-                                              	
+                                                 <a href="#"><i class="fa fa-info"></i></a> |
+                                                 <a type="button" data-toggle="modal" data-target="#delete-user"><i style="color: red;" class="fa fa-trash"></i></a>
+                                              </td>
+                                              <td class="align-center">
+                                              	<a type="button" data-toggle="modal" data-target="#allow-post"><i class="fa fa-check-circle"></i></a>
+                                              </td>
                                               	<!-- Delete User Modal -->
                                               	<div class="modal fade" id="delete-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												  <div class="modal-dialog" role="document">
@@ -157,13 +162,37 @@
 												        </button>
 												      </div>
 												      <div class="modal-body">
-												        Do you want to delete <b><c:out value="${user.getName()}" /></b>?
+												        Do you want to delete?
 												      </div>
 												      <div class="modal-footer">
 												        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 												        <form action="" method="post">
-												        	<input name="userId" value="${user.getUserId()}" />
+												        	<input type="hidden" name="userId" value="" />
 												        	<button type="button" class="btn btn-danger">Delete</button>
+												        </form>
+												      </div>
+												    </div>
+												  </div>
+												</div>
+												
+												<!-- Allow post Modal -->
+                                              	<div class="modal fade" id="allow-post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog" role="document">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h5 class="modal-title" id="exampleModalLabel">Allow Post</h5>
+												        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												          <span aria-hidden="true">&times;</span>
+												        </button>
+												      </div>
+												      <div class="modal-body">
+												        Allow this post public on web?
+												      </div>
+												      <div class="modal-footer">
+												        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												        <form action="" method="post">
+												        	<input type="hidden" name="postId" value="${post.getID()}" />
+												        	<button type="button" class="btn btn-success">Allow</button>
 												        </form>
 												      </div>
 												    </div>

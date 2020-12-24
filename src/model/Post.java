@@ -23,6 +23,7 @@ public class Post
 	private String thumbnail_url;
 	private String tags;
 	private Document user;
+	private boolean allow_post;
 	private DAO db;
 	
 	private int[] upvote;
@@ -177,6 +178,10 @@ public class Post
 		this.db = db;
 	}
 	
+	public void allowPost() {
+		this.allow_post = true;
+	}
+	
 	public Post()
 	{
 		this.id = 0;
@@ -196,6 +201,7 @@ public class Post
 		this.downvote = new int[] {}; // bảng downvote
 		this.clips = new int[] {}; // bảng clips
 		
+		this.allow_post = false;
 	}
 	
 	public Post(String title, int user_id, String content, boolean is_public, 
@@ -218,6 +224,7 @@ public class Post
 		this.is_public = is_public;
 		this.thumbnail_url = thumbnail_url;
 		this.tags = tags;
+		this.allow_post = false;
 		this.user = UserDAO.getUserInfo(user_id);
 	}
 	
@@ -239,5 +246,6 @@ public class Post
 		this.thumbnail_url = thumbnail_url;
 		this.tags = tags;
 		this.user = user;
+		this.allow_post = false;
 	}
 }
