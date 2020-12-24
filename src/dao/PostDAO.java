@@ -70,6 +70,15 @@ public class PostDAO extends DAO {
 		DAO.Insert(doc, POST);
 	}
 	
+	public static void allowPost(int postId) {
+		try {
+			POST.updateOne(Filters.eq("id", postId), new Document("$set", new Document("allow_post", true)));
+		} catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		
+	}
+	
 	public static Post GetPost(String p)
 	{
 		Document doc = POST.find(Filters.eq("p", p)).first();

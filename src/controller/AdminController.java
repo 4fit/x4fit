@@ -41,6 +41,8 @@ public class AdminController extends HttpServlet {
 				break;
 			case "/all-posts":
 				getAllPosts(request, response);
+			case "/allow-post":
+				allowPost(request, response);
 		}
 	}
 
@@ -62,5 +64,10 @@ public class AdminController extends HttpServlet {
 		List<Post> allPosts = PostDAO.getAllPosts();
 		request.setAttribute("allPosts", allPosts);
 		request.getRequestDispatcher("admin/posts.jsp").forward(request, response);
+	}
+	
+	protected void allowPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int postId = Integer.parseInt(request.getParameter("postId"));
+		PostDAO.allowPost(postId);
 	}
 }
