@@ -181,9 +181,11 @@ public class Post
 	}
 	
 
+
 	public void allowPost() {
 		this.allow_post = true;
 	}
+
 	public int count_cmt()
 	{
 		DetailPostDAO db = new DetailPostDAO();
@@ -196,7 +198,6 @@ public class Post
 		if(this.upvote!= null)
 			return this.upvote.length;
 		else return 0;
-
 	}
 	
 	public Post()
