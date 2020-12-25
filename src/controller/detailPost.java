@@ -8,6 +8,7 @@ import dao.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -45,9 +46,6 @@ public class detailPost extends HttpServlet {
     	response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-//		String pUrl = (String) request.getParameter("p");
-//		HttpSession session = request.getSession();
-//		Post postMain = PostDAO.GetPost(pUrl); 
 		String username_author = "";
 		String nameAuthor = "";
 		String tilte = "";
@@ -55,8 +53,13 @@ public class detailPost extends HttpServlet {
 		int clips_count = 0;
 		int view = 0;
 		int countComment = 0;
-		
+		int idUserCurrentLogin;
+		int countVote = 0;
 		HttpSession session = request.getSession();
+		User userCurrent = new User();
+		
+		if(session.getAttribute("USER")!= null)
+			userCurrent = (User)session.getAttribute("USER");
 		
 		Post p = new Post();
 		if(request.getParameter("test")!= null)
@@ -69,9 +72,11 @@ public class detailPost extends HttpServlet {
     	if(post != null)
     	{
     		
-	    	Document author = (Document)post.get("user");
-	       	username_author = author.getString("username");
-	       	nameAuthor = author.getString("name");
+    		Document userDoc = dbUser.getUserInfo(post.getInteger("user_id"));
+    		System.out.print("servlet" + userDoc);
+	       	User userPost = new User(userDoc);
+	       	username_author = userDoc.getString("username");
+	       	nameAuthor = userDoc.getString("name");
 	       	
 	       	p = detailPost.dbDetail.ConverseToPost(post);
 	       	tilte = p.getTitle();
@@ -79,15 +84,18 @@ public class detailPost extends HttpServlet {
 	       	clips_count = p.getClips_count();
 	       	contentMain = p.getContent();
 	       	countComment = detailPost.dbDetail.countComment(idPostMain);
-	       	
+	       	countVote = p.count_vote();
 	       	// POST của user về bài viết đó
-	       	List<Post> listPost = detailPost.dbDetail.getPostOfUser(p.getID());
+	       	List<Post> listPost = detailPost.dbDetail.getPostOfUser(p.getUser_id());
 	    	
 	    	//List comment của bài viết đó
 	    	List<CommentDetailPost> listCmt = getListComment(idPostMain);
 	    	Collections.reverse(listCmt); // Đảo ngược list comment
 	    	session.setAttribute("listCmt", listCmt);
 	    	session.setAttribute("listPost", listPost);
+	    	
+	    	session.setAttribute("POST", p);
+	    	session.setAttribute("userPost", userPost);
        	
     	}
     	
@@ -108,6 +116,7 @@ public class detailPost extends HttpServlet {
     	session.setAttribute("Clip_post_count", clips_count);
     	session.setAttribute("countComment", countComment);
     	session.setAttribute("idPostMain", idPostMain);
+    	session.setAttribute("countVote", countVote);
     	
     	if(request.getParameter("userCurrentAction")!= null)
     	{
@@ -118,20 +127,47 @@ public class detailPost extends HttpServlet {
 	    		detailPost.dbUser.addFollowingForIdUser(p.getUser_id(),userIdCurrent);
 	    		RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
 		   	   	dispatcher.forward(request, response);
+    		
+	    		//response.sendRedirect("/detailPost/detailPost.jsp");
+	    		
 	    	}
     	
 	    	else if(request.getParameter("userCurrentAction").equals("add_clips")){
 	    		
 	    		updateClipsCount(userIdCurrent, p.getID());
+	    		RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
+		   	   	dispatcher.forward(request, response);
 	    	}
     		
 	    	else if(request.getParameter("userCurrentAction").equals("add_downvote")){
 	    		updateVote("downvote", userIdCurrent , p.getID());
+	    		RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
+		   	   	dispatcher.forward(request, response);
 	    	}
     		
 	    	else if(request.getParameter("userCurrentAction").equals("add_upvote")){
 	    		updateVote("upvote", userIdCurrent , p.getID());
+	    		RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
+		   	   	dispatcher.forward(request, response);
 	    	}
+    		
+	    	else if(request.getParameter("userCurrentAction").equals("post_comment"))
+	    	{
+	    		
+		      	Date created_at =java.util.Calendar.getInstance().getTime();
+		      	String comment_contents = request.getParameter("comment_contents");
+		      	CommentDetailPost cmt = new CommentDetailPost();
+		      	cmt.setUser_id(userIdCurrent);
+		      	cmt.setCreated_at(created_at);
+		      	cmt.setPost_id(p.getID());
+		      	cmt.setContents(comment_contents);
+		      	CommentDetailPostDAO dbCmt = new CommentDetailPostDAO();
+		      	dbCmt.insertCommentByIdUserAndIdPost(cmt);
+		      	RequestDispatcher  dispatcher = request.getRequestDispatcher("/detailPost/detailPost.jsp");	       
+		   	   	dispatcher.forward(request, response);
+	    	}
+    		
+    		
     	}
 	    else
 	    {

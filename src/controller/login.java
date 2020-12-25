@@ -55,7 +55,8 @@ public class login extends HttpServlet {
         {
        
         	User user = dao.isLoginSuccess("USER",userAccount );
-        	url = "/users/profile.jsp";
+        	//url = "/users/profile.jsp";
+        	url = "/index.jsp";
     		 session.setAttribute("USER", user);
     		 session.setAttribute("Verification","Yes");
     		 session.setAttribute("Page", "login");

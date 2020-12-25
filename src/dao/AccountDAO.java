@@ -37,45 +37,45 @@ public class AccountDAO extends DAO {
 		if(its.hasNext())
 		{
 			Document it=cursor.first();
-			String username= it.get("username").toString();
-			String pass= it.get("password").toString();
-			String email= it.get("email").toString();	
-			int post_count;
-			if( it.getInteger("posts_count")==null)
-			{
-				post_count=0;
-			}
-			else
-			post_count= it.getInteger("posts_count");
-			String avatar= it.getString("avata");
-			String name;
-			if(it.get("name")!=null)
-			name= it.get("name").toString();
-			else name="";
-			int following_count=0;
-			if(it.get("following_count")!=null)
-			{
-				following_count=Integer.parseInt(it.get("following_count").toString());
-			}
-			int follower_count=0;
-			if(it.get("follower_count")!=null)
-			{
-				follower_count=Integer.parseInt(it.get("follower_count").toString());
-				
-			}
-			int id=1;
-			if(DAO.getLastestID("USER")!=0)
-			{
-				id= DAO.getLastestID("USER");
-			}
-			int clips_count=0;
-			if(it.getInteger("clips_count")!=null)
-			{
-				clips_count= it.getInteger("clips_count");
-			}
-			User user= new User(id, username, name, pass, email,avatar,post_count, follower_count, following_count, clips_count);
-			//User user = new User ()
-			return user;
+//			String username= it.get("username").toString();
+//			String pass= it.get("password").toString();
+//			String email= it.get("email").toString();	
+//			int post_count;
+//			if( it.getInteger("posts_count")==null)
+//			{
+//				post_count=0;
+//			}
+//			else
+//			post_count= it.getInteger("posts_count");
+//			String avatar= it.getString("avata");
+//			String name;
+//			if(it.get("name")!=null)
+//			name= it.get("name").toString();
+//			else name="";
+//			int following_count=0;
+//			if(it.get("following_count")!=null)
+//			{
+//				following_count=Integer.parseInt(it.get("following_count").toString());
+//			}
+//			int follower_count=0;
+//			if(it.get("follower_count")!=null)
+//			{
+//				follower_count=Integer.parseInt(it.get("follower_count").toString());
+//				
+//			}
+//			int id=1;
+//			if(DAO.getLastestID("USER")!=0)
+//			{
+//				id= DAO.getLastestID("USER");
+//			}
+//			int clips_count=0;
+//			if(it.getInteger("clips_count")!=null)
+//			{
+//				clips_count= it.getInteger("clips_count");
+//			}
+//			User user= new User(id, username, name, pass, email,avatar,post_count, follower_count, following_count, clips_count);
+			User user = new User(it);
+			return user ;
 		}
 		
 		return null;
@@ -85,7 +85,8 @@ public class AccountDAO extends DAO {
 	{
 		Document doc  = new Document("_id", new ObjectId());
 		
-		doc.append("id", user.getUserId());
+		
+		doc.append("id", DAO.getLastestID("USER") + 1);
 		doc.append("username", user.getUsername());
 		doc.append("password", user.getPassword());
 		doc.append("email",user.getEmail());
@@ -94,7 +95,7 @@ public class AccountDAO extends DAO {
 		doc.append("following_count", user.getFollowing_count());
 		doc.append("follower_count",user.getFollower_count());
 		doc.append("clips_count", user.getClips_count());
-		doc.append("follower", user.getFollower());
+		doc.append("follower",user.getFollower());
 		doc.append("following", user.getFollowing());
 		doc.append("clips", user.getClips());
 		DAO.Insert(doc, "USER");
