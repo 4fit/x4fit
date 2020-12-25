@@ -1,4 +1,5 @@
 package model;
+import dao.*;
 
 import org.bson.Document;
 
@@ -50,6 +51,7 @@ public class Post
 	public int[] getDownvote() {
 		return downvote;
 	}
+	
 
 	public void setDownvote(int[] downvote) {
 		this.downvote = downvote;
@@ -175,6 +177,20 @@ public class Post
 
 	public void setdb(DAO db) {
 		this.db = db;
+	}
+	
+	public int count_cmt()
+	{
+		DetailPostDAO db = new DetailPostDAO();
+		return db.countComment(this.getID());
+		
+	}
+	
+	public int count_vote()
+	{
+		if(this.upvote!= null)
+			return this.upvote.length;
+		else return 0;
 	}
 	
 	public Post()

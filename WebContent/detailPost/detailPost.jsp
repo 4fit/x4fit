@@ -22,11 +22,211 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 	<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
-    <title>DETAIL POST</title>
+    <title><c:out value = "${POST.title}"></c:out></title>
 </head>
 
 <style>
 
+----------------------------------------NAV
+.logo {
+    display: block;
+}
+
+.logo-link {
+    font-size: 35px;
+    font-weight: 900;
+    font-family: 'Asap';
+}
+
+.logo-link span {
+    margin-left: 5px !important;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: 'Mukta', sans-serif;
+    letter-spacing: -2px;
+}
+
+.navbar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: rgb(245, 245, 245) !important;
+    /* position: fixed !important;
+    width: 100%;
+    z-index: 100000; */
+}
+
+.navbar-nav {
+    display: flex;
+    flex: 2;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbar-nav .btn {
+    height: 40px;
+    width: 50px;
+    margin-left: 10px;
+    margin-right: 5px;
+    border: none;
+    float: right;
+    background: rgb(56, 53, 53);
+}
+
+.input-group {
+    display: flex;
+    margin-left: 350px;
+}
+
+@media (max-width:1250px) {
+    .input-group {
+        margin-left: 300px;
+        animation: far 0.6s;
+    }
+}
+
+@media (max-width:1120px) {
+    .input-group {
+        margin-left: 100px;
+        animation: near 0.6s;
+    }
+}
+
+@media (min-width:1120px) {
+    .input-group {
+        margin-left: 200px;
+        animation: nearmin 0.6s;
+    }
+}
+
+@media (min-width:1250px) {
+    .input-group {
+        margin-left: 300px;
+        animation: nearmin1 0.6s;
+    }
+}
+
+@media (max-width:900px) {
+    .input-group {
+        margin-left: 20px;
+    }
+}
+
+@keyframes nearmin1 {
+    0% {
+        margin-left: 200px;
+    }
+    50% {
+        margin-left: 250px;
+    }
+    100% {
+        margin-left: 300px;
+    }
+}
+
+@keyframes nearmin {
+    0% {
+        margin-left: 100px;
+    }
+    50% {
+        margin-left: 150px;
+    }
+    100% {
+        margin-left: 200px;
+    }
+}
+
+@keyframes near {
+    0% {
+        margin-left: 180px;
+    }
+    50% {
+        margin-left: 150px;
+    }
+    100% {
+        margin-left: 100px;
+    }
+}
+
+.form-control {
+    width: 500px;
+}
+
+.navbar-toggler {
+    width: 50px;
+    padding: 4px 5px;
+}
+
+.navbar-toggler-icon {
+    width: 30px;
+}
+
+.navbar-nav .nav-item {
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: 'Mukta';
+}
+
+.dropdown-toggle .img-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+}
+
+.dropdown-item .img-profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+.info-popup {
+    display: block;
+    margin-left: 5px;
+    font-family: 'Inconsolata';
+}
+
+.profile-popup {
+    display: flex !important;
+    background: rgb(184, 184, 184) !important;
+}
+
+.gmail-info {
+    font-size: 16px;
+    margin-top: -5px;
+    font-weight: 500;
+}
+
+.name-info {
+    font-size: 17px;
+    margin-top: -5px;
+}
+
+.btn-edit {
+    height: 32px;
+    width: 65px;
+    margin-top: -10px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Mukta';
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    padding-left: 20px !important;
+    padding-right: 10px !important;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Mukta';
+    margin-top: 0px !important;
+}
+
+.dropdown-menu {
+    top: 95% !important;
+    margin-right: 10px !important;
+    margin-top: 0px !important;
+}
+
+---------------------------------------------------------------------------
 @charset "ISO-8859-1";
 *{
     margin: 0%;
@@ -663,84 +863,70 @@ ul.social-network li {
 <body>
 
 <%
-	/*User user=(User)session.getAttribute("USER");
-	String ver=(String)session.getAttribute("Verification");
-	if(user==null){
-		System.out.print("Vào rồi nahaaaaaaaaaaaaaaa");
+	User user=(User)session.getAttribute("USER");
+	//String ver=(String)session.getAttribute("Verification");
+	if(user==null){		
 		response.sendRedirect("/login/signup.jsp");
 		
 	}
 	else{
-		  String nameuser= user.getName();*/
-	// String idPostCurrent = request.getparameter();	 
-		  
-		  int userIdCurrent = 2;
+		 int userIdCurrent = user.getUserId();
 		  session.setAttribute("userIdCurrent", userIdCurrent);
-	
+	}
+	// String idPostCurrent = request.getparameter();	 
+		  		 	
 %>	
 
     <header>
         <div class="container-fluid">
-            <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand" href="#">
-                    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30"
-                        class="d-inline-block align-top" alt="">
-                    4XFIT
-                </a>
-
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">POST <span class="sr-only">(current)</span></a>
-                    </li>
-
-
-                </ul>
-                <form class="form-inline">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i
-                            class="fa fa-search"></i></button>
-                </form>
-
-                <div id="group-notication">
-                    <ul>
-                        <li class="nav-item">
-                            <button type="button" id="btnInfoWeb" style="border: none;">
-                                <i class="fa fa-info"></i>
-                            </button>
-                            <!--THE INFO DROPDOWN BOX.-->
-                            <div id="infoWeb">
-                                <h3>Infomations</h3>
-                                <div style="height:300px;"></div>
-                                <div class="seeAll"><a href="#">See All</a></div>
-                            </div>
-                        </li>
-                        <div id="noti_Container">
-                            <li id="noti_Counter">
+            <nav class="navbar navbar-expand-md navbar-light sticky ">
+            <div class="logo"><a class="logo-link">4<span>FIT</span></a></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="#">Post</a>
+                    <a class="nav-item nav-link" href="#">Profile</a>
+                    <div class="input-group mb-10">
+                        <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                         </div>
-                        <button id="btnNotication" type="button" class="nav-item" style="border: none;">
-                            <i class="fa fa-bell-o"></i>
-                        </button>
-                        <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                        <div id="notifications">
-                            <h3>Notifications</h3>
-                            <div style="height:300px;"></div>
-                            <div class="seeAll"><a href="#">See All</a></div>
-                        </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <button type="button" style="border: none;">
-                                <i class="far fa-edit"></i>
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button type="button" style="border: none;" id="avatar">
-                                <i class="fas fa-user-astronaut"></i>
-                            </button>
-                        </li>
-                    </ul>
+                    </div>
+                    <button class="btn btn-primary mt-1" type="button">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="btn btn-secondary mt-1" type="button">
+                        <i class="fas fa-edit"></i>
+                    </button>
                 </div>
-            </nav>
+            </div>
+            <div class="img-pro">
+            </div>
+            <button type="button" id="dropdownMenu2" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile" src="images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
+
+            </button>
+            <div class="dropdown-menu dropdown dropdown-menu-right " aria-labelledby="dropdownMenu2">
+                <div class="dropdown-item profile-popup">
+                    <img class="img-profile" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
+                    <div class="info-popup">
+                        <h5 class="name-info">Hoangf</h5>
+                        <p class="gmail-info">hhoansdf</p>
+                        <button class="btn btn-primary btn-edit" type="button">Edit</button>
+
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">My content</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Sign out</a>
+            </div>
+        </nav>
+          
         </div>
     </header>
 
@@ -759,7 +945,7 @@ ul.social-network li {
                             </button>
 
                             <div class="points text-muted">
-                                0
+                                <c:out value = "${countVote}"></c:out>
                             </div>
                             <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom"
                                 title="Downvote" name = "userCurrentAction" value = "add_downvote">
@@ -818,14 +1004,14 @@ ul.social-network li {
                                             </div>
                                             <div class="stats align-items-center">
                                                 <span class="stat-item text-muted" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Follower: 1">
+                                                    data-placement="bottom" title="Follower: ${userPost.getFollower_count()}">
                                                     <i aria-hidden="true" class="stat-item__icon fa fa-user-plus"></i>
-                                                    1
+                                                   <c:out value = "${userPost.getFollower_count()}"></c:out>
                                                 </span>
                                                 <span class="stat-item text-muted" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Post: 1">
+                                                    data-placement="bottom" title="Post: ${userPost.getPostsCount()}">
                                                     <i aria-hidden="true" class="stat-item__icon fa fa-pencil"></i>
-                                                    1
+                                                   <c:out value = "${userPost.getPostsCount()}"></c:out>
                                                 </span>
                                             </div>
                                         </div>
@@ -889,9 +1075,7 @@ ul.social-network li {
                         </div>
                       
                         <div class="md-contents article-content__body my-2 flex-fill" >
-                          <textarea id="content" name="content" style="color: black ">${content}
-                          
-                         	# printf("hello world");
+                          <textarea id="content" name="content" style="color: black ">${content}                       
                           </textarea>
                           <p data-markdown = "${content }"> </p>
                         </div>
@@ -944,7 +1128,7 @@ ul.social-network li {
                                                     <i aria-hidden = "true" class = "fa fa-paperclip"> <c:out value = "${postByAuthor.clips_count}"></c:out></i>
                                                 </span>
                                                 <span class = "stat-item mr-05" data-toggle="tooltip" data-placement="bottom" title = "Comment">
-                                                    <i aria-hidden = "true" class = "fa fa-comments">  <c:out value = "${postByAuthor.clips_count}"></c:out></i>
+                                                    <i aria-hidden = "true" class = "fa fa-comments">  <c:out value = "${postByAuthor.count_cmt()}"></c:out></i>
                                                 </span>
                                                 <div class = "points"  data-toggle="tooltip" data-placement="bottom" title = "Votes">
                                                     <div class = "carets" id = "points-carets-votes">
@@ -952,7 +1136,7 @@ ul.social-network li {
                                                         <i  aria-hidden = "true" class = "fa fa-caret-down text-muted"></i>
                                                         
                                                     </div>
-                                                    <span class = "text-muted">11</span>
+                                                    <span class = "text-muted">${postByAuthor.count_vote()}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -979,7 +1163,7 @@ ul.social-network li {
 					<div class="img_user_comment_post">
                                 <img src="#" alt="avatar">
                             </div>
-					  <form class = "form_comment" action = "commentDetailPost" method = "post">
+					  <form class = "form_comment" action = "detailPost" method = "post">
 					   <textarea id="comment__contents" name="comment_contents"
                                         placeholder="Test comment" style="height: 120px; "> </textarea>
                         <div class="comment-form__edit-element">
@@ -1003,7 +1187,7 @@ ul.social-network li {
                                         </div>
                                     </div>
                          <div class = "submit_comment bg-light">
-                        <input type="submit" id="btnPostComment" class="el-button btn btn-outline-primary" value  = "Post comment">
+                        <input type="submit" id="btnPostComment" name = "userCurrentAction" class="el-button btn btn-outline-primary" value  = "post_comment">
                         </div>
 					  </form>
 					</div>
@@ -1123,8 +1307,6 @@ ul.social-network li {
     		</div>
     	</div>
     </footer>
-    
- <%//} %>
     
     <script type = "text/javascript">
     

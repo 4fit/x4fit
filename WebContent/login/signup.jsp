@@ -253,7 +253,7 @@ a:hover{
                 <img src="../images/createAccount.jpg" >
             </div>
             <div class="login-content">
-                <form action="signUp" method = "post">
+                <form action="${pageContext.request.contextPath}/signUp" method = "post">
                     <img src="#">
                     <h2 class="title"> Account</h2>
                     <div class="input-div one">
