@@ -129,7 +129,7 @@ public class PostDAO extends DAO {
 				data.add(p);
 			}
 		}
-		System.out.print("hellllo");
+		
 		return data;
 	
 	}

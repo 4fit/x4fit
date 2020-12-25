@@ -32,12 +32,11 @@ public class signUp extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NoSuchAlgorithmException{
+    protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	String url = "";
     	response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
-		System.out.print("Đăng nhập chưa được");
+	
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
     	String email = request.getParameter("email");
@@ -81,14 +80,14 @@ public class signUp extends HttpServlet {
     	
     	if(error == 0) 	
     	{
-    		System.out.print("vao ham tao user");
-	    	User acc = new User(username, password, email);   
+			User acc = new User(username, password, email);   
 	    	AccountDAO dao = new AccountDAO();
 	    	dao.signUpSuccess(acc);
 	    	if(dao.isLoginSuccess("USER", acc) != null)
 	    		url = "index.jsp";
 	    	else 
 	    		url = "/login/signup.jsp";
+    	
     	}
     	else
     		url = "/login/signup.jsp";
@@ -104,12 +103,8 @@ public class signUp extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			process(request, response);
-		} catch (NoSuchAlgorithmException | ServletException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		process(request, response);
 		}
-	}
+	
 
 }

@@ -112,11 +112,6 @@ public class UserDAO extends DAO {
 		}
 	}
 	
-	
-	
-
-
-	
 	//Yen them
 		public Document getDocUserByEmail(String email)
 		{
@@ -203,5 +198,18 @@ public class UserDAO extends DAO {
 			}
 		}
 		
+	public int getPostCountOfUser(int idUser)
+	{
+		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
+		FindIterable<Document> listPost = collection.find(Filters.eq("user_id", idUser));
+		Iterator<Document> lPOST = listPost.iterator();
 		
+		int count = 0;
+		while(lPOST.hasNext())
+		{
+			lPOST.next();
+			count ++;
+		}
+		return count;
+	}
 }

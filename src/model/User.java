@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
@@ -19,16 +22,16 @@ public class User
 	private int following_count;
 	private int follower_count;	
 	private int clips_count;
-	private int follower[]; // Tạo mảng follower
-	private int following[]; // Tạo mảng following
-	private int clips[]; // Tạo mảng clips id bài post
+	private ArrayList<Integer> follower  ; // Tạo mảng follower
+	private ArrayList<Integer> following; // Tạo mảng following
+	private ArrayList<Integer> clips; // Tạo mảng clips id bài post
 	
 	
-	public int[] getClips() {
+	public ArrayList<Integer> getClips() {
 		return clips;
 	}
 
-	public void setClips(int[] clips) {
+	public void setClips(ArrayList<Integer> clips) {
 		this.clips = clips;
 	}
 
@@ -58,7 +61,7 @@ public class User
 		this.setPostsCount(0);
 		this.setName("");
 		this.setAvata("");
-		int follow[] = new int[] {}; // set số lượng follow
+		ArrayList<Integer> follow  = new ArrayList<Integer>(); // set số lượng follow
 		this.setFollower(follow);
 		this.setFollowing(follow);
 		this.setClips(follow);
@@ -151,19 +154,19 @@ public class User
 		this.email = email;
 	}
 	
-	public int[] getFollower() {
+	public ArrayList<Integer> getFollower() {
 		return follower;
 	}
 
-	public void setFollower(int[] follower) {
+	public void setFollower(ArrayList<Integer> follower) {
 		this.follower = follower;
 	}
 
-	public int[] getFollowing() {
+	public ArrayList<Integer> getFollowing() {
 		return following;
 	}
 
-	public void setFollowing(int[] following) {
+	public void setFollowing(ArrayList<Integer>following) {
 		this.following = following;
 	}
 
@@ -173,6 +176,27 @@ public class User
 
 	public void setClips_count(int clips_count) {
 		this.clips_count = clips_count;
+	}
+	
+	
+	public void setID(int id) {
+		this.userId = id;
+	}
+	
+	
+	public User(Document userDoc)
+	{
+		System.out.print(userDoc);
+		this.setID(userDoc.getInteger("id"));
+		this.setName(userDoc.getString("name"));
+		this.setUsername(userDoc.getString("username"));
+		this.setPassword(userDoc.getString("password"));
+		this.setFollower_count(userDoc.getInteger("follower_count"));
+		this.setFollowing_count(userDoc.getInteger("following_count"));
+		this.setFollower((ArrayList<Integer>)userDoc.get("follower"));
+		this.setClips((ArrayList<Integer>)userDoc.get("clips"));
+		this.setFollowing((ArrayList<Integer>)userDoc.get("following"));
+		this.setPostsCount(userDoc.getInteger("posts_count"));
 	}
 	
 	/*

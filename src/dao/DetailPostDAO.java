@@ -19,7 +19,7 @@ public class DetailPostDAO extends DAO {
 	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote
 	{
 		Document post =getPostByIdPost(idPost);
-		//System.out.print(post.get(nameField));
+		
 		List<Integer> vote = (ArrayList<Integer>)post.get(nameField);
 		if(isExitInArray(vote, idUserVote) == 0) // Kiểm tra xem user đó đã thực hiện vote chưa, nếu có thì không cần update
 		{
@@ -101,7 +101,7 @@ public class DetailPostDAO extends DAO {
 		p.setClips_count(Integer.parseInt(Obj.get("clips_count").toString()));
 		p.setViews_count(Integer.parseInt(Obj.get("views_count").toString()));
 		p.setUser_id((Obj.getInteger("user_id")));	 
-		
+		p.setUpvote((int[])Obj.get("upvote"));
 		return p;
 	}
 	
