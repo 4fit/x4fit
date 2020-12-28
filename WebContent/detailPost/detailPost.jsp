@@ -1207,7 +1207,7 @@ ul.social-network li {
                             </div>
                             <div class = "info_username_comment">
                                 <a href="${cmt.url_user}"><c:out value = "${cmt.name_user}"></c:out></a>
-                                <span class = "text-muted">@author</span>
+                                <span class = "text-muted">@<c:out value = "${cmt.usernameCMT()}"></c:out></span>
                             </div>
                             <div class = "time_comment">
                                 <span class = "text-muted"><c:out value = "${cmt.created_at}"></c:out></span>

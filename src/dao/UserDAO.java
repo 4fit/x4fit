@@ -148,8 +148,7 @@ public class UserDAO extends DAO {
 			
 			
 		}
-		
-		
+			
 		//Yen them
 		public void updateNewPass(String newPass, String username)
 		{

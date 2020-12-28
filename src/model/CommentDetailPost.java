@@ -1,5 +1,6 @@
 package model;
 
+import dao.*;
 import java.util.Date;
 
 import org.bson.Document;
@@ -237,5 +238,17 @@ public class CommentDetailPost {
 		this.url_user = userDoc.getString("url");
 	}
 	
+	public Document getUser(int idUser) // lấy user từ idUser
+	{
+		UserDAO dbUser = new UserDAO();
+		return dbUser.getDocUserByIdUser(idUser);
+	}
+	
+	
+	public String usernameCMT(int idUser) /// lấy username của thằng đang cmt
+	{
+		Document doc =  getUser(idUser);
+		return doc.getString("username");
+	}
 	
 }
