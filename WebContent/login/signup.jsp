@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,6 +23,12 @@
 	box-sizing: border-box;
 }
 
+ h2.title{
+ font-size: 30px !important;
+ font-weight: lighter !important;
+ letter-spacing: 2px;
+}
+
 body{
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
@@ -35,6 +44,7 @@ body{
     z-index: -1;
 }
 a{
+ margin-top: 15px;
     text-decoration: none;
     font-size: 0.1rem;
 }
@@ -44,7 +54,7 @@ a{
     margin-top: 40px;
     margin-left: 5vw;
     width: 90vw;
-    height: 90vh;
+    height: 95vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap :7rem;
@@ -67,7 +77,7 @@ a{
   
 }
 .login-content{
-	display: flex;
+	display: inline-block;
 	justify-content: flex-start;
 	align-items: center;
     text-align: center;
@@ -108,9 +118,36 @@ form{
 .i i{
 	transition: .3s;
 }
+
+.input-div
+{
+margin-top: 2px !important;
+margin-bottom: 2px !important;
+}
+
+label{
+margin-top: 5px !important;
+margin-bottom: 4px !important;
+}
+
+::placeholder {
+  color: #CCC;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #CCC;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: #CCC;
+}
+
+
 .input-div > div{
     position: relative;
-	height: 45px;
+	height: 20px;
+	
 }
 .input-div > div > h5{
 	position: absolute;
@@ -237,8 +274,10 @@ a:hover{
 
 
 .error_signup{
-	color: red !important;
-	padding:0;
+	color: #AAA !important;
+	padding:0 !important;
+	font-size: 12px;
+	margin: 0 !important;
 	
 }
 
@@ -254,8 +293,20 @@ a:hover{
             </div>
             <div class="login-content">
                 <form action="${pageContext.request.contextPath}/signUp" method = "post">
-                    <img src="#">
                     <h2 class="title"> Account</h2>
+                    
+                     <div class="input-div one">
+                        <div class="i">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="div">
+                            
+                            <input type="text" class="form-control" placeholder = "Your name" name = "name" value = "${name}">
+                            
+                        </div>
+                        
+                    </div>
+                     <label class = "error_signup"> <c:out value = "${errName}"></c:out></label>
                     <div class="input-div one">
                         <div class="i">
                             <i class="fas fa-envelope-open-text"></i>
@@ -267,7 +318,7 @@ a:hover{
                         </div>
                         
                     </div>
-                    <lable class = "error_signup"> <c:out value = "${errEmail}"></c:out></lable>
+                    <label class = "error_signup"> <c:out value = "${errEmail}"></c:out></label>
                     <div class="input-div pass">
                         <div class="i">
                             <i class="fas fa-user"></i>
@@ -279,7 +330,7 @@ a:hover{
                         </div>
                        
                     </div>
-                     <lable class = "error_signup"> <c:out value = "${errUsername}"></c:out></lable>
+                     <label class = "error_signup"> <c:out value = "${errUsername}"></c:out></label>
                     <div class="input-div pass">
                         <div class="i">
                             <i class="fas fa-lock"></i>
@@ -291,7 +342,19 @@ a:hover{
                         </div>
                         
                     </div>
-                     <lable class = "error_signup"> <c:out value = "${errPass}"></c:out></lable>
+                     <label class = "error_signup"> <c:out value = "${errPass}"></c:out></label>
+                      <div class="input-div pass">
+                        <div class="i">
+                            <i class="fas fa-lock-open"></i>
+                        </div>
+                        <div class="div">
+                            
+                            <input type="password" class="form-control" placeholder = "confirm your password" name = "passwordConfirm" value = "${passwordConfirm}">
+                           
+                        </div>
+                        
+                    </div>
+                     <label class = "error_signup"> <c:out value = "${errPassConfirm}"></c:out></label>
                     <a href="login.jsp"> Are you have account ?</a>
                     <input type="submit" class="btn" value="sign up" >
                    

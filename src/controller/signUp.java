@@ -39,40 +39,65 @@ public class signUp extends HttpServlet {
 	
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
+    	String passwordConfirm = request.getParameter("passwordConfirm");
     	String email = request.getParameter("email");
+    	String name = request.getParameter("name");
+    	
     	UserDAO dbUser = new UserDAO();
     	
     	int error = 0;
+    	
+    	if (name.equals(""))
+    	{
+    		request.setAttribute("errName", "Name must not null !");
+    		error = error + 1;
+    	}
+    	
+    	if (passwordConfirm.equals(""))
+    	{
+    		request.setAttribute("errPassConfirm", "Please comfirm your password !");
+    		error = error + 1;
+    	}
+    	
+    	if (!passwordConfirm.equals(password))
+    	{
+    		request.setAttribute("errPassConfirm", "Password incorrect !");
+    		error = error + 1;
+    	}
+    	
     	if (username.equals(""))
     	{
-    		request.setAttribute("errUsername", " have not null !");
+    		request.setAttribute("errUsername", "Username must not null !");
     		error = error + 1;
     	}
     	
     	if (email.equals(""))
     	{
-    		request.setAttribute("errEmail", " have not null !");
+    		request.setAttribute("errEmail", "Email have must not null !");
     		error = error + 1;
     	}
     	
     	if (password.equals(""))
     	{
-    		request.setAttribute("errPass", " have not null !");
+    		request.setAttribute("errPass", "Password must not null !");
     		error = error + 1;
     	}
     	
     	if(dbUser.getDocUserByEmail(email)!= null)
     	{
-    		request.setAttribute("errEmail", " already exist !");
+    		request.setAttribute("errEmail", "Email already exist !");
     		error = error + 1;
     		
     	}
     	
     	if(dbUser.getDocUserByUsername(username) != null)
     	{
-    		request.setAttribute("errUsername", " already exist !");
+    		request.setAttribute("errUsername", "Username already exist !");
     		error = error + 1;
     	}
+    	
+    	request.setAttribute("name", name);
+    	request.setAttribute("passwordConfirm", passwordConfirm);
     	
     	request.setAttribute("username", username);
     	request.setAttribute("password", password);
@@ -80,7 +105,7 @@ public class signUp extends HttpServlet {
     	
     	if(error == 0) 	
     	{
-			User acc = new User(username, password, email);   
+			User acc = new User(name, username, password, email);   
 	    	AccountDAO dao = new AccountDAO();
 	    	dao.signUpSuccess(acc);
 	    	if(dao.isLoginSuccess("USER", acc) != null)
@@ -93,9 +118,9 @@ public class signUp extends HttpServlet {
     		url = "/login/signup.jsp";
     	
     	System.out.print("Đăng nhập chưa được");
-    	response.sendRedirect(url);
-    	//RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-    	//dispatcher.forward(request,response );
+    	//response.sendRedirect(url);
+    	RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+    	dispatcher.forward(request,response );
     	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}

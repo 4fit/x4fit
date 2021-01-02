@@ -1200,7 +1200,7 @@ ul.social-network li {
 
 					 <div class = "list-comments">
 					 <c:forEach  var = "cmt" items = "${listCmt}" >
-                    <div class = "user_comment_post">
+                    <form class = "user_comment_post">
                         <div class = "info_user_comment">
                             <div class = "img_user_comment_post">
                                 <img id = "avt_comment" class = "avatar--lg img-fluid" src="${pageContext.request.contextPath}/images/mainAboutMe.jpg" alt = "">
@@ -1230,7 +1230,9 @@ ul.social-network li {
                             </div>
                             <div class="action_with_comment d">
                                 <a class="reply_comment">
+                                <button type = "hidden" name = "userCurrentAction" value = "replyCMT">
                                     <span class = "text-muted" id = "reply">Reply</span>
+                                    </button>
                                 </a>
                                 <a class="share_comment">
                                     <span class = "text-muted">Share</span>
@@ -1252,7 +1254,7 @@ ul.social-network li {
                             </div>
     
                         </footer>
-                    </div>
+                    </form>
                 </c:forEach >
                 </div>                
             </div>
