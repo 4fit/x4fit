@@ -60,7 +60,6 @@
 							<i class="fas fa-edit"></i>
 						</button>
 					</a>
-
 				</div>
 			</div>
 			<div class="img-pro"></div>
