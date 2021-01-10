@@ -12,27 +12,62 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
+import model.Model;
 import model.Post;
 import model.User;
 
 public class UserDAO  {
 	
-	public static MongoCollection<Document> USER = db.getCollection("User");
+	public static MongoCollection<Document> USER = Model.USER;
+	public static MongoCollection<Document> POST = Model.POST;
+//	public static MongoCollection<Document> USER = userModel.USER;
 	
 	public static User convertToUserObject(Document doc) {
 		// Convert data từ mongo sang object User
-		return new User(
-				doc.getInteger("id"),
-				doc.getString("username"),
-				doc.getString("name"),
-				doc.getString("password"),
-				doc.getString("email"),
-				doc.getString("avata"),
-				doc.getInteger("posts_count"),
-				doc.getInteger("following_count"),
-				doc.getInteger("follower_count"),
-				doc.getInteger("clips_count")
-		);
+		
+		int id = 0;
+		String fullname = "";
+		String username = "";
+		String password = "";
+		String avatar = "";
+		String url = "";
+		String email = "";
+		ArrayList<Integer> follower = null;
+		ArrayList<Integer> following = null;
+		ArrayList<Integer> clips = null;
+		
+		if(doc.getInteger("id") != null)
+			id = doc.getInteger("id");
+		
+		if(doc.getString("fullname")!= null)
+			fullname = doc.getString("fullname");
+		
+		if(doc.getString("username")!= null)
+			username = doc.getString("username");
+		
+		if(doc.getString("password")!= null)
+			password = doc.getString("password");
+		
+		if(doc.getString("avatar")!= null)
+			avatar = doc.getString("avatar");
+		
+		if(doc.getString("url")!= null)
+			url = doc.getString("url");
+		
+		if(doc.getString("email")!= null)
+			email = doc.getString("email");
+		
+		if(doc.get("follower")!= null)
+			follower = (ArrayList<Integer>)doc.get("follower");
+		
+		if(doc.get("following")!= null)
+			following = (ArrayList<Integer>)doc.get("following");
+		
+		if(doc.get("clips")!= null)
+			clips = (ArrayList<Integer>)doc.get("clips");
+		
+		return new User( id,  fullname,  username,  password,  avatar,  url,  email,  follower,  following,  clips );
+				
 	}
 	
 	public static List<User> getAllUsers() {
@@ -52,8 +87,8 @@ public class UserDAO  {
 	
 	public static Document getUserInfo(int user_id)
 	{
-		MongoCollection<Document> collection = DAO.db.getCollection("USER");
-		return collection.find(Filters.eq("id", user_id)).first();
+//		MongoCollection<Document> collection = DAO.db.getCollection("USER");
+		return USER.find(Filters.eq("id", user_id)).first();
 	}
 	
 	
@@ -81,8 +116,8 @@ public class UserDAO  {
 		BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
 		updateObject.put("$set",newList);
 		
-		MongoCollection<Document> collection =   DAO.db.getCollection("USER");
-		collection.updateOne(query, updateObject);
+//		MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+		USER.updateOne(query, updateObject);
 	}
 	
 	
@@ -92,7 +127,7 @@ public class UserDAO  {
 		Document user = getUserInfo(idMain);
 		System.out.print(user.get(nameField));
 		List<Integer> follow = (ArrayList<Integer>)user.get(nameField);
-		if(isExitInArray(follow, id) == 0) // Kiểm tra xem user đó đã thực hiện follow chưa, nếu có thì không cần update
+		if(Model.isExitInArray(follow, id) == 0) // Kiểm tra xem user đó đã thực hiện follow chưa, nếu có thì không cần update
 		{
 			follow.add(id);
 			
@@ -105,8 +140,8 @@ public class UserDAO  {
 			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
 			updateObject.put("$set",newList);
 			
-			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
-			collection.updateOne(query, updateObject);
+//			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+			USER.updateOne(query, updateObject);
 			
 		}
 	}
@@ -114,11 +149,11 @@ public class UserDAO  {
 	//Yen them
 		public Document getDocUserByEmail(String email)
 		{
-			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
-			FindIterable<Document> cursor = collection.find(Filters.eq("email", email));
+//			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			FindIterable<Document> cursor = USER.find(Filters.eq("email", email));
 			Iterator<Document> it = cursor.iterator();
 			if(it.hasNext())
-				return collection.find(Filters.eq("email", email)).first();
+				return USER.find(Filters.eq("email", email)).first();
 			else return null;
 			
 			
@@ -126,11 +161,11 @@ public class UserDAO  {
 		 // Yen them
 		public Document getDocUserByUsername(String username)
 		{
-			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
-			FindIterable<Document> cursor = collection.find(Filters.eq("username", username));
+//			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			FindIterable<Document> cursor = USER.find(Filters.eq("username", username));
 			Iterator<Document> it = cursor.iterator();
 			if(it.hasNext())
-				return collection.find(Filters.eq("username", username)).first();
+				return USER.find(Filters.eq("username", username)).first();
 			else return null;
 			
 			
@@ -138,11 +173,11 @@ public class UserDAO  {
 		
 		public Document getDocUserByIdUser(int user_id)
 		{
-			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
-			FindIterable<Document> cursor = collection.find(Filters.eq("user_id", user_id));
+//			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			FindIterable<Document> cursor = USER.find(Filters.eq("user_id", user_id));
 			Iterator<Document> it = cursor.iterator();
 			if(it.hasNext())
-				return collection.find(Filters.eq("user_id", user_id)).first();
+				return USER.find(Filters.eq("user_id", user_id)).first();
 			else return null;
 			
 			
@@ -161,8 +196,8 @@ public class UserDAO  {
 			BasicDBObject updateObject = new BasicDBObject();
 			updateObject.put("$set", newPassDoc);
 			
-			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
-			collection.updateOne(query, updateObject);
+//			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+			USER.updateOne(query, updateObject);
 		}
 		
 		
@@ -177,7 +212,7 @@ public class UserDAO  {
 			List<Integer> listIdPost = new ArrayList<Integer>();
 			listIdPost =(ArrayList)userDoc.get("clips");
 			
-			if(isExitInArray(listIdPost, post_id) == 0)
+			if(Model.isExitInArray(listIdPost, post_id) == 0)
 			{
 				listIdPost.add(post_id);
 				
@@ -190,8 +225,8 @@ public class UserDAO  {
 				BasicDBObject updateObject = new BasicDBObject();
 				updateObject.put("$set",newList);
 				
-				MongoCollection<Document> collection =   DAO.db.getCollection("USER");
-				collection.updateOne(query, updateObject);
+//				MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+				USER.updateOne(query, updateObject);
 				
 				updateCount("clips_count", user_id);
 			}
@@ -199,8 +234,8 @@ public class UserDAO  {
 		
 	public int getPostCountOfUser(int idUser)
 	{
-		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
-		FindIterable<Document> listPost = collection.find(Filters.eq("user_id", idUser));
+//		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
+		FindIterable<Document> listPost = POST.find(Filters.eq("user_id", idUser));
 		Iterator<Document> lPOST = listPost.iterator();
 		
 		int count = 0;
@@ -211,4 +246,31 @@ public class UserDAO  {
 		}
 		return count;
 	}
+	
+	public User isLoginSuccess(User acc)
+	{
+		
+		
+		BasicDBObject andQuery = new BasicDBObject();
+		ArrayList<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+		obj.add(new BasicDBObject("username", acc.getUsername()));
+		obj.add(new BasicDBObject("password", acc.getPassword()));
+		andQuery.put("$and", obj);
+
+		FindIterable<Document> cursor = USER.find(andQuery);
+		
+		//return cursor.first();
+		Iterator<Document> its = cursor.iterator();
+		
+		if(its.hasNext())
+		{
+			Document it=cursor.first();
+			
+			User user = new User(it);
+			return user ;
+		}
+		
+		return null;
+	}
+	
 }

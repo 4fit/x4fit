@@ -6,8 +6,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -125,5 +128,15 @@ public class Utilities {
 
 		// sends the e-mail
 		Transport.send(msg);
+	}
+	
+	public static List<?> convertObjectToList(Object obj) {
+		List<?> list = new ArrayList<>();
+		if (obj.getClass().isArray()) {
+			list = Arrays.asList((Object[]) obj);
+		} else if (obj instanceof Collection) {
+			list = new ArrayList<>((Collection<?>) obj);
+		}
+		return list;
 	}
 }

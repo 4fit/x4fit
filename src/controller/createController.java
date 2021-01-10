@@ -39,7 +39,7 @@ public class createController extends HttpServlet {
 		//is_public
 		boolean is_public = request.getParameter("is_public") != null;
 		//category
-		String category = request.getParameter("category");
+		String[] category = request.getParameter("category").split("#");
 		//image
 		String thumbnail_url = request.getParameter("thumbnail_url");
 		//contents
@@ -49,7 +49,7 @@ public class createController extends HttpServlet {
 		Post post = new Post(title, user_id, content, is_public, thumbnail_url, category);
 		
 		//p
-		String p = post.getP();
+		String p = post.getURL();
 		
 		Post.Insert(post);
 ;		

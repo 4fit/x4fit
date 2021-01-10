@@ -63,7 +63,7 @@ public class login extends HttpServlet {
         }
         else
         {
-        	System.out.print("Tao toi day");
+        	
         	url = "/login/signup.jsp";
         	session.setAttribute("Verification", "No");
         }

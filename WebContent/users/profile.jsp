@@ -492,7 +492,7 @@ body {
 }
 </style>
 <body>
-<jsp:include page="/profile" ></jsp:include>
+
     <header>
         <nav class="navbar navbar-expand-md navbar-light sticky ">
             <div class="logo"><a class="logo-link">4<span>FIT</span></a></div>

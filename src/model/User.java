@@ -17,13 +17,45 @@ import com.mongodb.client.model.Filters;
 
 
 public class User extends Model {
+	
+	
 	private int userID;
 	private String fullname;
+	private String username;
+	private String password;
+	private String email;
 	private String avatar;
 	private String url;
 	private ArrayList<Integer> follower;
 	private ArrayList<Integer> following;
 	private ArrayList<Integer> clips;
+	
+	
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public int getUserID() {
 		return userID;
@@ -85,6 +117,22 @@ public class User extends Model {
 
 	public User() {
 
+	}
+	
+	public User(int id, String fullname, String username, String password, String avatar, String url, String email, ArrayList<Integer> follower, ArrayList<Integer> following, ArrayList<Integer> clips )
+	{
+		
+		this.userID = id;
+		this.fullname = fullname;
+		this.username = username;
+		this.password = password;
+		this.avatar = avatar;
+		this.url = url;
+		this.email = email;
+		this.follower = follower;
+		this.following = following;
+		this.clips = clips;
+		
 	}
 
 	public User(int userID, String fullname) {
@@ -214,32 +262,9 @@ public class User extends Model {
 			return null;
 		return Doc2User(doc);
 	}
-}
 	
-
-	
-	/*
-<<<<<<< HEAD
-=======
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-=======
-	public static User GetUserInfoFromSession(HttpSession session) {
-		String selector = session.getAttribute("selector").toString();
-		String validator = session.getAttribute("validator").toString();
-		int userID = Model.Authenticator(selector, validator);
-		Document doc = USER.find(Filters.eq("userID", userID)).first();
-		if (doc != null)
-			return Doc2User(doc);
-		else return null;
->>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
-	}
-	
-	public static Document GetUserDocumentByUserID(int userID) {
+	public static Document GetUserDocumentByUserID(int userID)
+	{
 		FindIterable<Document> cursor = USER.find(Filters.eq("userID", userID));
 		Iterator<Document> it = cursor.iterator();
 		if (it.hasNext()) {
@@ -247,8 +272,8 @@ public class User extends Model {
 		} else
 			return null;
 	}
-
-	public void updateNewPass(String newPass, String username) {
+	
+	public static void updateNewPass(String newPass, String username) {
 		BasicDBObject query = new BasicDBObject();
 		query.put("username", username);
 
@@ -260,8 +285,8 @@ public class User extends Model {
 
 		USER.updateOne(query, updateObject);
 	}
-
-	public void updateClipsItem(int userID, int postID) {
+	
+	public static void updateClipsItem(int userID, int postID) {
 		User user = User.GetUserByUserID(userID);
 
 		ArrayList<Integer> listIdPost = new ArrayList<Integer>();
@@ -281,5 +306,41 @@ public class User extends Model {
 
 			USER.updateOne(query, updateObject);
 		}
+	}
+	
+	public static User GetUserInfoFromSession(HttpSession session) {
+		String selector = session.getAttribute("selector").toString();
+		String validator = session.getAttribute("validator").toString();
+		int userID = Model.Authenticator(selector, validator);
+		Document doc = USER.find(Filters.eq("userID", userID)).first();
+		if (doc != null)
+			return Doc2User(doc);
+		else return null;
+		
+	}
+	
+	
+}
+	
+
+	
+	/*
+<<<<<<< HEAD
+=======
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+=======
+	
+>>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
+	}
+	
+
+	
+
+	
 	}
 }*/

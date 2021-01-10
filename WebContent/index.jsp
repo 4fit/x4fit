@@ -184,9 +184,9 @@
 							<br>
 							<p class="postime">${p.getPublished_at()}</p>
 							<a class="lead ml-2 title-post" 
-								 href="${pageContext.request.contextPath}/post?p=${p.getP()}">${p.getTitle() }</a>
+								 href="${pageContext.request.contextPath}/post?p=${p.getURL()}">${p.getTitle() }</a>
 							<div class="tag d-flex">
-								<button class="btn-secondary">${p.getCategory() }</button>
+								<button class="btn-secondary">${p.getCategory().get(0) }</button>
 	
 							</div>
 							<span class="viewtag t ml-20"> <i class="far fa-eye"></i><label

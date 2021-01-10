@@ -19,15 +19,17 @@ public class Model
 	private static String mongoClientURI = "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority";
 	private static MongoClientURI uri = new MongoClientURI(mongoClientURI);
 	private static MongoClient mongoClient = new MongoClient(uri);
-	public static MongoDatabase db = mongoClient.getDatabase("X4FIT");
+	public static MongoDatabase db = mongoClient.getDatabase("X4FIT2");
 	Logger mongoLogger = Logger.getLogger( "org.mongodb.driver");
 	
-	public static MongoCollection<Document> POST = db.getCollection("POST");
-	public static MongoCollection<Document> USER = db.getCollection("USER");
-	public static MongoCollection<Document> CMT = db.getCollection("COMMENT");
-	public static MongoCollection<Document> ACCOUNT = db.getCollection("ACCOUNT");
+	public static MongoCollection<Document> POST = db.getCollection("Post");
+	public static MongoCollection<Document> USER = db.getCollection("User");
+	public static MongoCollection<Document> CMT = db.getCollection("Comment");
+	//public static MongoCollection<Document> ACCOUNT = db.getCollection("ACCOUNT");
 	public static MongoCollection<Document> AUTHENTICATION = db.getCollection("AUTHENTICATION");
 	public static MongoCollection<Document> CATEGORY = db.getCollection("CATEGORY");
+	public static MongoCollection<Document> GALLERY = db.getCollection("GALLERY");
+
 	
 	public Model()
 	{
@@ -38,7 +40,7 @@ public class Model
 		mongoLogger.setLevel(Level.SEVERE); 
 	}
 	
-	public int isExitInArray(List<Integer> list, int x)
+	public static int isExitInArray(List<Integer> list, int x)
 	{
 		for(int i = 0; i < list.size(); i++)
 			if(list.get(i) == x)
