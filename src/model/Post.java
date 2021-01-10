@@ -51,11 +51,7 @@ public class Post extends Model {
 	public int[] getDownvote() {
 		return downvote;
 	}
-<<<<<<< HEAD
-	
 
-=======
->>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
 	public void setDownvote(int[] downvote) {
 		this.downvote = downvote;
 	}
@@ -154,65 +150,9 @@ public class Post extends Model {
 	public Post() {
 	}
 
-<<<<<<< HEAD
-	public DAO getDB() {
-		return db;
-	}
 
-	public void setdb(DAO db) {
-		this.db = db;
-	}
-	
-
-
-	public void allowPost() {
-		this.allow_post = true;
-	}
-
-	public int count_cmt()
-	{
-		DetailPostDAO db = new DetailPostDAO();
-		return db.countComment(this.getID());
-		
-	}
-	
-	public int count_vote()
-	{
-		if(this.upvote!= null)
-			return this.upvote.length;
-		else return 0;
-	}
-	
-	public Post()
-	{
-		this.id = 0;
-		this.title = "";
-		this.user_id = 0;
-		this.p = Utilities.GetCurrentDateTime();
-		this.content = "";
-		this.published_at = "";
-		this.views_count = 0;
-		this.points = 0;
-		this.clips_count = 0;
-		this.is_public = false;
-		this.thumbnail_url = "";
-		this.tags = "";
-		this.user = new Document();
-		this.upvote = new int[] {}; //bảng upvote
-		this.downvote = new int[] {}; // bảng downvote
-		this.clips = new int[] {}; // bảng clips
-		
-		this.allow_post = false;
-	}
-	
-	public Post(String title, int user_id, String content, boolean is_public, 
-			String thumbnail_url, String tags)
-	{
-		this.id = PostDAO.getPostID();
-=======
 	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category) {
 		this.id = getPostID();
->>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
 		this.title = title;
 		this.user_id = user_id;
 		this.p = Utilities.createURL(title);

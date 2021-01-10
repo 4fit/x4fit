@@ -15,76 +15,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 
-<<<<<<< HEAD
-import dao.DAO;
 
-public class User
-{	
-	private int userId;
-	private String username;
-	private String name;
-	private String password;
-	private String email;
-	private String avata;
-	private int posts_count;
-	private int following_count;
-	private int follower_count;	
-	private int clips_count;
-	private ArrayList<Integer> follower  ; // Tạo mảng follower
-	private ArrayList<Integer> following; // Tạo mảng following
-	private ArrayList<Integer> clips; // Tạo mảng clips id bài post
-	
-	
-	public ArrayList<Integer> getClips() {
-		return clips;
-	}
-
-	public void setClips(ArrayList<Integer> clips) {
-		this.clips = clips;
-	}
-
-	public User(int userId, String username, 
-			String name, String pass, String email, 
-			String avata, int posts_count, int following_count, int follower_count, int clips_count) {
-		this.userId = userId;
-		this.username= username;
-		this.name = name;
-		this.password= pass;
-		this.email= email;
-		this.avata = avata;
-		this.posts_count = posts_count;
-		this.following_count= following_count;
-		this.follower_count = follower_count;
-		this.clips_count= clips_count;
-	}
-	
-	public User(String username, String pass, String email ) {
-		
-		this.username= username;
-		this.password= pass;
-		this.email= email;
-		this.setClips_count(0);
-		this.setFollower_count(0);
-		this.setFollowing_count(0);
-		this.setPostsCount(0);
-		this.setName("");
-		this.setAvata("");
-		ArrayList<Integer> follow  = new ArrayList<Integer>(); // set số lượng follow
-		this.setFollower(follow);
-		this.setFollowing(follow);
-		this.setClips(follow);
-		//System.out.print("Da toi luc tao nhan viên");
-		
-		
-		this.userId=(int) DAO.getLastestID("USER")+1;
-		
-	
-	}
-	
-	public User()
-	{
-		
-=======
 public class User extends Model {
 	private int userID;
 	private String fullname;
@@ -100,7 +31,6 @@ public class User extends Model {
 
 	public void setUserID(int userID) {
 		this.userID = userID;
->>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
 	}
 
 	public String getFullname() {
@@ -201,23 +131,7 @@ public class User extends Model {
 		}
 		return data;
 	}
-<<<<<<< HEAD
-	
-	public ArrayList<Integer> getFollower() {
-		return follower;
-	}
 
-	public void setFollower(ArrayList<Integer> follower) {
-		this.follower = follower;
-	}
-
-	public ArrayList<Integer> getFollowing() {
-		return following;
-	}
-
-	public void setFollowing(ArrayList<Integer>following) {
-		this.following = following;
-=======
 
 	public void addFollowingForIdUser(int idUserMain, int idUserFollow) // idUserMain là user sẽ được user đang đăng
 																		// nhâp follow (idUserFollow)
@@ -280,7 +194,7 @@ public class User extends Model {
 		} else
 			return null;
 
->>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
+
 	}
 
 	public static User getUserByUsername(String username) {
@@ -300,28 +214,9 @@ public class User extends Model {
 			return null;
 		return Doc2User(doc);
 	}
+}
 	
-<<<<<<< HEAD
-	
-	public void setID(int id) {
-		this.userId = id;
-	}
-	
-	
-	public User(Document userDoc)
-	{
-		System.out.print(userDoc);
-		this.setID(userDoc.getInteger("id"));
-		this.setName(userDoc.getString("name"));
-		this.setUsername(userDoc.getString("username"));
-		this.setPassword(userDoc.getString("password"));
-		this.setFollower_count(userDoc.getInteger("follower_count"));
-		this.setFollowing_count(userDoc.getInteger("following_count"));
-		this.setFollower((ArrayList<Integer>)userDoc.get("follower"));
-		this.setClips((ArrayList<Integer>)userDoc.get("clips"));
-		this.setFollowing((ArrayList<Integer>)userDoc.get("following"));
-		this.setPostsCount(userDoc.getInteger("posts_count"));
-	}
+
 	
 	/*
 <<<<<<< HEAD
@@ -387,4 +282,4 @@ public class User extends Model {
 			USER.updateOne(query, updateObject);
 		}
 	}
-}
+}*/

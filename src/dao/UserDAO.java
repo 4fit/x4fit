@@ -12,13 +12,12 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 
-import dao.DAO;
 import model.Post;
 import model.User;
 
-public class UserDAO extends DAO {
+public class UserDAO  {
 	
-	public static MongoCollection<Document> USER = db.getCollection("USER");
+	public static MongoCollection<Document> USER = db.getCollection("User");
 	
 	public static User convertToUserObject(Document doc) {
 		// Convert data từ mongo sang object User
