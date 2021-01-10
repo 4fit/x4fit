@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.print.Doc;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.bson.Document;
@@ -210,10 +211,22 @@ public class User extends Model {
 		return Doc2User(doc);
 	}
 	
-	public static User GetUserInfoFromSession(HttpSession session) {
-		String selector = session.getAttribute("selector").toString();
-		String validator = session.getAttribute("validator").toString();
+	public static int GetUserIDFromCookies(Cookie[] cookie) 
+	{
+		String selector = "", validator = "";
+		for (Cookie c : cookie) {
+			if (c.getName().equals("selector"))
+				selector = c.getValue();
+			if (c.getName().equals("validator"))
+				validator = c.getValue();
+		}
 		int userID = Model.Authenticator(selector, validator);
+		return userID;
+	}
+	
+	public static User GetUserInfoFromCookies(Cookie[] cookie) 
+	{
+		int userID = GetUserIDFromCookies(cookie);
 		Document doc = USER.find(Filters.eq("userID", userID)).first();
 		if (doc != null)
 			return Doc2User(doc);

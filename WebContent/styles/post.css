@@ -8,13 +8,6 @@ body, html {
 	left: 50%;
 }
 
-h3 {
-	font-size: 2vw;
-	text-align: center;
-	margin-top: 32px;
-	margin-bottom: 24px;
-}
-
 .CodeMirror, .CodeMirror-scroll {
     height: auto !important;
     min-height: 40px !important;
@@ -22,6 +15,11 @@ h3 {
 
 .editor-preview, .editor-preview-side {
 	background-color: #ffffff !important;
+}
+
+.editor-preview pre, .editor-preview-side pre {
+    background: #fff7dd;
+    margin-bottom: 10px;
 }
 
 .post-actions {
@@ -32,6 +30,8 @@ h3 {
 	padding-bottom: 100px;
 	min-width: 50px;
 	max-width: 150px;
+	text-align: center;
+	align-items: center;
 }
 
 .vote {
@@ -59,7 +59,7 @@ h3 {
 	color: #9b9b9b;
 	font-weight: 500;
 	font-size: 32px;
-	text-align: center;
+	text-align: center !important;
 	align-content: center;
 }
 
@@ -93,16 +93,9 @@ h3 {
 	color: #9b9b9b !important;
 }
 
-h3 {
-	font-size: 2vw;
-	text-align: center;
-	margin-top: 32px;
-	margin-bottom: 24px;
-}
-
 .file-upload {
 	background-color: #ffffff;
-	width: 600px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 20px;
 }
@@ -174,7 +167,7 @@ h3 {
 	font-weight: 100;
 	text-transform: uppercase;
 	color: #15824B;
-	padding: 60px 0;
+	padding: 100px 0;
 }
 
 .file-upload-image {
@@ -363,17 +356,6 @@ button {
 	margin-left: 100px;
 }
 
-h3 {
-	display: block;
-	color: #333;
-	background: #FFF;
-	font-weight: bold;
-	font-size: 13px;
-	padding: 8px;
-	margin: 0;
-	border-bottom: solid 1px rgba(100, 100, 100, .30);
-}
-
 .seeAll {
 	background: #F6F7F8;
 	padding: 8px;
@@ -510,21 +492,12 @@ h3 {
 	margin-left: .25rem;
 }
 
-.points {
-	/* display:flex; */
-	/* align-items: center; */
-	display: flex;
-	cursor: pointer;
-	text-align: center;
-	margin-left: 10px;
-}
-
 .card {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	min-width: 0;
-	background-color: #fff;
+	background-color: rgb(228, 228, 228) !important;
 	background-clip: initial;
 	border-radius: .25rem;
 	border: 1px solid rgba(27, 27, 27, .125);
@@ -611,7 +584,7 @@ h3 {
 .form_comment {
 	display: inline-block;
 	width: 95%;
-	background-color: white;
+	background-color: rgb(228, 228, 228) !important;
 	border: 1px solid rgba(0, 0, 0, .1);
 	border-radius: 3px;
 }
@@ -630,7 +603,7 @@ h3 {
 
 #btnPostComment {
 	margin-left: 62vw;
-	background-color: #0099CC;
+	background-color: rgb(228, 228, 228) !important;
 	color: #F6F7F8;
 	display: block;
 	margin-top: 2px;
@@ -645,7 +618,7 @@ h3 {
 .tab_comment {
 	overflow: hidden;
 	border: 1px solid #ccc;
-	background-color: #f1f1f1;
+	background-color: rgb(228, 228, 228) !important;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -690,7 +663,7 @@ h3 {
 	padding: 0px;
 	margin-top: 25px;
 	min-height: 110px;
-	background-color: #fff;
+	background-color: #ffffff;
 	border-radius: 3px;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .20);
 }
@@ -815,4 +788,19 @@ ul.social-network li {
 
 .a_footer {
 	color: #ffffff;
+}
+
+.editor-toolbar {
+	opacity: 0.7;
+	background-color: #c0c0c0;
+}
+
+.editor-toolbar a.active, .editor-toolbar a:hover {
+    background: #ffa726 !important;
+    border-color: #95a5a6;
+}
+
+.editor-toolbar disabled-for-preview {
+    color: #c0c0c0 !important;
+    border-color: #c0c0c0 !important;
 }

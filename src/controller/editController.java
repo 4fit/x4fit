@@ -29,8 +29,10 @@ public class editController extends HttpServlet {
 		Post post = Post.GetPost(p);
 		String title = post.getTitle();
 		String content = post.getContent();
+		String category = post.getCategory();
 		request.setAttribute("title", title);
 		request.setAttribute("content", content);
+		request.setAttribute("category", category);
 		request.setAttribute("p", p);
 
 		String url = "/posts/edit.jsp";

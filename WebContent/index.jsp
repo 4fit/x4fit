@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Trang chủ</title>
+	<link rel="icon" type="image/png" href="images/logo2.png" />
 	<link rel="stylesheet"
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -28,6 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
 </head>
 <body>
+<%-- 	<jsp:include page="/home" /> --%>
 	<header>
 		<nav id="navbar"
 			class="navbar navbar-expand-md navbar-light sticky-top">
@@ -144,7 +146,7 @@
 						</ul>
 					</div>
 				</div>
-				<a href="posts/create-post.jsp"
+				<a href="posts/create.jsp"
 					class="btn btn-primary float-right text-uppercase hidden-md-down mr-2"
 					style="font-size: 13px; font-weight: 600; font-family: sans-serif;">
 					<i aria-hidden="true" class="fas fa-pencil-alt"></i> Create Post
@@ -186,7 +188,7 @@
 							<a class="lead ml-2 title-post" 
 								 href="${pageContext.request.contextPath}/post?p=${p.getURL()}">${p.getTitle() }</a>
 							<div class="tag d-flex">
-								<button class="btn-secondary">${p.getCategory().get(0) }</button>
+								<button class="btn-secondary">${p.getCategory() }</button>
 	
 							</div>
 							<span class="viewtag t ml-20"> <i class="far fa-eye"></i><label

@@ -42,33 +42,26 @@
 		<h3 align="center">CHỈNH SỬA BÀI VIẾT</h3>
 		<form action="${pageContext.request.contextPath}/save?p=${p}"
 			method="post">
+			<input type="hidden" name="title" value="${title}">
 			<div class="form-group">
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">Tiêu đề</span>
 					</div>
-					<input type="text" class="form-control" name="title"
-						value="${title}">
+					<input type="text" class="form-control" name="new_title" value="${title}">
 				</div>
 				<div>
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="basic-addon1">Tags</span>
 						</div>
-						<input type="text" class="form-control" name="tags">${tags}
+						<input type="text" class="form-control" name="tags" value="${category}">
 					</div>
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroupFileAddon01">Ảnh
-								thumbnail</span>
+							<span class="input-group-text" id="inputGroupFileAddon01">Ảnh thumbnail</span>
 						</div>
-						<input type="text" class="form-control" name="thumbnail_url">${thumbnail_url}
-						<!-- 
-					  <div class="custom-file">
-					    <input type="file" class="custom-file-input" name="image" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-					    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-					  </div>
-					  -->
+<%-- 						<input type="text" class="form-control" name="thumbnail_url">${thumbnail_url} --%>
 					</div>
 				</div>
 				<textarea name="content" id="content">${content}</textarea>

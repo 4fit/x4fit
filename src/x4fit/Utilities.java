@@ -130,13 +130,27 @@ public class Utilities {
 		Transport.send(msg);
 	}
 	
-	public static List<?> convertObjectToList(Object obj) {
-		List<?> list = new ArrayList<>();
+	public static ArrayList<?> convertObjectToList(Object obj) {
+		ArrayList<?> list = new ArrayList<>();
 		if (obj.getClass().isArray()) {
-			list = Arrays.asList((Object[]) obj);
+			list = (ArrayList<?>) Arrays.asList((Object[]) obj);
 		} else if (obj instanceof Collection) {
 			list = new ArrayList<>((Collection<?>) obj);
 		}
 		return list;
+	}
+	
+	public static String[] obj2StringArray(Object obj)
+	{
+		String[] re = {};
+		ArrayList<?> list = new ArrayList<>();
+		if (obj.getClass().isArray()) {
+			list = (ArrayList<?>) Arrays.asList((Object[]) obj);
+			list.toArray(re);
+		} else if (obj instanceof Collection) {
+			list = new ArrayList<>((Collection<?>) obj);
+			list.toArray(re);
+		}
+		return re;	
 	}
 }

@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${title}</title>
-	<link rel="icon" type="image/png" href="images/logo.png" />
+	<link rel="icon" type="image/png" href="images/logo2.png" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
@@ -99,7 +99,7 @@
 						<button class="icon-btn" data-original-title="Upvote">
 							<i class="fa fa-caret-up"></i>
 						</button>
-						<div class="points">+999</div>
+						<div class="points">${points}</div>
 						<button class="icon-btn" data-original-title="Downvote">
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -139,58 +139,18 @@
 				
 				<h4>Bình luận</h4>
 				<form action="${pageContext.request.contextPath}/comment">
-					<textarea id="cmt" name="cmt"></textarea>
+					<textarea id="comment" name="comment"></textarea>
+					<br>
 					<div class="align-middle text-center">
 						<input class="btn btn-primary" type="submit" value="Bình luận">
 					</div>
 				</form>
 				<br>
-
-				<div class="vote_comment">
-					<div class="score">
-						<button class="icon-btn vote" data-toggle="tooltip"
-							data-placement="bottom" title="Upvote">
-							<i aria-hidden="true" class="fa fa-chevron-up text-muted"></i>
-						</button>
-
-						<span class="point_vote_comment"><c:out value="${cmt.getPoints()}"></c:out></span>
-
-						<button class="icon-btn vote" data-toggle="tooltip"
-							data-placement="bottom" title="downvote">
-							<i aria-hidden="true" class="fa fa-chevron-down text-muted"></i>
-						</button>
-
-					</div>
-
-					<div class="action_with_comment d">
-						<a class="reply_comment"> <span class="text-muted" id="reply">Reply</span>
-						</a> <a class="share_comment"> <span class="text-muted">Share</span>
-						</a>
-					</div>
-
-					<div class="more_comment">
-						<div class="menu__post">
-							<div class="dropdown_comment">
-
-								<button type="button" class="dropbtn" data-toggle="tooltip"
-									data-placement="bottom" title="Show more active">
-									<i class="fa fa-ellipsis-h text-muted"></i>
-								</button>
-
-								<div class="dropdown-content">
-									<a href="#"> repost</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="list-comments">
-					<%
-						int i = 0;
-					%>
-					<c:forEach var="cmt" items="${comments}">
+				<%
+					int i = 0;
+				%>
+				<c:forEach var="cmt" items="${comments}">
+					<div class="list-comments">
 						<div class="user_comment_post">
 							<div class="info_user_comment">
 
@@ -217,13 +177,52 @@
 								<textarea id="comment" name="comment" rows="5">${cmt.getContent()}</textarea>
 							</div>
 
+							<div class="vote_comment">
+								<div class="score">
+									<button class="icon-btn vote" data-toggle="tooltip"
+										data-placement="bottom" title="Upvote">
+										<i aria-hidden="true" class="fa fa-chevron-up text-muted"></i>
+									</button>
+			
+									<span class="point_vote_comment"><c:out value="${cmt.getPoints()}"></c:out></span>
+			
+									<button class="icon-btn vote" data-toggle="tooltip"
+										data-placement="bottom" title="downvote">
+										<i aria-hidden="true" class="fa fa-chevron-down text-muted"></i>
+									</button>
+			
+								</div>
+			
+								<div class="action_with_comment d">
+									<a class="reply_comment"> <span class="text-muted" id="reply">Reply</span>
+									</a> <a class="share_comment"> <span class="text-muted">Share</span>
+									</a>
+								</div>
+			
+								<div class="more_comment">
+									<div class="menu__post">
+										<div class="dropdown_comment">
+			
+											<button type="button" class="dropbtn" data-toggle="tooltip"
+												data-placement="bottom" title="Show more active">
+												<i class="fa fa-ellipsis-h text-muted"></i>
+											</button>
+			
+											<div class="dropdown-content">
+												<a href="#"> repost</a>
+											</div>
+										</div>
+									</div>
+								</div>
+			
+							</div>
 						</div>
 						<%
 							i += 1;
 						%>
-					</c:forEach>
-				</div>
-
+						</div>
+				</c:forEach>
+				
 			</div>
 			<!-- Right -->
 			<div class="col-sm-2">
@@ -246,7 +245,7 @@
 		var listComments = ViewComments();
 		listComments.forEach((comment) => comment.togglePreview());
 		
-		cmt = Comment("cmt");
+		cmt = Comment();
   </script>
 	<script src="https://sp.zalo.me/plugins/sdk.js"></script>
 </body>
