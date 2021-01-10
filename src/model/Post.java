@@ -28,7 +28,7 @@ public class Post extends Model {
 	private int clips_count;
 	private boolean is_public;
 	private String thumbnail_url;
-	private String category;
+	private String[] category;
 	private int[] upvote;
 	private int[] downvote;
 	private int[] clips;
@@ -138,17 +138,17 @@ public class Post extends Model {
 		this.thumbnail_url = thumbnail_url;
 	}
 
-	public String getCategory() {
+	public String[] getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(String[] category) {
 		this.category = category;
 	}
 
 	public Post() {
 	}
 
-	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category) {
+	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String[] category) {
 		this.id = getPostID();
 		this.title = title;
 		this.user_id = user_id;
@@ -164,7 +164,7 @@ public class Post extends Model {
 	}
 
 	public Post(int id, String title, int user_id, String p, String content, String published_at, String updated_at,
-			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String category) {
+			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String[] category) {
 		this.id = id;
 		this.title = title;
 		this.user_id = user_id;
@@ -219,7 +219,7 @@ public class Post extends Model {
 	}
 
 	public static void Insert(int id, String title, int user_id, String p, String content, String published_at,
-			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String tags) {
+			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String[] category) {
 		Document doc = new Document("id", id).append("title", title).append("user_id", user_id).append("url", p)
 				.append("content", content).append("published_at", published_at).append("updated_at", published_at)
 				.append("views_count", views_count).append("points", points).append("clips_count", clips_count)
@@ -253,7 +253,7 @@ public class Post extends Model {
 		return new Post(doc.getInteger("id"), doc.getString("title"), doc.getInteger("user_id"), doc.getString("url"),
 				doc.getString("content"), doc.getString("published_at"), doc.getString("updated_at"),
 				doc.getBoolean("is_public"), doc.getInteger("views_count"), doc.getInteger("points"),
-				doc.getInteger("clips_count"), doc.getString("thumbnail_url"), doc.getString("category")
+				doc.getInteger("clips_count"), doc.getString("thumbnail_url"), (String[])doc.get("category")
 				);
 	}
 	

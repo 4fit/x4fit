@@ -109,7 +109,7 @@ public class Gallery extends Model
 	
 	public static Gallery GetGallery(int userID)
 	{
-		Document doc = GALLERY.find(Filters.eq("userID", userID)).first();
+		Document doc = Model.GALLERY.find(Filters.eq("userID", userID)).first();
 		if (doc != null)
 			return Doc2Gallary(doc);
 		return null;
