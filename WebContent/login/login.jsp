@@ -11,7 +11,9 @@
     <script src="https://kit.fontawesome.com/f93b4d7888.js"></script>
     <title>LOGIN</title>
 </head>
+
 <style>
+
 @charset "ISO-8859-1";
 *{
 	padding: 0;
@@ -231,8 +233,8 @@ a:hover{
 	}
 }
 
-
 </style>
+
 <body>
 <jsp:include page="/styles/login.css"/>
     <div class="login">

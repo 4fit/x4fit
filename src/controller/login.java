@@ -51,13 +51,13 @@ public class login extends HttpServlet {
         //User user=new User();      
         
         HttpSession session = request.getSession();
-        if(dao.isLoginSuccess("USER",userAccount )!= null)
+        if(dao.isLoginSuccess("User",userAccount )!= null)
         {
        
-        	User user = dao.isLoginSuccess("USER",userAccount );
+        	User user = dao.isLoginSuccess("User",userAccount );
         	//url = "/users/profile.jsp";
         	url = "/index.jsp";
-    		 session.setAttribute("USER", user);
+    		 session.setAttribute("User", user);
     		 session.setAttribute("Verification","Yes");
     		 session.setAttribute("Page", "login");
         }
