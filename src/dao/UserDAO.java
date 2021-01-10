@@ -18,7 +18,7 @@ import model.User;
 
 public class UserDAO extends DAO {
 	
-	public static MongoCollection<Document> USER = db.getCollection("USER");
+	public static MongoCollection<Document> USER = db.getCollection("User");
 	
 	public static User convertToUserObject(Document doc) {
 		// Convert data từ mongo sang object User
@@ -53,7 +53,7 @@ public class UserDAO extends DAO {
 	
 	public static Document getUserInfo(int user_id)
 	{
-		MongoCollection<Document> collection = DAO.db.getCollection("USER");
+		MongoCollection<Document> collection = DAO.db.getCollection("User");
 		return collection.find(Filters.eq("id", user_id)).first();
 	}
 	
@@ -82,7 +82,7 @@ public class UserDAO extends DAO {
 		BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
 		updateObject.put("$set",newList);
 		
-		MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+		MongoCollection<Document> collection =   DAO.db.getCollection("User");
 		collection.updateOne(query, updateObject);
 	}
 	
@@ -106,7 +106,7 @@ public class UserDAO extends DAO {
 			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
 			updateObject.put("$set",newList);
 			
-			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+			MongoCollection<Document> collection =   DAO.db.getCollection("User");
 			collection.updateOne(query, updateObject);
 			
 		}
@@ -115,7 +115,7 @@ public class UserDAO extends DAO {
 	//Yen them
 		public Document getDocUserByEmail(String email)
 		{
-			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			MongoCollection<Document> collection =  DAO.db.getCollection("User");
 			FindIterable<Document> cursor = collection.find(Filters.eq("email", email));
 			Iterator<Document> it = cursor.iterator();
 			if(it.hasNext())
@@ -127,7 +127,7 @@ public class UserDAO extends DAO {
 		 // Yen them
 		public Document getDocUserByUsername(String username)
 		{
-			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			MongoCollection<Document> collection =  DAO.db.getCollection("User");
 			FindIterable<Document> cursor = collection.find(Filters.eq("username", username));
 			Iterator<Document> it = cursor.iterator();
 			if(it.hasNext())
@@ -139,7 +139,7 @@ public class UserDAO extends DAO {
 		
 		public Document getDocUserByIdUser(int user_id)
 		{
-			MongoCollection<Document> collection =  DAO.db.getCollection("USER");
+			MongoCollection<Document> collection =  DAO.db.getCollection("User");
 			FindIterable<Document> cursor = collection.find(Filters.eq("user_id", user_id));
 			Iterator<Document> it = cursor.iterator();
 			if(it.hasNext())
@@ -161,7 +161,7 @@ public class UserDAO extends DAO {
 			BasicDBObject updateObject = new BasicDBObject();
 			updateObject.put("$set", newPassDoc);
 			
-			MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+			MongoCollection<Document> collection =   DAO.db.getCollection("User");
 			collection.updateOne(query, updateObject);
 		}
 		
@@ -190,7 +190,7 @@ public class UserDAO extends DAO {
 				BasicDBObject updateObject = new BasicDBObject();
 				updateObject.put("$set",newList);
 				
-				MongoCollection<Document> collection =   DAO.db.getCollection("USER");
+				MongoCollection<Document> collection =   DAO.db.getCollection("User");
 				collection.updateOne(query, updateObject);
 				
 				updateCount("clips_count", user_id);
@@ -199,7 +199,7 @@ public class UserDAO extends DAO {
 		
 	public int getPostCountOfUser(int idUser)
 	{
-		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
+		MongoCollection<Document> collection =  DAO.db.getCollection("Post");
 		FindIterable<Document> listPost = collection.find(Filters.eq("user_id", idUser));
 		Iterator<Document> lPOST = listPost.iterator();
 		

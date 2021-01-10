@@ -86,7 +86,7 @@ public class AccountDAO extends DAO {
 		Document doc  = new Document("_id", new ObjectId());
 		
 		
-		doc.append("id", DAO.getLastestID("USER") + 1);
+		doc.append("id", DAO.getLastestID("User") + 1);
 		doc.append("username", user.getUsername());
 		doc.append("password", user.getPassword());
 		doc.append("email",user.getEmail());
@@ -98,7 +98,7 @@ public class AccountDAO extends DAO {
 		doc.append("follower",user.getFollower());
 		doc.append("following", user.getFollowing());
 		doc.append("clips", user.getClips());
-		DAO.Insert(doc, "USER");
+		DAO.Insert(doc, "User");
 		
 	}
 }

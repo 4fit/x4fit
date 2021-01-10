@@ -34,7 +34,7 @@ public class DetailPostDAO extends DAO {
 			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
 			updateObject.put("$set",newList);
 			
-			MongoCollection<Document> collection =   DAO.db.getCollection("POST");
+			MongoCollection<Document> collection =   DAO.db.getCollection("Post");
 			collection.updateOne(query, updateObject);
 			
 		}
@@ -42,7 +42,7 @@ public class DetailPostDAO extends DAO {
 	
 	public Document getPostByIdPost(int idPost)
 	{
-		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
+		MongoCollection<Document> collection =  DAO.db.getCollection("Post");
 		FindIterable<Document> listPost = collection.find(Filters.eq("id", idPost));
 		
 		return listPost.first();
@@ -69,7 +69,7 @@ public class DetailPostDAO extends DAO {
 			BasicDBObject updateObject = new BasicDBObject();
 			updateObject.put("$set",newList);
 			
-			MongoCollection<Document> collection =   DAO.db.getCollection("POST");
+			MongoCollection<Document> collection =   DAO.db.getCollection("Post");
 			collection.updateOne(query, updateObject);
 			
 			updateCount("clips_count", post_id);
@@ -79,7 +79,7 @@ public class DetailPostDAO extends DAO {
 	public List<Post> getPostOfUser(int idUser)
 	{
 		List<Post> lPost = new ArrayList<Post>();
-		MongoCollection<Document> collection  =  DAO.db.getCollection("POST");
+		MongoCollection<Document> collection  =  DAO.db.getCollection("Post");
 		FindIterable<Document> listPost = collection.find(Filters.eq("user_id", idUser));
 		Iterator<Document> list = listPost.iterator();
 		while(list.hasNext())
@@ -119,7 +119,7 @@ public class DetailPostDAO extends DAO {
 		BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update count_clips
 		updateObject.put("$set",newList);
 		
-		MongoCollection<Document> collection =   DAO.db.getCollection("POST");
+		MongoCollection<Document> collection =   DAO.db.getCollection("Post");
 		collection.updateOne(query, updateObject);
 	}
 	
@@ -140,7 +140,7 @@ public class DetailPostDAO extends DAO {
 	
 	public int countComment(int post_id)
 	{
-		MongoCollection<Document> collection =  DAO.db.getCollection("COMMENT");
+		MongoCollection<Document> collection =  DAO.db.getCollection("Comment");
 		FindIterable<Document> listCMT = collection.find(Filters.eq("post_id", post_id));
 		Iterator<Document> lCMT = listCMT.iterator();
 		

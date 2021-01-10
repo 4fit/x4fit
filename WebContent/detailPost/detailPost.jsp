@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 	<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <title><c:out value = "${POST.title}"></c:out></title>
 </head>
 
@@ -1088,13 +1089,15 @@ ul.social-network li {
                 </div>
 
                 <div class="post-body__right px-0 hidden-md-down col-lg-3">
-                    <div class="sticky-sidebar post-sidebar post-body__sidebar">
+                    <!--<div class="sticky-sidebar post-sidebar post-body__sidebar">
                         <div class="sticky-sidebar__inner" style="width:285px">
                             <div class="post-index hidden-sm-down">
 
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+                    
+                    <div class="max-w-2xl content mt-32" id="contentTable">
                 </div>
             </div>
         </div>
@@ -1453,6 +1456,50 @@ ul.social-network li {
 	});
 	content.togglePreview();
   </script>
+  
+	<script type="text/babel">
+		async function fetchAndParseMarkdown() {
+  const url = 'https://gist.githubusercontent.com/lisilinhart/e9dcf5298adff7c2c2a4da9ce2a3db3f/raw/2f1a0d47eba64756c22460b5d2919d45d8118d42/red_panda.md'
+  const response = await fetch(url)
+  const data = await response.text()
+  const htmlFromMarkdown = marked(data, { sanitize: true });
+  return htmlFromMarkdown
+}
+
+
+function generateLinkMarkup($contentElement) {
+  const headings = [...$contentElement.querySelectorAll('h1, h2')]
+  const parsedHeadings = headings.map(heading => {
+    return {
+      title: heading.innerText,
+      depth: heading.nodeName.replace(/\D/g,''),
+      id: heading.getAttribute('id')
+    }
+  })
+  const htmlMarkup = parsedHeadings.map(h => `
+  <li class="${h.depth > 1 ? 'pl-4' : ''}">
+    <a href="#${h.id}">${h.title}</a>
+  </li>
+  `)
+  const finalMarkup = `
+    <ul>${htmlMarkup.join('')}</ul>
+  `
+  return finalMarkup
+}
+
+async function init() {
+  const $main = document.querySelector('#content');
+  const $aside = document.querySelector('#contentTable');
+  const htmlContent = await fetchAndParseMarkdown();
+  $main.innerHTML = htmlContent
+  const linkHtml = generateLinkMarkup($main);
+  $aside.innerHTML = linkHtml 
+}
+
+init();
+alert("Da toi day nha");
+	</script>
+
    
 </body>
 

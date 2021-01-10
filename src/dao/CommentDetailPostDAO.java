@@ -14,11 +14,11 @@ import com.mongodb.client.model.Filters;
 
 public class CommentDetailPostDAO extends DAO {
 
-	public static MongoCollection<Document> CMT = db.getCollection("COMMENT");
+	public static MongoCollection<Document> CMT = db.getCollection("Comment");
 	
 	public static int getCmtID()
 	{
-		return DAO.getLastestID("COMMENT") + 1;
+		return DAO.getLastestID("Comment") + 1;
 	}
 	
 	public void insertCommentByIdUserAndIdPost( CommentDetailPost cmt)
@@ -36,7 +36,7 @@ public class CommentDetailPostDAO extends DAO {
 	 
 	public boolean isHaveCommentPostByIdUser(int post_id, String user_id)
 	{
-		MongoCollection<Document> collection = DAO.db.getCollection("COMMENT");
+		MongoCollection<Document> collection = DAO.db.getCollection("Comment");
 		//BasicDBObject andQuery = new Bis
 		return false;
 	}
@@ -44,7 +44,7 @@ public class CommentDetailPostDAO extends DAO {
 	public List<CommentDetailPost> getCommentByIdPost(int post_id)
 	{
 		List<CommentDetailPost> listCmt = new ArrayList<CommentDetailPost>();
-		MongoCollection<Document> collection = DAO.db.getCollection("COMMENT");
+		MongoCollection<Document> collection = DAO.db.getCollection("Comment");
 		FindIterable<Document> cursor = collection.find(Filters.eq("post_id", post_id));
 		Iterator<Document> list = cursor.iterator();
 		while(list.hasNext())

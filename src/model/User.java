@@ -91,7 +91,7 @@ public User(String name, String username, String pass, String email ) {
 		//System.out.print("Da toi luc tao nhan viên");
 		
 		
-		this.userId=(int) DAO.getLastestID("USER")+1;
+		this.userId=(int) DAO.getLastestID("User")+1;
 		
 	
 	}

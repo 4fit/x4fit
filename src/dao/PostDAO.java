@@ -21,11 +21,11 @@ import x4fit.Utilities;
 //http://mongodb.github.io/mongo-java-driver/3.4/javadoc/com/mongodb/client/model/Updates.html
 public class PostDAO extends DAO {
 	
-	public static MongoCollection<Document> POST = db.getCollection("POST");
+	public static MongoCollection<Document> POST = db.getCollection("Post");
 	
 	public static int getPostID()
 	{
-		return DAO.getLastestID(POST) + 1;
+		return DAO.getLastestID("Post") + 1;
 	}
 	
 	public static List<Post> getAllPosts() {
