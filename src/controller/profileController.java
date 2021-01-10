@@ -28,7 +28,7 @@ import com.mongodb.client.MongoCursor;
 import model.Post;
 import model.User;
 
-@WebServlet("/myProfile")
+@WebServlet("/profile")
 public class profileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
