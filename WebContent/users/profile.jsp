@@ -491,17 +491,6 @@ body {
     font-family: 'Goldman', sans-serif;
 }
 </style>
-<%
-User user=(User)session.getAttribute("USER");
-String ver=(String)session.getAttribute("Verification");
-	if(user==null){
-		System.out.print("Vào rồi nahaaaaaaaaaaaaaaa");
-		response.sendRedirect("../login/signup.jsp");
-		
-	}
-	else{
-		  String nameuser= user.getEmail();
-%>	
 <body>
 <jsp:include page="/profile" ></jsp:include>
     <header>
@@ -876,9 +865,6 @@ String ver=(String)session.getAttribute("Verification");
 
         </div>
     </div>
-   
-   <!--   <script src="scripts/ProfilePage.js" type="text/javascript"></script>-->
-   <%} %>
 </body>
 
 </html>
