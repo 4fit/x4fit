@@ -30,6 +30,21 @@
 </head>
 <body>
 
+<%
+	User user=(User)session.getAttribute("USER");
+	//String ver=(String)session.getAttribute("Verification");
+	if(user==null){		
+		response.sendRedirect("/login/signup.jsp");
+		
+	}
+	else{
+		 int userIdCurrent = user.getUserId();
+		  session.setAttribute("userIdCurrent", userIdCurrent);
+	}
+	// String idPostCurrent = request.getparameter();	 
+		  		 	
+%>	
+
 <!--  
 <form  action = "${pageContext.request.contextPath}/detailPost" method = "get">
 	<input name = "test" value = "1">

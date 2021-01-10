@@ -93,15 +93,30 @@ public class DetailPostDAO extends DAO {
 	public Post ConverseToPost(Document Obj)
 	{
 		Post p = new Post();
-		p.setContent((String) Obj.get("content"));;
+		if(Obj.get("content")!=null)
+			p.setContent((String) Obj.get("content"));
+		
+		if(Obj.get("title")!=null)
+			p.setTitle((String) Obj.get("title"));
+		
+		
 		p.setID(Integer.parseInt( Obj.get("id").toString()));
-		p.setTitle((String) Obj.get("title"));
+		
 		if(Obj.get("published_at")!=null)
 			p.setPublished_at(Obj.get("published_at").toString());
-		p.setClips_count(Integer.parseInt(Obj.get("clips_count").toString()));
-		p.setViews_count(Integer.parseInt(Obj.get("views_count").toString()));
-		p.setUser_id((Obj.getInteger("user_id")));	 
-		p.setUpvote((int[])Obj.get("upvote"));
+		if(Obj.get("clips_count")!=null)
+			p.setClips_count(Integer.parseInt(Obj.get("clips_count").toString()));
+		if(Obj.get("views_count")!=null)
+			p.setViews_count(Integer.parseInt(Obj.get("views_count").toString()));
+		
+		if(Obj.get("upvote")!=null)
+			p.setUpvote((int[])Obj.get("upvote"));
+		
+		if(Obj.get("user_id")!=null)
+			p.setUser_id((Obj.getInteger("user_id")));	 
+		
+		
+		
 		return p;
 	}
 	
