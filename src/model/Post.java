@@ -19,7 +19,7 @@ public class Post extends Model {
 	private int id;
 	private String title;
 	private int user_id;
-	private String p;
+	private String url;
 	private String content;
 	private String published_at;
 	private String updated_at;
@@ -75,11 +75,11 @@ public class Post extends Model {
 		this.user_id = user_id;
 	}
 
-	public String getP() {
-		return p;
+	public String getURL() {
+		return url;
 	}
-	public void setP(String p) {
-		this.p = p;
+	public void setURL(String p) {
+		this.url = p;
 	}
 
 	public String getContent() {
@@ -152,7 +152,7 @@ public class Post extends Model {
 		this.id = getPostID();
 		this.title = title;
 		this.user_id = user_id;
-		this.p = Utilities.createURL(title);
+		this.url = Utilities.createURL(title);
 		this.content = content;
 		this.published_at = this.updated_at = Utilities.GetCurrentDateTime();
 		this.views_count = 0;
@@ -168,7 +168,7 @@ public class Post extends Model {
 		this.id = id;
 		this.title = title;
 		this.user_id = user_id;
-		this.p = p;
+		this.url = p;
 		this.content = content;
 		this.published_at = published_at;
 		this.updated_at = updated_at;
@@ -214,13 +214,13 @@ public class Post extends Model {
 	}
 
 	public static void Insert(Post p) {
-		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getP(), p.getContent(), p.getPublished_at(), p.getIs_public(),
+		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getURL(), p.getContent(), p.getPublished_at(), p.getIs_public(),
 				p.getViews_count(), p.getPoints(), p.getClips_count(), p.getThumbnail_url(), p.getCategory());
 	}
 
 	public static void Insert(int id, String title, int user_id, String p, String content, String published_at,
 			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String tags) {
-		Document doc = new Document("id", id).append("title", title).append("user_id", user_id).append("p", p)
+		Document doc = new Document("id", id).append("title", title).append("user_id", user_id).append("url", p)
 				.append("content", content).append("published_at", published_at).append("updated_at", published_at)
 				.append("views_count", views_count).append("points", points).append("clips_count", clips_count)
 				.append("is_public", is_public).append("thumbnail_url", thumbnail_url);
@@ -237,7 +237,7 @@ public class Post extends Model {
 	}
 
 	public static Post GetPost(String p) {
-		Document doc = POST.find(Filters.eq("p", p)).first();
+		Document doc = POST.find(Filters.eq("url", p)).first();
 		if (doc == null)
 			return null;
 		Post post = new Post();
@@ -250,7 +250,7 @@ public class Post extends Model {
 	}
 
 	public static Post Doc2Post(Document doc) {
-		return new Post(doc.getInteger("id"), doc.getString("title"), doc.getInteger("user_id"), doc.getString("p"),
+		return new Post(doc.getInteger("id"), doc.getString("title"), doc.getInteger("user_id"), doc.getString("url"),
 				doc.getString("content"), doc.getString("published_at"), doc.getString("updated_at"),
 				doc.getBoolean("is_public"), doc.getInteger("views_count"), doc.getInteger("points"),
 				doc.getInteger("clips_count"), doc.getString("thumbnail_url"), doc.getString("category")
@@ -292,8 +292,8 @@ public class Post extends Model {
 	public static String Update(String p, String title, String content, boolean is_public, String thumbnail_url,
 			String tags) {
 		String newURL = Utilities.createURL(title);
-		POST.updateOne(Filters.eq("p", p),
-				Updates.combine(Updates.set("p", newURL), Updates.set("title", title), Updates.set("content", content),
+		POST.updateOne(Filters.eq("url", p),
+				Updates.combine(Updates.set("url", newURL), Updates.set("title", title), Updates.set("content", content),
 						Updates.set("category", tags), Updates.set("is_public", is_public),
 						Updates.set("updated_at", Utilities.GetCurrentDateTime()),
 						Updates.set("thumbnail_url", thumbnail_url)));

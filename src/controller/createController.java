@@ -49,7 +49,7 @@ public class createController extends HttpServlet {
 		Post post = new Post(title, user_id, content, is_public, thumbnail_url, category);
 		
 		//p
-		String p = post.getP();
+		String p = post.getURL();
 		
 		Post.Insert(post);
 ;		
