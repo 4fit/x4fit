@@ -15,14 +15,14 @@ import model.User;
 /**
  * Servlet implementation class adminController
  */
-@WebServlet("/admin")
-public class adminController extends HttpServlet {
+@WebServlet("/mod")
+public class modController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminController() {
+    public modController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +40,9 @@ public class adminController extends HttpServlet {
 			case "/all-posts":
 				getAllPosts(request, response);
 			case "/allow-postController":
-				allowPost(request, response);
+				acceptPost(request, response);
+			default:
+				acceptPost(request, response);
 		}
 	}
 
@@ -64,8 +66,13 @@ public class adminController extends HttpServlet {
 		request.getRequestDispatcher("admin/posts.jsp").forward(request, response);
 	}
 	
-	protected void allowPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int postId = Integer.parseInt(request.getParameter("postId"));
-		Post.allowPost(postId);
+	protected void acceptPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		int postId = Integer.parseInt(request.getParameter("postId"));
+		int postId = 1;
+		if (Post.acceptPost(postId)) {
+			System.out.println("Đã duyệt bài");
+		} else {
+			System.out.println("Đã xảy ra lỗi khi duyệt bài");
+		}
 	}
 }

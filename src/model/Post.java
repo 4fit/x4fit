@@ -185,6 +185,18 @@ public class Post extends Model {
 		this.category = category;
 		this.status = status;
 	}
+	
+	// Duyệt bài post
+	public static boolean acceptPost(int postId) {
+		try {
+			POST.updateOne(Filters.eq("id", postId), new Document("$set", new Document("status", "Đã duyệt")));
+			System.out.println("Accepted post!");
+			return true;
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return false;
+		}
+	}
 
 	public ArrayList<Comment> GetAllComments() {
 		FindIterable<Document> cursor = CMT.find(Filters.eq("postID", this.getID()));
@@ -252,16 +264,6 @@ public class Post extends Model {
 				.append("downvote", empty)
 				.append("clips", empty);
 		Insert(doc, POST);
-	}
-
-	public static void allowPost(int postId) {
-		try {
-			POST.updateOne(Filters.eq("id", postId), 
-					new Document("$set", new Document("allow_post", true)));
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-		}
-
 	}
 
 	public static Post GetPost(String p) {
