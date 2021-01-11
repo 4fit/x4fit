@@ -31,6 +31,17 @@ public class Post
 	private int[] downvote;
 	private int[] clips;
 	
+	public String getNameUser()
+	{
+		Document user = UserDAO.getUserInfo(this.user_id);
+		String name = "name author";
+		
+		if(user.getString("name")!= null)
+			name = user.getString("name");
+		
+		return name;
+	}
+	
 	public int[] getClips() {
 		return clips;
 	}

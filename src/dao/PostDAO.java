@@ -23,10 +23,12 @@ public class PostDAO extends DAO {
 	
 	public static MongoCollection<Document> POST = db.getCollection("Post");
 	
+	
 	public static int getPostID()
 	{
 		return DAO.getLastestID("Post") + 1;
 	}
+	
 	
 	public static List<Post> getAllPosts() {
 		FindIterable<Document> cursor = POST.find();		

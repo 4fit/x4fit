@@ -6,8 +6,10 @@ import java.util.List;
 
 import model.*;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -19,14 +21,19 @@ public class DetailPostDAO extends DAO {
 	{
 		List<Post> lPost = new ArrayList<Post>();
 		MongoCollection<Document> collection  =  DAO.db.getCollection("POST");
+		System.out.print( "test" + collection);
 		BasicDBObject regexQuery = new BasicDBObject();
-		regexQuery.put("name", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
-
-		FindIterable<Document> listPost = collection.find(regexQuery);
-		Iterator<Document> list = listPost.iterator();
+//		regexQuery.put("title", new BasicDBObject("$regex", textSearch + ".*").append("$options", "i"));
+		//regexQuery.put("title", new BasicDBObject("$regex", "sinh.*").append("$options", "i"));
+		regexQuery.put("title", java.util.regex.Pattern.compile(".*sinh.*"));
+		FindIterable<Document>  listPost = collection.find(regexQuery);
+		MongoCursor<Document> list = listPost.iterator();
+		
+		
 		while(list.hasNext())
 		{
 			lPost.add(ConverseToPost(list.next()));
+			
 		}
 		
 		return lPost;
