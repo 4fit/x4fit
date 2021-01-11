@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,17 +134,19 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">Category</span>
 					</div>
-					<input type="text" class="form-control" name="tags" value="${category}" width="100%">
+					<input type="text" class="form-control" name="category" value="${category}" width="100%">
 					<!-- Status -->
 					
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">Status</span>
+						<span class="" id="basic-addon1">
+							<span class="input-group-text custom-control custom-switch">
+						  	<input type="checkbox" class="custom-control-input" 
+						  		<c:if test="${is_public == true}">checked</c:if>
+						  		id="is_public" name="is_public">
+							  <label class="custom-control-label" for="is_public">Public</label>
+							</span>
+						</span>
 					</div>
-					<div class="form-check">
-		        <input class="form-check-input" type="checkbox" id="is_public" name="is_public">
-		        <label class="form-check-label" for="gridCheck1">Public</label>
-			    </div>
-					
 				</div>
 				
 <!-- 				<div> -->
@@ -158,11 +162,24 @@
 			</div>
 		</form>
 	</div>
+	
+	<jsp:include page="../modal.jsp"></jsp:include>
 	<hr>
 
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
 		content = Editor();
+
+		$('.image-upload-wrap').bind('dragover', function() {
+			$('.image-upload-wrap').addClass('image-dropping');
+		});
+		$('.image-upload-wrap').bind('dragleave', function() {
+			$('.image-upload-wrap').removeClass('image-dropping');
+		});
+
+		$('.upload-btn').hide();
+		$('.remove-btn').hide();
+
 	</script>
 </body>
 </html>

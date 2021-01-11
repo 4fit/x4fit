@@ -3,6 +3,8 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -72,7 +74,6 @@ public class uploadController extends HttpServlet {
 			//Lấy userID
 			Cookie[] cookie = request.getCookies();
 			int userID = User.GetUserIDFromCookies(cookie);
-			System.out.println(userID);
 			// iterates over form's fields
 			for (FileItem item : formItems) {
 				int id = Model.getLastestID(Model.GALLERY) + 1;
@@ -96,6 +97,10 @@ public class uploadController extends HttpServlet {
 			}
 		}
 
+		request.setAttribute("action", "uploaded");
+		String url = "/gallery";
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
 
 	@Override
