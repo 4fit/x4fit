@@ -129,19 +129,28 @@
 					<input type="text" class="form-control" name="new_title" value="${title}">
 				</div>
 				<div class="mb-3" style="display: flex;">
-					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon1">Category</span>
-						</div>
-						<input type="text" class="form-control" name="tags" value="${category}">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">Category</span>
 					</div>
+					<input type="text" class="form-control" name="tags" value="${category}" width="100%">
+					<!-- Status -->
+					<div class="input-group-prepend">
+							<span class="input-group-text" id="basic-addon1">Status</span>
+						</div>
+					<div class="form-check form-control-lg">
+			        <input class="form-check-input" type="checkbox" id="gridCheck1">
+			        <label class="form-check-label" for="gridCheck1">Public</label>
+			      </div>
+				</div>
+				
+<!-- 				<div> -->
 <!-- 					<div class="input-group mb-3"> -->
 <!-- 						<div class="input-group-prepend"> -->
 <!-- 							<span class="input-group-text" id="inputGroupFileAddon01">Ảnh thumbnail</span> -->
 <!-- 						</div> -->
 <%--  						<input type="text" class="form-control" name="thumbnail_url">${thumbnail_url}  --%>
 <!-- 					</div> -->
-				</div>
+<!-- 				</div> -->
 				<textarea name="content" id="content">${content}</textarea>
 				<input class="btn btn-primary btn-sm btn-block" type="submit" value="LƯU">
 			</div>
