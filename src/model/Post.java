@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import com.mongodb.client.model.Updates;
 
 import x4fit.Utilities;
 
-//http://mongodb.github.io/mongo-java-driver/3.4/javadoc/com/mongodb/client/model/Updates.html
 
 public class Post extends Model {
 	private int id;
@@ -28,29 +28,23 @@ public class Post extends Model {
 	private int clips_count;
 	private boolean is_public;
 	private String thumbnail_url;
+	private String status;
 	private String category;
-	private int[] upvote;
-	private int[] downvote;
-	private int[] clips;
+	private List<Integer> upvote;	// chứa DS userID đã upvote cho bài viết
+	private List<Integer> downvote;	// chứa DS userID đã downvote cho bài viết
+	private List<Integer> clips;	// chứa DS userID đã ghim bài viết
 
-	public int[] getClips() {
+	public List<Integer> getClips() {
 		return clips;
 	}
-	public void setClips(int[] clips) {
+	public void setClips(List<Integer> clips) {
 		this.clips = clips;
 	}
 
-	public int[] getUpvote() {
-		return upvote;
-	}
-	public void setUpvote(int[] upvote) {
-		this.upvote = upvote;
-	}
-
-	public int[] getDownvote() {
+	public List<Integer> getDownvote() {
 		return downvote;
 	}
-	public void setDownvote(int[] downvote) {
+	public void setDownvote(List<Integer> downvote) {
 		this.downvote = downvote;
 	}
 
@@ -144,11 +138,18 @@ public class Post extends Model {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Post() {
 	}
 
-	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category) {
+	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category, String status) 
+	{
 		this.id = getPostID();
 		this.title = title;
 		this.user_id = user_id;
@@ -157,14 +158,14 @@ public class Post extends Model {
 		this.published_at = this.updated_at = Utilities.GetCurrentDateTime();
 		this.views_count = 0;
 		this.points = 0;
-		this.clips_count = 0;
 		this.is_public = is_public;
 		this.thumbnail_url = thumbnail_url;
 		this.category = category;
+		this.status = status;
 	}
 
 	public Post(int id, String title, int user_id, String p, String content, String published_at, String updated_at,
-			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String category) {
+			boolean is_public, int views_count, int points, String thumbnail_url, String category, String status) {
 		this.id = id;
 		this.title = title;
 		this.user_id = user_id;
@@ -174,10 +175,10 @@ public class Post extends Model {
 		this.updated_at = updated_at;
 		this.views_count = views_count;
 		this.points = points;
-		this.clips_count = clips_count;
 		this.is_public = is_public;
 		this.thumbnail_url = thumbnail_url;
 		this.category = category;
+		this.status = status;
 	}
 
 	public ArrayList<Comment> GetAllComments() {
@@ -212,17 +213,30 @@ public class Post extends Model {
 		return data;
 	}
 
-	public static void Insert(Post p) {
-		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getURL(), p.getContent(), p.getPublished_at(), p.getIs_public(),
-				p.getViews_count(), p.getPoints(), p.getClips_count(), p.getThumbnail_url(), p.getCategory());
-	}
+//	public static void Insert(Post p) {
+//		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getURL(), p.getContent(), p.getPublished_at(), p.getIs_public(),
+//				p.getViews_count(), p.getPoints(), p.getThumbnail_url(), p.getCategory());
+//	}
 
 	public static void Insert(int id, String title, int user_id, String p, String content, String published_at,
-			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String category) {
-		Document doc = new Document("id", id).append("title", title).append("user_id", user_id).append("url", p)
-				.append("content", content).append("published_at", published_at).append("updated_at", published_at)
-				.append("views_count", views_count).append("points", points).append("clips_count", clips_count)
-				.append("is_public", is_public).append("thumbnail_url", thumbnail_url);
+			boolean is_public, int views_count, int points, String thumbnail_url, String category) 
+	{
+		List<Integer> empty = Arrays.asList();
+		Document doc = new Document("id", id)
+				.append("title", title)
+				.append("user_id", user_id)
+				.append("url", p)
+				.append("content", content)
+				.append("published_at", published_at)
+				.append("updated_at", published_at)
+				.append("views_count", views_count)
+				.append("points", points)
+				.append("is_public", is_public)
+				.append("thumbnail_url", thumbnail_url)
+				.append("status", "Chờ duyệt")
+				.append("upvote", empty)
+				.append("downvote", empty)
+				.append("clips", empty);
 		Insert(doc, POST);
 	}
 
@@ -258,10 +272,10 @@ public class Post extends Model {
 				doc.getString("updated_at"),
 				doc.getBoolean("is_public"), 
 				doc.getInteger("views_count"), 
-				doc.getInteger("points"),
-				doc.getInteger("clips_count"), 
+				doc.getInteger("points"), 
 				doc.getString("thumbnail_url"), 
-				doc.getString("category")
+				doc.getString("category"),
+				doc.getString("status")
 				);
 	}
 	
@@ -298,13 +312,14 @@ public class Post extends Model {
 	}
 
 	public static String Update(String p, String title, String new_title, String content, 
-			boolean is_public, String thumbnail_url, String tags) {
+			boolean is_public, String thumbnail_url, String category) {
+		
 		String newURL = p;
 		if (!new_title.equals(title))
 			newURL = Utilities.createURL(title);
 		POST.updateOne(Filters.eq("url", p),
 				Updates.combine(Updates.set("url", newURL), Updates.set("title", title), Updates.set("content", content),
-						Updates.set("category", tags), Updates.set("is_public", is_public),
+						Updates.set("category", category), Updates.set("is_public", is_public),
 						Updates.set("updated_at", Utilities.GetCurrentDateTime()),
 						Updates.set("thumbnail_url", thumbnail_url)));
 		return newURL;

@@ -7,25 +7,14 @@
 	<meta charset="UTF-8">
 	<title>Trang chủ</title>
 	<link rel="icon" type="image/png" href="images/logo2.png" />
-	<link rel="stylesheet"
-		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-		crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-		crossorigin="anonymous"></script>
-	<link rel="stylesheet"
-		href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
 </head>
 <body>
@@ -33,8 +22,10 @@
 	<header>
 		<nav id="navbar"
 			class="navbar navbar-expand-md navbar-light sticky-top">
-			<div class="logo">
-				<a class="logo-link">4<span>FIT</span></a>
+			<!-- Logo -->
+			<div>
+				<a class="navbar-brand logo"
+					href="${pageContext.request.contextPath}/">X4FIT </a>
 			</div>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
@@ -43,9 +34,11 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-item nav-link active" href="#">Home <span
-						class="sr-only">(current)</span></a> <a class="nav-item nav-link"
-						href="#">Post</a> <a class="nav-item nav-link" href="#">Profile</a>
+<!-- 					<a class="nav-item nav-link active" href="#">Home  -->
+<!-- 						<span class="sr-only">(current)</span> -->
+<!-- 					</a>  -->
+<!-- 					<a class="nav-item nav-link" href="#">Post</a>  -->
+<!-- 					<a class="nav-item nav-link" href="#">Profile</a> -->
 					<div class="input-group mb-10">
 						<input type="text" class="form-control" placeholder="Search"
 							aria-label="Username" aria-describedby="basic-addon1">
@@ -67,9 +60,7 @@
 			<div class="img-pro"></div>
 			<button type="button" class="btn dropdown-toggle"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img class="img-profile"
-					src="${pageContext.request.contextPath}/images/avt.png" alt="">
-
+				<img class="img-profile" src="${pageContext.request.contextPath}/images/avt.png" alt="">
 			</button>
 			<div class="dropdown-menu dropdown-menu-right ">
 				<div class="dropdown-item profile-popup">
@@ -106,51 +97,50 @@
 				<div class="feed-bar">
 					<div class="feedbar-wrapper">
 						<ul class="feed-links">
-							<li class="feedbar-item"></li>
-							<li class="feedbar-item nuxt-link-exact-active active active">
-								<a href="/followings" class="feed-link posts-subscriptions"
-								aria-current="page">
-									<div class="el-badge badge-has-new">
-										Followings <sup
+							<li class="feedbar-item">
+							</li>
+							
+							<li class="feedbar-item nuxt-link-exact-active active">
+								<a href="#" class="feed-link posts-newest">
+									<div class="el-badge badge-has-new"> Newest 
+									<sup
 											class="el-badge__content el-badge__content--undefined is-fixed"
 											style="display: none;"></sup>
+									</div>
+							</a></li>
+
+							<li class="feedbar-item">
+								<a href="/followings" class="feed-link posts-subscriptions" aria-current="page">
+									<div class="el-badge badge-has-new"> Followings 
+										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;">
+										</sup>
 									</div>
 							</a>
 							</li>
-							<li class="feedbar-item"><a href="#"
-								class="feed-link posts-newest">
-									<div class="el-badge badge-has-new">
-										Newest <sup
-											class="el-badge__content el-badge__content--undefined is-fixed"
-											style="display: none;"></sup>
-									</div>
-							</a></li>
+							
+<!-- 							<li class="feedbar-item"> -->
+<!-- 								<a href="#" class="feed-link posts-trending"> -->
+<!-- 									<div class="el-badge badge-has-new"> -->
+<!-- 										Trending <sup -->
+<!-- 											class="el-badge__content el-badge__content--undefined is-fixed" -->
+<!-- 											style="display: none;"></sup> -->
+<!-- 									</div> -->
+<!-- 							</a></li> -->
 
-							<li class="feedbar-item"><a href="#"
-								class="feed-link posts-trending">
-									<div class="el-badge badge-has-new">
-										Trending <sup
-											class="el-badge__content el-badge__content--undefined is-fixed"
-											style="display: none;"></sup>
-									</div>
-							</a></li>
-
-							<li class="feedbar-item"><a href="/clip/posts"
-								class="feed-link posts-clip">
-									<div class="el-badge badge-has-new">
-										My Clips <sup
-											class="el-badge__content el-badge__content--undefined is-fixed"
-											style="display: none;"></sup>
+							<li class="feedbar-item">
+								<a href="/clip/posts" class="feed-link posts-clip">
+									<div class="el-badge badge-has-new"> My Clips 
+										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup>
 									</div>
 							</a></li>
 						</ul>
 					</div>
 				</div>
-				<a href="posts/create.jsp"
-					class="btn btn-primary float-right text-uppercase hidden-md-down mr-2"
-					style="font-size: 13px; font-weight: 600; font-family: sans-serif;">
-					<i aria-hidden="true" class="fas fa-pencil-alt"></i> Create Post
-				</a>
+<!-- 				<a href="posts/create.jsp" -->
+<!-- 					class="btn btn-primary float-right text-uppercase hidden-md-down mr-2" -->
+<!-- 					style="font-size: 13px; font-weight: 600; font-family: sans-serif;"> -->
+<!-- 					<i aria-hidden="true" class="fas fa-pencil-alt"></i> Create Post -->
+<!-- 				</a> -->
 			</div>
 		</div>
 	</div>
@@ -161,19 +151,18 @@
 
 			<div id="Bookmarks" class="tabcontent">
 				<div class="jumbotron jumbotron-fluid">
-					<div class="btn-group dropdown">
-						<button type="button" class="btn">Sort by:</button>
-						<label class="sorttype"> Publish date</label>
-						<button type="button"
-							class="btn dropdown-toggle dropdown-toggle-split"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="sr-only">Toggle Dropdown</span>
-						</button>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Publish date</a> <a
-								class="dropdown-item" href="#">Clip date</a>
-						</div>
-					</div>
+<!-- 					<div class="btn-group dropdown"> -->
+<!-- 						<button type="button" class="btn">Sort by:</button> -->
+<!-- 						<label class="sorttype"> Publish date</label> -->
+<!-- 						<button type="button" class="btn dropdown-toggle dropdown-toggle-split" -->
+<!-- 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+<!-- 							<span class="sr-only">Toggle Dropdown</span> -->
+<!-- 						</button> -->
+<!-- 						<div class="dropdown-menu"> -->
+<!-- 							<a class="dropdown-item" href="#">Publish date</a> <a -->
+<!-- 								class="dropdown-item" href="#">Clip date</a> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					
 					<c:forEach var="p" items="${topPosts}" begin="0" end="${topPosts.size()}" varStatus="loop">
 						<div class="post-div container">

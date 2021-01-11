@@ -132,7 +132,6 @@ function FileUpload(url) {
 	var fd = new FormData();
 	for (let i = 0; i < files.length; i++) {
 		fd.append("fileToUpload[]", files[i], files[i].name);
-		
 	}
 	const xhr = new XMLHttpRequest();
 	this.xhr = xhr;
@@ -143,4 +142,5 @@ function FileUpload(url) {
 	xhr.send(fd);
 	$('.upload-btn').hide();
 	$('.remove-btn').show();
+	
 }

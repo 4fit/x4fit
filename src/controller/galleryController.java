@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Gallery;
+import model.User;
 
 @WebServlet("/gallery")
 public class galleryController extends HttpServlet {
@@ -22,7 +23,8 @@ public class galleryController extends HttpServlet {
 
     private void GetGallery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-    	Gallery gallary = Gallery.GetGallery(1);
+    	int userID = User.GetUserIDFromCookies(request.getCookies());
+    	Gallery gallary = Gallery.GetGallery(userID);
     	List<String> images;
     	try {
     		images = gallary.getImages();

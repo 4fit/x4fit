@@ -18,10 +18,6 @@ public class Gallery extends Model
 	private List<Integer> follower;
 	private List<Integer> following;
 	private List<Integer> clips;
-	private String strImages;
-	private String strFollowers;
-	private String strFollowings;
-	private String strClips;
 	
 	public int getID() {
 		return ID;
@@ -53,11 +49,6 @@ public class Gallery extends Model
 
 	public void setImages(List<String> images) {
 		this.images = images;
-		StringBuilder sb = new StringBuilder();
-		for (String img : images) {
-			sb.append(img).append("|");
-		}
-		this.strImages = sb.toString();
 	}
 
 	public List<Integer> getFollower() {
@@ -66,11 +57,6 @@ public class Gallery extends Model
 
 	public void setFollower(List<Integer> follower) {
 		this.follower = follower;
-		StringBuilder sb = new StringBuilder();
-		for (Integer x : follower) {
-			sb.append(x.toString()).append("|");
-		}
-		this.strImages = sb.toString();
 	}
 
 	public List<Integer> getFollowing() {
@@ -79,11 +65,6 @@ public class Gallery extends Model
 
 	public void setFollowing(List<Integer> following) {
 		this.following = following;
-		StringBuilder sb = new StringBuilder();
-		for (Integer x : following) {
-			sb.append(x.toString()).append("|");
-		}
-		this.strImages = sb.toString();
 	}
 
 	public List<Integer> getClips() {
@@ -92,11 +73,6 @@ public class Gallery extends Model
 
 	public void setClips(List<Integer> clips) {
 		this.clips = clips;
-		StringBuilder sb = new StringBuilder();
-		for (Integer x : clips) {
-			sb.append(x.toString()).append("|");
-		}
-		this.strImages = sb.toString();
 	}
 
 	public Gallery() {}
@@ -152,7 +128,7 @@ public class Gallery extends Model
 	
 	public static Gallery GetGallery(int userID)
 	{
-		Document doc = Model.GALLERY.find(Filters.eq("user", userID)).first();
+		Document doc = Model.GALLERY.find(Filters.eq("userID", userID)).first();
 		if (doc != null)
 			return Doc2Gallary(doc);
 		return null;

@@ -99,12 +99,6 @@
 		</form>
 	</div>
 
-	<!-- Upload Model -->
-	<!-- Button trigger modal 
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-	  Launch demo modal
-	</button>
-	-->
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalTitle" aria-hidden="true">
@@ -123,7 +117,6 @@
 				<hr>
 				<div align="center">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">OK</button>
 				</div>
 			</div>
 		</div>
@@ -143,14 +136,14 @@
 
 		$('.upload-btn').hide();
 		$('.remove-btn').hide();
-// 		$('input[type="file"]').on('change', function() {
-// 			var reader = new FileReader();
-// 			reader.onload = function() {
-// 				var thisImage = reader.result;
-// 				localStorage.setItem("imgData", thisImage);
-// 			};
-// 			reader.readAsDataURL(this.files[0]);
-// 		});
+
+		function insertImage(simplemde, url)
+		{
+			var pos = simplemde.codemirror.getCursor();
+			simplemde.codemirror.setSelection(pos, pos);
+			simplemde.codemirror.replaceSelection("![Figure](" + url + ")");
+			
+		}
 	</script>
 </body>
 </html>

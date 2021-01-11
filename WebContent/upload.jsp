@@ -20,7 +20,7 @@
 	<div class="file-upload">
 		<div class="image-upload-wrap">
 			<input class="file-upload-input" type='file' name="fileToUpload"
-				id="fileToUpload" onchange="readURL(this, 'div.preview');"
+				id="fileToUpload" onchange="readURL(this);"
 				accept="image/*" multiple />
 			<div class="drag-text">
 				<h3>Drag and drop a file or select add Image</h3>
@@ -33,10 +33,10 @@
 		<div align="center">
 			<div class="upload-btn">
 				<button type="button"
-					onclick="FileUpload('${pageContext.request.contextPath}/upload')"
+					onclick="FileUpload('${pageContext.request.contextPath}/upload', 'div.preview')"
 					class="btn btn-primary">Upload</button>
 			</div>
-			<div class="remove-btn" s>
+			<div class="remove-btn">
 				<button type="button" onclick="removeUpload()"
 					class="btn btn-danger image-title-wrap">Remove ALL</button>
 			</div>
@@ -45,7 +45,8 @@
 	<div class="gallary" align="center">
 		<h5>Gallery</h5>
 		<c:forEach var="img" items="${images_gallary}">
-				<input type="image" src="${pageContext.request.contextPath}/${img}" alt="" height="50px"></input>
+				<img src="${pageContext.request.contextPath}/upload/${img}" alt="" height="50px" 
+							onclick="insertImage(content, '${pageContext.request.contextPath}/upload/${img}')"/>
 		</c:forEach>
 	</div>
 </body>

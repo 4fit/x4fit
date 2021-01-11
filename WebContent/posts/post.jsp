@@ -40,9 +40,8 @@
 		
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-				<a class="nav-item nav-link active" href="#">Home <span
-					class="sr-only">(current)</span></a> <a class="nav-item nav-link"
-					href="#">Post</a> <a class="nav-item nav-link" href="#">Profile</a>
+<!-- 				<a class="nav-item nav-link" href="#">Post</a>  -->
+<!-- 				<a class="nav-item nav-link" href="#">Profile</a> -->
 				<div class="input-group mb-10">
 					<input type="text" class="form-control" placeholder="Search"
 						aria-label="Username" aria-describedby="basic-addon1">
@@ -117,13 +116,11 @@
 					<div align="center">
 						<a
 							href="https://www.facebook.com/sharer.php?u=http://x4fit.herokuapp.com/post?p=${url}"
-							target="_blank" type="button" class="share link--muted"
-							data-original-title="Share bài viết lên Facebook"> <img
-							src="https://img.icons8.com/color/48/000000/facebook.png" />
-						</a> <a class="zalo-share-button share" data-href=""
-							data-oaid="579745863508352884" data-layout="2" data-color="white"
-							data-customize=true> <img
-							src="https://img.icons8.com/ios-filled/48/4a90e2/zalo.png" />
+							target="_blank" type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook"> 
+							<img src="https://img.icons8.com/color/64/000000/facebook.png" />
+						</a> 
+						<a class="zalo-share-button share" data-href="" data-oaid="579745863508352884" data-layout="2" data-color="white" data-customize=true> 
+							<img src="https://img.icons8.com/ios-filled/64/4a90e2/zalo.png" />
 						</a>
 					</div>
 				</div>
@@ -226,11 +223,19 @@
 			</div>
 			<!-- Right -->
 			<div class="col-sm-2">
-				<div
-					class="post-actions d-flex flex-column align-items-center mx-auto">
-					<form action="${pageContext.request.contextPath}/edit?p=${url}"
-						method="post">
-						<input type="submit" value="EDIT" class="btn btn-primary">
+				<div class="post-actions d-flex flex-column align-items-center mx-auto">
+					<!-- Edit -->
+					<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
+						<button type="submit" value="EDIT" class="btn btn-primary">
+							<i class="fa fa-edit"></i>
+						</button>
+					</form>
+					<br>
+					<!-- Báo cáo -->
+					<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
+						<button type="submit" value="REPORT" class="btn btn-danger">
+							<i class="fa fa-flag"></i>
+						</button>
 					</form>
 				</div>
 			</div>
