@@ -167,6 +167,10 @@ public class detailPost extends HttpServlet {
 		   	   	dispatcher.forward(request, response);
 	    	}
     		
+	    	else if(request.getParameter("userCurrentAction").equals("post_comment"))
+	    	{
+	    		
+	    	}
     		
     	}
 	    else
@@ -179,6 +183,15 @@ public class detailPost extends HttpServlet {
     	   
 
 	}
+    
+    public List<Post> getListPostForSearch(String textSearch)
+    {
+    	
+    	List<Post> listPost = new ArrayList<Post>();
+    	listPost = dbDetail.searchPost(textSearch);
+    	return listPost;
+    }
+    
     
     public void updateVote(String nameField, int user_id, int post_id)
     {	

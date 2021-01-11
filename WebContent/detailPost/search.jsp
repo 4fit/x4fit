@@ -28,8 +28,24 @@
     margin: 0;
 }
 
+.search-box{
+margin-top: 30px;
+display: inline-block;
+margin-left: 40px;
+}
+
+.search-box input{
+display: inline-block !important;
+}
+
+
+
+.input-group-prepend{
+display: inline-block !important;
+}
+
 body {
-    background: rgb(228, 228, 228) !important;
+    background-color: #fff !important;
 }
 
 .logo {
@@ -655,12 +671,12 @@ li {
                     <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="#">Post</a>
                     <a class="nav-item nav-link" href="#">Profile</a>
-                    <form class="input-group mb-10" action = "" method = "get">
+                    <div class="input-group mb-10">
                         <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
-                            <button type = "hidden" value = "search_home" name = "userCurrentAction" style = "border: none; height: 100%; width: 100%;"><span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span></button>
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                         </div>
-                    </form>
+                    </div>
                     <button class="btn btn-primary mt-1" type="button">
                         <i class="fas fa-bell"></i>
                     </button>
@@ -697,14 +713,18 @@ li {
         </nav>
 
     </header>
-    <div class="banner container-fluid">
-        <div class="container px-0 pl-0">
-            <img class="img-banner img-fluid" src="/images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
-        </div>
-
-    </div>
+    <div class="row">
+    <div class = "col-md-9">
+    <form class="search-box" >
+    <div class = "d-flex">
+     <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+      <div class="input-group-prepend">
+          <button type = "submit" class = "btn btn-primary"><span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span></button>
+      </div>
+      </div>
+</form>
     <!------------------------------THANH BAR------------------------------>
-    <div class="bg-dark py-md-1 py-05">
+    <div class=" py-md-1 py-05">
         <div class="container">
             <div class="row d-flex align-items-center justify-content-between">
                 <div class="feed-bar">
@@ -713,61 +733,34 @@ li {
                             <li class="feedbar-item"></li>
                             <li class="feedbar-item nuxt-link-exact-active active active">
                                 <a href="/followings" class="feed-link posts-subscriptions" aria-current="page">
-                                    <div class="el-badge badge-has-new">
-                                        Followings
+                                    <div class="el-badge badge-has-new" style="color: #9b9b9b;">
+                                        post
                                         <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
                                 </a>
                             </li>
                             <li class="feedbar-item">
                                 <a href="#" class="feed-link posts-newest">
-                                    <div class="el-badge badge-has-new">
-                                        Newest
-                                        <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
-                                </a>
-                            </li>
-
-                            <li class="feedbar-item">
-                                <a href="#" class="feed-link posts-trending">
-                                    <div class="el-badge badge-has-new">
-                                        Trending
-                                        <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
-                                </a>
-                            </li>
-
-                            <li class="feedbar-item">
-                                <a href="/clip/posts" class="feed-link posts-clip">
-                                    <div class="el-badge badge-has-new">
-                                        My Clips
+                                    <div class="el-badge badge-has-new" style="color: #9b9b9b;">
+                                        author
                                         <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <a href="posts/create-post.jsp" class="btn btn-primary float-right text-uppercase hidden-md-down mr-2" style=" font-size: 13px;font-weight: 600;font-family: sans-serif;">
-                    <i aria-hidden="true" class="fas fa-pencil-alt"></i> Create Post</a>
+               
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-9 content-main ">
+    
+        <div class="content-main ">
 
             <!----------------------------------BOOKMARKS--------------------------------------->
 
             <div id="Bookmarks" class="tabcontent">
                 <div class="jumbotron jumbotron-fluid">
-                    <div class="btn-group dropdown">
-                        <button type="button" class="btn"> Sort by: 
-                        </button>
-                        <label class="sorttype"> Publish date</label>
-                        <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Publish date</a>
-                            <a class="dropdown-item" href="#">Clip date</a>
-                        </div>
-                    </div>
+                
+                <!-- block bài viết -->
                     <div class="post-div container">
                         <img class="img-pro-post float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
                         <a class="name-pro-post display-9">Fluid jumbotron</a>
@@ -790,78 +783,14 @@ li {
                     </div>
                     <div class="divider ml-5 mr-5"></div>
 
-                    <div class="post-div container">
-                        <img class="img-pro-post float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
-                        <a class="name-pro-post display-9">Fluid jumbotron</a>
-                        <p class="postime">about 4 hour ago</p>
-                        <p class="lead ml-2 title-post ">This is a modified jumbotron that occupies the entire.</p>
-                        <div class="tag d-flex">
-                            <button class="btn-secondary">#CSS</button>
-                            <button class="btn-secondary">#Booststrap</button>
-
-                        </div>
-                        <span class="viewtag t ml-20">
-                            <i class="far fa-eye"></i><label class="view">16</label>
-                        </span>
-                        <span class="viewtag t ">
-                            <i class="fas fa-paperclip"></i><label class="view">16</label>
-                        </span>
-                        <span class="viewtag t">
-                            <i class="far fa-comment"></i></i><label class="view">16</label>
-                        </span>
-                    </div>
-                    <div class="divider ml-5 mr-5"></div>
-
-                    <div class="post-div container">
-                        <img class="img-pro-post float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
-                        <a class="name-pro-post display-9">Fluid jumbotron</a>
-                        <p class="postime">about 4 hour ago</p>
-                        <p class="lead ml-2 title-post ">This is a modified jumbotron that occupies the entire.</p>
-                        <div class="tag d-flex">
-                            <button class="btn-secondary">#CSS</button>
-                            <button class="btn-secondary">#Booststrap</button>
-
-                        </div>
-                        <span class="viewtag t ml-20">
-                            <i class="far fa-eye"></i><label class="view">16</label>
-                        </span>
-                        <span class="viewtag t ">
-                            <i class="fas fa-paperclip"></i><label class="view">16</label>
-                        </span>
-                        <span class="viewtag t">
-                            <i class="far fa-comment"></i></i><label class="view">16</label>
-                        </span>
-                    </div>
-                    <div class="divider ml-5 mr-5"></div>
-
-                    <div class="post-div container">
-                        <img class="img-pro-post float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
-                        <a class="name-pro-post display-9">Fluid jumbotron</a>
-                        <p class="postime">about 4 hour ago</p>
-                        <p class="lead ml-2 title-post ">This is a modified jumbotron that occupies the entire.</p>
-                        <div class="tag d-flex">
-                            <button class="btn-secondary">#CSS</button>
-                            <button class="btn-secondary">#Booststrap</button>
-
-                        </div>
-                        <span class="viewtag t ml-20">
-                            <i class="far fa-eye"></i><label class="view">16</label>
-                        </span>
-                        <span class="viewtag t ">
-                            <i class="fas fa-paperclip"></i><label class="view">16</label>
-                        </span>
-                        <span class="viewtag t">
-                            <i class="far fa-comment"></i></i><label class="view">16</label>
-                        </span>
-                    </div>
-                    <div class="divider ml-5 mr-5"></div>
-
+                 <!-- end block -->
                 </div>
             </div>
         </div>
-
+		</div>
+		<div class = "col-md-3">
         <!------------------------------Top AUTHORT---------------------------->
-        <div class="list-static col-lg-3 hidden-md-down float-right">
+        <div class="list-static hidden-md-down">
             <ul class="list-group ">
                 <li class="label">
                     <h3>TOP AUTHORS</h3>
@@ -942,7 +871,7 @@ li {
 
             </ul>
         </div>
-
+		</div>
     </div>
 </body>
 </html>

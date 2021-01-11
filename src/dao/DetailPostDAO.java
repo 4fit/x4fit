@@ -15,6 +15,23 @@ import org.bson.conversions.Bson;
 
 public class DetailPostDAO extends DAO {
 
+	public List<Post> searchPost(String textSearch)
+	{
+		List<Post> lPost = new ArrayList<Post>();
+		MongoCollection<Document> collection  =  DAO.db.getCollection("POST");
+		BasicDBObject regexQuery = new BasicDBObject();
+		regexQuery.put("name", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+
+		FindIterable<Document> listPost = collection.find(regexQuery);
+		Iterator<Document> list = listPost.iterator();
+		while(list.hasNext())
+		{
+			lPost.add(ConverseToPost(list.next()));
+		}
+		
+		return lPost;
+	}
+	
 	
 	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote
 	{
