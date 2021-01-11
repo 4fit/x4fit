@@ -53,7 +53,7 @@
 				<button class="btn btn-primary mt-1" type="button">
 					<i class="fas fa-bell"></i>
 				</button>
-				<a href="posts/create-post.jsp">
+				<a href="posts/create.jsp">
 					<button class="btn btn-secondary mt-1" type="button">
 						<i class="fas fa-edit"></i>
 					</button>
@@ -242,7 +242,7 @@
 		</div>
 		<hr>
 	</div>
-
+	<jsp:include page="../modal.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
 		content = ViewContent(); 
@@ -251,6 +251,15 @@
 		listComments.forEach((comment) => comment.togglePreview());
 		
 		cmt = Comment();
+		$('.image-upload-wrap').bind('dragover', function() {
+			$('.image-upload-wrap').addClass('image-dropping');
+		});
+		$('.image-upload-wrap').bind('dragleave', function() {
+			$('.image-upload-wrap').removeClass('image-dropping');
+		});
+
+		$('.upload-btn').hide();
+		$('.remove-btn').hide();
   </script>
 	<script src="https://sp.zalo.me/plugins/sdk.js"></script>
 </body>

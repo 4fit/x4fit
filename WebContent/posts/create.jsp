@@ -11,8 +11,6 @@
 	href="${pageContext.request.contextPath}/images/logo2.png" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/styles/post.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/styles/post_editor.css">
 <script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 <!-- GetBootstrap -->
 <link rel="stylesheet"
@@ -99,28 +97,7 @@
 		</form>
 	</div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Images</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<jsp:include page="../upload.jsp" /> 
-				</div>
-				<hr>
-				<div align="center">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="../modal.jsp"></jsp:include>
 
 	<hr>
 
@@ -137,13 +114,15 @@
 		$('.upload-btn').hide();
 		$('.remove-btn').hide();
 
-		function insertImage(simplemde, url)
-		{
-			var pos = simplemde.codemirror.getCursor();
-			simplemde.codemirror.setSelection(pos, pos);
-			simplemde.codemirror.replaceSelection("![Figure](" + url + ")");
-			
-		}
+	</script>
+	<script type="text/javascript">
+	function insertImage(simplemde, url)
+	{
+		var pos = simplemde.codemirror.getCursor();
+		simplemde.codemirror.setSelection(pos, pos);
+		simplemde.codemirror.replaceSelection("![Figure](" + url + ")");
+		
+	}
 	</script>
 </body>
 </html>

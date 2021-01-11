@@ -1,6 +1,0 @@
-@charset "UTF-8";
-
-.CodeMirror, .CodeMirror-scroll {
-    height: auto !important;
-    min-height: 300px !important;
-}
