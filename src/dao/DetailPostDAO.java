@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import model.*;
 import com.mongodb.BasicDBObject;
@@ -17,23 +18,39 @@ import org.bson.conversions.Bson;
 
 public class DetailPostDAO extends DAO {
 
+	
+	
 	public List<Post> searchPost(String textSearch)
 	{
 		List<Post> lPost = new ArrayList<Post>();
-		MongoCollection<Document> collection  =  DAO.db.getCollection("POST");
-		System.out.print( "test" + collection);
+		MongoCollection<Document> collection  =  db.getCollection("POST");
+		
 		BasicDBObject regexQuery = new BasicDBObject();
-//		regexQuery.put("title", new BasicDBObject("$regex", textSearch + ".*").append("$options", "i"));
-		//regexQuery.put("title", new BasicDBObject("$regex", "sinh.*").append("$options", "i"));
-		regexQuery.put("title", java.util.regex.Pattern.compile(".*sinh.*"));
+		regexQuery.put("title", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
 		FindIterable<Document>  listPost = collection.find(regexQuery);
-		MongoCursor<Document> list = listPost.iterator();
-		
-		
+		Iterator<Document> list = listPost.iterator();
+	
 		while(list.hasNext())
 		{
-			lPost.add(ConverseToPost(list.next()));
-			
+			lPost.add(ConverseToPost(list.next()));			
+		}
+		
+		return lPost;
+	}
+	
+	public List<User> searchAuthor(String textSearch)
+	{
+		List<User> lPost = new ArrayList<User>();
+		MongoCollection<Document> collection  =  db.getCollection("USER");
+		
+		BasicDBObject regexQuery = new BasicDBObject();
+		regexQuery.put("fullname", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+		FindIterable<Document>  listUser = collection.find(regexQuery);
+		Iterator<Document> list = listUser.iterator();
+	
+		while(list.hasNext())
+		{
+			lPost.add(ConverseToPost(list.next()));			
 		}
 		
 		return lPost;
@@ -133,9 +150,9 @@ public class DetailPostDAO extends DAO {
 		if(Obj.get("views_count")!=null)
 			p.setViews_count(Integer.parseInt(Obj.get("views_count").toString()));
 		
-		if(Obj.get("upvote")!=null)
-			p.setUpvote((int[])Obj.get("upvote"));
-		
+//		if(Obj.get("upvote")!=null)
+//			p.setUpvote((ArrayList[])Obj.get("upvote"));
+//		
 		if(Obj.get("user_id")!=null)
 			p.setUser_id((Obj.getInteger("user_id")));	 
 		

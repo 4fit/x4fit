@@ -673,12 +673,12 @@ li {
                     <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="#">Post</a>
                     <a class="nav-item nav-link" href="#">Profile</a>
-                    <div class="input-group mb-10">
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+                   <form class="input-group mb-10" action = "home" method = "get">
+                        <input name = "textSearch" type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                            <button type = "hidden" value = "search_home" name = "userCurrentAction" style = "border: none; height: 100%; width: 100%;"><span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span></button>
                         </div>
-                    </div>
+                    </form>
                     <button class="btn btn-primary mt-1" type="button">
                         <i class="fas fa-bell"></i>
                     </button>

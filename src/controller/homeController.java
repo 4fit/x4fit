@@ -43,8 +43,9 @@ public class homeController extends HttpServlet {
     	String textSearch = request.getParameter("textSearch");
     	if(textSearch != "")
     	{
-    		System.out.print(getListPostForSearch(textSearch));
+    		System.out.print("list" + getListPostForSearch(textSearch));
     		request.setAttribute("listPost",getListPostForSearch(textSearch) );
+    		
     		RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
        	   	dispatcher.forward(request, response);
     	}
@@ -62,6 +63,14 @@ public class homeController extends HttpServlet {
     	List<Post> listPost = new ArrayList<Post>();
     	listPost = dbDetail.searchPost(textSearch);
     	return listPost;
+    }
+    
+    public List<User> getListAuthorForSearch(String textSearch)
+    {
+    	
+    	List<User> listUser = new ArrayList<User>();
+    	listUser = dbDetail.searchAuthor(textSearch);
+    	return listUser;
     }
     
     

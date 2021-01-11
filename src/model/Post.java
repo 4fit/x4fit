@@ -36,8 +36,14 @@ public class Post
 		Document user = UserDAO.getUserInfo(this.user_id);
 		String name = "name author";
 		
-		if(user.getString("name")!= null)
+		try
+		{if(user.getString("name")!= null)
 			name = user.getString("name");
+		}
+		catch(NullPointerException x)
+		{
+			name = "name author";
+		}
 		
 		return name;
 	}
