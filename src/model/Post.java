@@ -40,7 +40,12 @@ public class Post extends Model {
 	public void setClips(List<Integer> clips) {
 		this.clips = clips;
 	}
-
+	public List<Integer> getUpvote() {
+		return upvote;
+	}
+	public void setUpvote(List<Integer> upvote) {
+		this.upvote = upvote;
+	}
 	public List<Integer> getDownvote() {
 		return downvote;
 	}
@@ -148,7 +153,7 @@ public class Post extends Model {
 	public Post() {
 	}
 
-	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category, String status) 
+	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category) 
 	{
 		this.id = getPostID();
 		this.title = title;
@@ -161,7 +166,7 @@ public class Post extends Model {
 		this.is_public = is_public;
 		this.thumbnail_url = thumbnail_url;
 		this.category = category;
-		this.status = status;
+		this.status = "Chờ duyệt";
 	}
 
 	public Post(int id, String title, int user_id, String p, String content, String published_at, String updated_at,
@@ -213,10 +218,10 @@ public class Post extends Model {
 		return data;
 	}
 
-//	public static void Insert(Post p) {
-//		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getURL(), p.getContent(), p.getPublished_at(), p.getIs_public(),
-//				p.getViews_count(), p.getPoints(), p.getThumbnail_url(), p.getCategory());
-//	}
+	public static void Insert(Post p) {
+		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getURL(), p.getContent(), p.getPublished_at(), p.getIs_public(),
+				p.getViews_count(), p.getPoints(), p.getThumbnail_url(), p.getCategory());
+	}
 
 	public static void Insert(int id, String title, int user_id, String p, String content, String published_at,
 			boolean is_public, int views_count, int points, String thumbnail_url, String category) 
@@ -405,18 +410,6 @@ public class Post extends Model {
 		POST.updateOne(query, updateObject);
 	}
 
-//	public void updateClipsCountOfPost(int idPost, int clipsCount)
-//	{
-//		BasicDBObject query  = new BasicDBObject();
-//		query.put("post_id", idPost);
-//		BasicDBObject newClipsDoc = new BasicDBObject();
-//		newClipsDoc.put("clips_count", clipsCount);
-//		BasicDBObject updateObject = new BasicDBObject();
-//		updateObject.put("$set", newClipsDoc);
-//		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
-//		collection.updateOne(query, updateObject);
-//	}
-
 	public int countComment(int post_id) {
 		FindIterable<Document> listCMT = CMT.find(Filters.eq("post_id", post_id));
 		Iterator<Document> lCMT = listCMT.iterator();
@@ -427,5 +420,48 @@ public class Post extends Model {
 			count++;
 		}
 		return count;
+	}
+	
+	public static void InsertUpvote(String url, int userID)
+	{
+		POST.findOneAndUpdate(
+				Filters.eq("url", url), 
+				Updates.combine(
+						Updates.addToSet("upvote", userID), 
+						Updates.inc("points", 1)
+						)
+				);
+	}
+	
+	public static void InsertDownvote(String url, int userID)
+	{
+		POST.findOneAndUpdate(
+				Filters.eq("url", url), 
+				Updates.combine(
+						Updates.addToSet("downvote", userID), 
+						Updates.inc("points", -1)
+						)
+				);
+		
+	}
+	
+	public static void InsertClips(String url, int userID)
+	{
+		POST.findOneAndUpdate(Filters.eq("url", url), Updates.addToSet("clips", userID));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static int GetClipsCount(String url)
+	{
+		Document doc = POST.find(Filters.eq("url", url)).first();
+		try
+		{
+			List<Integer> clips = (List<Integer>) Utilities.convertObjectToList(doc.get("clips"));
+			return clips.size();
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			return -1;
+		}
 	}
 }
