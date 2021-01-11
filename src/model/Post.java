@@ -440,6 +440,7 @@ public class Post extends Model {
 	
 	public static void InsertUpvote(String url, int userID)
 	{
+<<<<<<< HEAD
 		POST.findOneAndUpdate(
 				Filters.eq("url", url), 
 				Updates.combine(
@@ -447,6 +448,12 @@ public class Post extends Model {
 						Updates.inc("points", 1)
 						)
 				);
+=======
+		User user= new User();
+		Document author=user.getUserInfo(this.user_id);
+		System.out.print(author.getString("name"));
+		return author.getString("name");
+>>>>>>> 1d220e3... old commit
 	}
 	
 	public static void InsertDownvote(String url, int userID)
