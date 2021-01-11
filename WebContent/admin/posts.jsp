@@ -16,7 +16,7 @@
     border-radius: 50%;
 }
 
-.form-control {
+.form-control { 
     width: 500px !important;
 }
 
