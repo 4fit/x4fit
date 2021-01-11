@@ -219,8 +219,17 @@ public class Post extends Model {
 	}
 
 	public static void Insert(Post p) {
-		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getURL(), p.getContent(), p.getPublished_at(), p.getIs_public(),
-				p.getViews_count(), p.getPoints(), p.getThumbnail_url(), p.getCategory());
+		Insert( p.getID(), 
+				p.getTitle(), 
+				p.getUser_id(), 
+				p.getURL(), 
+				p.getContent(), 
+				p.getPublished_at(), 
+				p.getIs_public(),
+				p.getViews_count(), 
+				p.getPoints(), 
+				p.getThumbnail_url(), 
+				p.getCategory());
 	}
 
 	public static void Insert(int id, String title, int user_id, String p, String content, String published_at,
@@ -247,7 +256,8 @@ public class Post extends Model {
 
 	public static void allowPost(int postId) {
 		try {
-			POST.updateOne(Filters.eq("id", postId), new Document("$set", new Document("allow_post", true)));
+			POST.updateOne(Filters.eq("id", postId), 
+					new Document("$set", new Document("allow_post", true)));
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
@@ -323,8 +333,11 @@ public class Post extends Model {
 		if (!new_title.equals(title))
 			newURL = Utilities.createURL(title);
 		POST.updateOne(Filters.eq("url", p),
-				Updates.combine(Updates.set("url", newURL), Updates.set("title", title), Updates.set("content", content),
-						Updates.set("category", category), Updates.set("is_public", is_public),
+				Updates.combine(Updates.set("url", newURL), 
+						Updates.set("title", title), 
+						Updates.set("content", content),
+						Updates.set("category", category), 
+						Updates.set("is_public", is_public),
 						Updates.set("updated_at", Utilities.GetCurrentDateTime()),
 						Updates.set("thumbnail_url", thumbnail_url)));
 		return newURL;

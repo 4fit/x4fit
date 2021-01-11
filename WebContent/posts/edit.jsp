@@ -134,13 +134,15 @@
 					</div>
 					<input type="text" class="form-control" name="tags" value="${category}" width="100%">
 					<!-- Status -->
+					
 					<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon1">Status</span>
-						</div>
-					<div class="form-check form-control-lg">
-			        <input class="form-check-input" type="checkbox" id="gridCheck1">
-			        <label class="form-check-label" for="gridCheck1">Public</label>
-			      </div>
+						<span class="input-group-text" id="basic-addon1">Status</span>
+					</div>
+					<div class="form-check">
+		        <input class="form-check-input" type="checkbox" id="is_public" name="is_public">
+		        <label class="form-check-label" for="gridCheck1">Public</label>
+			    </div>
+					
 				</div>
 				
 <!-- 				<div> -->
