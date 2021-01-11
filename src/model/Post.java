@@ -345,28 +345,6 @@ public class Post extends Model {
 		return newURL;
 		
 	}
-	
-	public static String Update(String p, String title, String new_title, String content, 
-			boolean is_public, String thumbnail_url, String category, String status) {
-		
-		String newURL = p;
-		if (!new_title.equals(title))
-			newURL = Utilities.createURL(title);
-		POST.updateOne(Filters.eq("url", p),
-				Updates.combine(Updates.set("url", newURL), 
-						Updates.set("title", title), 
-						Updates.set("content", content),
-						Updates.set("category", category), 
-						Updates.set("is_public", is_public),
-						Updates.set("updated_at", Utilities.GetCurrentDateTime()),
-						Updates.set("thumbnail_url", thumbnail_url),
-						Updates.set("status", status)
-						)
-				);
-		
-		return newURL;
-		
-	}
 
 	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote
 	{
