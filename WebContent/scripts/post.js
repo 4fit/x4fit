@@ -136,18 +136,11 @@ function FileUpload(url) {
 	const xhr = new XMLHttpRequest();
 	this.xhr = xhr;
 	// Open
-	xhr.open("POST", url);
+    xhr.open("POST", url);
 	xhr.overrideMimeType("multipart/form-data;");
 	//xhr.setRequestHeader("Content-Type", "multipart/form-data; boundary=$boundary");
 	xhr.send(fd);
 	$('.upload-btn').hide();
 	$('.remove-btn').show();
-
-}
-
-function insertImage(simplemde, url) {
-	var pos = simplemde.codemirror.getCursor();
-	simplemde.codemirror.setSelection(pos, pos);
-	simplemde.codemirror.replaceSelection("![Figure](" + url + ")");
-
+	
 }
