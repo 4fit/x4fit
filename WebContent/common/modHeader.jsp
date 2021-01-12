@@ -12,24 +12,18 @@
       
       <div class="nav-left">
           <ul>
-              <li id="dashboard">
-                  <a id="a1" href="#">
-                      <i class="fa fa-home" aria-hidden="true"></i>
-                      <span>Dashboard</span> 
-                  </a>
-              </li>
               <div class="dropdown-divider"></div>
               <li id="user">
-                  <a id="a2" href="${pageContext.request.contextPath}/all-users">
+                  <a id="a2" href="#">
                       <i class="fa fa-user" aria-hidden="true"></i>
-                      <span>Users</span> 
+                      <span>CATEGORY</span> 
                   </a>
               </li>
               <div class="dropdown-divider"></div>
               <li id="post">
-                  <a id="a3" href="${pageContext.request.contextPath}/all-posts">
+                  <a id="a3" href="${pageContext.request.contextPath}/mod/all-posts">
                       <i class="fa fa-book" aria-hidden="true"></i>
-                      <span>Posts</span> 
+                      <span>POSTS</span> 
                   </a>
               </li>
           </ul>
