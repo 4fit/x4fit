@@ -79,6 +79,16 @@ public class Category extends Model
 		return newURL;		
 	}
 	
+	public static boolean Delete(String url) {
+		try {
+			CATEGORY.deleteOne(Filters.eq("url", url));
+			return true;
+		} catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			return false;
+		}
+	}
+	
 	public static boolean IncreaseCountPost(String categoryName) {
 		try {
 			CATEGORY.findOneAndUpdate(Filters.eq("name", categoryName), 
