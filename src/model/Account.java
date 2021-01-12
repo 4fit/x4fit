@@ -91,7 +91,7 @@ public class Account extends Model {
 	
 	public static Account Doc2Account(Document doc)
 	{
-		return new Account(doc.getInteger("userID"),
+		return new Account(doc.getInteger("user_id"),
 						   doc.getString("password"),
 						   doc.getString("user_type"),
 						   doc.getString("email"));

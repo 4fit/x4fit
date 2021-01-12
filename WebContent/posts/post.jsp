@@ -112,33 +112,54 @@
 						</button>
 					</div>
 
-					<!-- Share -->
 					<div align="center">
+						<!-- Share -->
 						<a
 							href="https://www.facebook.com/sharer.php?u=http://x4fit.herokuapp.com/post?p=${url}"
 							target="_blank" type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook"> 
-							<img src="https://img.icons8.com/color/64/000000/facebook.png" />
+							<img src="https://img.icons8.com/color/48/000000/facebook.png" />
 						</a> 
 						<a class="zalo-share-button share" data-href="" data-oaid="579745863508352884" data-layout="2" data-color="white" data-customize=true> 
-							<img src="https://img.icons8.com/ios-filled/64/4a90e2/zalo.png" />
+							<img src="https://img.icons8.com/ios-filled/48/4a90e2/zalo.png" />
 						</a>
+						
+						<br>
+						
+						<c:if test="${is_author}">
+							<!-- Edit -->
+							<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
+								<button type="submit" value="EDIT" class="btn btn-primary">
+									<i class="fa fa-edit"></i>
+								</button>
+							</form>
+							<br>
+						</c:if>
+						
+						<!-- Báo cáo -->
+						<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
+							<button type="submit" value="REPORT" class="btn btn-danger">
+								<i class="fa fa-flag"></i>
+							</button>
+						</form>
 					</div>
 				</div>
 			</div>
 
 			<!-- Content -->
 			<div class="col-sm-8">
-				<h1 align="center">
+				<h1 align="center" style="margin: 20px;">
 					<b>${title}</b>
 				</h1>
 				<textarea id="content" name="content">${content}</textarea>
 				<br>
 				
 				<h4>Bình luận</h4>
-				<form action="${pageContext.request.contextPath}/comment">
+				<form action="${pageContext.request.contextPath}/comment" method="post">
 					<textarea id="comment" name="comment"></textarea>
 					<br>
 					<div class="align-middle text-center">
+						<input type="hidden" value="${postID}" name="postID">
+						<input type="hidden" value="${url}" name="url">
 						<input class="btn btn-primary" type="submit" value="Bình luận">
 					</div>
 				</form>
@@ -159,9 +180,13 @@
 								</div>
 
 								<div class="info_username_comment">
-									<a href="${listUserCmt.get(i).getUrl()}"><c:out
-											value="${listUserCmt.get(i).getFullname()}"></c:out></a> <br /> <span
-										class="text-muted">@author</span>
+									<a href="${listUserCmt.get(i).getUrl()}">
+										<c:out value="${listUserCmt.get(i).getFullname()}"></c:out>
+									</a> 
+									<br /> 
+									<c:if test="${is_author}">
+										<span class="text-muted">@author</span>
+									</c:if>
 								</div>
 
 								<div class="time_comment">
@@ -175,25 +200,21 @@
 							</div>
 
 							<div class="vote_comment">
-								<div class="score">
-									<button class="icon-btn vote" data-toggle="tooltip"
-										data-placement="bottom" title="Upvote">
-										<i aria-hidden="true" class="fa fa-chevron-up text-muted"></i>
+								<div class="action_with_comment">
+									<span>
+										<input style="background-color: transparent; border: none; direction: rtl;" disabled size="1" id="cmt${cmt.getID()}" value="${cmt.getPoints()}"/> 
+										<i class="fas fa-heart btn-sm"></i> points
+									</span>
+									<button type="submit" value="Upvote" 
+													onclick="Vote(${cmt.getID()}, 'COMMENT', 1, '${pageContext.request.contextPath}/vote');
+																	 incrementValue('cmt${cmt.getID()}');">
+										<i class="fas fa-thumbs-up btn btn-warning btn-sm"></i>&nbsp;Upvote
 									</button>
-			
-									<span class="point_vote_comment"><c:out value="${cmt.getPoints()}"></c:out></span>
-			
-									<button class="icon-btn vote" data-toggle="tooltip"
-										data-placement="bottom" title="downvote">
-										<i aria-hidden="true" class="fa fa-chevron-down text-muted"></i>
+									<button type="submit" value="Downvote" 
+													onclick="Vote(${cmt.getID()}, 'COMMENT', -1, '${pageContext.request.contextPath}/vote');
+																	 decrementValue('cmt${cmt.getID()}');">
+										<i class="fas fa-thumbs-down btn btn-dark btn-sm"></i>&nbsp;Downvote
 									</button>
-			
-								</div>
-			
-								<div class="action_with_comment d">
-									<a class="reply_comment"> <span class="text-muted" id="reply">Reply</span>
-									</a> <a class="share_comment"> <span class="text-muted">Share</span>
-									</a>
 								</div>
 			
 								<div class="more_comment">
@@ -223,36 +244,23 @@
 			</div>
 			<!-- Right -->
 			<div class="col-sm-2">
-				<div class="post-actions d-flex flex-column align-items-center mx-auto">
-					<!-- Edit -->
-					<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
-						<button type="submit" value="EDIT" class="btn btn-primary">
-							<i class="fa fa-edit"></i>
-						</button>
-					</form>
-					<br>
-					<!-- Báo cáo -->
-					<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
-						<button type="submit" value="REPORT" class="btn btn-danger">
-							<i class="fa fa-flag"></i>
-						</button>
-					</form>
-				</div>
+				
 			</div>
 		</div>
 		<hr>
 	</div>
+	
 	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
 	<jsp:include page="../modals/modalReport.jsp"></jsp:include>
 
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
-		content = ViewContent(); 
-		content.togglePreview();
+		detailPost = ViewContent(); 
+		detailPost.togglePreview();
 		var listComments = ViewComments();
 		listComments.forEach((comment) => comment.togglePreview());
 		
-		cmt = Comment();
+		content = Comment();
 		$('.image-upload-wrap').bind('dragover', function() {
 			$('.image-upload-wrap').addClass('image-dropping');
 		});

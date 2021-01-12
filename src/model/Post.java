@@ -199,7 +199,7 @@ public class Post extends Model {
 	}
 
 	public ArrayList<Comment> GetAllComments() {
-		FindIterable<Document> cursor = CMT.find(Filters.eq("postID", this.getID()));
+		FindIterable<Document> cursor = CMT.find(Filters.eq("post_id", this.getID()));
 		Iterator<Document> it = cursor.iterator();
 		ArrayList<Comment> listComments = new ArrayList<Comment>();
 		if (it.hasNext()) {
@@ -311,6 +311,11 @@ public class Post extends Model {
 		return topPost;
 	}
 
+	public static void Vote(int id, int point)
+	{
+		POST.findOneAndUpdate(Filters.eq("id", id), Updates.inc("points", point));
+	}
+	
 	// Lấy tất cả các bài postController của một user
 	// Truyền vào user id
 
@@ -336,7 +341,7 @@ public class Post extends Model {
 			newURL = Utilities.createURL(title);
 		POST.updateOne(Filters.eq("url", p),
 				Updates.combine(Updates.set("url", newURL), 
-						Updates.set("title", title), 
+						Updates.set("title", new_title), 
 						Updates.set("content", content),
 						Updates.set("category", category), 
 						Updates.set("is_public", is_public),

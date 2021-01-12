@@ -46,7 +46,7 @@ public class Authenticator extends Model{
 	
 	public static void Update(int userID, String selector, String validator)
 	{
-		AUTHENTICATION.updateOne(Filters.eq("userID", userID), 
+		AUTHENTICATION.updateOne(Filters.eq("user_id", userID), 
 				Updates.combine(Updates.set("selector", selector),
 								Updates.set("validator", validator)));
 	}
@@ -56,7 +56,7 @@ public class Authenticator extends Model{
 		Document doc = new Document("id", this.getId())
 				.append("selector", this.getSelector())
 				.append("validator", this.getValidator())
-				.append("userID", this.getUserID());
+				.append("user_id", this.getUserID());
 		Model.Insert(doc, AUTHENTICATION);
 	}
 }

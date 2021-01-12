@@ -21,16 +21,19 @@ public class commentController extends HttpServlet {
 
 	protected void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
-		int postID = (int) request.getAttribute("postID");
-		int userID = User.Authenticator(session.getAttribute("selector").toString(), 
-										 session.getAttribute("validator").toString());
-		String content = request.getParameter("content");
+		int postID = Integer.parseInt((String)request.getParameter("postID"));
+		int userID = User.GetUserIDFromCookies(request.getCookies());
+		
+		String p = request.getParameter("url");
+		String content = request.getParameter("comment");
 		Comment cmt = new Comment(userID, postID, content);
 		cmt.Insert();
 		
-		String url = "posts/post.jsp";
+		String url = "post?p=" + p;
 //    	 RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
 //	       
 // 		dispatcher.forward(request, response);

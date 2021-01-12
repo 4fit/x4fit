@@ -49,6 +49,7 @@ public class postController extends HttpServlet {
 		if (post != null)
 		{
 			GetAllComments(post);
+			boolean is_author = post.getUser_id() == User.GetUserIDFromCookies(request.getCookies());
 			
 			request.setAttribute("title", post.getTitle());
 			request.setAttribute("content", post.getContent());
@@ -58,6 +59,7 @@ public class postController extends HttpServlet {
 			request.setAttribute("comments", listCmts);
 			request.setAttribute("listUserCmt", listUserCmt);
 			request.setAttribute("postID", post.getID());
+			request.setAttribute("is_author", is_author);
 			
 			String url = "/posts/post.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

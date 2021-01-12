@@ -22,9 +22,6 @@ public class User extends Model {
 	private String fullname;
 	private String avatar;
 	private String url;
-	private List<Integer> follower;
-	private List<Integer> following;
-	private List<Integer> clips;
 	private String status;
 
 	public int getUserID() {
@@ -61,30 +58,6 @@ public class User extends Model {
 		this.url = url;
 	}
 
-	public List<Integer> getFollower() {
-		return follower;
-	}
-
-	public void setFollower(List<Integer> follower) {
-		this.follower = follower;
-	}
-
-	public List<Integer> getFollowing() {
-		return following;
-	}
-
-	public void setFollowing(List<Integer> following) {
-		this.following = following;
-	}
-
-	public List<Integer> getClips() {
-		return clips;
-	}
-
-	public void setClips(List<Integer> clips) {
-		this.clips = clips;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -99,39 +72,33 @@ public class User extends Model {
 
 	public User(int userID, String fullname) 
 	{
-		List<Integer> empty = Arrays.asList();
 		this.setUserID(userID);
 		this.setFullname(fullname);
 		this.setAvatar("avt.png");
 		this.setStatus("OK");
-		this.setClips(empty);
-		this.setFollower(empty);
-		this.setFollowing(empty);
 
 		String username = Account.GetAccountByUserID(userID).getUsername();
 		this.setUrl(username + Integer.toString(userID));
 	}
 
-	public User(int userID, String fullname, String avatar, String url, 
-			List<Integer> clips, List<Integer> following, List<Integer> follower) 
+	public User(int userID, String fullname, String avatar, String url, String status) 
 	{
 		this.setUserID(userID);
 		this.setFullname(fullname);
 		this.setAvatar(avatar);
 		this.setUrl(url);
-		this.setClips(clips);
-		this.setFollower(follower);
-		this.setFollowing(following);
-		this.setStatus("OK");
+		this.setStatus(status);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static User Doc2User(Document doc) {
-		List<Integer> clips = (List<Integer>) Utilities.convertObjectToList(doc.get("clips"));
-		ArrayList<Integer> following = (ArrayList<Integer>) Utilities.convertObjectToList(doc.get("following"));
-		ArrayList<Integer> follower = (ArrayList<Integer>) Utilities.convertObjectToList(doc.get("follower"));
-		return new User(doc.getInteger("id"), doc.getString("fullname"), doc.getString("avatar"),
-				doc.getString("url"), clips, following, follower);
+	public static User Doc2User(Document doc) 
+	{
+		return new User(
+				doc.getInteger("id"), 
+				doc.getString("fullname"), 
+				doc.getString("avatar"),
+				doc.getString("url"),
+				doc.getString("status"));
 	}
 
 	public static ArrayList<User> getAllUsers() {
@@ -205,7 +172,7 @@ public class User extends Model {
 		Document doc = ACCOUNT.find(Filters.eq("username", username)).first();
 		if (doc!=null)
 		{
-			int userID = doc.getInteger("userID");
+			int userID = doc.getInteger("user_id");
 			Document user = USER.find(Filters.eq("id", userID)).first();
 			return Doc2User(user);
 		}
@@ -235,17 +202,17 @@ public class User extends Model {
 	public static User GetUserInfoFromCookies(Cookie[] cookie) 
 	{
 		int userID = GetUserIDFromCookies(cookie);
-		Document doc = USER.find(Filters.eq("userID", userID)).first();
+		Document doc = USER.find(Filters.eq("user_id", userID)).first();
 		if (doc != null)
 			return Doc2User(doc);
 		else return null;
 	}
 	
 	public static Document GetUserDocumentByUserID(int userID) {
-		FindIterable<Document> cursor = USER.find(Filters.eq("userID", userID));
+		FindIterable<Document> cursor = USER.find(Filters.eq("user_id", userID));
 		Iterator<Document> it = cursor.iterator();
 		if (it.hasNext()) {
-			return USER.find(Filters.eq("userID", userID)).first();
+			return USER.find(Filters.eq("user_id", userID)).first();
 		} else
 			return null;
 	}
@@ -261,26 +228,5 @@ public class User extends Model {
 		updateObject.put("$set", newPassDoc);
 
 		USER.updateOne(query, updateObject);
-	}
-
-	public void updateClipsItem(int userID, int postID) {
-		User user = User.GetUserByUserID(userID);
-
-		List<Integer> listIdPost = user.getClips();
-
-		if (isExitInArray(listIdPost, postID) == 0) {
-			listIdPost.add(postID);
-
-			BasicDBObject query = new BasicDBObject();
-			query.put("id", userID);
-
-			BasicDBObject newList = new BasicDBObject();
-			newList.put("clips", listIdPost);
-
-			BasicDBObject updateObject = new BasicDBObject();
-			updateObject.put("$set", newList);
-
-			USER.updateOne(query, updateObject);
-		}
 	}
 }
