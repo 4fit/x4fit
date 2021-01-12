@@ -25,7 +25,7 @@ public class Post extends Model {
 	private String updated_at;
 	private int views_count;
 	private int points;
-	private int clips_count;
+	
 	private boolean is_public;
 	private String thumbnail_url;
 
@@ -40,25 +40,6 @@ public class Post extends Model {
 		return clips;
 		}
 	
-
-//	public String getNameUser()
-//	{
-//		Document user = UserDAO.getUserInfo(this.user_id);
-//		String name = "name author";
-//		
-//		try
-//		{if(user.getString("name")!= null)
-//			name = user.getString("name");
-//		}
-//		catch(NullPointerException x)
-//		{
-//			name = "name author";
-//		}
-//		
-//		return name;
-//	}
-//	
-
 	
 	public void setClips(List<Integer> clips) {
 		this.clips = clips;
@@ -142,11 +123,11 @@ public class Post extends Model {
 	}
 
 	public int getClips_count() {
-		return clips_count;
+		if(this.getClips() == null)
+			return 0;
+		else return this.getClips().size();
 	}
-	public void setClips_count(int clips_count) {
-		this.clips_count = clips_count;
-	}
+	
 
 	public boolean getIs_public() {
 		return is_public;
@@ -506,4 +487,188 @@ public class Post extends Model {
 			return -1;
 		}
 	}
+	
+	
+	public static List<Post> searchPost(String textSearch)
+	{
+		
+		
+		List<Post> lPost = new ArrayList<Post>();
+		
+		
+		BasicDBObject regexQuery = new BasicDBObject();
+		BasicDBObject regexQueryContent = new BasicDBObject();
+		BasicDBObject regexQueryUser = new BasicDBObject();
+		if(textSearch.contains(":"))
+		{
+			
+			// tìm kiếm theo tên field
+			
+			String fieldName = "";
+			String content = "";
+			String[] parts = textSearch.split(":");
+			fieldName = parts[0];
+			content = parts[1];
+			
+			if(fieldName.contains("user"))
+				{
+					regexQueryUser.put("username", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
+					FindIterable<Document>  fListUser = USER.find(regexQueryUser);
+					Iterator<Document> iListUser = fListUser.iterator();
+					
+					while(iListUser.hasNext())
+					{
+						addListPostByidUser(lPost, iListUser.next().getInteger("user_id"));
+					}
+				
+				}
+			else if(fieldName.contains("NOT"))
+			{
+				regexQuery.put("title", new BasicDBObject("$not", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i")));
+			}
+			
+			else if(fieldName.contains("tag"))
+			{
+				
+				regexQuery.put("category", new BasicDBObject("$not", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i")));
+				
+			}
+			else
+				regexQuery.put(fieldName, new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
+		}
+		
+		else			
+			{
+				regexQuery.put("title", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+				
+				//tìm kiếm trong content
+				regexQueryContent.put("content", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+				FindIterable<Document>  listPostContent = Model.POST.find(regexQueryContent);
+				Iterator<Document> listContent = listPostContent.iterator();
+				
+				while(listContent.hasNext())
+				{
+					lPost.add(ConverseToPost(listContent.next()));			
+				}
+			}
+		
+		
+		FindIterable<Document>  listPost = Model.POST.find(regexQuery);
+		Iterator<Document> list = listPost.iterator();
+		
+		
+		
+	
+		while(list.hasNext())
+		{
+			lPost.add(ConverseToPost(list.next()));			
+		}
+		
+		
+		
+		
+		return lPost;
+	}
+	
+	public static void addListPostByidUser(List<Post> lPost, int idUser)
+	{
+		
+		
+		FindIterable<Document> listPost = Model.POST.find(Filters.eq("user_id", idUser));
+		Iterator<Document> list = listPost.iterator();
+		while(list.hasNext())
+		{
+			lPost.add(ConverseToPost(list.next()));
+		}
+		
+	}
+	
+	public static List<User> searchAuthor(String textSearch)
+	{
+		List<User> lUser = new ArrayList<User>();
+		
+		
+		BasicDBObject regexQuery = new BasicDBObject();
+		regexQuery.put("fullname", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+		FindIterable<Document>  listUser = Model.USER.find(regexQuery);
+		Iterator<Document> list = listUser.iterator();
+	
+		while(list.hasNext())
+		{
+			lUser.add(User.convertToUserObject(list.next()));			
+		}
+		
+		return lUser;
+	}
+	
+	
+	public static Post ConverseToPost(Document Obj)
+	{	
+		//doc.getInteger("points"), 
+		Post p = new Post();
+		
+		if(Obj.get("status")!=null)
+			p.setStatus((String) Obj.get("status"));
+		
+		if(Obj.get("content")!=null)
+			p.setContent((String) Obj.get("content"));
+		
+		if(Obj.get("title")!=null)
+			p.setTitle((String) Obj.get("title"));
+		
+		if(Obj.get("category")!=null)
+			p.setCategory((String) Obj.get("category"));
+		
+		p.setID(Obj.getInteger("id"));
+		
+		if(Obj.get("thumbnail_url")!=null)
+			p.setThumbnail_url((String) Obj.get("thumbnail_url"));
+		
+		
+		if(Obj.get("published_at")!=null)
+			p.setPublished_at(Obj.get("published_at").toString());
+		
+		if(Obj.get("updated_at")!=null)
+			p.setUpdated_at(Obj.get("updated_at").toString());
+		
+		if(Obj.get("is_public")!=null)
+			p.setIs_public(Obj.getBoolean("is_public"));
+		
+	
+		if(Obj.get("views_count")!=null)
+			p.setViews_count(Integer.parseInt(Obj.get("views_count").toString()));
+		
+
+		if(Obj.get("user_id")!=null)
+			p.setUser_id((Obj.getInteger("user_id")));	 
+		
+		
+//		
+		return p;
+	}
+	
+	public String getNameUser()
+	{
+		Document user = User.GetUserDocumentByUserID(this.user_id);
+		String name = "name author";
+		
+		try
+		{if(user.getString("fullname")!= null)
+			name = user.getString("fullname");
+		}
+		catch(NullPointerException x)
+		{
+			name = "name author";
+		}
+		
+		return name;
+	}
+	
+
+	public int getCommentCount()
+	{
+		return Comment.getCommentByIdPost(this.getID()).size();
+		
+	}
+	
 }

@@ -756,22 +756,22 @@ li {
                     <div class="post-div container">
                         <img class="img-pro-post float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
                         <a class="name-pro-post display-9">${post.getNameUser()}</a>
-                        <p class="postime">about 4 hour ago</p>
+                        <p class="postime">${post.published_at}</p>
                         <p class="lead ml-2 title-post ">${post.title}</p>
                         
                         <div class="tag d-flex">
-                            <button class="btn-secondary">#CSS</button>
-                            <button class="btn-secondary">#Booststrap</button>
+                            
+                            <button class="btn-secondary">${post.category}</button>
 
                         </div>
                         <span class="viewtag t ml-20">
-                            <i class="far fa-eye"></i><label class="view">16</label>
+                            <i class="far fa-eye"></i><label class="view">${post.views_count}</label>
                         </span>
                         <span class="viewtag t ">
-                            <i class="fas fa-paperclip"></i><label class="view">16</label>
+                            <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count()}</label>
                         </span>
                         <span class="viewtag t">
-                            <i class="far fa-comment"></i></i><label class="view">16</label>
+                            <i class="far fa-comment"></i></i><label class="view">${post.getCommentCount()}</label>
                         </span>
                     </div>
                     <div class="divider ml-5 mr-5"></div>
@@ -799,7 +799,7 @@ li {
                                     <img class="avatar-user float-left" src="images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg">
                                 </a>
                                 <div class="user-info overflow-hidden">
-                                    <a class="username">user.username</a>
+                                    <a class="username">user.getUsername()</a>
                                     <div class="user-icon">
                                         <span class="viewtag t ">
                                             <i class="fas fa-user-plus"></i><label class="view">16</label>

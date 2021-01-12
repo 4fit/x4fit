@@ -31,44 +31,56 @@ public class homeController extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    	topPosts = Post.GetLastestPost(20);
-    	lstAuthors = new ArrayList<User>();
-    	for (Post p : topPosts) {
-			User user = User.GetUserByUserID(p.getUser_id());
-			lstAuthors.add(user);
-		}
-    
-    	request.setAttribute("topPosts", topPosts);
-    	request.setAttribute("lstAuthors", lstAuthors);
-    	
-    	String url = "/index.jsp";
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-		dispatcher.forward(request, response);
-    
+//    	topPosts = Post.GetLastestPost(20);
+//    	lstAuthors = new ArrayList<User>();
+//    	for (Post p : topPosts) {
+//			User user = User.GetUserByUserID(p.getUser_id());
+//			lstAuthors.add(user);
+//		}
+//    
+//    	request.setAttribute("topPosts", topPosts);
+//    	request.setAttribute("lstAuthors", lstAuthors);
+//    	
+//    	String url = "/index.jsp";
+//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+//		dispatcher.forward(request, response);
+//    
 
 
-    	if(request.getParameter("userCurrentAction").equals("search_home")){
-		
-    	String textSearch = request.getParameter("textSearch");
-    	if(textSearch != "")
+    	if(request.getParameter("userCurrentAction").equals("search_home"))
     	{
-    		System.out.print(getListPostForSearch(textSearch).size());
-    		request.setAttribute("listPost",getListPostForSearch(textSearch) );
-
-    		  dispatcher = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
-
-
-
-       	   	dispatcher.forward(request, response);
+		
+    		String textSearch = request.getParameter("textSearch");
+	    	if(textSearch != "")
+	    	{
+	    		
+	    		request.setAttribute("listPost",getListPostForSearch(textSearch));
+	    		request.setAttribute("listAuthor",getListAuthorForSearch(textSearch));
+	    		RequestDispatcher dis = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
+	
+	
+	
+	       	   	dis.forward(request, response);
+	    	}
     	}
-	}
     	else
     		
-
-    	{ url = "/index.jsp";
-		 dispatcher = getServletContext().getRequestDispatcher(url);
-
-		dispatcher.forward(request, response);}
+    	{ 
+        	topPosts = Post.GetLastestPost(20);
+        	lstAuthors = new ArrayList<User>();
+        	for (Post p : topPosts) {
+    			User user = User.GetUserByUserID(p.getUser_id());
+    			lstAuthors.add(user);
+    		}
+        
+        	request.setAttribute("topPosts", topPosts);
+        	request.setAttribute("lstAuthors", lstAuthors);
+        	
+        	String url = "/index.jsp";
+    		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+    		dispatcher.forward(request, response);
+    	}
+        
     }
     
     public List<Post> getListPostForSearch(String textSearch)
@@ -76,17 +88,17 @@ public class homeController extends HttpServlet {
     	
     	List<Post> listPost = new ArrayList<Post>();
 
-    	//listPost = dbDetail.searchPost(textSearch);
+    	listPost = Post.searchPost(textSearch);
     	return listPost;
     }
     
-//    public List<User> getListAuthorForSearch(String textSearch)
-//    {
-//    	
-//    	List<User> listUser = new ArrayList<User>();
-//    	listUser = dbDetail.searchAuthor(textSearch);
-//    	return listUser;
-//    }
+    public List<User> getListAuthorForSearch(String textSearch)
+    {
+    	
+    	List<User> listUser = new ArrayList<User>();
+    	listUser = Post.searchAuthor(textSearch);
+    	return listUser;
+    }
     
     
 

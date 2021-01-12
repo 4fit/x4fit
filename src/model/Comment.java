@@ -1,7 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.bson.Document;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 
 import x4fit.Utilities;
@@ -220,4 +225,63 @@ public class Comment extends Model
 		
 		return Doc2Cmt(doc);
 	}
+	
+	public static List<Comment> getCommentByIdPost(int post_id)
+	{
+		List<Comment> listCmt = new ArrayList<Comment>();
+		
+		FindIterable<Document> cursor = CMT.find(Filters.eq("post_id", post_id));
+		Iterator<Document> list = cursor.iterator();
+		while(list.hasNext())
+		{
+			
+			listCmt.add(getCommentByDoc(list.next()));
+		}
+		return listCmt;
+		
+	}
+	
+	public static Comment getCommentByDoc(Document doc)
+	{
+		
+		Comment cmt = new Comment();
+		
+		cmt.setID(doc.getInteger("id"));
+		
+		if(doc.getInteger("user_id")!= null)
+			cmt.setUserID(doc.getInteger("user_id"));
+		
+		if(doc.getInteger("post_id") != null)
+			cmt.setPostID(doc.getInteger("post_id"));
+		
+		if(doc.getInteger("level") != null)
+			cmt.setLevel(doc.getInteger("level"));
+		
+		if(doc.getInteger("points") != null)
+			cmt.setPoints(doc.getInteger("points"));
+		
+		if(doc.getInteger("reply_cmtID") != null)
+			cmt.setReply_cmtID(doc.getInteger("reply_cmtID"));
+		
+		if(doc.getInteger("reply_userID") != null)
+			cmt.setReply_userID(doc.getInteger("reply_userID"));
+		
+		if(doc.getString("created_at") != null)
+			cmt.setCreated_at(doc.getString("created_at"));
+		
+		
+		if(doc.getString("updated_at") != null)
+			cmt.setUpdated_at(doc.getString("updated_at"));
+		
+		if(doc.getString("deleted_at") != null)
+			cmt.setDeleted_at(doc.getString("deleted_at"));
+		
+		if(doc.getString("content") != null)
+			cmt.setContent(doc.getString("content"));
+		
+		return cmt;
+		
+		
+	}
+	
 }

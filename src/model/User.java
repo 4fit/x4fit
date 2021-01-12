@@ -27,9 +27,6 @@ public class User extends Model {
 	
 	private int userID;
 	private String fullname;
-	private String username;
-	private String password;
-	private String email;
 	private String avatar;
 	private String url;
 
@@ -59,9 +56,7 @@ public class User extends Model {
 	}
 	public User(String username, String pass, String email ) {
 		
-		this.username= username;
-		this.password= pass;
-		this.email= email;
+		
 //		this.setClips_count(0);
 //		this.setFollower_count(0);
 //		this.setFollowing_count(0);
@@ -82,9 +77,6 @@ public class User extends Model {
 public User(String name, String username, String pass, String email ) {
 		
 		this.fullname = name;
-		this.username= username;
-		this.password= pass;
-		this.email= email;
 //		this.setClips_count(0);
 //		this.setFollower_count(0);
 //		this.setFollowing_count(0);
@@ -157,21 +149,7 @@ public User(String name, String username, String pass, String email ) {
 
 	}
 	
-	public User(int id, String fullname, String username, String password, String avatar, String url, String email, ArrayList<Integer> follower, ArrayList<Integer> following, ArrayList<Integer> clips )
-	{
-		
-		this.userID = id;
-		this.fullname = fullname;
-		this.username = username;
-		this.password = password;
-		this.avatar = avatar;
-		this.url = url;
-		this.email = email;
-		this.follower = follower;
-		this.following = following;
-		this.clips = clips;
-		
-	}
+	
 
 	public User(int userID, String fullname) 
 	{
@@ -388,6 +366,66 @@ public User(String name, String username, String pass, String email ) {
 		
 	}
 	
+	
+	public static User convertToUserObject(Document doc) {
+		// Convert data từ mongo sang object User
+		
+		int id = 0;
+		String fullname = "";
+		
+		String avatar = "";
+		String url = "";
+		
+		List<Integer> follower = null;
+		List<Integer> following = null;
+		List<Integer> clips = null;
+		
+		if(doc.getInteger("id") != null)
+			id = doc.getInteger("id");
+		
+		if(doc.getString("fullname")!= null)
+			fullname = doc.getString("fullname");
+		
+		
+		if(doc.getString("avatar")!= null)
+			avatar = doc.getString("avatar");
+		
+		if(doc.getString("url")!= null)
+			url = doc.getString("url");
+		
+		
+		
+		if(doc.get("follower")!= null)
+			follower = (List<Integer>)doc.get("follower");
+		
+		if(doc.get("following")!= null)
+			following = (List<Integer>)doc.get("following");
+		
+		if(doc.get("clips")!= null)
+			clips = (List<Integer>)doc.get("clips");
+		
+		return new User( id,  fullname, avatar,  url,  follower,  following,  clips );
+				
+	}
+	
+	
+	public String getUsername()
+	{
+		String username = "username";
+		
+		try
+		{
+			Account account = Account.GetAccountByUserID(this.userID);
+			username = account.getUsername();
+		}
+		catch(NullPointerException x)
+		{
+			
+		}
+		
+		return username;
+		
+	}
 	
 }
 	
