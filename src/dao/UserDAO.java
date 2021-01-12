@@ -22,20 +22,72 @@ public class UserDAO extends DAO {
 	
 	public static User convertToUserObject(Document doc) {
 		// Convert data từ mongo sang object User
-		return new User(
-				doc.getInteger("id"),
-				doc.getString("username"),
-				doc.getString("name"),
-				doc.getString("password"),
-				doc.getString("email"),
-				doc.getString("avata"),
-				doc.getInteger("posts_count"),
-				doc.getInteger("following_count"),
-				doc.getInteger("follower_count"),
-				doc.getInteger("clips_count")
-		);
+		
+		int id = 0;
+		String fullname = "";
+		String username = "";
+		String password = "";
+		String avatar = "";
+		String url = "";
+		String email = "";
+		ArrayList<Integer> follower = null;
+		ArrayList<Integer> following = null;
+		ArrayList<Integer> clips = null;
+		
+		if(doc.getInteger("id") != null)
+			id = doc.getInteger("id");
+		
+		if(doc.getString("fullname")!= null)
+			fullname = doc.getString("fullname");
+		
+		if(doc.getString("username")!= null)
+			username = doc.getString("username");
+		
+		if(doc.getString("password")!= null)
+			password = doc.getString("password");
+		
+		if(doc.getString("avatar")!= null)
+			avatar = doc.getString("avatar");
+		
+		if(doc.getString("url")!= null)
+			url = doc.getString("url");
+		
+		if(doc.getString("email")!= null)
+			email = doc.getString("email");
+		
+		if(doc.get("follower")!= null)
+			follower = (ArrayList<Integer>)doc.get("follower");
+		
+		if(doc.get("following")!= null)
+			following = (ArrayList<Integer>)doc.get("following");
+		
+		if(doc.get("clips")!= null)
+			clips = (ArrayList<Integer>)doc.get("clips");
+		
+		return new User( id,  fullname,  username,  password,  avatar,  url,  email,  follower,  following,  clips );
+				
 	}
-	
+
+
+
+
+//	
+//	public static User convertToUserObject(Document doc) {
+//		// Convert data từ mongo sang object User
+//		return new User(
+//				doc.getInteger("id"),
+//				doc.getString("username"),
+//				doc.getString("name"),
+//				doc.getString("password"),
+//				doc.getString("email"),
+//				doc.getString("avata"),
+//				doc.getInteger("posts_count"),
+//				doc.getInteger("following_count"),
+//				doc.getInteger("follower_count"),
+//				doc.getInteger("clips_count")
+//		);
+//	}
+//	
 	public static List<User> getAllUsers() {
 		FindIterable<Document> cursor = USER.find();		
 		Iterator<Document> it = cursor.iterator();

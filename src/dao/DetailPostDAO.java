@@ -22,25 +22,101 @@ public class DetailPostDAO extends DAO {
 	
 	public List<Post> searchPost(String textSearch)
 	{
+		
+		
 		List<Post> lPost = new ArrayList<Post>();
 		MongoCollection<Document> collection  =  db.getCollection("POST");
-		
+		MongoCollection<Document> USER  =  db.getCollection("USER");
 		BasicDBObject regexQuery = new BasicDBObject();
-		regexQuery.put("title", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+		BasicDBObject regexQueryContent = new BasicDBObject();
+		BasicDBObject regexQueryUser = new BasicDBObject();
+		if(textSearch.contains(":"))
+		{
+			
+			// tìm kiếm theo tên field
+			
+			String fieldName = "";
+			String content = "";
+			String[] parts = textSearch.split(":");
+			fieldName = parts[0];
+			content = parts[1];
+			
+			if(fieldName.contains("user"))
+				{
+					regexQueryUser.put("username", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
+					FindIterable<Document>  fListUser = USER.find(regexQueryUser);
+					Iterator<Document> iListUser = fListUser.iterator();
+					
+					while(iListUser.hasNext())
+					{
+						addListPostByidUser(lPost, iListUser.next().getInteger("user_id"));
+					}
+				
+				}
+			else if(fieldName.contains("NOT"))
+			{
+				regexQuery.put("title", new BasicDBObject("$not", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i")));
+			}
+			
+			else if(fieldName.contains("tag"))
+			{
+				
+				regexQuery.put("category", new BasicDBObject("$not", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i")));
+				
+			}
+			else
+				regexQuery.put(fieldName, new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
+		}
+		
+		else			
+			{
+				regexQuery.put("title", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+				
+				//tìm kiếm trong content
+				regexQueryContent.put("content", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
+				FindIterable<Document>  listPostContent = collection.find(regexQueryContent);
+				Iterator<Document> listContent = listPostContent.iterator();
+				
+				while(listContent.hasNext())
+				{
+					lPost.add(ConverseToPost(listContent.next()));			
+				}
+			}
+		
+		
 		FindIterable<Document>  listPost = collection.find(regexQuery);
 		Iterator<Document> list = listPost.iterator();
+		
+		
+		
 	
 		while(list.hasNext())
 		{
 			lPost.add(ConverseToPost(list.next()));			
 		}
 		
+		
+		
+		
 		return lPost;
+	}
+	
+	public void addListPostByidUser(List<Post> lPost, int idUser)
+	{
+		
+		MongoCollection<Document> collection  =  DAO.db.getCollection("Post");
+		FindIterable<Document> listPost = collection.find(Filters.eq("user_id", idUser));
+		Iterator<Document> list = listPost.iterator();
+		while(list.hasNext())
+		{
+			lPost.add(ConverseToPost(list.next()));
+		}
+		
 	}
 	
 	public List<User> searchAuthor(String textSearch)
 	{
-		List<User> lPost = new ArrayList<User>();
+		List<User> lUser = new ArrayList<User>();
 		MongoCollection<Document> collection  =  db.getCollection("USER");
 		
 		BasicDBObject regexQuery = new BasicDBObject();
@@ -50,11 +126,13 @@ public class DetailPostDAO extends DAO {
 	
 		while(list.hasNext())
 		{
-			lPost.add(ConverseToPost(list.next()));			
+			lUser.add(UserDAO.convertToUserObject(list.next()));			
 		}
 		
-		return lPost;
+		return lUser;
 	}
+	
+	
 	
 	
 	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote

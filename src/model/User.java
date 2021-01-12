@@ -35,6 +35,26 @@ public class User
 		this.clips = clips;
 	}
 
+	
+
+public User(int id, String fullname, String username, String password, String avatar, String url, String email, ArrayList<Integer> follower, ArrayList<Integer> following, ArrayList<Integer> clips )
+	{
+		
+		this.userId = id;
+		this.name = fullname;
+		this.username = username;
+		this.password = password;
+		this.avata = avatar;
+		//this.url = url;
+		this.email = email;
+		this.follower = follower;
+		this.following = following;
+		this.clips = clips;
+		
+	}
+
+
+
 	public User(int userId, String username, 
 			String name, String pass, String email, 
 			String avata, int posts_count, int following_count, int follower_count, int clips_count) {
