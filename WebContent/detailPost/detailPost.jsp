@@ -999,6 +999,7 @@ ul.social-network li {
 					</div>
 
 					<div id="Preview" class="tabcontent">
+<<<<<<< HEAD
 						<h3>Paris</h3>
 						<p>Paris is the capital of France.</p>
 					</div>
@@ -1069,6 +1070,115 @@ ul.social-network li {
 					
 				</div>
 			</div>
+=======
+					  <h3>Paris</h3>
+					  <p>Paris is the capital of France.</p> 
+					</div>					                                                            
+                </div>
+
+					 <div class = "list-comments">
+					 <c:forEach  var = "cmt" items = "${listCmt}" >
+                    <form class = "user_comment_post">
+                        <div class = "info_user_comment">
+                            <div class = "img_user_comment_post">
+                                <img id = "avt_comment" class = "avatar--lg img-fluid" src="${pageContext.request.contextPath}/images/mainAboutMe.jpg" alt = "">
+                            </div>
+                            <div class = "info_username_comment">
+                                <a href="${cmt.url_user}"><c:out value = "${cmt.name_user}"></c:out></a>
+                                <span class = "text-muted">@<c:out value = "${cmt.usernameCMT()}"></c:out></span>
+                            </div>
+                            <div class = "time_comment">
+                                <span class = "text-muted"><c:out value = "${cmt.created_at}"></c:out></span>
+                            </div>
+                        </div>
+                        <div class = "content_comment">
+                              <p><c:out value = "${cmt.contents}"></c:out></p>  
+                        </div>
+                        <footer class = "vote_comment">
+                            <div class = "score">
+                                <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom" title="Upvote">
+                                    <i aria-hidden="true"  class="fa fa-chevron-up text-muted"></i>
+                                </button>
+                                
+                                <span class = "point_vote_comment"><c:out value = "${cmt.points}"></c:out></span>
+                                <button class="icon-btn vote" data-toggle="tooltip" data-placement="bottom" title="downvote">
+                                    <i aria-hidden="true"  class="fa fa-chevron-down text-muted"></i>
+                                </button>
+                                
+                            </div>
+                            <div class="action_with_comment d">
+                                <a class="reply_comment">
+                                <button type = "hidden" name = "userCurrentAction" value = "replyCMT">
+                                    <span class = "text-muted" id = "reply">Reply</span>
+                                    </button>
+                                </a>
+                                <a class="share_comment">
+                                    <span class = "text-muted">Share</span>
+                                </a>
+                            </div>
+                            <div class="more_comment">
+                                <div class="menu__post">
+                                    <div class="dropdown_comment">
+                                        <button type="button" class="dropbtn" data-toggle="tooltip" data-placement="bottom"
+                                            title="Show more active">
+                                            <i class="fa fa-ellipsis-h text-muted"></i>
+                                        </button>
+                                        <div class="dropdown-content">
+                                            <a href="#"> repost</a>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </footer>
+                    </form>
+                </c:forEach >
+                </div>                
+            </div>
+        </div>
+    </div>
+    <footer class="main_footer">
+    	<div class = "container">
+    		<div class = "row">
+    			<div class = "col-md-3 col-sm-6">
+    				<!-- infoFIT  -->
+    				<div class = "footer-pad">
+    				<h5>A LITTLE ABOUT X4FIT</h5>
+    					<p class = "about_x4fit">We share everything about infomation technology</p>
+   					<p><a class="btn btn-primary" href="#">Become A Member</a></p>
+    				</div>
+    				
+    			</div>
+    			<div class = "col-md-3 col-sm-6">
+    				<!-- RESOURCES  -->
+    				<div class = "footer-pad">
+    				<h5>RESOURCES</h5>
+   					<ul class = "list-unstyled">
+   						<li><a class = "a_footer" href = "#">Post</a></li>
+   					</ul>
+    				</div>
+    				
+    			</div>
+    			
+    			<div class = "col-md-3 col-sm-6">
+    				<!-- About us  -->
+    				<div class = "footer-pad">
+    				<h5>ABOUT US</h5>
+   					<ul class = "list-unstyled">
+   						<li><a class = "a_footer"  href = "#">About us</a></li>
+   						
+   					</ul>
+    				</div>
+    				
+    			</div>
+    				<div class="col-md-3">
+    		<h5 class = "h5_footer_contact">Contact</h5>
+            <ul class="social-network social-circle">
+             <li><a href="#" class="iconFooter" title="Facebook"><i class="fa fa-facebook text-muted"></i></a></li>
+             <li><a href="#" class="iconFooter" title="Github"><i class="fa fa-github text-muted"></i></a></li>
+            </ul>				
+>>>>>>> fix signup
 		</div>
 	</div>
 	<footer class="main_footer">

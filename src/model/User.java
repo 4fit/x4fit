@@ -54,6 +54,30 @@ public class User extends Model {
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
+	
+public User(String name, String username, String pass, String email ) {
+		
+		this.fullname = name;
+		this.username= username;
+		this.password= pass;
+		this.email= email;
+//		this.setClips_count(0);
+//		this.setFollower_count(0);
+//		this.setFollowing_count(0);
+//		this.setPostsCount(0);
+//		this.setAvata("");
+		ArrayList<Integer> follow  = new ArrayList<Integer>(); // set số lượng follow
+		this.setFollower(follow);
+		this.setFollowing(follow);
+		this.setClips(follow);
+		//System.out.print("Da toi luc tao nhan viên");
+		
+		
+		this.userID=(int) getLastestID("USER")+1;
+		
+	
+	}
+	
 
 	public String getAvatar() {
 		if (this.avatar == "")
