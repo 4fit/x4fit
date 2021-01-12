@@ -43,16 +43,10 @@
 	</div>
 	<div class="gallary" align="center">
 		<h5>Gallery</h5>
-		<div style="display: flex;">
 		<c:forEach var="img" items="${images_gallary}">
-<<<<<<< HEAD
-				<img src="${pageContext.request.contextPath}/upload/${img}" alt="${img}" height="64px" width="64px"
-=======
-				<img src="${pageContext.request.contextPath}/upload/${img}" alt="${img}" width="50px"
->>>>>>> fca6e79... modal report
+				<img src="${pageContext.request.contextPath}/upload/${img}" alt="${img}" width="32px"
 							onclick="insertImage(content, '${pageContext.request.contextPath}/upload/${img}')"/>&nbsp;
 		</c:forEach>
-		</div>
 	</div>
 </body>
 </html>
