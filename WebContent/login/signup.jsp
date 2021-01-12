@@ -7,7 +7,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
->>>>>>> fix signup
+
 <!DOCTYPE html>
 <html>
 
@@ -22,8 +22,7 @@
 	<script src="https://kit.fontawesome.com/f93b4d7888.js"></script>
 	<title>Sign Up</title>
 </head>
-<<<<<<< HEAD
-=======
+
 <style>
 @charset "ISO-8859-1";
 *{
@@ -290,11 +289,8 @@ a:hover{
 	
 }
 
->>>>>>> fix signup
-
 <body>
-<<<<<<< HEAD
-    
+
     <div class="login">
         <!-- <img class="wave" src="#"> -->
         <div class="container">
@@ -374,56 +370,7 @@ a:hover{
             
         </div>
         
-=======
 
-	<div class="login">
-		<!-- <img class="wave" src="#"> -->
-		<div class="container">
-			<div class="img">
-				<img src="../images/createAccount.jpg">
-			</div>
-			<div class="login-content">
-				<form action="signUp" method="post">
-					<img src="#">
-					<h2 class="title">Account</h2>
-					<div class="input-div one">
-						<div class="i">
-							<i class="fas fa-envelope-open-text"></i>
-						</div>
-						<div class="div">
-							<input type="text" class="form-control" placeholder="email"
-								name="email" value="${email}">
-						</div>
-					</div>
-					<lable class="error_signup"> <c:out value="${errEmail}"></c:out></lable>
-					<div class="input-div pass">
-						<div class="i">
-							<i class="fas fa-user"></i>
-						</div>
-						<div class="div">
-							<input type="text" class="form-control" placeholder="username "
-								name="username" value="${username}">
-						</div>
-					</div>
-					<lable class="error_signup"> <c:out value="${errUsername}"></c:out></lable>
-					<div class="input-div pass">
-						<div class="i">
-							<i class="fas fa-lock"></i>
-						</div>
-						<div class="div">
-							<input type="password" class="form-control"
-								placeholder="password" name="password" value="${password}">
-						</div>
-					</div>
-					<lable class="error_signup"> <c:out value="${errPass}"></c:out></lable>
-					<a href="login.jsp"> Are you have account ?</a> 
-					<input
-						type="submit" class="btn" value="sign up">
-				</form>
-			</div>
-		</div>
-	</div>
->>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
 </body>
 
 </html>

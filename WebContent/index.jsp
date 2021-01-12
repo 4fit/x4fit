@@ -71,6 +71,7 @@
 						<p class="gmail-info">hoang1811@gmail.com</p>
 						<button class="btn btn-primary btn-edit" type="button">Edit</button>
 
+<<<<<<< HEAD
 					</div>
 				</div>
 				<div class="dropdown-divider"></div>
@@ -275,5 +276,33 @@
 		</div>
 
 	</div>
+=======
+<%
+	User user=(User)session.getAttribute("USER");
+	//String ver=(String)session.getAttribute("Verification");
+	if(user==null){		
+		response.sendRedirect("/login/signup.jsp");
+		
+	}
+	else{
+		 int userIdCurrent = user.getUserId();
+		  session.setAttribute("userIdCurrent", userIdCurrent);
+	}
+	// String idPostCurrent = request.getparameter();	 
+		  		 	
+%>	
+
+<!--  
+<form  action = "${pageContext.request.contextPath}/detailPost" method = "get">
+	<input name = "test" value = "1">
+	<input type = "submit">
+</form>
+
+-->
+<form  action = "${pageContext.request.contextPath}/detailPost" method = "get">
+	<input name = "test" value = "22">
+	<input type = "submit">
+</form>
+>>>>>>> 9cff7bb38a89dc281fa650b96282c1b10a42c301
 </body>
 </html>

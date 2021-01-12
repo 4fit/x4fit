@@ -2,7 +2,10 @@ eclipse.preferences.version=1
 encoding//WebContent/common/modHeader.jsp=UTF-8
 encoding//WebContent/detailPost/detailPost.jsp=UTF-8
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 9cff7bb38a89dc281fa650b96282c1b10a42c301
 encoding//WebContent/detailPost/search.jsp=UTF-8
 encoding//WebContent/home.jsp=UTF-8
 >>>>>>> chua load dc data

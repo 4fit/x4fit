@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import model.Post;
 import model.User;
 
@@ -21,7 +22,6 @@ import model.User;
 public class homeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
     private ArrayList<Post> topPosts;
     private ArrayList<User> lstAuthors;
     
@@ -30,6 +30,7 @@ public class homeController extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     	topPosts = Post.GetLastestPost(20);
     	lstAuthors = new ArrayList<User>();
     	for (Post p : topPosts) {
@@ -46,7 +47,6 @@ public class homeController extends HttpServlet {
     
 
 
-
     	if(request.getParameter("userCurrentAction").equals("search_home")){
 		
     	String textSearch = request.getParameter("textSearch");
@@ -54,7 +54,9 @@ public class homeController extends HttpServlet {
     	{
     		System.out.print(getListPostForSearch(textSearch).size());
     		request.setAttribute("listPost",getListPostForSearch(textSearch) );
+
     		  dispatcher = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
+
 
 
        	   	dispatcher.forward(request, response);
@@ -62,8 +64,10 @@ public class homeController extends HttpServlet {
 	}
     	else
     		
+
     	{ url = "/index.jsp";
 		 dispatcher = getServletContext().getRequestDispatcher(url);
+
 		dispatcher.forward(request, response);}
     }
     
@@ -71,6 +75,7 @@ public class homeController extends HttpServlet {
     {
     	
     	List<Post> listPost = new ArrayList<Post>();
+
     	//listPost = dbDetail.searchPost(textSearch);
     	return listPost;
     }
@@ -84,6 +89,7 @@ public class homeController extends HttpServlet {
 //    }
     
     
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");

@@ -48,6 +48,7 @@ public class User extends Model {
 	}
 
 
+
 	public String getFullname() {
 		return this.fullname;
 	}
@@ -73,9 +74,9 @@ public class User extends Model {
 		this.setClips(follow);
 		//System.out.print("Da toi luc tao nhan viên");
 		
-		
+
 		this.userID= getLastestID("User")+1;
-		
+
 	}
 	
 public User(String name, String username, String pass, String email ) {
