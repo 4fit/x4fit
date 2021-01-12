@@ -39,10 +39,10 @@ public class modController extends HttpServlet {
 				break;
 			case "/all-posts":
 				getAllPosts(request, response);
-			case "/allow-postController":
-				acceptPost(request, response);
+//			case "/accept-postController":
+//				acceptPost(request, response);
 			default:
-				acceptPost(request, response);
+				getAllPosts(request, response);
 		}
 	}
 
@@ -57,22 +57,24 @@ public class modController extends HttpServlet {
 	protected void getAllUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 List<User> allUsers = User.getAllUsers();
 		 request.setAttribute("allUsers", allUsers);
-		 request.getRequestDispatcher("admin/users.jsp").forward(request, response);
+		 request.getRequestDispatcher("mod/users.jsp").forward(request, response);
 	}
 	
 	protected void getAllPosts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Post> allPosts = Post.getAllPosts();
 		request.setAttribute("allPosts", allPosts);
-		request.getRequestDispatcher("admin/posts.jsp").forward(request, response);
+		request.getRequestDispatcher("mod/posts.jsp").forward(request, response);
 	}
 	
 	protected void acceptPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		int postId = Integer.parseInt(request.getParameter("postId"));
-		int postId = 1;
-		if (Post.acceptPost(postId)) {
-			System.out.println("Đã duyệt bài");
-		} else {
-			System.out.println("Đã xảy ra lỗi khi duyệt bài");
-		}
+//		int postId = 1;
+//		if (Post.acceptPost(postId)) {
+//			List<Post> allPosts = Post.getAllPosts();
+//			request.setAttribute("allPosts", allPosts);
+//			request.getRequestDispatcher("mod/posts.jsp").forward(request, response);
+//		} else {
+//			System.out.println("Đã xảy ra lỗi khi duyệt bài");
+//		}
 	}
 }
