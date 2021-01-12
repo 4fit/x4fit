@@ -232,11 +232,8 @@ public class User extends Model {
 		return userID;
 	}
 	
-<<<<<<< HEAD
 	public static User GetUserInfoFromCookies(Cookie[] cookie) 
-=======
-	public  Document getUserInfo(int user_id)
->>>>>>> 1d220e3... old commit
+
 	{
 		int userID = GetUserIDFromCookies(cookie);
 		Document doc = USER.find(Filters.eq("userID", userID)).first();

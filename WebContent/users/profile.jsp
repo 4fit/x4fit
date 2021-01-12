@@ -491,6 +491,7 @@ body {
     font-family: 'Goldman', sans-serif;
 }
 </style>
+
 <body>
 
     <header>
@@ -501,9 +502,8 @@ body {
               </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">Post</a>
-                    <a class="nav-item nav-link" href="#">Profile</a>
+                    <a class="nav-item nav-link active" href="../index.jsp">Home <span class="sr-only">(current)</span></a>
+                   
                     <div class="input-group mb-10">
                         <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
@@ -528,8 +528,8 @@ body {
                 <div class="dropdown-item profile-popup">
                     <img class="img-profile" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
                     <div class="info-popup">
-                        <h5 class="name-info">Hoangf</h5>
-                        <p class="gmail-info">hhoansdf</p>
+                        <h5 class="name-info">${USER.getFullname()}</h5>
+                        <p class="gmail-info"></p>
                         <button class="btn btn-primary btn-edit" type="button">Edit</button>
 
                     </div>

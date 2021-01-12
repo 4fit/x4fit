@@ -25,6 +25,7 @@ public class homeController extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.print("Vòa controller psfnsvkjnkj");
     	topPosts = Post.GetLastestPost(20);
     	lstAuthors = new ArrayList<User>();
     	for (Post p : topPosts) {
