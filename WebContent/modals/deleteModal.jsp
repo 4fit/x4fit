@@ -1,4 +1,4 @@
-<div class="modal fade" id="allow-post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="delete-category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,7 +13,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="hidden" name="postId" value="${post.getID()}" />
+                <input type="hidden" name="id" value="" />
                 <button type="submit" class="btn btn-danger">Delete</button>
             </div>
         </div>
