@@ -28,6 +28,7 @@ public class Post extends Model {
 	private int clips_count;
 	private boolean is_public;
 	private String thumbnail_url;
+
 	private String status;
 	private String category;
 	private List<Integer> upvote;	// chứa DS userID đã upvote cho bài viết
@@ -35,6 +36,20 @@ public class Post extends Model {
 	private List<Integer> clips;	// chứa DS userID đã ghim bài viết
 
 	public List<Integer> getClips() {
+
+	
+//	public String getNameUser()
+//	{
+//		Document user = UserDAO.getUserInfo(this.user_id);
+//		String name = "name author";
+//		
+//		if(user.getString("name")!= null)
+//			name = user.getString("name");
+//		
+//		return name;
+//	}
+	
+
 		return clips;
 	}
 	public void setClips(List<Integer> clips) {

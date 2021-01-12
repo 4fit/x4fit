@@ -3,6 +3,9 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.List;
+
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +20,8 @@ import model.User;
 @WebServlet(urlPatterns = {"/home", "/index"})
 public class homeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	
     private ArrayList<Post> topPosts;
     private ArrayList<User> lstAuthors;
     
@@ -38,7 +43,38 @@ public class homeController extends HttpServlet {
     	String url = "/index.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
+    
+
+
+
+    	if(request.getParameter("userCurrentAction").equals("search_home")){
+		
+    	String textSearch = request.getParameter("textSearch");
+    	if(textSearch != "")
+    	{
+    		System.out.print(getListPostForSearch(textSearch));
+    		request.setAttribute("listPost",getListPostForSearch(textSearch) );
+    		  dispatcher = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
+       	   	dispatcher.forward(request, response);
+    	}
+	}
+    	else
+    		
+    	{ url = "/index.jsp";
+		 dispatcher = getServletContext().getRequestDispatcher(url);
+		dispatcher.forward(request, response);}
     }
+    
+    public List<Post> getListPostForSearch(String textSearch)
+    {
+    	
+    	List<Post> listPost = new ArrayList<Post>();
+    	//listPost = dbDetail.searchPost(textSearch);
+    	return listPost;
+    }
+    
+    
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");

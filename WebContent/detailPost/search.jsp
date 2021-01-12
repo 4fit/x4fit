@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset= UTF-8"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.*,model.User,java.util.Date,java.text.SimpleDateFormat,java.util.ArrayList,javax.annotation.Resource,javax.sql.DataSource"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -759,13 +761,15 @@ li {
 
             <div id="Bookmarks" class="tabcontent">
                 <div class="jumbotron jumbotron-fluid">
-                
+                <c:forEach var = "post" items = "${listPost}" >
                 <!-- block bài viết -->
+                
                     <div class="post-div container">
                         <img class="img-pro-post float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
-                        <a class="name-pro-post display-9">Fluid jumbotron</a>
+                        <a class="name-pro-post display-9">${post.getNameUser()}</a>
                         <p class="postime">about 4 hour ago</p>
-                        <p class="lead ml-2 title-post ">This is a modified jumbotron that occupies the entire.</p>
+                        <p class="lead ml-2 title-post ">${post.title}</p>
+                        
                         <div class="tag d-flex">
                             <button class="btn-secondary">#CSS</button>
                             <button class="btn-secondary">#Booststrap</button>
@@ -784,6 +788,8 @@ li {
                     <div class="divider ml-5 mr-5"></div>
 
                  <!-- end block -->
+                  </c:forEach>
+                 
                 </div>
             </div>
         </div>
