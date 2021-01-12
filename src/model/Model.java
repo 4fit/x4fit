@@ -20,6 +20,7 @@ public class Model
 	private static MongoClientURI uri = new MongoClientURI(mongoClientURI);
 	private static MongoClient mongoClient = new MongoClient(uri);
 	public static MongoDatabase db = mongoClient.getDatabase("X4FIT2");
+
 	Logger mongoLogger = Logger.getLogger( "org.mongodb.driver");
 	
 	public static MongoCollection<Document> POST = db.getCollection("POST");
@@ -29,7 +30,6 @@ public class Model
 	public static MongoCollection<Document> AUTHENTICATION = db.getCollection("AUTHENTICATION");
 	public static MongoCollection<Document> CATEGORY = db.getCollection("CATEGORY");
 	public static MongoCollection<Document> GALLERY = db.getCollection("GALLERY");
-
 	
 	public Model()
 	{
