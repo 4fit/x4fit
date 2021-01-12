@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
       <div class="logo" style="border-bottom: 1px solid #ccc">
-          <a href="#">
+          <a href="${pageContext.request.contextPath}/mod/all-categories">
               <img src="https://colorlib.com/polygon/adminator/assets/static/images/logo.png">
               <span>X4FIT</span>
           </a>
@@ -13,7 +13,7 @@
       <div class="nav-left">
           <ul>
               <li id="category">
-                  <a id="a2" href="#">
+                  <a id="a2" href="${pageContext.request.contextPath}/mod/all-categories">
                       <i class="fa fa-list-alt" aria-hidden="true"></i>
                       <span>CATEGORY</span> 
                   </a>

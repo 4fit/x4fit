@@ -87,13 +87,8 @@
 																		<a type="button" data-toggle="modal"
 																			data-target="#allow-post${post.getID()}"><i
 																				class="fa fa-check-circle"></i></a>
-
 																		<!-- Allow post Modal -->
-																		<div class="modal fade"
-																			id="allow-post${post.getID()}" tabindex="-1"
-																			role="dialog"
-																			aria-labelledby="exampleModalLabel"
-																			aria-hidden="true">
+																		<div class="modal fade" id="allow-post${post.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 																			<div class="modal-dialog" role="document">
 																				<div class="modal-content">
 																					<div class="modal-header">
@@ -121,13 +116,13 @@
 																							<input type="hidden"
 																								name="postId"
 																								value="${post.getID()}" />
-																							<button type="submit"
-																								class="btn btn-success">Allow</button>
-																						</form>
+																								<button type="submit"
+																									class="btn btn-success">Allow</button>
+																							</form>
+																						</div>
 																					</div>
 																				</div>
 																			</div>
-																		</div>
 																	</td>
 																</tr>
 															</c:forEach>
