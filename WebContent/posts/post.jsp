@@ -242,7 +242,9 @@
 		</div>
 		<hr>
 	</div>
-	<jsp:include page="../modal.jsp"></jsp:include>
+	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
+	<jsp:include page="../modals/modalReport.jsp"></jsp:include>
+
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
 		content = ViewContent(); 
