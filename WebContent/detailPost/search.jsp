@@ -30,6 +30,12 @@
     margin: 0;
 }
 
+.section-title-line>.filler-line {
+    margin-left: 1em;
+    flex-grow: 1;
+    border-color: #d6d6d7;
+}
+
 .search-box{
 margin-top: 30px;
 display: inline-block;
@@ -321,6 +327,7 @@ body {
     color: white;
     padding: 30px 30px;
     height: 100%;
+    margin-top: 50px;
 }
 
 
@@ -331,7 +338,7 @@ body {
 }
 
 .post-div {
-    margin-top: 5px;
+    margin-top: 15px;
     margin-left: 15px;
     margin-bottom: 15px;
 }
@@ -717,50 +724,32 @@ li {
     </header>
     <div class="row">
     <div class = "col-md-9">
-    <form class="search-box" >
+    <form class="search-box" action = "home" method = "get" >
     <div class = "d-flex">
-     <input type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+     <input name = "textSearch" type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
       <div class="input-group-prepend">
-          <button type = "submit" class = "btn btn-primary"><span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span></button>
+          <button name = "userCurrentAction" value = "search_home" type = "submit" class = "btn btn-primary"><span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span></button>
       </div>
       </div>
 </form>
     <!------------------------------THANH BAR------------------------------>
-    <div class=" py-md-1 py-05">
-        <div class="container">
-            <div class="row d-flex align-items-center justify-content-between">
-                <div class="feed-bar">
-                    <div class="feedbar-wrapper">
-                        <ul class="feed-links">
-                            <li class="feedbar-item"></li>
-                            <li class="feedbar-item nuxt-link-exact-active active active">
-                                <a href="/followings" class="feed-link posts-subscriptions" aria-current="page">
-                                    <div class="el-badge badge-has-new" style="color: #9b9b9b;">
-                                        post
-                                        <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
-                                </a>
-                            </li>
-                            <li class="feedbar-item">
-                                <a href="#" class="feed-link posts-newest">
-                                    <div class="el-badge badge-has-new" style="color: #9b9b9b;">
-                                        author
-                                        <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup></div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-               
-            </div>
-        </div>
-    </div>
+    
     
         <div class="content-main ">
-
+		<div style = "display: block">
+			
+		 <button class="tablink" onclick="openPage('Bookmarks',this)"  id="defaultOpen"> Post</button>
+                <button class="tablink" onclick="openPage('searchAuthor', this)">Author</button>
+		</div>
             <!----------------------------------BOOKMARKS--------------------------------------->
 
             <div id="Bookmarks" class="tabcontent">
                 <div class="jumbotron jumbotron-fluid">
+                <c:choose>
+                <c:when test =" ${listPost.size() == 0}">
+                <p style = "color: #d9d9d9;"> Không tìm thấy bài viết !</p>
+                 </c:when> 
+                 </c:choose>
                 <c:forEach var = "post" items = "${listPost}" >
                 <!-- block bài viết -->
                 
@@ -789,95 +778,120 @@ li {
 
                  <!-- end block -->
                   </c:forEach>
-                 
+                
                 </div>
             </div>
+        	<div id = "searchAuthor" class="tabcontent">
+        	<div class="row following-row " style = "margin-top: 50px;">
+        	
+        	
+        	
+        		<!-- block author  -->
+        		<c:choose>
+        	 <c:when test ="${listAuthor == NULL}" >
+                <span> Không tìm thấy tác giả !</span>
+                 </c:when> 
+                 </c:choose>
+        	<c:forEach var = "user" items = "${listAuthor}" >
+                        <div class="col-sm-6 col-md-4">
+                            <div class="d-flex exhibition-item user mt-2">
+                                <a class="d-flex img-user-div pt-1" href="#">
+                                    <img class="avatar-user float-left" src="images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg">
+                                </a>
+                                <div class="user-info overflow-hidden">
+                                    <a class="username">user.username</a>
+                                    <div class="user-icon">
+                                        <span class="viewtag t ">
+                                            <i class="fas fa-user-plus"></i><label class="view">16</label>
+                                        </span>
+                                        <span class="viewtag t">
+                                            <i class="far fa-edit"></i><label class="view">16</label>
+                                        </span>
+                                    </div>
+                                    <div class="follow">
+                                        <button class="btn btn-follow" type="button">
+                                            Follow
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                 </c:forEach>       
+           <!-- end block -->
+        	
+                        </div>
+        	</div>
         </div>
 		</div>
+		
+		 <!------------------------------Top SYCHTACH---------------------------->
+        
 		<div class = "col-md-3">
-        <!------------------------------Top AUTHORT---------------------------->
-        <div class="list-static hidden-md-down">
-            <ul class="list-group ">
-                <li class="label">
-                    <h3>TOP AUTHORS</h3>
-                </li>
-                <li class="list-group-item  d-flex justify-content-between align-items-center">
-                    <div class="d-flex exhibition-item user ">
-                        <a class="d-flex img-user-div" href="#">
-                            <img class="avatar-user float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg">
-                        </a>
-                        <div class="user-info overflow-hidden">
-                            <a class="username">Minh Hoàng</a>
-                            <div class="user-icon">
-                                <span class="viewtag t ">
-                                    <i class="fas fa-user-plus"></i><label class="view">16</label>
-                                </span>
-                                <span class="viewtag t">
-                                    <i class="far fa-edit"></i><label class="view">16</label>
-                                </span>
-                            </div>
-                            <div class="follow">
-                                <button class="btn btn-follow" type="button">
-                                    Follow
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </li>
-                <li class="list-group-item d-flex w-100 justify-content-between align-items-center">
-
-                    <div class="d-flex exhibition-item user mt-2">
-                        <a class="d-flex img-user-div pt-1" href="#">
-                            <img class="avatar-user float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg">
-                        </a>
-                        <div class="user-info overflow-hidden">
-                            <a class="username">Minh Hoàng</a>
-                            <div class="user-icon">
-                                <span class="viewtag t ">
-                                    <i class="fas fa-user-plus"></i><label class="view">16</label>
-                                </span>
-                                <span class="viewtag t">
-                                    <i class="far fa-edit"></i><label class="view">16</label>
-                                </span>
-                            </div>
-                            <div class="follow">
-                                <button class="btn btn-follow" type="button">
-                                    Follow
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="d-flex exhibition-item user mt-2">
-                        <a class="d-flex img-user-div pt-1" href="#">
-                            <img class="avatar-user float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg">
-                        </a>
-                        <div class="user-info overflow-hidden">
-                            <a class="username">Minh Hoàng</a>
-                            <div class="user-icon">
-                                <span class="viewtag t ">
-                                    <i class="fas fa-user-plus"></i><label class="view">16</label>
-                                </span>
-                                <span class="viewtag t">
-                                    <i class="far fa-edit"></i><label class="view">16</label>
-                                </span>
-                            </div>
-                            <div class="follow">
-                                <button class="btn btn-follow" type="button">
-                                    Follow
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </li>
-
-            </ul>
-        </div>
+       
+	        <div class="section-title-line mb-1">
+	        <h4 class="text-uppercase">
+	            Search syntax
+	        </h4><hr class="filler-line"></div>
+	        
+	        <div class = "main-search-syntax">
+		        <div>
+		        <a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
+	                title:Git </a> 
+	            <p class="text-muted">
+	                Containing "Git" in title </p>
+	            </div>
+		        
+			        <div>
+			        <a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
+	                tag:Rails </a> 
+	            <p class="text-muted">Tagged with "Rails"</p>
+	            </div>
+           
+           
+           		<div><a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
+                tag:Rails
+            </a> <p class="text-muted">
+                Tagged with "Rails"
+            </p></div>
+            
+            
+            <div><a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
+                user:name
+            </a> <p class="text-muted">
+                Created by user "name"
+            </p></div>
+            
+            
+		        </div>
+		        
+		        
+        
 		</div>
     </div>
+    
+     <script>
+        function openPage(nampage, element) {
+            var i, tabcontent, tablink;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablink = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablink.length; i++) {
+                tablink[i].style.backgroundColor = "rgb(161, 161, 161)";
+            }
+
+            document.getElementById(nampage).style.display = "block";
+
+            element.style.backgroundColor = "rgb(20, 20, 20)";
+        }
+       // openPage('Post',document.getElementById("defaultOpen"));     
+       document.getElementById("defaultOpen").onclick();
+    </script>
+    
+    
 </body>
 </html>

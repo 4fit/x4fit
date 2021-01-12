@@ -47,12 +47,14 @@ public class User extends Model {
 		this.userID = userID;
 	}
 
+
 	public String getFullname() {
 		return this.fullname;
 	}
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+
 	}
 	public User(String username, String pass, String email ) {
 		
