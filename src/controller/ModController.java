@@ -3,18 +3,25 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Category;
 import model.Post;
 
 /**
  * Servlet implementation class ModController
  */
-@WebServlet(urlPatterns = {"/mod/all-posts", "/mod/accept-posts"})
+@WebServlet(urlPatterns = {
+		"/mod/all-posts", 
+		"/mod/accept-posts", 
+		"/mod/all-categories",
+		"/mod/add-category"
+		})
 public class ModController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,10 +42,19 @@ public class ModController extends HttpServlet {
 		switch (action) {
 			case "/mod/all-posts":
 				getAllPosts(request, response);
-				break;
+				return;
 			case "/mod/accept-posts":
 				acceptPost(request, response);
-				break;
+				return;
+			case "/mod/all-categories":
+				getAllCategories(request, response);
+				return;
+			case "/mod/add-category":
+				addCategory(request, response);
+				return;
+			default:
+				response.sendRedirect("index.jsp");
+				return;
 		}
 	}
 
@@ -51,19 +67,55 @@ public class ModController extends HttpServlet {
 	}
 	
 	protected void getAllPosts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Post> allPosts = Post.getAllPosts();
-		request.setAttribute("allPosts", allPosts);
-		request.getRequestDispatcher("mod/posts.jsp").forward(request, response);
+		try {
+			List<Post> allPosts = Post.getAllPosts();
+			request.setAttribute("allPosts", allPosts);
+			request.getRequestDispatcher("/mod/posts.jsp").forward(request, response);
+		} catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			response.sendRedirect("500.jsp");
+		}
+	}
+	
+	protected void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String categoryName = (String)request.getParameter("category-name");
+		String description = (String)request.getParameter("description");
+		Category category = new Category(categoryName, description);
+		try {
+			Category.Insert(category);
+			List<Category> allCategories = Category.getAllCategories();
+			request.setAttribute("allCategories", allCategories);
+			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("500.jsp");
+		}
+	}
+	
+	protected void getAllCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<Category> allCategories = Category.getAllCategories();
+			request.setAttribute("allCategories", allCategories);
+			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("500.jsp");
+		}
 	}
 	
 	protected void acceptPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postId = Integer.parseInt((String)request.getParameter("postId"));
-		if (Post.acceptPost(postId)) {
+		try {
+			Post.acceptPost(postId);
 			List<Post> allPosts = Post.getAllPosts();
 			request.setAttribute("allPosts", allPosts);
-			request.getRequestDispatcher("mod/posts.jsp").forward(request, response);
-		} else {
-			System.out.println("Đã xảy ra lỗi khi duyệt bài");
+			request.getRequestDispatcher("/mod/posts.jsp").forward(request, response);
+		} catch (Exception ex) {
+			// TODO: handle exception
+			System.out.println(ex.getMessage());
+			response.sendRedirect("500.jsp");
 		}
 	}
 }
