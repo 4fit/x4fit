@@ -12,24 +12,16 @@
       
       <div class="nav-left">
           <ul>
-              <li id="dashboard">
-                  <a id="a1" href="#">
-                      <i class="fa fa-home" aria-hidden="true"></i>
-                      <span>Dashboard</span> 
+              <li id="category">
+                  <a id="a2" href="#">
+                      <i class="fa fa-list-alt" aria-hidden="true"></i>
+                      <span>CATEGORY</span> 
                   </a>
               </li>
-              <div class="dropdown-divider"></div>
-              <li id="user">
-                  <a id="a2" href="${pageContext.request.contextPath}/all-users">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                      <span>Users</span> 
-                  </a>
-              </li>
-              <div class="dropdown-divider"></div>
               <li id="post">
-                  <a id="a3" href="${pageContext.request.contextPath}/all-posts">
+                  <a id="a3" href="${pageContext.request.contextPath}/mod/all-posts">
                       <i class="fa fa-book" aria-hidden="true"></i>
-                      <span>Posts</span> 
+                      <span>POSTS</span> 
                   </a>
               </li>
           </ul>
@@ -50,7 +42,7 @@
                   <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-5">
                       <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span><img class="avata" src="https://scontent.fsgn9-1.fna.fbcdn.net/v/t1.0-9/80286599_2478335852420325_5248975640924782592_o.jpg?_nc_cat=101&ccb=2&_nc_sid=174925&_nc_ohc=TiGT5d0AuGEAX82VXQ9&_nc_ht=scontent.fsgn9-1.fna&oh=8a9647f7d7670b314a0bf3dbea4b3306&oe=5FE3B135"></span>
+                            <span><img class="avata" src=""></span>
                             Văn Cụi
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">

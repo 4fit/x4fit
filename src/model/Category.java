@@ -1,7 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.bson.Document;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
@@ -12,8 +17,16 @@ public class Category extends Model
 	private int id;
 	private String name;
 	private String description;
+	private String shortDes;
 	private int count_post;
 	private String url;
+	
+	public String getShortDes() {
+		return shortDes;
+	}
+	public void setShortDes(String shortDes) {
+		this.shortDes = shortDes;
+	}
 	
 	public int getId() {
 		return id;
@@ -45,23 +58,66 @@ public class Category extends Model
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
 	public Category(String name, String description) {
 		this.id = Model.getLastestID(CATEGORY) + 1;
 		this.name = name;
 		this.description = description;
+		this.shortDes = description;
+		if (description.length() > 52) {
+			this.shortDes = description.substring(0, 50);
+		}
 		this.count_post = 0;
 	}
 	
-	public static void Insert(Category category) {
-		Insert(category.getId(), category.getName(), category.getDescription(), category.getCount_post());
+	public Category(int id, String name, String description, String shortDes, int count_post, String url) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.shortDes = shortDes;
+		this.count_post = count_post;
+		this.url = url;
 	}
 	
-	public static void Insert(int id, String name, String description, int count_post) {
+	public static Category Doc2Category(Document doc)
+	{
+		if (doc == null)
+			return null;
+		return new Category(
+				doc.getInteger("id"), 
+				doc.getString("name"), 
+				doc.getString("description"),
+				doc.getString("shortDes"),
+				doc.getInteger("count_post"),
+				doc.getString("url"));
+	}
+	
+	public static List<Category> getAllCategories() {
+		FindIterable<Document> cursor = CATEGORY.find();
+		Iterator<Document> it = cursor.iterator();
+		ArrayList<Category> listCategories = new ArrayList<Category>();
+		if (it.hasNext()) {
+			while (it.hasNext()) {
+				Document doc = it.next();
+				Category category = Category.Doc2Category(doc);
+				listCategories.add(category);
+			}
+		}
+		return listCategories;
+	}
+	
+	public static void Insert(Category category) {
+		Insert(category.getId(), category.getName(), category.getDescription(), category.getShortDes());
+	}
+	
+	public static void Insert(int id, String name, String description, String shortDescription) {
 		String url = Utilities.createURL(name);
 		Document doc = new Document("id", id)
 							.append("name", name)
 							.append("description", description)
-							.append("count_post", count_post)
+							.append("shortDes", shortDescription)
+							.append("count_post", 0)
 							.append("url", url);
 		Insert(doc, CATEGORY);				
 	}
