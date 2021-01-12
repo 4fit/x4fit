@@ -23,6 +23,12 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+	<style type="text/css">
+	.CodeMirror, .CodeMirror-scroll {
+    height: auto !important;
+    min-height: 40px !important;
+	}
+</style>
 </head>
 <body>
 	<nav id="navbar" class="navbar navbar-expand-md navbar-light sticky-top">
@@ -224,25 +230,27 @@
 			<!-- Right -->
 			<div class="col-sm-2">
 				<div class="post-actions d-flex flex-column align-items-center mx-auto">
-					<!-- Edit -->
-					<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
-						<button type="submit" value="EDIT" class="btn btn-primary">
-							<i class="fa fa-edit"></i>
-						</button>
-					</form>
-					<br>
+					<c:if test="${is_author==true}">
+						<!-- Edit -->
+						<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
+							<button type="submit" value="EDIT" class="btn btn-primary">
+								<i class="fa fa-edit"></i>
+							</button>
+						</form>
+						<br>
+					</c:if>
 					<!-- Báo cáo -->
-					<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
-						<button type="submit" value="REPORT" class="btn btn-danger">
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modelReport">
 							<i class="fa fa-flag"></i>
-						</button>
-					</form>
+					</button>
 				</div>
 			</div>
 		</div>
 		<hr>
 	</div>
-	<jsp:include page="../modal.jsp"></jsp:include>
+	
+	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
+	<jsp:include page="../modals/modalReport.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
 		content = ViewContent(); 
