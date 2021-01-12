@@ -95,11 +95,16 @@
 
 					<!-- Points -->
 					<div class="vote" align="center">
-						<button class="icon-btn" data-original-title="Upvote">
+						<button class="icon-btn" data-original-title="Upvote" 
+										onclick="Vote(${postID}, 'POST', 1, '${pageContext.request.contextPath}/vote');
+														 incrementValue('${postID}');">
 							<i class="fa fa-caret-up"></i>
 						</button>
-						<div class="points">${points}</div>
-						<button class="icon-btn" data-original-title="Downvote">
+						<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
+									disabled size="1" class="points" id="${postID}" value="${points}">
+						<button class="icon-btn" data-original-title="Downvote"
+										onclick="Vote(${postID}, 'POST', 1, '${pageContext.request.contextPath}/vote');
+														 decrementValue('${postID}');">
 							<i class="fa fa-caret-down"></i>
 						</button>
 					</div>
@@ -185,14 +190,13 @@
 									</a> 
 									<br /> 
 									<c:if test="${is_author}">
-										<span class="text-muted">@author</span>
+										<span class="badge badge-info">@author</span>
 									</c:if>
+									<div class="time_comment">
+										<span class="text-muted">${cmt.getCreated_at()}</span>
+									</div>
 								</div>
-
-								<div class="time_comment">
-									<a>Created at:</a> <br /> <span class="text-muted"><c:out
-											value="${cmt.getCreated_at()}"></c:out></span>
-								</div>
+								
 							</div>
 
 							<div class="content_comment" >
@@ -201,38 +205,37 @@
 
 							<div class="vote_comment">
 								<div class="action_with_comment">
-									<span>
-										<input style="background-color: transparent; border: none; direction: rtl;" disabled size="1" id="cmt${cmt.getID()}" value="${cmt.getPoints()}"/> 
-										<i class="fas fa-heart btn-sm"></i> points
+									<span class="btn btn-danger btn-sm font-weight-bold">
+										<input style="cursor: none; background-color:transparent; color:white; font-weight:bolder; border:none; text-align: right;" 
+														disabled size="1" id="cmt${cmt.getID()}" value="${cmt.getPoints()}"/> 
+										<i class="fa fa-heart" aria-hidden="true"></i>
 									</span>
-									<button type="submit" value="Upvote" 
+									<button type="submit" value="Upvote" class="btn btn-warning btn-sm font-weight-bold"
 													onclick="Vote(${cmt.getID()}, 'COMMENT', 1, '${pageContext.request.contextPath}/vote');
 																	 incrementValue('cmt${cmt.getID()}');">
-										<i class="fas fa-thumbs-up btn btn-warning btn-sm"></i>&nbsp;Upvote
+										<i class="fas fa-thumbs-up"></i>&nbsp;Upvote
 									</button>
-									<button type="submit" value="Downvote" 
+									<button type="submit" value="Downvote" class="btn btn-dark btn-sm font-weight-bold"
 													onclick="Vote(${cmt.getID()}, 'COMMENT', -1, '${pageContext.request.contextPath}/vote');
 																	 decrementValue('cmt${cmt.getID()}');">
-										<i class="fas fa-thumbs-down btn btn-dark btn-sm"></i>&nbsp;Downvote
+										<i class="fas fa-thumbs-down"></i>&nbsp;Downvote
 									</button>
-								</div>
-			
-								<div class="more_comment">
-									<div class="menu__post">
-										<div class="dropdown_comment">
-			
-											<button type="button" class="dropbtn" data-toggle="tooltip"
-												data-placement="bottom" title="Show more active">
-												<i class="fa fa-ellipsis-h text-muted"></i>
-											</button>
-			
-											<div class="dropdown-content">
-												<a href="#"> repost</a>
-											</div>
-										</div>
+									
+									<!-- More -->
+									<div class="btn-group dropright">
+									  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle font-weight-bold" 
+									  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    More
+									  </button>
+									  <div class="dropdown-menu">
+									    <a class="dropdown-item" href="#">Action</a>
+									    <a class="dropdown-item" href="#">Another action</a>
+									    <a class="dropdown-item" href="#">Something else here</a>
+									  </div>
 									</div>
+								
 								</div>
-			
+								
 							</div>
 						</div>
 						<%
