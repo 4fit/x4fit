@@ -253,12 +253,12 @@
 	<jsp:include page="../modals/modalReport.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
-		content = ViewContent(); 
-		content.togglePreview();
+		detailPost = ViewContent(); 
+		detailPost.togglePreview();
 		var listComments = ViewComments();
 		listComments.forEach((comment) => comment.togglePreview());
 		
-		cmt = Comment();
+		content = Comment();
 		$('.image-upload-wrap').bind('dragover', function() {
 			$('.image-upload-wrap').addClass('image-dropping');
 		});

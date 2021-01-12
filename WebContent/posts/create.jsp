@@ -121,14 +121,5 @@
 		$('.remove-btn').hide();
 
 	</script>
-	<script type="text/javascript">
-	function insertImage(simplemde, url)
-	{
-		var pos = simplemde.codemirror.getCursor();
-		simplemde.codemirror.setSelection(pos, pos);
-		simplemde.codemirror.replaceSelection("![Figure](" + url + ")");
-		
-	}
-	</script>
 </body>
 </html>
