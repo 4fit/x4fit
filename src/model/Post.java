@@ -344,6 +344,7 @@ public class Post extends Model {
 						Updates.set("updated_at", Utilities.GetCurrentDateTime()),
 						Updates.set("thumbnail_url", thumbnail_url)));
 		return newURL;
+		
 	}
 
 	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote

@@ -9,8 +9,6 @@
 <title>Upload</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/styles/post.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/styles/post_editor.css">
 <script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -20,7 +18,7 @@
 	<div class="file-upload">
 		<div class="image-upload-wrap">
 			<input class="file-upload-input" type='file' name="fileToUpload"
-				id="fileToUpload" onchange="readURL(this);"
+				id="fileToUpload" onchange="readURL(this, 'div.preview');"
 				accept="image/*" multiple />
 			<div class="drag-text">
 				<h3>Drag and drop a file or select add Image</h3>
@@ -32,6 +30,7 @@
 		<br>
 		<div align="center">
 			<div class="upload-btn">
+				<input type="hidden" name="action" value="${action}">
 				<button type="button"
 					onclick="FileUpload('${pageContext.request.contextPath}/upload', 'div.preview')"
 					class="btn btn-primary">Upload</button>
@@ -45,8 +44,8 @@
 	<div class="gallary" align="center">
 		<h5>Gallery</h5>
 		<c:forEach var="img" items="${images_gallary}">
-				<img src="${pageContext.request.contextPath}/upload/${img}" alt="" height="50px" 
-							onclick="insertImage(content, '${pageContext.request.contextPath}/upload/${img}')"/>
+				<img src="${pageContext.request.contextPath}/upload/${img}" alt="${img}" width="32px"
+							onclick="insertImage(content, '${pageContext.request.contextPath}/upload/${img}')"/>&nbsp;
 		</c:forEach>
 	</div>
 </body>
