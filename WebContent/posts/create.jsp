@@ -53,12 +53,6 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-<style type="text/css">
-	.CodeMirror, .CodeMirror-scroll {
-    height: auto !important;
-    min-height: 300px !important;
-}
-</style>
 </head>
 <body>
 	<nav class="navbar navbar-light bg-light">
@@ -104,7 +98,7 @@
 	</div>
 
 	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
-
+	
 	<hr>
 
 	<script type="text/javascript">
@@ -120,6 +114,15 @@
 		$('.upload-btn').hide();
 		$('.remove-btn').hide();
 
+	</script>
+	<script type="text/javascript">
+	function insertImage(simplemde, url)
+	{
+		var pos = simplemde.codemirror.getCursor();
+		simplemde.codemirror.setSelection(pos, pos);
+		simplemde.codemirror.replaceSelection("![Figure](" + url + ")");
+		
+	}
 	</script>
 </body>
 </html>

@@ -49,11 +49,7 @@ public class postController extends HttpServlet {
 		if (post != null)
 		{
 			GetAllComments(post);
-			boolean is_author = User.GetUserIDFromCookies(request.getCookies()) == post.getUser_id();
-			if (is_author)
-			{
-				request.setAttribute("is_author", true);
-			}
+			
 			request.setAttribute("title", post.getTitle());
 			request.setAttribute("content", post.getContent());
 			request.setAttribute("category", post.getCategory());
