@@ -96,7 +96,7 @@
 </style>
 </head>
 <body>	
-	<jsp:include page="../common/header.jsp" />
+	<jsp:include page="../common/modHeader.jsp" />
 	<div class="main-panel mt-3">
       <div class="content">
           <div class="container-fluid">

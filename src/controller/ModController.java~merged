@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Post;
-import model.User;
 
 /**
- * Servlet implementation class adminController
+ * Servlet implementation class ModController
  */
-@WebServlet("/mod")
-public class modController extends HttpServlet {
+@WebServlet(urlPatterns = {"/mod/all-posts", "/mod/accept-posts"})
+public class ModController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public modController() {
+    public ModController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +32,13 @@ public class modController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getServletPath();
-		switch(action) {
-			case "/all-users":
-				getAllUsers(request, response);
+		switch (action) {
+			case "/mod/all-posts":
+				getAllPosts(request, response);
 				break;
-			case "/all-posts":
-				getAllPosts(request, response);
-//			case "/accept-postController":
-//				acceptPost(request, response);
-			default:
-				getAllPosts(request, response);
+			case "/mod/accept-posts":
+				acceptPost(request, response);
+				break;
 		}
 	}
 
@@ -54,12 +50,6 @@ public class modController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	protected void getAllUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 List<User> allUsers = User.getAllUsers();
-		 request.setAttribute("allUsers", allUsers);
-		 request.getRequestDispatcher("mod/users.jsp").forward(request, response);
-	}
-	
 	protected void getAllPosts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Post> allPosts = Post.getAllPosts();
 		request.setAttribute("allPosts", allPosts);
@@ -67,14 +57,13 @@ public class modController extends HttpServlet {
 	}
 	
 	protected void acceptPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		int postId = Integer.parseInt(request.getParameter("postId"));
-//		int postId = 1;
-//		if (Post.acceptPost(postId)) {
-//			List<Post> allPosts = Post.getAllPosts();
-//			request.setAttribute("allPosts", allPosts);
-//			request.getRequestDispatcher("mod/posts.jsp").forward(request, response);
-//		} else {
-//			System.out.println("Đã xảy ra lỗi khi duyệt bài");
-//		}
+		int postId = Integer.parseInt((String)request.getParameter("postId"));
+		if (Post.acceptPost(postId)) {
+			List<Post> allPosts = Post.getAllPosts();
+			request.setAttribute("allPosts", allPosts);
+			request.getRequestDispatcher("mod/posts.jsp").forward(request, response);
+		} else {
+			System.out.println("Đã xảy ra lỗi khi duyệt bài");
+		}
 	}
 }
