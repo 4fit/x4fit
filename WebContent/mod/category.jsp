@@ -69,54 +69,77 @@
                                                                     <td>
                                                                         ${category.getName()}
                                                                     </td>
-                                                                    <td class="align-center">
+                                                                    <td>
                                                                         ${category.getShortDes()}
                                                                     </td>
                                                                     <td class="align-center">
                                                                         ${category.getCount_post()}
                                                                     </td>
-                                                                    <td class="align-center">
-                                                                        <a type="button" data-toggle="modal"
-                                                                            data-target="#allow-post"><i
-                                                                                class="fa fa-trash"></i></a>
+                                                                    <td>
+                                                                    	<div class="align-center">
+	                                                                        <a type="button" data-toggle="modal"  data-target="#update-category${category.getId()}"><i class="fa fa-edit"></i></a>
+	                                                                        <span> | </span>
+	                                                                        <a type="button" data-toggle="modal"  data-target="#delete-category${category.getId()}"><i class="fa fa-trash"></i></a>
+                                                                        </div>
+                                                                        <!-- Update category Modal -->
+																		<div class="modal fade" id="update-category${category.getId()}">
+																		    <div class="modal-dialog" role="document">
+																		        <div class="modal-content">
+																		            <div class="modal-header">
+																		                <h3 class="modal-title">Update Category</h3>
+																		            </div>
+																		            <div class="modal-body">
+																		                <form action="${pageContext.request.contextPath}/mod/update-category" method="post">
+																		                    <div class="form-group">
+																		                        <label for="category-name">Category Name</label>
+																		                        <input type="text" class="form-control" id="category-name" value="${category.getName()}" required
+																		                            placeholder="Enter Category Name" name="category-name">
+																		                    </div>
+																		                    <div class="form-group">
+																		                        <label for="description">Description</label>
+																		                        <textarea class="form-control" id="description" rows="3" required
+																		                            placeholder="Description here" name="description">${category.getDescription()}</textarea>
+																		                    </div>
+																		                    <input type="hidden" name="oldName" value="${category.getName()}">
+																		                    <input type="hidden" name="url" value="${category.getUrl()}">
+																		                    <button type="submit" class="btn btn-success">Update</button>
+																		                </form>
+																		            </div>
+																		        </div>
+																		    </div>
+																		</div>
+                                                                        
+                                                                        <!-- Delete Category Modal -->
+		                                                                <div class="modal fade" id="delete-category${category.getId()}" tabindex="-1"
+		                                                                    role="dialog" aria-labelledby="exampleModalLabel"
+		                                                                    aria-hidden="true">
+		                                                                    <div class="modal-dialog" role="document">
+		                                                                        <div class="modal-content">
+		                                                                            <div class="modal-header">
+		                                                                                <h5 class="modal-title"
+		                                                                                    id="exampleModalLabel">Delete Category</h5>
+		                                                                                <button type="button" class="close"
+		                                                                                    data-dismiss="modal"
+		                                                                                    aria-label="Close">
+		                                                                                    <span
+		                                                                                        aria-hidden="true">&times;</span>
+		                                                                                </button>
+		                                                                            </div>
+		                                                                            <div class="modal-body">
+		                                                                                Do you want to delete category <b><c:out value="${category.getName()}"></c:out></b>?
+		                                                                            </div>
+		                                                                            <div class="modal-footer">
+		                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		                                                                                <form action="${pageContext.request.contextPath}/mod/delete-category" method="post">
+		                                                                                	<input type="hidden" name="url" value="${category.getUrl()}" />
+		                                                                                	<button type="submit" class="btn btn-danger">Delete</button>
+		                                                                                </form>
+		                                                                            </div>
+		                                                                        </div>
+		                                                                    </div>
+		                                                                </div>
                                                                     </td>
                                                                 </tr>
-                                                                <!-- Delete Category Modal -->
-                                                                <form
-                                                                    action="${pageContext.request.contextPath}/AcceptPostController}">
-                                                                </form>
-                                                                <div class="modal fade" id="allow-post" tabindex="-1"
-                                                                    role="dialog" aria-labelledby="exampleModalLabel"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title"
-                                                                                    id="exampleModalLabel">Allow
-                                                                                    Post</h5>
-                                                                                <button type="button" class="close"
-                                                                                    data-dismiss="modal"
-                                                                                    aria-label="Close">
-                                                                                    <span
-                                                                                        aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                Do you want to delete this category?
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    class="btn btn-secondary"
-                                                                                    data-dismiss="modal">Close</button>
-                                                                                <input type="hidden" name="postId"
-                                                                                    value="${post.getID()}" />
-                                                                                <button type="submit"
-                                                                                    class="btn btn-success">Allow</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                </form>
                                                             </c:forEach>
                                                         </tbody>
                                                     </table>
@@ -133,36 +156,12 @@
                     </div>
                 </div>
             </div>
-            <!-- Add category Modal -->
-            <div class="modal fade" id="add-category">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Add Category</h3>
-                        </div>
-                        <div class="modal-body">
-                            <form action="${pageContext.request.contextPath}/mod/add-category" method="post">
-                                <div class="form-group">
-                                    <label for="category-name">Category Name</label>
-                                    <input type="text" class="form-control" id="category-name" required
-                                        placeholder="Enter Category Name" name="category-name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" rows="3" required
-                                        placeholder="Description here" name="description"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-success text-xs-center">Add</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            <jsp:include page="../modals/addCategoryModal.jsp" />
+            <jsp:include page="../common/footer.jsp" />
             <script>
                 w3.addClass('#category', 'active-nav')
                 w3.addClass('#a2', 'color-white')
             </script>
-            <jsp:include page="../common/footer.jsp" />
         </body>
-
         </html>

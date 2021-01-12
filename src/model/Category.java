@@ -64,8 +64,8 @@ public class Category extends Model
 		this.name = name;
 		this.description = description;
 		this.shortDes = description;
-		if (description.length() > 52) {
-			this.shortDes = description.substring(0, 50);
+		if (description.length() > 90) {
+			this.shortDes = description.substring(0, 90) + "..." ;
 		}
 		this.count_post = 0;
 	}
@@ -122,16 +122,20 @@ public class Category extends Model
 		Insert(doc, CATEGORY);				
 	}
 	
-	public static String Update(String url, String oldName, String newName, String description, int count_post) {
+	public static String Update(String url, String oldName, String newName, String description) {
 		String newURL = url;
 		if (!oldName.equals(newName)) {
 			newURL = Utilities.createURL(newName);
+		}
+		String shortDes = description;
+		if (description.length() > 90) {
+			shortDes = description.substring(0, 90);
 		}
 		CATEGORY.updateOne(Filters.eq("url", url),
 				Updates.combine(Updates.set("url", newURL), 
 						Updates.set("name", newName), 
 						Updates.set("description", description),
-						Updates.set("count_post", count_post)));
+						Updates.set("shortDes", shortDes)));
 		return newURL;		
 	}
 	

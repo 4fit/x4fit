@@ -20,7 +20,9 @@ import model.Post;
 		"/mod/all-posts", 
 		"/mod/accept-posts", 
 		"/mod/all-categories",
-		"/mod/add-category"
+		"/mod/add-category",
+		"/mod/delete-category",
+		"/mod/update-category"
 		})
 public class ModController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -51,6 +53,12 @@ public class ModController extends HttpServlet {
 				return;
 			case "/mod/add-category":
 				addCategory(request, response);
+				return;
+			case "/mod/update-category":
+				updateCategory(request, response);
+				return;
+			case "/mod/delete-category":
+				deleteCategory(request, response);
 				return;
 			default:
 				response.sendRedirect("index.jsp");
@@ -90,6 +98,37 @@ public class ModController extends HttpServlet {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 			response.sendRedirect("500.jsp");
+		}
+	}
+	
+	protected void deleteCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = (String)request.getParameter("url");
+		try {
+			Category.Delete(url);
+			List<Category> allCategories = Category.getAllCategories();
+			request.setAttribute("allCategories", allCategories);
+			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			request.getRequestDispatcher("500.jsp").forward(request, response);
+		}
+	}
+	
+	protected void updateCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = (String)request.getParameter("url");
+		String oldName = (String)request.getParameter("oldName");
+		String newName = (String)request.getParameter("category-name");
+		String description = (String)request.getParameter("description");
+		try {
+			Category.Update(url, oldName, newName, description);
+			List<Category> allCategories = Category.getAllCategories();
+			request.setAttribute("allCategories", allCategories);
+			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			request.getRequestDispatcher("500.jsp").forward(request, response);
 		}
 	}
 	
