@@ -22,10 +22,10 @@ public class Model
 	public static MongoDatabase db = mongoClient.getDatabase("X4FIT2");
 	Logger mongoLogger = Logger.getLogger( "org.mongodb.driver");
 	
-	public static MongoCollection<Document> POST = db.getCollection("Post");
-	public static MongoCollection<Document> USER = db.getCollection("User");
-	public static MongoCollection<Document> CMT = db.getCollection("Comment");
-	//public static MongoCollection<Document> ACCOUNT = db.getCollection("ACCOUNT");
+	public static MongoCollection<Document> POST = db.getCollection("POST");
+	public static MongoCollection<Document> USER = db.getCollection("USER");
+	public static MongoCollection<Document> CMT = db.getCollection("COMMENT");
+	public static MongoCollection<Document> ACCOUNT = db.getCollection("ACCOUNT");
 	public static MongoCollection<Document> AUTHENTICATION = db.getCollection("AUTHENTICATION");
 	public static MongoCollection<Document> CATEGORY = db.getCollection("CATEGORY");
 	public static MongoCollection<Document> GALLERY = db.getCollection("GALLERY");

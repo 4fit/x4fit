@@ -1,5 +1,4 @@
 package model;
-import dao.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,12 +49,9 @@ public class Post extends Model {
 	public List<Integer> getDownvote() {
 		return downvote;
 	}
-<<<<<<< HEAD
 
-	public void setDownvote(int[] downvote) {
-=======
 	public void setDownvote(List<Integer> downvote) {
->>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
+
 		this.downvote = downvote;
 	}
 
@@ -159,13 +155,9 @@ public class Post extends Model {
 	public Post() {
 	}
 
-<<<<<<< HEAD
 
-	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String[] category) {
-=======
 	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category) 
 	{
->>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 		this.id = getPostID();
 		this.title = title;
 		this.user_id = user_id;

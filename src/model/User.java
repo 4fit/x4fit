@@ -1,11 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
 
-=======
 import java.util.Arrays;
->>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,10 +18,9 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 
-<<<<<<< HEAD
-=======
+
 import x4fit.Utilities;
->>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
+
 
 public class User extends Model {
 	
@@ -35,43 +32,12 @@ public class User extends Model {
 	private String email;
 	private String avatar;
 	private String url;
-<<<<<<< HEAD
-	private ArrayList<Integer> follower;
-	private ArrayList<Integer> following;
-	private ArrayList<Integer> clips;
-	
-	
-	
-	
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-=======
 	private List<Integer> follower;
 	private List<Integer> following;
 	private List<Integer> clips;
 	private String status;
->>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
+
 
 	public int getUserID() {
 		return userID;
@@ -209,22 +175,21 @@ public class User extends Model {
 		}
 		return data;
 	}
+//
+//<<<<<<< HEAD
+//
+//	public void addFollowingForIdUser(int idUserMain, int idUserFollow) // idUserMain là user sẽ được user đang đăng
+//																		// nhâp follow (idUserFollow)
+//	{
+//		updateFollow("following", idUserFollow, idUserMain);
+//		updateCount("following_count", idUserFollow);
+//
+//		updateFollow("follower", idUserMain, idUserFollow);
+//		updateCount("follower_count", idUserMain);
+//
+//	}
+//
 
-<<<<<<< HEAD
-
-	public void addFollowingForIdUser(int idUserMain, int idUserFollow) // idUserMain là user sẽ được user đang đăng
-																		// nhâp follow (idUserFollow)
-	{
-		updateFollow("following", idUserFollow, idUserMain);
-		updateCount("following_count", idUserFollow);
-
-		updateFollow("follower", idUserMain, idUserFollow);
-		updateCount("follower_count", idUserMain);
-
-	}
-
-=======
->>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 	public void updateCount(String nameField, int idMain) {
 		Document user = GetUserDocumentByUserID(idMain);
 		int count = user.getInteger(nameField) + 1;
@@ -297,10 +262,7 @@ public class User extends Model {
 		return Doc2User(doc);
 	}
 	
-<<<<<<< HEAD
-	public static Document GetUserDocumentByUserID(int userID)
-	{
-=======
+
 	public static int GetUserIDFromCookies(Cookie[] cookie) 
 	{
 		String selector = "", validator = "";
@@ -324,7 +286,7 @@ public class User extends Model {
 	}
 	
 	public static Document GetUserDocumentByUserID(int userID) {
->>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
+
 		FindIterable<Document> cursor = USER.find(Filters.eq("userID", userID));
 		Iterator<Document> it = cursor.iterator();
 		if (it.hasNext()) {
@@ -382,24 +344,3 @@ public class User extends Model {
 }
 	
 
-	
-	/*
-<<<<<<< HEAD
-=======
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-=======
-	
->>>>>>> 438ee2cfd44d58da6171b07e3bd2f5f5e594ac6e
-	}
-	
-
-	
-
-	
-	}
-}*/
