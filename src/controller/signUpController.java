@@ -67,16 +67,16 @@ public class signUpController extends HttpServlet {
 		request.setAttribute("password", password);
 		request.setAttribute("email", email);
 
-		if (error == 0) {
-			User acc = null;// new User(username, password, email);
-			// AccountDAO dao = new AccountDAO();
-			signUpSuccess(acc);
-			if (isLoginSuccess("USER", acc) != null)
-				url = "index.jsp";
-			else
-				url = "/logInController/signup.jsp";
-		} else
-			url = "/logInController/signup.jsp";
+//		if (error == 0) {
+//			User acc = null;// new User(username, password, email);
+//			// AccountDAO dao = new AccountDAO();
+//			signUpSuccess(acc);
+//			if (isLoginSuccess("USER", acc) != null)
+//				url = "index.jsp";
+//			else
+//				url = "/logInController/signup.jsp";
+//		} else
+//			url = "/logInController/signup.jsp";
 
 		response.sendRedirect(url);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
@@ -86,18 +86,18 @@ public class signUpController extends HttpServlet {
 	public void signUpSuccess(User user) {
 		Document doc = new Document("_id", new ObjectId());
 
-		doc.append("id", user.getUserID());
-		doc.append("username", user.getUsername());
-		doc.append("password", user.getPassword());
-		doc.append("email", user.getEmail());
-		doc.append("name", user.getName());
-		doc.append("posts_count", user.getPostsCount());
-		doc.append("following_count", user.getFollowing_count());
-		doc.append("follower_count", user.getFollower_count());
-		doc.append("clips_count", user.getClips_count());
-		doc.append("follower", user.getFollower());
-		doc.append("following", user.getFollowing());
-		doc.append("clips", user.getClips());
+//		doc.append("id", user.getUserID());
+//		doc.append("username", user.getUsername());
+//		doc.append("password", user.getPassword());
+//		doc.append("email", user.getEmail());
+//		doc.append("name", user.getName());
+//		doc.append("posts_count", user.getPostsCount());
+//		doc.append("following_count", user.getFollowing_count());
+//		doc.append("follower_count", user.getFollower_count());
+//		doc.append("clips_count", user.getClips_count());
+//		doc.append("follower", user.getFollower());
+//		doc.append("following", user.getFollowing());
+//		doc.append("clips", user.getClips());
 		Model.Insert(doc, "USER");
 	}
 

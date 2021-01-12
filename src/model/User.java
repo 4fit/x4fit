@@ -74,8 +74,6 @@ public class User extends Model {
 		
 		this.userID= getLastestID("User")+1;
 		
-	
->>>>>>> yen
 	}
 	
 public User(String name, String username, String pass, String email ) {
