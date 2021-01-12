@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${title}</title>
-	<link rel="icon" type="image/png" href="images/logo.png" />
+	<link rel="icon" type="image/png" href="images/logo2.png" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
@@ -40,9 +40,8 @@
 		
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-				<a class="nav-item nav-link active" href="#">Home <span
-					class="sr-only">(current)</span></a> <a class="nav-item nav-link"
-					href="#">Post</a> <a class="nav-item nav-link" href="#">Profile</a>
+<!-- 				<a class="nav-item nav-link" href="#">Post</a>  -->
+<!-- 				<a class="nav-item nav-link" href="#">Profile</a> -->
 				<div class="input-group mb-10">
 					<input type="text" class="form-control" placeholder="Search"
 						aria-label="Username" aria-describedby="basic-addon1">
@@ -54,7 +53,7 @@
 				<button class="btn btn-primary mt-1" type="button">
 					<i class="fas fa-bell"></i>
 				</button>
-				<a href="posts/create-post.jsp">
+				<a href="posts/create.jsp">
 					<button class="btn btn-secondary mt-1" type="button">
 						<i class="fas fa-edit"></i>
 					</button>
@@ -99,7 +98,7 @@
 						<button class="icon-btn" data-original-title="Upvote">
 							<i class="fa fa-caret-up"></i>
 						</button>
-						<div class="points">+999</div>
+						<div class="points">${points}</div>
 						<button class="icon-btn" data-original-title="Downvote">
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -117,13 +116,11 @@
 					<div align="center">
 						<a
 							href="https://www.facebook.com/sharer.php?u=http://x4fit.herokuapp.com/post?p=${url}"
-							target="_blank" type="button" class="share link--muted"
-							data-original-title="Share bài viết lên Facebook"> <img
-							src="https://img.icons8.com/color/48/000000/facebook.png" />
-						</a> <a class="zalo-share-button share" data-href=""
-							data-oaid="579745863508352884" data-layout="2" data-color="white"
-							data-customize=true> <img
-							src="https://img.icons8.com/ios-filled/48/4a90e2/zalo.png" />
+							target="_blank" type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook"> 
+							<img src="https://img.icons8.com/color/64/000000/facebook.png" />
+						</a> 
+						<a class="zalo-share-button share" data-href="" data-oaid="579745863508352884" data-layout="2" data-color="white" data-customize=true> 
+							<img src="https://img.icons8.com/ios-filled/64/4a90e2/zalo.png" />
 						</a>
 					</div>
 				</div>
@@ -139,58 +136,18 @@
 				
 				<h4>Bình luận</h4>
 				<form action="${pageContext.request.contextPath}/comment">
-					<textarea id="cmt" name="cmt"></textarea>
+					<textarea id="comment" name="comment"></textarea>
+					<br>
 					<div class="align-middle text-center">
 						<input class="btn btn-primary" type="submit" value="Bình luận">
 					</div>
 				</form>
 				<br>
-
-				<div class="vote_comment">
-					<div class="score">
-						<button class="icon-btn vote" data-toggle="tooltip"
-							data-placement="bottom" title="Upvote">
-							<i aria-hidden="true" class="fa fa-chevron-up text-muted"></i>
-						</button>
-
-						<span class="point_vote_comment"><c:out value="${cmt.getPoints()}"></c:out></span>
-
-						<button class="icon-btn vote" data-toggle="tooltip"
-							data-placement="bottom" title="downvote">
-							<i aria-hidden="true" class="fa fa-chevron-down text-muted"></i>
-						</button>
-
-					</div>
-
-					<div class="action_with_comment d">
-						<a class="reply_comment"> <span class="text-muted" id="reply">Reply</span>
-						</a> <a class="share_comment"> <span class="text-muted">Share</span>
-						</a>
-					</div>
-
-					<div class="more_comment">
-						<div class="menu__post">
-							<div class="dropdown_comment">
-
-								<button type="button" class="dropbtn" data-toggle="tooltip"
-									data-placement="bottom" title="Show more active">
-									<i class="fa fa-ellipsis-h text-muted"></i>
-								</button>
-
-								<div class="dropdown-content">
-									<a href="#"> repost</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="list-comments">
-					<%
-						int i = 0;
-					%>
-					<c:forEach var="cmt" items="${comments}">
+				<%
+					int i = 0;
+				%>
+				<c:forEach var="cmt" items="${comments}">
+					<div class="list-comments">
 						<div class="user_comment_post">
 							<div class="info_user_comment">
 
@@ -217,28 +174,75 @@
 								<textarea id="comment" name="comment" rows="5">${cmt.getContent()}</textarea>
 							</div>
 
+							<div class="vote_comment">
+								<div class="score">
+									<button class="icon-btn vote" data-toggle="tooltip"
+										data-placement="bottom" title="Upvote">
+										<i aria-hidden="true" class="fa fa-chevron-up text-muted"></i>
+									</button>
+			
+									<span class="point_vote_comment"><c:out value="${cmt.getPoints()}"></c:out></span>
+			
+									<button class="icon-btn vote" data-toggle="tooltip"
+										data-placement="bottom" title="downvote">
+										<i aria-hidden="true" class="fa fa-chevron-down text-muted"></i>
+									</button>
+			
+								</div>
+			
+								<div class="action_with_comment d">
+									<a class="reply_comment"> <span class="text-muted" id="reply">Reply</span>
+									</a> <a class="share_comment"> <span class="text-muted">Share</span>
+									</a>
+								</div>
+			
+								<div class="more_comment">
+									<div class="menu__post">
+										<div class="dropdown_comment">
+			
+											<button type="button" class="dropbtn" data-toggle="tooltip"
+												data-placement="bottom" title="Show more active">
+												<i class="fa fa-ellipsis-h text-muted"></i>
+											</button>
+			
+											<div class="dropdown-content">
+												<a href="#"> repost</a>
+											</div>
+										</div>
+									</div>
+								</div>
+			
+							</div>
 						</div>
 						<%
 							i += 1;
 						%>
-					</c:forEach>
-				</div>
-
+						</div>
+				</c:forEach>
+				
 			</div>
 			<!-- Right -->
 			<div class="col-sm-2">
-				<div
-					class="post-actions d-flex flex-column align-items-center mx-auto">
-					<form action="${pageContext.request.contextPath}/edit?p=${url}"
-						method="post">
-						<input type="submit" value="EDIT" class="btn btn-primary">
+				<div class="post-actions d-flex flex-column align-items-center mx-auto">
+					<!-- Edit -->
+					<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
+						<button type="submit" value="EDIT" class="btn btn-primary">
+							<i class="fa fa-edit"></i>
+						</button>
+					</form>
+					<br>
+					<!-- Báo cáo -->
+					<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
+						<button type="submit" value="REPORT" class="btn btn-danger">
+							<i class="fa fa-flag"></i>
+						</button>
 					</form>
 				</div>
 			</div>
 		</div>
 		<hr>
 	</div>
-
+	<jsp:include page="../modal.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
 		content = ViewContent(); 
@@ -246,7 +250,16 @@
 		var listComments = ViewComments();
 		listComments.forEach((comment) => comment.togglePreview());
 		
-		cmt = Comment("cmt");
+		cmt = Comment();
+		$('.image-upload-wrap').bind('dragover', function() {
+			$('.image-upload-wrap').addClass('image-dropping');
+		});
+		$('.image-upload-wrap').bind('dragleave', function() {
+			$('.image-upload-wrap').removeClass('image-dropping');
+		});
+
+		$('.upload-btn').hide();
+		$('.remove-btn').hide();
   </script>
 	<script src="https://sp.zalo.me/plugins/sdk.js"></script>
 </body>

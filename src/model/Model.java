@@ -72,7 +72,13 @@ public class Model
 	public static int getLastestID(MongoCollection<Document> collection)
 	{
 		Document lastInsertion = collection.find().sort(new BasicDBObject("_id", -1)).first();
-		int id = Integer.parseInt(lastInsertion.get("id").toString());
+		int id = 0;
+		try{
+			id = Integer.parseInt(lastInsertion.get("id").toString());
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
 		return id;
 	}
 	

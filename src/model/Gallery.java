@@ -1,14 +1,19 @@
 package model;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bson.Document;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 public class Gallery extends Model
 {
 	private int ID;
-	private User user;
+	private int userID;
+	private User user; //bỏ
 	private List<String> images;
 	private List<Integer> follower;
 	private List<Integer> following;
@@ -20,6 +25,14 @@ public class Gallery extends Model
 
 	public void setID(int iD) {
 		ID = iD;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 	public User getUser() {
@@ -79,6 +92,12 @@ public class Gallery extends Model
 		this.setClips(posts);
 	}
 	
+	public Gallery(int userID)
+	{
+		this.setID(Model.getLastestID(GALLERY)+1);
+		this.setUserID(userID);
+	}
+	
 //	public void updateClipsItem(int userID, int postID) 
 //	{
 //
@@ -125,5 +144,27 @@ public class Gallery extends Model
 				doc.get("following"),
 				doc.get("clips")
 				);
+	}
+	
+	public void Insert()
+	{
+		List<String> empty = Arrays.asList();
+		List<Integer> emp = Arrays.asList();
+		Document doc = new Document("id", this.getID())
+				.append("userID", this.getUserID())
+				.append("images", empty)
+				.append("following", emp)
+				.append("follower", emp)
+				.append("clips", emp);
+		GALLERY.insertOne(doc);
+	}
+	public static void InsertImage(int id, String fileName, int userID, String filePath)
+	{
+		GALLERY.findOneAndUpdate(Filters.eq("userID", userID), Updates.addToSet("images", filePath));
+//		Document doc = new Document("id", id)
+//				.append("fileName", fileName)
+//				.append("userID", userID)
+//				.append("filePath", filePath);
+//		Model.Insert(doc, Model.GALLERY);
 	}
 }

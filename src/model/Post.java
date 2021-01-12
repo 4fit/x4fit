@@ -2,6 +2,7 @@ package model;
 import dao.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import com.mongodb.client.model.Updates;
 
 import x4fit.Utilities;
 
-//http://mongodb.github.io/mongo-java-driver/3.4/javadoc/com/mongodb/client/model/Updates.html
 
 public class Post extends Model {
 	private int id;
@@ -29,30 +29,33 @@ public class Post extends Model {
 	private int clips_count;
 	private boolean is_public;
 	private String thumbnail_url;
-	private String[] category;
-	private int[] upvote;
-	private int[] downvote;
-	private int[] clips;
+	private String status;
+	private String category;
+	private List<Integer> upvote;	// chứa DS userID đã upvote cho bài viết
+	private List<Integer> downvote;	// chứa DS userID đã downvote cho bài viết
+	private List<Integer> clips;	// chứa DS userID đã ghim bài viết
 
-	public int[] getClips() {
+	public List<Integer> getClips() {
 		return clips;
 	}
-	public void setClips(int[] clips) {
+	public void setClips(List<Integer> clips) {
 		this.clips = clips;
 	}
-
-	public int[] getUpvote() {
+	public List<Integer> getUpvote() {
 		return upvote;
 	}
-	public void setUpvote(int[] upvote) {
+	public void setUpvote(List<Integer> upvote) {
 		this.upvote = upvote;
 	}
-
-	public int[] getDownvote() {
+	public List<Integer> getDownvote() {
 		return downvote;
 	}
+<<<<<<< HEAD
 
 	public void setDownvote(int[] downvote) {
+=======
+	public void setDownvote(List<Integer> downvote) {
+>>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 		this.downvote = downvote;
 	}
 
@@ -140,18 +143,29 @@ public class Post extends Model {
 		this.thumbnail_url = thumbnail_url;
 	}
 
-	public String[] getCategory() {
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(String[] category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
-
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Post() {
 	}
 
+<<<<<<< HEAD
 
 	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String[] category) {
+=======
+	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category) 
+	{
+>>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 		this.id = getPostID();
 		this.title = title;
 		this.user_id = user_id;
@@ -160,14 +174,14 @@ public class Post extends Model {
 		this.published_at = this.updated_at = Utilities.GetCurrentDateTime();
 		this.views_count = 0;
 		this.points = 0;
-		this.clips_count = 0;
 		this.is_public = is_public;
 		this.thumbnail_url = thumbnail_url;
 		this.category = category;
+		this.status = "Chờ duyệt";
 	}
 
 	public Post(int id, String title, int user_id, String p, String content, String published_at, String updated_at,
-			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String[] category) {
+			boolean is_public, int views_count, int points, String thumbnail_url, String category, String status) {
 		this.id = id;
 		this.title = title;
 		this.user_id = user_id;
@@ -177,10 +191,22 @@ public class Post extends Model {
 		this.updated_at = updated_at;
 		this.views_count = views_count;
 		this.points = points;
-		this.clips_count = clips_count;
 		this.is_public = is_public;
 		this.thumbnail_url = thumbnail_url;
 		this.category = category;
+		this.status = status;
+	}
+	
+	// Duyệt bài post
+	public static boolean acceptPost(int postId) {
+		try {
+			POST.updateOne(Filters.eq("id", postId), new Document("$set", new Document("status", "Đã duyệt")));
+			System.out.println("Accepted post!");
+			return true;
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			return false;
+		}
 	}
 
 	public ArrayList<Comment> GetAllComments() {
@@ -194,7 +220,6 @@ public class Post extends Model {
 				listComments.add(cmt);
 			}
 		}
-		System.out.println(listComments.size());
 		return listComments;
 	}
 
@@ -217,46 +242,68 @@ public class Post extends Model {
 	}
 
 	public static void Insert(Post p) {
-		Insert(p.getID(), p.getTitle(), p.getUser_id(), p.getURL(), p.getContent(), p.getPublished_at(), p.getIs_public(),
-				p.getViews_count(), p.getPoints(), p.getClips_count(), p.getThumbnail_url(), p.getCategory());
+		Insert( p.getID(), 
+				p.getTitle(), 
+				p.getUser_id(), 
+				p.getURL(), 
+				p.getContent(), 
+				p.getPublished_at(), 
+				p.getIs_public(),
+				p.getViews_count(), 
+				p.getPoints(), 
+				p.getThumbnail_url(), 
+				p.getCategory());
 	}
 
 	public static void Insert(int id, String title, int user_id, String p, String content, String published_at,
-			boolean is_public, int views_count, int points, int clips_count, String thumbnail_url, String[] category) {
-		Document doc = new Document("id", id).append("title", title).append("user_id", user_id).append("url", p)
-				.append("content", content).append("published_at", published_at).append("updated_at", published_at)
-				.append("views_count", views_count).append("points", points).append("clips_count", clips_count)
-				.append("is_public", is_public).append("thumbnail_url", thumbnail_url);
+			boolean is_public, int views_count, int points, String thumbnail_url, String category) 
+	{
+		List<Integer> empty = Arrays.asList();
+		Document doc = new Document("id", id)
+				.append("title", title)
+				.append("user_id", user_id)
+				.append("url", p)
+				.append("content", content)
+				.append("published_at", published_at)
+				.append("updated_at", published_at)
+				.append("views_count", views_count)
+				.append("points", points)
+				.append("is_public", is_public)
+				.append("thumbnail_url", thumbnail_url)
+				.append("status", "Chờ duyệt")
+				.append("upvote", empty)
+				.append("downvote", empty)
+				.append("clips", empty);
 		Insert(doc, POST);
-	}
-
-	public static void allowPost(int postId) {
-		try {
-			POST.updateOne(Filters.eq("id", postId), new Document("$set", new Document("allow_post", true)));
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-		}
-
 	}
 
 	public static Post GetPost(String p) {
 		Document doc = POST.find(Filters.eq("url", p)).first();
 		if (doc == null)
 			return null;
-		Post post = new Post();
 		try {
-			post = Doc2Post(doc);
+			return Doc2Post(doc);
 		} catch (Exception e) {
 
 		}
-		return post;
+		return null;
 	}
 
 	public static Post Doc2Post(Document doc) {
-		return new Post(doc.getInteger("id"), doc.getString("title"), doc.getInteger("user_id"), doc.getString("url"),
-				doc.getString("content"), doc.getString("published_at"), doc.getString("updated_at"),
-				doc.getBoolean("is_public"), doc.getInteger("views_count"), doc.getInteger("points"),
-				doc.getInteger("clips_count"), doc.getString("thumbnail_url"), (String[])doc.get("category")
+		return new Post(
+				doc.getInteger("id"), 
+				doc.getString("title"), 
+				doc.getInteger("user_id"), 
+				doc.getString("url"),
+				doc.getString("content"), 
+				doc.getString("published_at"), 
+				doc.getString("updated_at"),
+				doc.getBoolean("is_public"), 
+				doc.getInteger("views_count"), 
+				doc.getInteger("points"), 
+				doc.getString("thumbnail_url"), 
+				doc.getString("category"),
+				doc.getString("status")
 				);
 	}
 	
@@ -292,15 +339,22 @@ public class Post extends Model {
 		return data;
 	}
 
-	public static String Update(String p, String title, String content, boolean is_public, String thumbnail_url,
-			String tags) {
-		String newURL = Utilities.createURL(title);
+	public static String Update(String p, String title, String new_title, String content, 
+			boolean is_public, String thumbnail_url, String category) {
+		
+		String newURL = p;
+		if (!new_title.equals(title))
+			newURL = Utilities.createURL(title);
 		POST.updateOne(Filters.eq("url", p),
-				Updates.combine(Updates.set("url", newURL), Updates.set("title", title), Updates.set("content", content),
-						Updates.set("category", tags), Updates.set("is_public", is_public),
+				Updates.combine(Updates.set("url", newURL), 
+						Updates.set("title", title), 
+						Updates.set("content", content),
+						Updates.set("category", category), 
+						Updates.set("is_public", is_public),
 						Updates.set("updated_at", Utilities.GetCurrentDateTime()),
 						Updates.set("thumbnail_url", thumbnail_url)));
 		return newURL;
+		
 	}
 
 	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote
@@ -383,18 +437,6 @@ public class Post extends Model {
 		POST.updateOne(query, updateObject);
 	}
 
-//	public void updateClipsCountOfPost(int idPost, int clipsCount)
-//	{
-//		BasicDBObject query  = new BasicDBObject();
-//		query.put("post_id", idPost);
-//		BasicDBObject newClipsDoc = new BasicDBObject();
-//		newClipsDoc.put("clips_count", clipsCount);
-//		BasicDBObject updateObject = new BasicDBObject();
-//		updateObject.put("$set", newClipsDoc);
-//		MongoCollection<Document> collection =  DAO.db.getCollection("POST");
-//		collection.updateOne(query, updateObject);
-//	}
-
 	public int countComment(int post_id) {
 		FindIterable<Document> listCMT = CMT.find(Filters.eq("post_id", post_id));
 		Iterator<Document> lCMT = listCMT.iterator();
@@ -405,5 +447,48 @@ public class Post extends Model {
 			count++;
 		}
 		return count;
+	}
+	
+	public static void InsertUpvote(String url, int userID)
+	{
+		POST.findOneAndUpdate(
+				Filters.eq("url", url), 
+				Updates.combine(
+						Updates.addToSet("upvote", userID), 
+						Updates.inc("points", 1)
+						)
+				);
+	}
+	
+	public static void InsertDownvote(String url, int userID)
+	{
+		POST.findOneAndUpdate(
+				Filters.eq("url", url), 
+				Updates.combine(
+						Updates.addToSet("downvote", userID), 
+						Updates.inc("points", -1)
+						)
+				);
+		
+	}
+	
+	public static void InsertClips(String url, int userID)
+	{
+		POST.findOneAndUpdate(Filters.eq("url", url), Updates.addToSet("clips", userID));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static int GetClipsCount(String url)
+	{
+		Document doc = POST.find(Filters.eq("url", url)).first();
+		try
+		{
+			List<Integer> clips = (List<Integer>) Utilities.convertObjectToList(doc.get("clips"));
+			return clips.size();
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			return -1;
+		}
 	}
 }

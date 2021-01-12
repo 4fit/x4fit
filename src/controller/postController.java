@@ -53,6 +53,7 @@ public class postController extends HttpServlet {
 			request.setAttribute("title", post.getTitle());
 			request.setAttribute("content", post.getContent());
 			request.setAttribute("category", post.getCategory());
+			request.setAttribute("points", post.getPoints());
 			request.setAttribute("url", p);
 			request.setAttribute("comments", listCmts);
 			request.setAttribute("listUserCmt", listUserCmt);

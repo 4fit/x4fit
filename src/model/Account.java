@@ -20,7 +20,6 @@ public class Account extends Model {
 	private String password;
 	private String email;
 	private String user_type;
-	private int accountID;
 	private int userID;
 
 	public int getUserID() {
@@ -30,15 +29,7 @@ public class Account extends Model {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-
-	public int getAccountID() {
-		return accountID;
-	}
-
-	public void setAccountID(int accountID) {
-		this.accountID = accountID;
-	}
-
+	
 	public String getUser_type() {
 		return user_type;
 	}
@@ -80,7 +71,6 @@ public class Account extends Model {
 		this.setPassword(password);
 		this.setEmail(email);
 		this.setUser_type(user_type);
-		this.setAccountID(getLastestID("ACCOUNT") + 1);
 		this.setUserID(getLastestID("USER") + 1);
 	}
 
@@ -88,13 +78,11 @@ public class Account extends Model {
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setUser_type("USER");
-		this.setAccountID(getLastestID("ACCOUNT") + 1);
 		this.setUserID(getLastestID("USER") + 1);
 	}
 	
-	public Account(int accountID, int userID, String password, String user_type, String email)
+	public Account(int userID, String password, String user_type, String email)
 	{
-		this.setAccountID(accountID);
 		this.setUserID(userID);
 		this.setUser_type(user_type);
 		this.setPassword(password);
@@ -103,8 +91,7 @@ public class Account extends Model {
 	
 	public static Account Doc2Account(Document doc)
 	{
-		return new Account(doc.getInteger("accountID"),
-						   doc.getInteger("userID"),
+		return new Account(doc.getInteger("userID"),
 						   doc.getString("password"),
 						   doc.getString("user_type"),
 						   doc.getString("email"));

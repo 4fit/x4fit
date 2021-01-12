@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,16 +29,27 @@ public class saveController extends HttpServlet {
 		String p = (String) request.getParameter("p"); // để biết bài viết nào được saveController
 		// title
 		String title = request.getParameter("title");
+		// new title
+		String new_title = request.getParameter("new_title");
 		// is_public
 		boolean is_public = request.getParameter("is_public") != null;
-		// tags
-		String tags = request.getParameter("tags");
+		
+		// category
+		String category = request.getParameter("category");
 		// image
 		String thumbnail_url = request.getParameter("thumbnail_url");
 		// content
 		String content = request.getParameter("content");
 
-		String post_URL = Post.Update(p, title, content, is_public, thumbnail_url, tags);
+		String post_URL = Post.Update(p, title, new_title, content, is_public, thumbnail_url, category);
+//		if (is_public)
+//		{
+//			post_URL = Post.Update(p, title, new_title, content, is_public, thumbnail_url, category);	
+//		}
+//		else
+//		{
+//			post_URL = Post.Update(p, title, new_title, content, is_public, thumbnail_url, category, "Chờ duyệt");
+//		}
 		request.setAttribute("title", title);
 		request.setAttribute("content", content);
 		request.setAttribute("url", post_URL);
@@ -47,5 +61,4 @@ public class saveController extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

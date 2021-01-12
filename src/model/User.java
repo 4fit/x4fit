@@ -1,11 +1,16 @@
 package model;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 
+=======
+import java.util.Arrays;
+>>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 import java.util.Iterator;
 import java.util.List;
 
 import javax.print.Doc;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 
@@ -15,6 +20,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 
+<<<<<<< HEAD
+=======
+import x4fit.Utilities;
+>>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 
 public class User extends Model {
 	
@@ -26,6 +35,7 @@ public class User extends Model {
 	private String email;
 	private String avatar;
 	private String url;
+<<<<<<< HEAD
 	private ArrayList<Integer> follower;
 	private ArrayList<Integer> following;
 	private ArrayList<Integer> clips;
@@ -56,6 +66,12 @@ public class User extends Model {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+=======
+	private List<Integer> follower;
+	private List<Integer> following;
+	private List<Integer> clips;
+	private String status;
+>>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 
 	public int getUserID() {
 		return userID;
@@ -91,28 +107,36 @@ public class User extends Model {
 		this.url = url;
 	}
 
-	public ArrayList<Integer> getFollower() {
+	public List<Integer> getFollower() {
 		return follower;
 	}
 
-	public void setFollower(ArrayList<Integer> follower) {
+	public void setFollower(List<Integer> follower) {
 		this.follower = follower;
 	}
 
-	public ArrayList<Integer> getFollowing() {
+	public List<Integer> getFollowing() {
 		return following;
 	}
 
-	public void setFollowing(ArrayList<Integer> following) {
+	public void setFollowing(List<Integer> following) {
 		this.following = following;
 	}
 
-	public ArrayList<Integer> getClips() {
+	public List<Integer> getClips() {
 		return clips;
 	}
 
-	public void setClips(ArrayList<Integer> clips) {
+	public void setClips(List<Integer> clips) {
 		this.clips = clips;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public User() {
@@ -135,20 +159,24 @@ public class User extends Model {
 		
 	}
 
-	public User(int userID, String fullname) {
+	public User(int userID, String fullname) 
+	{
+		List<Integer> empty = Arrays.asList();
 		this.setUserID(userID);
 		this.setFullname(fullname);
 		this.setAvatar("avt.png");
-		this.setClips(new ArrayList<Integer>());
-		this.setFollower(new ArrayList<Integer>());
-		this.setFollowing(new ArrayList<Integer>());
+		this.setStatus("OK");
+		this.setClips(empty);
+		this.setFollower(empty);
+		this.setFollowing(empty);
 
 		String username = Account.GetAccountByUserID(userID).getUsername();
 		this.setUrl(username + Integer.toString(userID));
 	}
 
-	public User(int userID, String fullname, String avatar, String url, ArrayList<Integer> clips,
-			ArrayList<Integer> following, ArrayList<Integer> follower) {
+	public User(int userID, String fullname, String avatar, String url, 
+			List<Integer> clips, List<Integer> following, List<Integer> follower) 
+	{
 		this.setUserID(userID);
 		this.setFullname(fullname);
 		this.setAvatar(avatar);
@@ -156,12 +184,14 @@ public class User extends Model {
 		this.setClips(clips);
 		this.setFollower(follower);
 		this.setFollowing(following);
+		this.setStatus("OK");
 	}
 
+	@SuppressWarnings("unchecked")
 	public static User Doc2User(Document doc) {
-		ArrayList<Integer> clips = new ArrayList<Integer>();// (ArrayList<Integer>) doc.get("clips");
-		ArrayList<Integer> following = new ArrayList<Integer>();//(ArrayList<Integer>) doc.get("following");
-		ArrayList<Integer> follower = new ArrayList<Integer>();//(ArrayList<Integer>) doc.get("follower");
+		List<Integer> clips = (List<Integer>) Utilities.convertObjectToList(doc.get("clips"));
+		ArrayList<Integer> following = (ArrayList<Integer>) Utilities.convertObjectToList(doc.get("following"));
+		ArrayList<Integer> follower = (ArrayList<Integer>) Utilities.convertObjectToList(doc.get("follower"));
 		return new User(doc.getInteger("id"), doc.getString("fullname"), doc.getString("avatar"),
 				doc.getString("url"), clips, following, follower);
 	}
@@ -180,6 +210,7 @@ public class User extends Model {
 		return data;
 	}
 
+<<<<<<< HEAD
 
 	public void addFollowingForIdUser(int idUserMain, int idUserFollow) // idUserMain là user sẽ được user đang đăng
 																		// nhâp follow (idUserFollow)
@@ -192,6 +223,8 @@ public class User extends Model {
 
 	}
 
+=======
+>>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 	public void updateCount(String nameField, int idMain) {
 		Document user = GetUserDocumentByUserID(idMain);
 		int count = user.getInteger(nameField) + 1;
@@ -209,29 +242,29 @@ public class User extends Model {
 	}
 
 	// Follow bao gồm follower, following
-	public void updateFollow(String nameField, int idMain, int id) // idMain là ai được update thuộc tính follow
-	{
-		Document user = GetUserDocumentByUserID(idMain);
-		System.out.print(user.get(nameField));
-		List<Integer> follow = (ArrayList<Integer>) user.get(nameField);
-		if (isExitInArray(follow, id) == 0) // Kiểm tra xem user đó đã thực hiện follow chưa, nếu có thì không cần
-											// update
-		{
-			follow.add(id);
-
-			BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh
-			query.put("id", idMain);
-
-			BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách follow
-			newList.put(nameField, follow);
-
-			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
-			updateObject.put("$set", newList);
-
-			USER.updateOne(query, updateObject);
-
-		}
-	}
+//	public void updateFollow(String nameField, int idMain, int id) // idMain là ai được update thuộc tính follow
+//	{
+//		Document user = GetUserDocumentByUserID(idMain);
+//		System.out.print(user.get(nameField));
+//		List<Integer> follow = (ArrayList<Integer>) user.get(nameField);
+//		if (isExitInArray(follow, id) == 0) // Kiểm tra xem user đó đã thực hiện follow chưa, nếu có thì không cần
+//											// update
+//		{
+//			follow.add(id);
+//
+//			BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh
+//			query.put("id", idMain);
+//
+//			BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách follow
+//			newList.put(nameField, follow);
+//
+//			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
+//			updateObject.put("$set", newList);
+//
+//			USER.updateOne(query, updateObject);
+//
+//		}
+//	}
 
 	public static User getUserByEmail(String email) {
 		FindIterable<Document> cursor = USER.find(Filters.eq("email", email));
@@ -245,15 +278,16 @@ public class User extends Model {
 
 	}
 
-	public static User getUserByUsername(String username) {
-		FindIterable<Document> cursor = USER.find(Filters.eq("username", username));
-		Iterator<Document> it = cursor.iterator();
-		if (it.hasNext()) {
-			Document doc = USER.find(Filters.eq("username", username)).first();
-			return Doc2User(doc);
-		} else
-			return null;
-
+	public static User getUserByUsername(String username) 
+	{
+		Document doc = ACCOUNT.find(Filters.eq("username", username)).first();
+		if (doc!=null)
+		{
+			int userID = doc.getInteger("userID");
+			Document user = USER.find(Filters.eq("id", userID)).first();
+			return Doc2User(user);
+		}
+		else return null;
 	}
 
 	public static User GetUserByUserID(int userID) {
@@ -263,8 +297,34 @@ public class User extends Model {
 		return Doc2User(doc);
 	}
 	
+<<<<<<< HEAD
 	public static Document GetUserDocumentByUserID(int userID)
 	{
+=======
+	public static int GetUserIDFromCookies(Cookie[] cookie) 
+	{
+		String selector = "", validator = "";
+		for (Cookie c : cookie) {
+			if (c.getName().equals("selector"))
+				selector = c.getValue();
+			if (c.getName().equals("validator"))
+				validator = c.getValue();
+		}
+		int userID = Model.Authenticator(selector, validator);
+		return userID;
+	}
+	
+	public static User GetUserInfoFromCookies(Cookie[] cookie) 
+	{
+		int userID = GetUserIDFromCookies(cookie);
+		Document doc = USER.find(Filters.eq("userID", userID)).first();
+		if (doc != null)
+			return Doc2User(doc);
+		else return null;
+	}
+	
+	public static Document GetUserDocumentByUserID(int userID) {
+>>>>>>> fd08f0aae3a478bec33a0a6c87f52a739184f8ab
 		FindIterable<Document> cursor = USER.find(Filters.eq("userID", userID));
 		Iterator<Document> it = cursor.iterator();
 		if (it.hasNext()) {
@@ -289,8 +349,7 @@ public class User extends Model {
 	public static void updateClipsItem(int userID, int postID) {
 		User user = User.GetUserByUserID(userID);
 
-		ArrayList<Integer> listIdPost = new ArrayList<Integer>();
-		listIdPost = user.getClips();
+		List<Integer> listIdPost = user.getClips();
 
 		if (isExitInArray(listIdPost, postID) == 0) {
 			listIdPost.add(postID);
