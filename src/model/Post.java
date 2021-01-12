@@ -37,21 +37,29 @@ public class Post extends Model {
 
 	public List<Integer> getClips() {
 
+		return clips;
+		}
 	
+
 //	public String getNameUser()
 //	{
 //		Document user = UserDAO.getUserInfo(this.user_id);
 //		String name = "name author";
 //		
-//		if(user.getString("name")!= null)
+//		try
+//		{if(user.getString("name")!= null)
 //			name = user.getString("name");
+//		}
+//		catch(NullPointerException x)
+//		{
+//			name = "name author";
+//		}
 //		
 //		return name;
 //	}
-	
+//	
 
-		return clips;
-	}
+	
 	public void setClips(List<Integer> clips) {
 		this.clips = clips;
 	}
