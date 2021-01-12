@@ -7,6 +7,7 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script
@@ -36,6 +37,26 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 <title>DETAIL POST</title>
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/detailPost.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://kit.fontawesome.com/f93b4d7888.js" crossorigin="anonymous"></script>
+    <script src="c"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title><c:out value = "${POST.title}"></c:out></title>
+>>>>>>> yen
 </head>
 
 <style>
@@ -954,6 +975,7 @@ ul.social-network li {
 					</div>
 				</div>
 
+<<<<<<< HEAD
 				<div class="post-comments">
 					<h3>Comments</h3>
 					<div class="tab_comment">
@@ -961,6 +983,80 @@ ul.social-network li {
 							id="btnWrite">Write</button>
 						<button class="tablinks" onclick="openComment(event, 'Preview')">Preview</button>
 
+=======
+                <div class="post-body__right px-0 hidden-md-down col-lg-3">
+                    <!--<div class="sticky-sidebar post-sidebar post-body__sidebar">
+                        <div class="sticky-sidebar__inner" style="width:285px">
+                            <div class="post-index hidden-sm-down">
+
+                            </div>
+                        </div>
+                    </div>-->
+                    
+                    <div class="max-w-2xl content mt-32" id="contentTable">
+                </div>
+            </div>
+        </div>
+        <div class="post-recommendations bg-light">
+            <div class="container py-2">
+                <div class="post-section">
+                    <div class="v-ctr-section related-posts-widget pb-2">
+                        <h3>Related</h3>
+                        <div class="post-related__box">
+                            
+                           
+                           <c:forEach var = "postByAuthor" items = "${listPost}" >
+                              <div class="item">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <div class="card-body__title text-dark word-break mb-05">
+                                            <span><a href="#"><c:out value = "${postByAuthor.title}"></c:out></a></span>
+                                        </div>
+                                        <div class="card-body__author">
+                                           <span> <a href="#" class="text-primary">${name_author}</a></span>
+                                        </div>
+                                        <span title="21 min read" class = "text-muted post-reading__time">
+                                            21 min read
+                                        </span>
+                                        <div class = "d-flex">
+                                            <div class = "post-stats text-muted">
+                                                <span class = "stat-item mr-05" data-toggle="tooltip" data-placement="bottom" title = "Views">
+                                                    <i aria-hidden = "true" class = "fa fa-eye"><c:out value = "${postByAuthor.views_count}"></c:out></i>
+                                                </span>
+                                                <span class = "stat-item mr-05" data-toggle="tooltip" data-placement="bottom" title = "Clips">
+                                                    <i aria-hidden = "true" class = "fa fa-paperclip"> <c:out value = "${postByAuthor.clips_count}"></c:out></i>
+                                                </span>
+                                                <span class = "stat-item mr-05" data-toggle="tooltip" data-placement="bottom" title = "Comment">
+                                                    <i aria-hidden = "true" class = "fa fa-comments">  <c:out value = "${postByAuthor.count_cmt()}"></c:out></i>
+                                                </span>
+                                                <div class = "points"  data-toggle="tooltip" data-placement="bottom" title = "Votes">
+                                                    <div class = "carets" id = "points-carets-votes">
+                                                        <i  aria-hidden = "true" class = "fa fa-caret-up text-muted"></i>
+                                                        <i  aria-hidden = "true" class = "fa fa-caret-down text-muted"></i>
+                                                        
+                                                    </div>
+                                                    <span class = "text-muted">${postByAuthor.count_vote()}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                           </c:forEach>
+                          
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                   <div class="post-comments">
+                    <h3>Comments</h3>
+                   <div class="tab_comment">
+					  <button class="tablinks" onclick="openComment(event, 'Write')" id = "btnWrite">Write</button>
+					  <button class="tablinks" onclick="openComment(event, 'Preview')">Preview</button>
+					 
+>>>>>>> yen
 					</div>
 
 					<div id="Write" class="tabcontent">
@@ -1379,7 +1475,55 @@ ul.social-network li {
 	});
 	content.togglePreview();
   </script>
+<<<<<<< HEAD
 
+=======
+  
+	<script type="text/babel">
+		async function fetchAndParseMarkdown() {
+  const url = 'https://gist.githubusercontent.com/lisilinhart/e9dcf5298adff7c2c2a4da9ce2a3db3f/raw/2f1a0d47eba64756c22460b5d2919d45d8118d42/red_panda.md'
+  const response = await fetch(url)
+  const data = await response.text()
+  const htmlFromMarkdown = marked(data, { sanitize: true });
+  return htmlFromMarkdown
+}
+
+
+function generateLinkMarkup($contentElement) {
+  const headings = [...$contentElement.querySelectorAll('h1, h2')]
+  const parsedHeadings = headings.map(heading => {
+    return {
+      title: heading.innerText,
+      depth: heading.nodeName.replace(/\D/g,''),
+      id: heading.getAttribute('id')
+    }
+  })
+  const htmlMarkup = parsedHeadings.map(h => `
+  <li class="${h.depth > 1 ? 'pl-4' : ''}">
+    <a href="#${h.id}">${h.title}</a>
+  </li>
+  `)
+  const finalMarkup = `
+    <ul>${htmlMarkup.join('')}</ul>
+  `
+  return finalMarkup
+}
+
+async function init() {
+  const $main = document.querySelector('#content');
+  const $aside = document.querySelector('#contentTable');
+  const htmlContent = await fetchAndParseMarkdown();
+  $main.innerHTML = htmlContent
+  const linkHtml = generateLinkMarkup($main);
+  $aside.innerHTML = linkHtml 
+}
+
+init();
+alert("Da toi day nha");
+	</script>
+
+   
+>>>>>>> yen
 </body>
 
 </html>

@@ -108,7 +108,7 @@ public class signUp extends HttpServlet {
 			User acc = new User(name, username, password, email);   
 	    	AccountDAO dao = new AccountDAO();
 	    	dao.signUpSuccess(acc);
-	    	if(dao.isLoginSuccess("USER", acc) != null)
+	    	if(dao.isLoginSuccess("User", acc) != null)
 	    		url = "index.jsp";
 	    	else 
 	    		url = "/login/signup.jsp";

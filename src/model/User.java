@@ -72,9 +72,9 @@ public User(String name, String username, String pass, String email ) {
 		this.setClips(follow);
 		//System.out.print("Da toi luc tao nhan viên");
 		
-		
+
 		this.userID=(int) getLastestID("USER")+1;
-		
+
 	
 	}
 	
