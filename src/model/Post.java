@@ -281,6 +281,28 @@ public class Post extends Model {
 				.append("clips", empty);
 		Insert(doc, POST);
 	}
+	
+	public static List<Post> search(String query) {
+		FindIterable<Document> cursor = POST.find();
+		Iterator<Document> it = cursor.iterator();
+		List<Post> data = new ArrayList<Post>();
+		if (it.hasNext()) {
+			while (it.hasNext()) {
+				Document doc = it.next();
+				Post post = Doc2Post(doc);
+				if (String.valueOf(post.getID()).equals(query)
+						|| post.getTitle().equals(query)
+						|| post.getCategory().equals(query)
+						|| String.valueOf(post.getViews_count()).equals(query)
+						|| String.valueOf(post.getPoints()).equals(query)
+						|| String.valueOf(post.is_public).equals(query)
+						|| post.getStatus().equals(query)) {
+					data.add(post);
+				}
+			}
+		}
+		return data;
+	}
 
 	public static Post GetPost(String p) {
 		Document doc = POST.find(Filters.eq("url", p)).first();
