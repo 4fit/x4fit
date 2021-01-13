@@ -71,6 +71,7 @@ public class signUpController extends HttpServlet {
 		request.setAttribute("username", username);
 		request.setAttribute("password", password);
 		request.setAttribute("email", email);
+
 		request.setAttribute("fullname", fullname);
 
 		if (error == 0) 
@@ -91,6 +92,7 @@ public class signUpController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
+
 	
 	public void sendmail(String email, String fullname)
 	{
