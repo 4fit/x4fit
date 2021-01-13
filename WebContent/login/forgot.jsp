@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="../styles/login.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f93b4d7888.js" crossorigin="anonymous"></script>
     <title>FORGOT</title>
@@ -14,14 +14,14 @@
 
 <body>
     <div class="login">
-        <img class="wave" src="./images/bgLogin.jpg">
+        <img class="wave" src="../images/bgLogin.jpg">
         <div class="container">
             <div class="img">
-                <img src="./images/forgotmain.jpg">
+                <img src="../images/forgotmain.jpg">
             </div>
             <div class="login-content">
                 <form action="forgot" method = "post">
-                    <img src="#">
+                    
                     <h3 class="title"> Forgot password</h3>
                     <div class="input-div one">
                         <div class="i">
@@ -29,12 +29,12 @@
                         </div>
                         <div class="div">
                             
-                            <input type="text" class="form-control" placeholder = "email" name = "email">
+                            <input type="email" class="form-control" placeholder = "email" name = "email">
                         </div>
                     </div>
-                    <a href="signUp.html"> Sign up</a>
+                    <a href="signup.jsp"> Sign up</a>
                     <input type="submit" class="btn" value="send mail" name = "forgot_password">
-                    <a href="login.html" class = "btn-signup">Login</a>
+                    <a href="login.jsp" class = "btn-signup">Login</a>
                 </form>
                 
             </div>

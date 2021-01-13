@@ -163,7 +163,7 @@
 		</form>
 	</div>
 	
-	<jsp:include page="../modal.jsp"></jsp:include>
+	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
 	<hr>
 
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>

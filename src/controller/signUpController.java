@@ -3,10 +3,12 @@ package controller;
 import model.Account;
 import model.Model;
 import model.User;
+import x4fit.Utilities;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -35,8 +38,8 @@ public class signUpController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		User user = new User();
-
+		String fullname = request.getParameter("fullname");
+	
 		int error = 0;
 		if (username.equals("")) {
 			request.setAttribute("errUsername", " have not null !");
@@ -53,19 +56,22 @@ public class signUpController extends HttpServlet {
 			error = error + 1;
 		}
 
-		if (User.getUserByEmail(email) != null) {
-			request.setAttribute("errEmail", " already exist !");
+		if (Account.checkExitUsername(username)) {
+			request.setAttribute("errUsername", "Username already exist !");
 			error = error + 1;
 		}
 
-		if (User.getUserByUsername(username) != null) {
-			request.setAttribute("errUsername", " already exist !");
+		if (Account.checkExitEmail(email)) {
+			request.setAttribute("errEmail", "Email already exist !");
 			error = error + 1;
 		}
 
+		
+		String hashedPassword = DigestUtils.sha256Hex(password);
 		request.setAttribute("username", username);
 		request.setAttribute("password", password);
 		request.setAttribute("email", email);
+<<<<<<< HEAD
 
 		if (error == 0) {
 			User acc = null;// new User(username, password, email);
@@ -78,11 +84,29 @@ public class signUpController extends HttpServlet {
 //				url = "/logInController/signup.jsp";
 //		} else
 //			url = "/logInController/signup.jsp";
+=======
+		request.setAttribute("fullname", fullname);
 
-		response.sendRedirect(url);
+		if (error == 0) 
+		{			
+			Account.createNewAccount(username, hashedPassword, email, fullname);
+			
+			if (Account.checkExitUsername(username))
+				{
+					url = "${pageContext.request.contextPath}/home";
+					sendmail(email, fullname);
+				}
+			else
+				url = "/login/signup.jsp";
+		} else
+			url = "/login/signup.jsp";
+>>>>>>> cb6551b64d1aea60714eb7c30b892e08ee6e2c05
+
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
+<<<<<<< HEAD
 
 	public void signUpSuccess(User user) {
 		Document doc = new Document("_id", new ObjectId());
@@ -93,7 +117,34 @@ public class signUpController extends HttpServlet {
 		doc.append("following", user.getFollowing());
 		doc.append("clips", user.getClips());
 		Model.Insert(doc, "USER");
+=======
+	
+	public void sendmail(String email, String fullname)
+	{
+		String from  = "ngocyen174308@gmail.com";
+    	String pass = "18110402yen";
+    	
+    	String subject = "Wellcome to X4FIT";
+    	
+    	String body = "Dear " + fullname + ",\n\n"
+    	+ "Thank you :))) ";
+    	boolean isBodyHTML = false;
+    	
+    	try {
+    		
+    		Utilities.sendMail(from,pass, email,  subject, body, isBodyHTML);
+    		
+    		System.out.println("sSend ddc mail");
+    		
+    	}catch(MessagingException e)
+    	{
+    		System.out.println("Khong send ddc mail");
+    		System.out.println(e);
+    	}
+    	
+>>>>>>> cb6551b64d1aea60714eb7c30b892e08ee6e2c05
 	}
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

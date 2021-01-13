@@ -97,8 +97,8 @@
 		</form>
 	</div>
 
-	<jsp:include page="../modal.jsp"></jsp:include>
-
+	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
+	
 	<hr>
 
 	<script type="text/javascript">
