@@ -752,7 +752,7 @@ li {
                 <div class="jumbotron jumbotron-fluid">
                 <c:choose>
                 <c:when test =" ${lenListpost == 0}">
-                <p style = "color: #d9d9d9;"> Không tìm thấy bài viết !</p>
+                <span style = "color: #d9d9d9;"> Không tìm thấy bài viết !</span>
                  </c:when> 
                  </c:choose>
                 <c:forEach var = "post" items = "${listPost}" >
