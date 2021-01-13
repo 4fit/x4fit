@@ -764,7 +764,7 @@ li {
                         
                          <span class="name-pro-post display-9">${post.getNameUser()}</span>
                         <p class="postime">${post.published_at}</p>
-                        <p id = "textTitle" class="lead ml-2 title-post ">${post.title}</p>
+                        <p class="lead ml-2 title-post ">${post.title}</p>
                         <p class = "text-muted" id = "">${post.getShortContent()}</p>
                         <div class="tag d-flex">
                             
@@ -909,14 +909,16 @@ li {
 	    function highlightTextHome() {
     		var text = document.getElementById("text_search").value;
     		
-    	  var inputText = document.getElementById("textTitle");
-    	  var innerHTML = inputText.innerHTML;
-    	  var index = innerHTML.indexOf(text);
-    	  if (index >= 0) { 
-    	   innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-    	   inputText.innerHTML = innerHTML;
-    	  }
-    	}
+    	  var inputText = document.getElementsByClassName("title-post");
+    	  for (var i = 0; i < inputText.length; i++)
+    	 { 	var innerHTML = inputText[i].innerHTML;
+		   	  var index = innerHTML.indexOf(text);
+			  if (index >= 0) { 
+			   innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+			   inputText[i].innerHTML = innerHTML;
+	  			}
+    	 }
+	    }
     </script>
 </body>
 </html>

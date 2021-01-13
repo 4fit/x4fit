@@ -51,7 +51,7 @@ public class loginController extends HttpServlet {
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
-				System.out.print("DN thanh congs");
+
 				int userID = doc.getInteger("user_id");
 				return userID;
 			}
@@ -113,6 +113,7 @@ public class loginController extends HttpServlet {
 			User user = User.GetUserByUserID(userID);
 			Account account = Account.GetAccountByUserID(userID);
 			
+
 			
 			String url = request.getContextPath() + "/home";
 			session.setAttribute("userID", userID);

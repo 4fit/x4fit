@@ -453,7 +453,7 @@ public User(String name, String username, String pass, String email ) {
 		 List<Integer> follower = new ArrayList<Integer>();
 		 List<Integer> following = new ArrayList<Integer>();
 		 List<Integer> clips = new ArrayList<Integer>();
-		 String status = "ACTIVE";
+		 String status = "NOT ACTIVE";
 		
 		doc.append("id", id);
 		doc.append("fullname", fullname);
@@ -466,6 +466,21 @@ public User(String name, String username, String pass, String email ) {
 		Model.Insert(doc, "USER");
 	}
 	
+
+	public static void updateStatus(int id) {
+		BasicDBObject query = new BasicDBObject();
+		query.put("id", id);
+
+		BasicDBObject newStatusDoc = new BasicDBObject();
+		newStatusDoc.put("password", "ACTIVE");
+
+		BasicDBObject updateObject = new BasicDBObject();
+		updateObject.put("$set", newStatusDoc);
+
+		USER.updateOne(query, updateObject);
+	}
+	
+
 
 	
 	
@@ -549,6 +564,7 @@ public User(String name, String username, String pass, String email ) {
 		}
 		return count;
 	}
+
 	
 	public int coutTotalPostView (int idUser)
 	{

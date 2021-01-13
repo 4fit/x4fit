@@ -133,6 +133,13 @@ public class Account extends Model {
 		return false;
 	}
 	
+	public static Document getAccountByUsername(String username)
+	{
+		return ACCOUNT.find(Filters.eq("username", username)).first();
+		
+	}
+	
+	
 	public static boolean checkExitEmail(String email)
 	{
 		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("email", email));
