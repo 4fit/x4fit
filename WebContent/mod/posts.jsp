@@ -22,6 +22,10 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
+				        <form class="mb-2 form-inline my-2 ml-auto mr-5" action="${pageContext.request.contextPath}/mod/search-post">
+			            	<input class="form-control mr-sm-1 search-bar" style="width: 500px; border: 1px solid #007bff;" name="query" value="${query}" type="search" placeholder="Search">
+			                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+				        </form>
 						<div class="card card-plain">
 							<div class="card-header card-header-primary"
 								style="background-color: #007bff; color: #fff">

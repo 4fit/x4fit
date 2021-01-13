@@ -28,7 +28,8 @@ import model.Post;
 		"/mod/add-category",
 		"/mod/delete-category",
 		"/mod/update-category",
-		"/mod/search-category"
+		"/mod/search-category",
+		"/mod/search-post"
 		})
 
 public class ModController extends HttpServlet {
@@ -51,7 +52,6 @@ public class ModController extends HttpServlet {
 		switch (action) {
 			case "/mod/all-posts":
 				getAllPosts(request, response);
-
 				return;
 			case "/mod/accept-posts":
 				acceptPost(request, response);
@@ -70,6 +70,9 @@ public class ModController extends HttpServlet {
 				return;
 			case "/mod/search-category":
 				searchCategory(request, response);
+				return;
+			case "/mod/search-post":
+				searchPost(request, response);
 				return;
 			default:
 				response.sendRedirect("index.jsp");
@@ -94,7 +97,7 @@ public class ModController extends HttpServlet {
 			request.getRequestDispatcher("/mod/posts.jsp").forward(request, response);
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
-			response.sendRedirect("/500.jsp");
+			response.sendRedirect("../500.jsp");
 		}
 	}
 	
@@ -115,7 +118,7 @@ public class ModController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			response.sendRedirect("/500.jsp");
+			response.sendRedirect("../500.jsp");
 		}
 	}
 	
@@ -129,7 +132,7 @@ public class ModController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			request.getRequestDispatcher("/500.jsp").forward(request, response);
+			request.getRequestDispatcher("../500.jsp").forward(request, response);
 		}
 	}
 	
@@ -151,7 +154,7 @@ public class ModController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			request.getRequestDispatcher("/500.jsp").forward(request, response);
+			request.getRequestDispatcher("../500.jsp").forward(request, response);
 		}
 	}
 	
@@ -163,7 +166,7 @@ public class ModController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			response.sendRedirect("/500.jsp");
+			response.sendRedirect("../500.jsp");
 		}
 	}
 	
@@ -182,9 +185,29 @@ public class ModController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			response.sendRedirect("/500.jsp");
+			response.sendRedirect("../500.jsp");
 		}
 
+	}
+	
+	protected void searchPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String query = (String)request.getParameter("query");
+		try {
+			List<Post> allPosts;
+			if (query.equals("")) {
+				allPosts = Post.getAllPosts();
+			} else {
+				allPosts = Post.search(query);
+				System.out.println(allPosts);
+			}
+			request.setAttribute("allPosts", allPosts);
+			request.setAttribute("query", query);
+			request.getRequestDispatcher("/mod/posts.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
 	}
 	
 	protected void acceptPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -198,7 +221,7 @@ public class ModController extends HttpServlet {
 		} catch (Exception ex) {
 			// TODO: handle exception
 			System.out.println(ex.getMessage());
-			response.sendRedirect("/500.jsp");
+			response.sendRedirect("../500.jsp");
 		}
 	}
 }
