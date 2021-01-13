@@ -57,12 +57,6 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-<style type="text/css">
-	.CodeMirror, .CodeMirror-scroll {
-    height: auto !important;
-    min-height: 300px !important;
-}
-</style>
 </head>
 <body>
 	<nav id="navbar" class="navbar navbar-expand-md navbar-light sticky-top">
