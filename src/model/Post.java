@@ -25,7 +25,8 @@ public class Post extends Model {
 	private String updated_at;
 	private int views_count;
 	private int points;
-	
+
+	private int clips_count; // Không có trong database
 	private boolean is_public;
 	private String thumbnail_url;
 
@@ -122,10 +123,11 @@ public class Post extends Model {
 		this.points = points;
 	}
 
-	public int getClips_count() {
-		if(this.getClips() == null)
-			return 0;
-		else return this.getClips().size();
+	public int getClips_count(Post post) {
+		return post.getClips().size();
+	}
+	public void setClips_count(int clips_count) {
+		this.clips_count = clips_count;
 	}
 	
 
@@ -156,6 +158,12 @@ public class Post extends Model {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getAuthor (int iduser)
+	{
+		return User.Doc2User( USER.find(Filters.eq("id", iduser)).first()).getFullname();
+	}
+	
 	public Post() {
 	}
 
@@ -177,7 +185,7 @@ public class Post extends Model {
 	}
 
 	public Post(int id, String title, int user_id, String p, String content, String published_at, String updated_at,
-			boolean is_public, int views_count, int points, String thumbnail_url, String category, String status) {
+			boolean is_public, int views_count, int points, String thumbnail_url, String category, String status, List<Integer> clips) {
 		this.id = id;
 		this.title = title;
 		this.user_id = user_id;
@@ -191,6 +199,7 @@ public class Post extends Model {
 		this.thumbnail_url = thumbnail_url;
 		this.category = category;
 		this.status = status;
+		this.clips= clips;
 	}
 	
 	// Duyệt bài post
@@ -286,6 +295,8 @@ public class Post extends Model {
 	}
 
 	public static Post Doc2Post(Document doc) {
+		List<Integer> clips = (List<Integer>) Utilities.convertObjectToList(doc.get("clips"));
+
 		return new Post(
 				doc.getInteger("id"), 
 				doc.getString("title"), 
@@ -299,7 +310,8 @@ public class Post extends Model {
 				doc.getInteger("points"), 
 				doc.getString("thumbnail_url"), 
 				doc.getString("category"),
-				doc.getString("status")
+				doc.getString("status"),
+				clips
 				);
 	}
 	

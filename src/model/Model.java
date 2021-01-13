@@ -93,7 +93,11 @@ public class Model
 						Filters.eq("validator", validator))
 				).first();
 		if (doc != null)
-			return doc.getInteger("userID");
+		{
+			return doc.getInteger("user_id");
+
+		}
+		
 		return -1;
 	}
 }

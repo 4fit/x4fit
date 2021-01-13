@@ -10,12 +10,15 @@ import javax.print.Doc;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
+
+import com.mongodb.client.model.Updates;
 import x4fit.Utilities;
 
 
@@ -141,7 +144,16 @@ public User(String name, String username, String pass, String email ) {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getEmail(int userID)
+	{
+		return Account.GetAccountByUserID(userID).getEmail();
+	}
 
+	public String getUsername(int userID)
+	{
+		return Account.GetAccountByUserID(userID).getUsername();
+	}
 	public User() {
 
 	}
@@ -172,7 +184,7 @@ public User(String name, String username, String pass, String email ) {
 		this.setClips(clips);
 		this.setFollower(follower);
 		this.setFollowing(following);
-		this.setStatus("OK");
+		this.setStatus("ACTIVE");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -290,11 +302,19 @@ public User(String name, String username, String pass, String email ) {
 		String selector = "", validator = "";
 		for (Cookie c : cookie) {
 			if (c.getName().equals("selector"))
+			{
+				System.out.print(c.getValue());
 				selector = c.getValue();
+			}
 			if (c.getName().equals("validator"))
+			{
+				System.out.print(c.getValue());
 				validator = c.getValue();
+			}
+				
 		}
 		int userID = Model.Authenticator(selector, validator);
+		System.out.print(userID);
 		return userID;
 	}
 	
@@ -302,9 +322,13 @@ public User(String name, String username, String pass, String email ) {
 
 	{
 		int userID = GetUserIDFromCookies(cookie);
-		Document doc = USER.find(Filters.eq("user_id", userID)).first();
+		Document doc = USER.find(Filters.eq("id", userID)).first();
 		if (doc != null)
+		{
+			System.out.print("ko null");
 			return Doc2User(doc);
+
+		}
 		else return null;
 	}
 	
@@ -442,6 +466,129 @@ public User(String name, String username, String pass, String email ) {
 		Model.Insert(doc, "USER");
 	}
 	
-}
-	
 
+	
+	
+	public List<Post> getBookmarkPost (User user)
+	{
+		List<Post> posts =new ArrayList<Post>();
+		if(user.getClips().size()==0) return null;
+		for (int i=0; i<user.getClips().size();i++)
+		{
+			Post post = new Post();
+			posts.add(Post.Doc2Post(post.getPostByIdPost(user.getClips().get(i))));
+		}
+		return posts;
+	}
+	
+	public List<User> getFollowingUser(User user)
+	{
+		List<User> users = new ArrayList<User>();
+		if(user.getFollowing().size()==0) return null;
+		for (int i=0; i<user.getFollowing().size();i++)
+		{
+			users.add(User.GetUserByUserID(user.getFollowing().get(i)));
+		}
+		return users;
+	}
+	
+	
+	public boolean checkPassword(User user, String password)
+	{
+		Document doc = Model.ACCOUNT.find(Filters.eq("user_id", user.getUserID())).first();
+		if (doc != null) {
+			
+			String _password_ = doc.getString("password");
+			String hashed_password = DigestUtils.sha256Hex(password);
+			System.out.print(hashed_password +" AND " +_password_ );
+			if (hashed_password.equals(_password_))
+			{
+				System.out.print("ktra pass thanh congs");
+				return true;
+			}
+			else
+				return false;
+		} 
+		return false;
+	}
+	
+	public List<User> getFollowerUser(User user)
+	{
+		List<User> users = new ArrayList<User>();
+		if(user.getFollower().size()==0) return null;
+		for (int i=0; i<user.getFollower().size();i++)
+		{
+			users.add(User.GetUserByUserID(user.getFollower().get(i)));
+		}
+		return users;
+	}
+	
+	
+	public int countFollowing (User user)
+	{
+		
+		return user.getFollowing().size();
+	}
+	
+	public int countFollower (User user)
+	{
+		
+		return user.getFollower().size();
+	}
+	
+	public int countPost(int idUser)
+	{
+		int count=0;
+		FindIterable<Document> cursor= POST.find(Filters.eq("user_id", idUser));
+		Iterator<Document> it = cursor.iterator();
+		if (it.hasNext()) {
+			
+			while (it.hasNext()) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public int coutTotalPostView (int idUser)
+	{
+		Post t = new Post();
+		int total=0;
+		List<Post> posts= t.readAllPersonalPost(idUser);
+		for (Post k: posts)
+		{
+			total+= k.getViews_count();
+			
+		}
+		
+		return total;
+	}
+	
+	public int countClips (User user)
+	{
+		return user.getClips().size();
+	}
+	
+	
+	public void updateInforUser(int iduser,String fullname, String email, String username,String password)
+	{
+		if(password!="")
+		{
+			USER.updateOne(Filters.eq("id", iduser), Updates.combine(Updates.set("fullname",fullname )));
+			ACCOUNT.updateOne(Filters.eq("user_id", iduser),Updates.combine(Updates.set("email", email),
+																			Updates.set("username",username)));
+			
+		}
+		else
+		{
+			String hashed_password = DigestUtils.sha256Hex(password);
+
+			USER.updateOne(Filters.eq("id", iduser), Updates.combine(Updates.set("fullname",fullname )));
+			ACCOUNT.updateOne(Filters.eq("user_id", iduser),Updates.combine(Updates.set("email", email),
+																			Updates.set("username",username)));
+			updateNewPass(username,hashed_password);		
+		}
+		
+	}
+	
+}

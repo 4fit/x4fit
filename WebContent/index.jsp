@@ -34,11 +34,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-<!-- 					<a class="nav-item nav-link active" href="#">Home  -->
-<!-- 						<span class="sr-only">(current)</span> -->
-<!-- 					</a>  -->
-<!-- 					<a class="nav-item nav-link" href="#">Post</a>  -->
-<!-- 					<a class="nav-item nav-link" href="#">Profile</a> -->
+
 					<div class="input-group mb-10">
 						<input type="text" class="form-control" placeholder="Search"
 							aria-label="Username" aria-describedby="basic-addon1">
@@ -58,7 +54,7 @@
 				</div>
 			</div>
 			<div class="img-pro"></div>
-			<button type="button" class="btn dropdown-toggle"
+			<button type="button" class="btn dropdown-toggle"  id="dropdownMenu2"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="img-profile" src="${pageContext.request.contextPath}/images/avt.png" alt="">
 			</button>
@@ -67,14 +63,14 @@
 					<img class="img-profile"
 						src="${pageContext.request.contextPath}/images/avt.png" alt="">
 					<div class="info-popup">
-						<h5 class="name-info">Hoang</h5>
+						<h5 class="name-info"><a href="${pageContext.request.contextPath}/profile">Hoang</a></h5>
 						<p class="gmail-info">hoang1811@gmail.com</p>
 						<button class="btn btn-primary btn-edit" type="button">Edit</button>
 
 					</div>
 				</div>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Profile</a> <a
+				<a class="dropdown-item" href="">Profile</a> <a
 					class="dropdown-item" href="#">My content</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="#">Sign out</a>
@@ -183,7 +179,7 @@
 							<span class="viewtag t ml-20"> <i class="far fa-eye"></i><label
 								class="view">${p.getViews_count() }</label>
 							</span> <span class="viewtag t "> <i class="fas fa-paperclip"></i><label
-								class="view">${p.getClips_count() }</label>
+								class="view">${p.getClips_count(p) }</label>
 							</span> <span class="viewtag t"> <i class="far fa-comment"></i></i><label
 								class="view">16</label>
 							</span>
@@ -275,5 +271,22 @@
 		</div>
 
 	</div>
+	<script>
+    document.getElementById("dropdownMenu2").onclick=function(){
+    	if(document.getElementsByClassName("dropdown-menu")[0].style.display=="block")
+    	{
+    		document.getElementsByClassName("dropdown-menu")[0].style.display="none";
+    		document.getElementsByClassName("dropdown-menu")[0].style.top=	"60%";
+    	}
+    	else
+    	{
+    		document.getElementsByClassName("dropdown-menu")[0].style.display="block";
+    		document.getElementsByClassName("dropdown-menu")[0].style.transition="top 1s"
+    	      document.getElementsByClassName("dropdown-menu")[0].style.top=	"95%";
+    	}
+    
+    }
+    
+    </script>
 </body>
 </html>

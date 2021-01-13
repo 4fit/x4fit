@@ -807,6 +807,9 @@ color: #e1e1e1;
 <body>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0aaa5c1... edit profile
     
     <div class="login">
         <!-- <img class="wave" src="#"> -->
@@ -863,8 +866,8 @@ color: #e1e1e1;
             
         </div>
         
-=======
 
+<<<<<<< HEAD
 	<div class="login">
 		<!-- <img class="wave" src="#"> -->
 		<div class="container">
@@ -1018,6 +1021,8 @@ color: #e1e1e1;
    </script>
                                                 
 >>>>>>> cb6551b64d1aea60714eb7c30b892e08ee6e2c05
+=======
+>>>>>>> 0aaa5c1... edit profile
 </body>
 
 

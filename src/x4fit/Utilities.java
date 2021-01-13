@@ -131,13 +131,19 @@ public class Utilities {
 	}
 	
 	public static ArrayList<?> convertObjectToList(Object obj) {
-		ArrayList<?> list = new ArrayList<>();
-		if (obj.getClass().isArray()) {
-			list = (ArrayList<?>) Arrays.asList((Object[]) obj);
-		} else if (obj instanceof Collection) {
-			list = new ArrayList<>((Collection<?>) obj);
+		if(obj !=null)
+		{
+			ArrayList<?> list = new ArrayList<>();
+			if (obj.getClass().isArray()) {
+				list = (ArrayList<?>) Arrays.asList((Object[]) obj);
+			} else if (obj instanceof Collection) {
+				list = new ArrayList<>((Collection<?>) obj);
+			}
+			return list;
 		}
-		return list;
+		
+		return null;
+		
 	}
 	
 	public static String[] obj2StringArray(Object obj)
