@@ -27,7 +27,8 @@ import model.Post;
 		"/mod/all-categories",
 		"/mod/add-category",
 		"/mod/delete-category",
-		"/mod/update-category"
+		"/mod/update-category",
+		"/mod/search-category"
 		})
 
 public class ModController extends HttpServlet {
@@ -67,6 +68,9 @@ public class ModController extends HttpServlet {
 			case "/mod/delete-category":
 				deleteCategory(request, response);
 				return;
+			case "/mod/search-category":
+				searchCategory(request, response);
+				return;
 			default:
 				response.sendRedirect("index.jsp");
 				return;
@@ -90,7 +94,7 @@ public class ModController extends HttpServlet {
 			request.getRequestDispatcher("/mod/posts.jsp").forward(request, response);
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
-			response.sendRedirect("500.jsp");
+			response.sendRedirect("/500.jsp");
 		}
 	}
 	
@@ -99,14 +103,19 @@ public class ModController extends HttpServlet {
 		String description = (String)request.getParameter("description");
 		Category category = new Category(categoryName, description);
 		try {
-			Category.Insert(category);
+			if (Category.existCategory(categoryName)) {
+				String errorMessage = "Category name already exist!";
+				request.setAttribute("errorMessage", errorMessage);
+			} else {
+				Category.Insert(category);
+			}
 			List<Category> allCategories = Category.getAllCategories();
 			request.setAttribute("allCategories", allCategories);
 			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			response.sendRedirect("500.jsp");
+			response.sendRedirect("/500.jsp");
 		}
 	}
 	
@@ -120,7 +129,7 @@ public class ModController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			request.getRequestDispatcher("500.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		}
 	}
 	
@@ -130,14 +139,19 @@ public class ModController extends HttpServlet {
 		String newName = (String)request.getParameter("category-name");
 		String description = (String)request.getParameter("description");
 		try {
-			Category.Update(url, oldName, newName, description);
+			if (Category.existCategory(newName)) {
+				String errorMessage = "Category name already exist!";
+				request.setAttribute("errorMessage", errorMessage);
+			} else {
+				Category.Update(url, oldName, newName, description);
+			}
 			List<Category> allCategories = Category.getAllCategories();
 			request.setAttribute("allCategories", allCategories);
 			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			request.getRequestDispatcher("500.jsp").forward(request, response);
+			request.getRequestDispatcher("/500.jsp").forward(request, response);
 		}
 	}
 	
@@ -149,7 +163,26 @@ public class ModController extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-			response.sendRedirect("500.jsp");
+			response.sendRedirect("/500.jsp");
+		}
+	}
+	
+	protected void searchCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String query = (String)request.getParameter("query");
+		try {
+			if (query.equals("")) {
+				List<Category> allCategories = Category.getAllCategories();
+				request.setAttribute("allCategories", allCategories);
+			} else {
+				List<Category> listCategories = Category.search(query);
+				request.setAttribute("allCategories", listCategories);
+			}
+			request.setAttribute("query", query);
+			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("/500.jsp");
 		}
 
 	}
@@ -165,8 +198,7 @@ public class ModController extends HttpServlet {
 		} catch (Exception ex) {
 			// TODO: handle exception
 			System.out.println(ex.getMessage());
-			response.sendRedirect("500.jsp");
-
+			response.sendRedirect("/500.jsp");
 		}
 	}
 }

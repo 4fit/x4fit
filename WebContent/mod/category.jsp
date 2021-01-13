@@ -31,8 +31,21 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="mb-2 btn btn-primary" data-toggle="modal" data-target="#add-category">Add
-                                    category</button>
+                            	<c:if test="${not empty errorMessage}">
+                            		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									  <c:out value="${errorMessage}" />
+									  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									    <span aria-hidden="true">&times;</span>
+									  </button>
+									</div>
+                            	</c:if>
+                            	<div class="d-flex">
+                            		<button class="mb-2 btn btn-primary" data-toggle="modal" data-target="#add-category">Add category</button>
+	                                <form class="mb-2 form-inline my-2 ml-auto mr-5" action="${pageContext.request.contextPath}/mod/search-category">
+					                      <input class="form-control mr-sm-1 search-bar" name="query" value="${query}" type="search" placeholder="Search">
+					                      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+					                </form>
+                            	</div>
                                 <div class="card card-plain">
                                     <div class="card-header card-header-primary"
                                         style="background-color: #007bff; color: #fff">
