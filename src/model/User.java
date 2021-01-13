@@ -306,7 +306,7 @@ public User(String name, String username, String pass, String email ) {
 	public static User GetUserInfoFromCookies(Cookie[] cookie) 
 	{
 		int userID = GetUserIDFromCookies(cookie);
-		Document doc = USER.find(Filters.eq("user_id", userID)).first();
+		Document doc = USER.find(Filters.eq("id", userID)).first();
 		if (doc != null)
 			return Doc2User(doc);
 		else return null;
@@ -432,7 +432,7 @@ public User(String name, String username, String pass, String email ) {
 		 List<Integer> follower = new ArrayList<Integer>();
 		 List<Integer> following = new ArrayList<Integer>();
 		 List<Integer> clips = new ArrayList<Integer>();
-		 String status = "ACTIVE";
+		 String status = "NOT ACTIVE";
 		
 		doc.append("id", id);
 		doc.append("fullname", fullname);
@@ -443,6 +443,19 @@ public User(String name, String username, String pass, String email ) {
 		doc.append("following", following);
 		doc.append("clips", clips);
 		Model.Insert(doc, "USER");
+	}
+	
+	public static void updateStatus(int id) {
+		BasicDBObject query = new BasicDBObject();
+		query.put("id", id);
+
+		BasicDBObject newStatusDoc = new BasicDBObject();
+		newStatusDoc.put("password", "ACTIVE");
+
+		BasicDBObject updateObject = new BasicDBObject();
+		updateObject.put("$set", newStatusDoc);
+
+		USER.updateOne(query, updateObject);
 	}
 	
 }

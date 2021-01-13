@@ -49,7 +49,7 @@ public class loginController extends HttpServlet {
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
-				int userID = doc.getInteger("userID");
+				int userID = doc.getInteger("user_id");
 				return userID;
 			}
 			else
@@ -98,7 +98,7 @@ public class loginController extends HttpServlet {
 			String fullname = user.getFullname();
 			String avatar = user.getAvatar();
 			String email = account.getEmail();
-			long postCount = Model.POST.count(Filters.eq("userID", userID));
+			long postCount = Model.POST.count(Filters.eq("user_id", userID));
 			long followingCount = 0; 
 			long followerCount = 0;
 			long clipsCount = 0; 

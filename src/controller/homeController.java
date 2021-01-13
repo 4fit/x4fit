@@ -46,34 +46,35 @@ public class homeController extends HttpServlet {
 //		dispatcher.forward(request, response);
 //    
 
-
-    	if(request.getParameter("userCurrentAction").equals("search_home"))
-    	{
-		
-    		String textSearch = request.getParameter("textSearch");
-	    	if(textSearch != "")
-	    	{
-	    		List<Post> listPost = getListPostForSearch( textSearch);
-	    		List<User> listAuthor = getListAuthorForSearch(textSearch);
-	    		
-	    		request.setAttribute("listPost",listPost);
-	    		request.setAttribute("listAuthor",listAuthor);
-	    		request.setAttribute("lenListpost",listPost.size());
-	    		request.setAttribute("lenListauthor",listAuthor.size());
-	    		request.setAttribute("textSearch",textSearch);
-	    		RequestDispatcher dis = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
-	
-	
-	
-	       	   	dis.forward(request, response);
-	    	}
-    	}
+    	if(request.getParameter("userCurrentAction")!= null)
+    		if(request.getParameter("userCurrentAction").equals("search_home"))
+        	{
+    		
+        		String textSearch = request.getParameter("textSearch");
+    	    	if(textSearch != "")
+    	    	{
+    	    		List<Post> listPost = getListPostForSearch( textSearch);
+    	    		List<User> listAuthor = getListAuthorForSearch(textSearch);
+    	    		
+    	    		request.setAttribute("listPost",listPost);
+    	    		request.setAttribute("listAuthor",listAuthor);
+    	    		request.setAttribute("lenListpost",listPost.size());
+    	    		request.setAttribute("lenListauthor",listAuthor.size());
+    	    		request.setAttribute("textSearch",textSearch);
+    	    		RequestDispatcher dis = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
+    	
+    	
+    	
+    	       	   	dis.forward(request, response);
+    	    	}
+        	}
     	else
     		
     	{ 
         	topPosts = Post.GetLastestPost(20);
         	lstAuthors = new ArrayList<User>();
         	for (Post p : topPosts) {
+        		System.out.print(p.getUser_id());
     			User user = User.GetUserByUserID(p.getUser_id());
     			lstAuthors.add(user);
     		}

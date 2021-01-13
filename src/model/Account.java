@@ -91,7 +91,7 @@ public class Account extends Model {
 	
 	public static Account Doc2Account(Document doc)
 	{
-		return new Account(doc.getInteger("userID"),
+		return new Account(doc.getInteger("user_id"),
 						   doc.getString("password"),
 						   doc.getString("user_type"),
 						   doc.getString("email"));
@@ -99,7 +99,7 @@ public class Account extends Model {
 	
 	public static Account GetAccountByUserID(int userID)
 	{
-		Document doc = ACCOUNT.find(Filters.eq("userID", userID)).first();
+		Document doc = ACCOUNT.find(Filters.eq("user_id", userID)).first();
 		if (doc == null)
 			return null;
 		return Doc2Account(doc);
@@ -130,6 +130,13 @@ public class Account extends Model {
 		}
 		return false;
 	}
+	
+	public static Document getAccountByUsername(String username)
+	{
+		return ACCOUNT.find(Filters.eq("username", username)).first();
+		
+	}
+	
 	
 	public static boolean checkExitEmail(String email)
 	{
