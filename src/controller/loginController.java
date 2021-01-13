@@ -33,10 +33,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
-public class logInController extends HttpServlet {
+public class loginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public logInController() {
+	public loginController() {
 		super();
 	}
 

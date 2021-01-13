@@ -71,20 +71,7 @@ public class signUpController extends HttpServlet {
 		request.setAttribute("username", username);
 		request.setAttribute("password", password);
 		request.setAttribute("email", email);
-<<<<<<< HEAD
 
-		if (error == 0) {
-			User acc = null;// new User(username, password, email);
-			// AccountDAO dao = new AccountDAO();
-			signUpSuccess(acc);
-		}
-//			if (isLoginSuccess("USER", acc) != null)
-//				url = "index.jsp";
-//			else
-//				url = "/logInController/signup.jsp";
-//		} else
-//			url = "/logInController/signup.jsp";
-=======
 		request.setAttribute("fullname", fullname);
 
 		if (error == 0) 
@@ -100,24 +87,12 @@ public class signUpController extends HttpServlet {
 				url = "/login/signup.jsp";
 		} else
 			url = "/login/signup.jsp";
->>>>>>> cb6551b64d1aea60714eb7c30b892e08ee6e2c05
 
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
-<<<<<<< HEAD
 
-	public void signUpSuccess(User user) {
-		Document doc = new Document("_id", new ObjectId());
-
-		doc.append("id", user.getUserID());
-		
-		doc.append("follower", user.getFollower());
-		doc.append("following", user.getFollowing());
-		doc.append("clips", user.getClips());
-		Model.Insert(doc, "USER");
-=======
 	
 	public void sendmail(String email, String fullname)
 	{
@@ -142,7 +117,6 @@ public class signUpController extends HttpServlet {
     		System.out.println(e);
     	}
     	
->>>>>>> cb6551b64d1aea60714eb7c30b892e08ee6e2c05
 	}
 
 
