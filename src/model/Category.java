@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.bson.Document;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
@@ -111,6 +114,7 @@ public class Category extends Model
 		Insert(category.getId(), category.getName(), category.getDescription(), category.getShortDes());
 	}
 	
+	
 	public static void Insert(int id, String name, String description, String shortDescription) {
 		String url = Utilities.createURL(name);
 		Document doc = new Document("id", id)
@@ -147,6 +151,41 @@ public class Category extends Model
 			System.out.println(ex.getMessage());
 			return false;
 		}
+	}
+	
+	public static boolean existCategory(String categoryName) {
+		try {
+			FindIterable<Document> cursor = CATEGORY.find(Filters.eq("name", categoryName));
+			Iterator<Document> it = cursor.iterator();
+			if (it.hasNext()) {
+				System.out.println("Category exist!");
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	public static List<Category> search(String query) {
+		FindIterable<Document> cursor = CATEGORY.find();
+		Iterator<Document> it = cursor.iterator();
+		ArrayList<Category> listCategories = new ArrayList<Category>();
+		if (it.hasNext()) {
+			while (it.hasNext()) {
+				Document doc = it.next();
+				Category category = Category.Doc2Category(doc);
+				if (String.valueOf(category.getId()).equals(query)
+						|| category.getName().equals(query)
+						|| category.getDescription().equals(query)
+						|| String.valueOf(category.getCount_post()).equals(query)) {
+					listCategories.add(category);
+				}
+			}
+		}
+		return listCategories;
 	}
 	
 	public static boolean IncreaseCountPost(String categoryName) {
