@@ -805,114 +805,6 @@ color: #e1e1e1;
 </style>
 
 <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0aaa5c1... edit profile
-    
-    <div class="login">
-        <!-- <img class="wave" src="#"> -->
-        <div class="container">
-            <div class="img">
-                <img src="../images/createAccount.jpg" >
-            </div>
-            <div class="login-content">
-                <form action="${pageContext.request.contextPath}/signUp" method = "post">
-                    <img src="#">
-                    <h2 class="title"> Account</h2>
-                    <div class="input-div one">
-                        <div class="i">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="text" class="form-control" placeholder = "email" name = "email" value = "${email}">
-                            
-                        </div>
-                        
-                    </div>
-                    <lable class = "error_signup"> <c:out value = "${errEmail}"></c:out></lable>
-                    <div class="input-div pass">
-                        <div class="i">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="text" class="form-control" placeholder = "username " name = "username" value = "${username}">
-                            
-                        </div>
-                       
-                    </div>
-                     <lable class = "error_signup"> <c:out value = "${errUsername}"></c:out></lable>
-                    <div class="input-div pass">
-                        <div class="i">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="password" class="form-control" placeholder = "password" name = "password" value = "${password}">
-                           
-                        </div>
-                        
-                    </div>
-                     <lable class = "error_signup"> <c:out value = "${errPass}"></c:out></lable>
-                    <a href="login.jsp"> Are you have account ?</a>
-                    <input type="submit" class="btn" value="sign up" >
-                   
-                </form>
-                
-            </div>
-            
-        </div>
-        
-
-<<<<<<< HEAD
-	<div class="login">
-		<!-- <img class="wave" src="#"> -->
-		<div class="container">
-			<div class="img">
-				<img src="../images/createAccount.jpg">
-			</div>
-			<div class="login-content">
-				<form action="signUp" method="post">
-					<img src="#">
-					<h2 class="title">Account</h2>
-					<div class="input-div one">
-						<div class="i">
-							<i class="fas fa-envelope-open-text"></i>
-						</div>
-						<div class="div">
-							<input type="text" class="form-control" placeholder="email"
-								name="email" value="${email}">
-						</div>
-					</div>
-					<lable class="error_signup"> <c:out value="${errEmail}"></c:out></lable>
-					<div class="input-div pass">
-						<div class="i">
-							<i class="fas fa-user"></i>
-						</div>
-						<div class="div">
-							<input type="text" class="form-control" placeholder="username "
-								name="username" value="${username}">
-						</div>
-					</div>
-					<lable class="error_signup"> <c:out value="${errUsername}"></c:out></lable>
-					<div class="input-div pass">
-						<div class="i">
-							<i class="fas fa-lock"></i>
-						</div>
-						<div class="div">
-							<input type="password" class="form-control"
-								placeholder="password" name="password" value="${password}">
-						</div>
-					</div>
-					<lable class="error_signup"> <c:out value="${errPass}"></c:out></lable>
-					<a href="login.jsp"> Are you have account ?</a> 
-					<input
-						type="submit" class="btn" value="sign up">
-=======
-
 
 <div class="main-w3layouts wrapper">
 		<h1>Creative Account</h1>
@@ -932,7 +824,6 @@ color: #e1e1e1;
 					<input id = "password2"  class="text w3lpass" type="password" name="password2" placeholder="Confirm Password" required="">
 					
 					<input id = "btnSignup" type="submit" value="SIGNUP">
->>>>>>> cb6551b64d1aea60714eb7c30b892e08ee6e2c05
 				</form>
 				<p>Don't have an Account? <a href="login.jsp"> Login Now!</a></p>
 			</div>
@@ -955,9 +846,7 @@ color: #e1e1e1;
 			<li></li>
 		</ul>
 	</div>
-<<<<<<< HEAD
->>>>>>> fc28bda61dfc018944dedd516ec309a7fc162477
-=======
+
 	<!-- //main -->
 	
 	 <script>
@@ -1019,10 +908,7 @@ color: #e1e1e1;
    }
    
    </script>
-                                                
->>>>>>> cb6551b64d1aea60714eb7c30b892e08ee6e2c05
-=======
->>>>>>> 0aaa5c1... edit profile
+
 </body>
 
 
