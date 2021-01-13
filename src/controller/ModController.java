@@ -3,19 +3,26 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
+<<<<<<< HEAD
 import javax.servlet.RequestDispatcher;
+=======
+>>>>>>> 9219da7c727a70ca7d88aeb211d917f4f2aaec5b
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
 import model.Category;
+=======
+>>>>>>> 9219da7c727a70ca7d88aeb211d917f4f2aaec5b
 import model.Post;
 
 /**
  * Servlet implementation class ModController
  */
+
 @WebServlet(urlPatterns = {
 		"/mod/all-posts", 
 		"/mod/accept-posts", 
@@ -24,6 +31,7 @@ import model.Post;
 		"/mod/delete-category",
 		"/mod/update-category"
 		})
+
 public class ModController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,6 +52,7 @@ public class ModController extends HttpServlet {
 		switch (action) {
 			case "/mod/all-posts":
 				getAllPosts(request, response);
+
 				return;
 			case "/mod/accept-posts":
 				acceptPost(request, response);
@@ -63,6 +72,7 @@ public class ModController extends HttpServlet {
 			default:
 				response.sendRedirect("index.jsp");
 				return;
+
 		}
 	}
 
@@ -75,6 +85,7 @@ public class ModController extends HttpServlet {
 	}
 	
 	protected void getAllPosts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		try {
 			List<Post> allPosts = Post.getAllPosts();
 			request.setAttribute("allPosts", allPosts);
@@ -142,10 +153,12 @@ public class ModController extends HttpServlet {
 			System.out.println(e.getMessage());
 			response.sendRedirect("500.jsp");
 		}
+
 	}
 	
 	protected void acceptPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postId = Integer.parseInt((String)request.getParameter("postId"));
+
 		try {
 			Post.acceptPost(postId);
 			List<Post> allPosts = Post.getAllPosts();
@@ -155,6 +168,7 @@ public class ModController extends HttpServlet {
 			// TODO: handle exception
 			System.out.println(ex.getMessage());
 			response.sendRedirect("500.jsp");
+
 		}
 	}
 }

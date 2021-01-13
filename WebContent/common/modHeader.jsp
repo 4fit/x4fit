@@ -12,12 +12,23 @@
       
       <div class="nav-left">
           <ul>
+<<<<<<< HEAD:WebContent/common/modHeader.jsp
+              <div class="dropdown-divider"></div>
+              <li id="user">
+                  <a id="a2" href="#">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                      <span>CATEGORY</span> 
+                  </a>
+              </li>
+              <div class="dropdown-divider"></div>
+=======
               <li id="category">
                   <a id="a2" href="${pageContext.request.contextPath}/mod/all-categories">
                       <i class="fa fa-list-alt" aria-hidden="true"></i>
                       <span>CATEGORY</span> 
                   </a>
               </li>
+>>>>>>> 13300e8195c3126b81d14cb1d01eb1fc902b81e6:WebContent/common/header.jsp
               <li id="post">
                   <a id="a3" href="${pageContext.request.contextPath}/mod/all-posts">
                       <i class="fa fa-book" aria-hidden="true"></i>

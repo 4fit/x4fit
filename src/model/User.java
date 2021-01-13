@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,23 +11,31 @@ import javax.print.Doc;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
+
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 
+
 import x4fit.Utilities;
 
+
 public class User extends Model {
+	
+	
 	private int userID;
 	private String fullname;
 	private String avatar;
 	private String url;
+
 	private List<Integer> follower;
 	private List<Integer> following;
 	private List<Integer> clips;
 	private String status;
+
 
 	public int getUserID() {
 		return userID;
@@ -35,13 +45,56 @@ public class User extends Model {
 		this.userID = userID;
 	}
 
+
+
 	public String getFullname() {
 		return this.fullname;
 	}
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+
 	}
+	public User(String username, String pass, String email ) {
+		
+		
+//		this.setClips_count(0);
+//		this.setFollower_count(0);
+//		this.setFollowing_count(0);
+//		this.setPostsCount(0);
+//		this.setName("");
+//		this.setAvata("");
+		ArrayList<Integer> follow  = new ArrayList<Integer>(); // set số lượng follow
+		this.setFollower(follow);
+		this.setFollowing(follow);
+		this.setClips(follow);
+		//System.out.print("Da toi luc tao nhan viên");
+		
+
+		this.userID= getLastestID("User")+1;
+
+	}
+	
+public User(String name, String username, String pass, String email ) {
+		
+		this.fullname = name;
+//		this.setClips_count(0);
+//		this.setFollower_count(0);
+//		this.setFollowing_count(0);
+//		this.setPostsCount(0);
+//		this.setAvata("");
+		ArrayList<Integer> follow  = new ArrayList<Integer>(); // set số lượng follow
+		this.setFollower(follow);
+		this.setFollowing(follow);
+		this.setClips(follow);
+		//System.out.print("Da toi luc tao nhan viên");
+		
+
+		this.userID=(int) getLastestID("USER")+1;
+
+	
+	}
+	
 
 	public String getAvatar() {
 		if (this.avatar == "")
@@ -96,6 +149,8 @@ public class User extends Model {
 	public User() {
 
 	}
+	
+	
 
 	public User(int userID, String fullname) 
 	{
@@ -147,6 +202,20 @@ public class User extends Model {
 		}
 		return data;
 	}
+//
+//<<<<<<< HEAD
+//
+//	public void addFollowingForIdUser(int idUserMain, int idUserFollow) // idUserMain là user sẽ được user đang đăng
+//																		// nhâp follow (idUserFollow)
+//	{
+//		updateFollow("following", idUserFollow, idUserMain);
+//		updateCount("following_count", idUserFollow);
+//
+//		updateFollow("follower", idUserMain, idUserFollow);
+//		updateCount("follower_count", idUserMain);
+//
+//	}
+//
 
 	public void updateCount(String nameField, int idMain) {
 		Document user = GetUserDocumentByUserID(idMain);
@@ -190,13 +259,14 @@ public class User extends Model {
 //	}
 
 	public static User getUserByEmail(String email) {
-		FindIterable<Document> cursor = USER.find(Filters.eq("email", email));
+		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("email", email));
 		Iterator<Document> it = cursor.iterator();
 		if (it.hasNext()) {
 			Document doc = USER.find(Filters.eq("email", email)).first();
 			return Doc2User(doc);
 		} else
 			return null;
+
 
 	}
 
@@ -205,7 +275,7 @@ public class User extends Model {
 		Document doc = ACCOUNT.find(Filters.eq("username", username)).first();
 		if (doc!=null)
 		{
-			int userID = doc.getInteger("userID");
+			int userID = doc.getInteger("user_id");
 			Document user = USER.find(Filters.eq("id", userID)).first();
 			return Doc2User(user);
 		}
@@ -219,6 +289,7 @@ public class User extends Model {
 		return Doc2User(doc);
 	}
 	
+
 	public static int GetUserIDFromCookies(Cookie[] cookie) 
 	{
 		String selector = "", validator = "";
@@ -235,22 +306,20 @@ public class User extends Model {
 	public static User GetUserInfoFromCookies(Cookie[] cookie) 
 	{
 		int userID = GetUserIDFromCookies(cookie);
-		Document doc = USER.find(Filters.eq("userID", userID)).first();
+		Document doc = USER.find(Filters.eq("user_id", userID)).first();
 		if (doc != null)
 			return Doc2User(doc);
 		else return null;
 	}
 	
 	public static Document GetUserDocumentByUserID(int userID) {
-		FindIterable<Document> cursor = USER.find(Filters.eq("userID", userID));
-		Iterator<Document> it = cursor.iterator();
-		if (it.hasNext()) {
-			return USER.find(Filters.eq("userID", userID)).first();
-		} else
-			return null;
-	}
 
-	public void updateNewPass(String newPass, String username) {
+		Document cursor = USER.find(Filters.eq("id", userID)).first();
+		return cursor;
+		
+	}
+	
+	public static void updateNewPass(String newPass, String username) {
 		BasicDBObject query = new BasicDBObject();
 		query.put("username", username);
 
@@ -262,8 +331,8 @@ public class User extends Model {
 
 		USER.updateOne(query, updateObject);
 	}
-
-	public void updateClipsItem(int userID, int postID) {
+	
+	public static void updateClipsItem(int userID, int postID) {
 		User user = User.GetUserByUserID(userID);
 
 		List<Integer> listIdPost = user.getClips();
@@ -283,4 +352,99 @@ public class User extends Model {
 			USER.updateOne(query, updateObject);
 		}
 	}
+	
+	public static User GetUserInfoFromSession(HttpSession session) {
+		String selector = session.getAttribute("selector").toString();
+		String validator = session.getAttribute("validator").toString();
+		int userID = Model.Authenticator(selector, validator);
+		Document doc = USER.find(Filters.eq("userID", userID)).first();
+		if (doc != null)
+			return Doc2User(doc);
+		else return null;
+		
+	}
+	
+	
+	public static User convertToUserObject(Document doc) {
+		// Convert data từ mongo sang object User
+		
+		int id = 0;
+		String fullname = "";
+		
+		String avatar = "";
+		String url = "";
+		
+		List<Integer> follower = null;
+		List<Integer> following = null;
+		List<Integer> clips = null;
+		
+		if(doc.getInteger("id") != null)
+			id = doc.getInteger("id");
+		
+		if(doc.getString("fullname")!= null)
+			fullname = doc.getString("fullname");
+		
+		
+		if(doc.getString("avatar")!= null)
+			avatar = doc.getString("avatar");
+		
+		if(doc.getString("url")!= null)
+			url = doc.getString("url");
+		
+		
+		
+		if(doc.get("follower")!= null)
+			follower = (List<Integer>)doc.get("follower");
+		
+		if(doc.get("following")!= null)
+			following = (List<Integer>)doc.get("following");
+		
+		if(doc.get("clips")!= null)
+			clips = (List<Integer>)doc.get("clips");
+		
+		return new User( id,  fullname, avatar,  url,  follower,  following,  clips );
+				
+	}
+	
+	
+	public String getUsername()
+	{
+		String username = "username";
+		
+		try
+		{
+			Account account = Account.GetAccountByUserID(this.userID);
+			username = account.getUsername();
+		}
+		catch(NullPointerException x)
+		{
+			
+		}
+		
+		return username;
+		
+	}
+	
+	public static void createUserByID(int id, String fullname) // Tạo user với user_id đã được tạo ở model account
+	{
+		Document doc = new Document("_id", new ObjectId());
+		
+		 List<Integer> follower = new ArrayList<Integer>();
+		 List<Integer> following = new ArrayList<Integer>();
+		 List<Integer> clips = new ArrayList<Integer>();
+		 String status = "ACTIVE";
+		
+		doc.append("id", id);
+		doc.append("fullname", fullname);
+		doc.append("avatar", "");
+		doc.append("url", "");
+		doc.append("status", status);
+		doc.append("follower", follower);
+		doc.append("following", following);
+		doc.append("clips", clips);
+		Model.Insert(doc, "USER");
+	}
+	
 }
+	
+

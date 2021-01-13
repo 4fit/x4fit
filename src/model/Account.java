@@ -104,4 +104,60 @@ public class Account extends Model {
 			return null;
 		return Doc2Account(doc);
 	}
+	
+	public static void createNewAccount(String username, String password, String email, String fullname)
+	{
+		Document doc = new Document("_id", new ObjectId());
+		int user_id = getLastestID(USER) + 1;
+		doc.append("id", getLastestID(ACCOUNT) + 1);
+		doc.append("user_id", user_id);
+		doc.append("username", username);
+		doc.append("password", password);
+		doc.append("email", email);
+		doc.append("user_type", "USER");
+
+		Model.Insert(doc, "ACCOUNT");
+		
+		User.createUserByID(user_id, fullname);
+	}
+	
+	public static boolean checkExitUsername(String username)
+	{
+		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("username", username));
+		Iterator<Document> it = cursor.iterator();
+		if (it.hasNext()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean checkExitEmail(String email)
+	{
+		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("email", email));
+		Iterator<Document> it = cursor.iterator();
+		if (it.hasNext()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static Document getDocumentAccountByUserId(int user_id)
+	{
+		Document cursor = ACCOUNT.find(Filters.eq("user_id", user_id)).first();
+		return cursor;
+		
+	}
+	
+	public static void updateNewPass(String newPass, String username) {
+		BasicDBObject query = new BasicDBObject();
+		query.put("username", username);
+
+		BasicDBObject newPassDoc = new BasicDBObject();
+		newPassDoc.put("password", newPass);
+
+		BasicDBObject updateObject = new BasicDBObject();
+		updateObject.put("$set", newPassDoc);
+
+		ACCOUNT.updateOne(query, updateObject);
+	}
 }

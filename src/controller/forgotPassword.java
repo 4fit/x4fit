@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 
 @WebServlet("/forgotPassword")
@@ -32,28 +33,29 @@ public class forgotPassword extends HttpServlet {
     	
     	///send email to user
     	
-    	String to = email;
-    	User dbUser = new User();
+    	
+    	
     	// thêm hàm kiểm tra email đã đăng kí rồi hay không ?
-    	User userDoc  = dbUser.getUserByEmail(email);
-    	if(userDoc != null)
+    	
+    	if(Account.checkExitEmail(email))
     	{
     		// sau đó lấy user dùng email đó
         	String from  = "ngocyen174308@gmail.com";
-        	String pass = "#";
+        	String pass = "18110402yen";
         	String username = ""; //userDoc.getString("username");
         	String subject = "Change you password to X4FIT";
-        	String newPass = "randomPass"; // Viết hàm tạo pass mới
+        	String newPass = "12345678"; // Viết hàm tạo pass mới
         	String body = "Dear " + username + ",\n\n"
         	+ "new password for you: " + newPass;
         	boolean isBodyHTML = false;
         	
         	try {
         		
-        		Utilities.sendMail(from,pass, to,  subject, body, isBodyHTML);
-        		dbUser.updateNewPass(newPass, username);
+        		Utilities.sendMail(from,pass, email,  subject, body, isBodyHTML);
+        		String hashedPassword = DigestUtils.sha256Hex(newPass);
+        		Account.updateNewPass(hashedPassword, username);
         		System.out.println("sSend ddc mail");
-        		url = "/detailController.jsp";
+        		url = "/login/login.jsp";
         	}catch(MessagingException e)
         	{
         		System.out.println("Khong send ddc mail");
@@ -62,7 +64,10 @@ public class forgotPassword extends HttpServlet {
         	
     	}
     	else
-    		url = "/logInController.jsp";
+    		{url = "/login/forgot.jsp";
+    		
+    		response.sendRedirect(url);
+    		}
     	
     	RequestDispatcher d = request.getRequestDispatcher(url);
     	d.forward(request, response);
