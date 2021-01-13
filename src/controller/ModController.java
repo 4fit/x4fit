@@ -3,20 +3,18 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import javax.servlet.RequestDispatcher;
-=======
->>>>>>> 9219da7c727a70ca7d88aeb211d917f4f2aaec5b
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
+
 import model.Category;
-=======
->>>>>>> 9219da7c727a70ca7d88aeb211d917f4f2aaec5b
+
 import model.Post;
 
 /**

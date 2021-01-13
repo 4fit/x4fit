@@ -512,13 +512,13 @@ public class Post extends Model {
 			
 			if(fieldName.contains("user"))
 				{
-					regexQueryUser.put("username", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
+					regexQueryUser.put("fullname", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
 					FindIterable<Document>  fListUser = USER.find(regexQueryUser);
 					Iterator<Document> iListUser = fListUser.iterator();
 					
 					while(iListUser.hasNext())
 					{
-						addListPostByidUser(lPost, iListUser.next().getInteger("user_id"));
+						addListPostByidUser(lPost, iListUser.next().getInteger("id"));
 					}
 				
 				}
