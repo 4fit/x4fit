@@ -97,6 +97,8 @@ public class Account extends Model {
 						   doc.getString("email"));
 	}
 	
+	
+	
 	public static Account GetAccountByUserID(int userID)
 	{
 		Document doc = ACCOUNT.find(Filters.eq("user_id", userID)).first();
@@ -167,4 +169,5 @@ public class Account extends Model {
 
 		ACCOUNT.updateOne(query, updateObject);
 	}
+
 }

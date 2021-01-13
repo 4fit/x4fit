@@ -30,7 +30,6 @@ public class homeController extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 //    	topPosts = Post.GetLastestPost(20);
 //    	lstAuthors = new ArrayList<User>();
 //    	for (Post p : topPosts) {
@@ -45,7 +44,9 @@ public class homeController extends HttpServlet {
 //		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 //		dispatcher.forward(request, response);
 //    
+    	if(request.getParameter("userCurrentAction")!= null)
 
+<<<<<<< HEAD
     	if(request.getParameter("userCurrentAction")!= null)
     		if(request.getParameter("userCurrentAction").equals("search_home"))
         	{
@@ -68,6 +69,29 @@ public class homeController extends HttpServlet {
     	       	   	dis.forward(request, response);
     	    	}
         	}
+=======
+	    	if(request.getParameter("userCurrentAction").equals("search_home"))
+	    	{
+			
+	    		String textSearch = request.getParameter("textSearch");
+		    	if(textSearch != "")
+		    	{
+		    		List<Post> listPost = getListPostForSearch( textSearch);
+		    		List<User> listAuthor = getListAuthorForSearch(textSearch);
+		    		
+		    		request.setAttribute("listPost",listPost);
+		    		request.setAttribute("listAuthor",listAuthor);
+		    		request.setAttribute("lenListpost",listPost.size());
+		    		request.setAttribute("lenListauthor",listAuthor.size());
+		    		request.setAttribute("textSearch",textSearch);
+		    		RequestDispatcher dis = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
+		
+		
+		
+		       	   	dis.forward(request, response);
+		    	}
+	    	}
+>>>>>>> f54ff1397d49c3c495293abdc50e55b043016926
     	else
     		
     	{ 
@@ -97,6 +121,7 @@ public class homeController extends HttpServlet {
     	listPost = Post.searchPost(textSearch);
     	return listPost;
     }
+
     
     public List<User> getListAuthorForSearch(String textSearch)
     {

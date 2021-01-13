@@ -806,7 +806,6 @@ color: #e1e1e1;
 
 <body>
 
-
 <div class="main-w3layouts wrapper">
 		<h1>Creative Account</h1>
 		<div class="main-agileinfo">
@@ -847,6 +846,7 @@ color: #e1e1e1;
 			<li></li>
 		</ul>
 	</div>
+
 	<!-- //main -->
 	
 	 <script>
@@ -908,7 +908,7 @@ color: #e1e1e1;
    }
    
    </script>
-                                                
+
 </body>
 
 

@@ -61,6 +61,7 @@ public class signUpController extends HttpServlet {
 			String email = request.getParameter("email");
 			String fullname = request.getParameter("fullname");
 		
+
 			int error = 0;
 			if (username.equals("")) {
 				request.setAttribute("errUsername", " have not null !");
@@ -86,6 +87,7 @@ public class signUpController extends HttpServlet {
 				request.setAttribute("errEmail", "Email already exist !");
 				error = error + 1;
 			}
+
 
 			
 			String hashedPassword = DigestUtils.sha256Hex(password);
@@ -123,6 +125,7 @@ public class signUpController extends HttpServlet {
 			return true;
 		return false;
 	}
+
 	
 	public void sendmail(String email, String fullname, String hashedPassword)
 	{
