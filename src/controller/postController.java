@@ -59,6 +59,7 @@ public class postController extends HttpServlet {
 			request.setAttribute("comments", listCmts);
 			request.setAttribute("listUserCmt", listUserCmt);
 			request.setAttribute("postID", post.getID());
+			request.setAttribute("views_count", post.getViews_count());
 			request.setAttribute("is_author", is_author);
 			
 			String url = "/posts/post.jsp";

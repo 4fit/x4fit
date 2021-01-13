@@ -267,7 +267,7 @@ public class Post extends Model {
 	}
 
 	public static Post GetPost(String p) {
-		Document doc = POST.find(Filters.eq("url", p)).first();
+		Document doc = POST.findOneAndUpdate(Filters.eq("url", p), Updates.inc("views_count", 1));
 		if (doc == null)
 			return null;
 		try {

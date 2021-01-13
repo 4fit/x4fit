@@ -100,8 +100,10 @@
 														 incrementValue('${postID}');">
 							<i class="fa fa-caret-up"></i>
 						</button>
+						<br>
 						<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
 									disabled size="1" class="points" id="${postID}" value="${points}">
+						<br>
 						<button class="icon-btn" data-original-title="Downvote"
 										onclick="Vote(${postID}, 'POST', 1, '${pageContext.request.contextPath}/vote');
 														 decrementValue('${postID}');">
