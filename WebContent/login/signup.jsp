@@ -1,9 +1,6 @@
-<<<<<<< HEAD
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-=======
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -14,363 +11,906 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="../styles/signup.css">
+	<!--  <link rel="stylesheet" type="text/css" href="../styles/signup.css">-->
 	<link
 		href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
 		rel="stylesheet">
-	<link href="styles/signup.css" rel="stylesheet">
+	
 	<script src="https://kit.fontawesome.com/f93b4d7888.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<title>Sign Up</title>
 </head>
 
 <style>
-@charset "ISO-8859-1";
-*{
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+/*--
+Author: Colorlib
+Author URL: https://colorlib.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+/*-- reset --*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, nav ul, nav li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
- h2.title{
- font-size: 30px !important;
- font-weight: lighter !important;
- letter-spacing: 2px;
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
 }
 
-body{
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+ol, ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
 }
 
-.wave{
-    position:fixed;
-
-    bottom:0;
-    left:0;
-    height:100vh;
-    width: 100%;
-    z-index: -1;
-}
-a{
- margin-top: 15px;
-    text-decoration: none;
-    font-size: 0.1rem;
+blockquote, q {
+  quotes: none;
 }
 
-
-.container{
-    margin-top: 40px;
-    margin-left: 5vw;
-    width: 90vw;
-    height: 95vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap :7rem;
-    padding: 0 2rem;
-    background-color: #ffffff;
-    /* box-shadow:0px 3px 8px #000000;*/
-} 
-
-.btn-signup{
-    color: #3229d8;
-    text-align: center;
-    margin-top: 50px;
-}
-.img{
-	display: flex;
-	justify-content: flex-end;
-    align-items: center;
-    margin-left: -35px;
-    height: 90vh;
-  
-}
-.login-content{
-	display: inline-block;
-	justify-content: flex-start;
-	align-items: center;
-    text-align: center;
-   
-}
-.img img{
-	width: 500px;
-}
-form{
-	width: 360px;
-}
-.login-content img{
-    height: 100px;
-}
-.login-content h2{
-	margin: 15px 0;
-	color: #333;
-	text-transform: uppercase;
-	font-size: 2.9rem;
-}
-.login-content .input-div{
-	position: relative;
-    display: grid;
-    grid-template-columns: 7% 93%;
-    margin: 25px 0;
-    padding: 5px 0;
-    border-bottom: 2px solid #d9d9d9;
-}
-.login-content .input-div.one{
-	margin-top: 0;
-}
-.i{
-	color: #d9d9d9;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.i i{
-	transition: .3s;
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
 }
 
-.input-div
-{
-margin-top: 2px !important;
-margin-bottom: 2px !important;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-label{
-margin-top: 5px !important;
-margin-bottom: 4px !important;
+/*-- start editing from here --*/
+a {
+  text-decoration: none;
 }
 
-::placeholder {
-  color: #CCC;
-  opacity: 1; /* Firefox */
+.txt-rt {
+  text-align: right;
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
- color: #CCC;
+/* text align right */
+.txt-lt {
+  text-align: left;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
- color: #CCC;
+/* text align left */
+.txt-center {
+  text-align: center;
 }
 
-
-.input-div > div{
-    position: relative;
-	height: 20px;
-	
-}
-.input-div > div > h5{
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #999;
-	font-size: 18px;
-	transition: .3s;
-}
-.input-div:before, .input-div:after{
-	content: '';
-	position: absolute;
-	bottom: -2px;
-	width: 0%;
-	height: 2px;
-	background-color: #625bff;
-	transition: .4s;
-}
-.input-div:before{
-	right: 50%;
-}
-.input-div:after{
-	left: 50%;
-}
-.input-div.focus:before, .input-div.focus:after{
-	width: 50%;
-}
-.input-div.focus > div > h5{
-	top: -5px;
-	font-size: 15px;
-}
-.input-div.focus > .i > i{
-	color: #625bff;
-}
-.input-div > div > input{
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	border: none;
-	outline: none;
-	background: none;
-	padding: 0.5rem 0.7rem;
-	font-size: 1.2rem;
-	color: #555;
-	font-family: 'poppins', sans-serif;
-}
-.input-div.pass{
-	margin-bottom: 4px;
-}
-a{
-	display: block;
-	text-align: right;
-	text-decoration: none;
-	color: #999;
-	font-size: 0.9rem;
-	transition: .3s;
-}
-a:hover{
-	color: #625bff;
-}
-.btn{
-	display: block;
-	width: 100%;
-	height: 50px;
-	border-radius: 25px;
-	outline: none;
-	border: none;
-	background-image: linear-gradient(to right, #625bff, #625bff, #625bff);
-	background-size: 200%;
-	font-size: 1.2rem;
-	color: #fff;
-	font-family: 'Poppins', sans-serif;
-	text-transform: uppercase;
-	margin: 1rem 0;
-	cursor: pointer;
-	transition: .5s;
-}
-.btn:hover{
-	background-position: right;
+/* text align center */
+.float-rt {
+  float: right;
 }
 
-
-@media screen and (max-width: 1050px){
-	.container{
-		grid-gap: 5rem;
-	}
+/* float right */
+.float-lt {
+  float: left;
 }
 
-@media screen and (max-width: 1000px){
-	form{
-		width: 290px;
-	}
-
-	.login-content h2{
-        font-size: 2.4rem;
-        margin: 8px 0;
-	}
-
-	.img img{
-		width: 400px;
-	}
+/* float left */
+.clear {
+  clear: both;
 }
 
-@media screen and (max-width: 900px){
-	.container{
-		grid-template-columns: 1fr;
-	}
-
-	.img{
-		display: none;
-	}
-
-	.wave{
-		display: none;
-	}
-
-	.login-content{
-		justify-content: center;
-	}
+/* clear float */
+.pos-relative {
+  position: relative;
 }
 
+/* Position Relative */
+.pos-absolute {
+  position: absolute;
+}
+
+/* Position Absolute */
+.vertical-base {
+  vertical-align: baseline;
+}
+
+/* vertical align baseline */
+.vertical-top {
+  vertical-align: top;
+}
+
+/* vertical align top */
+nav.vertical ul li {
+  display: block;
+}
+
+/* vertical menu */
+nav.horizontal ul li {
+  display: inline-block;
+}
+
+/* horizontal menu */
+img {
+  max-width: 100%;
+}
+
+/*-- end reset --*/
+body {
+  background: #3C99DC;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #3C99DC, #D5F3FE);
+  background: -moz-linear-gradient(to top, #3C99DC, #D5F3FE);
+  background: -o-linear-gradient(to top, #3C99DC, #D5F3FE);
+  background: linear-gradient(to top, #3C99DC, #D5F3FE);
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 3em;
+  text-align: center;
+  color: #fff;
+  font-weight: 100;
+  text-transform: capitalize;
+  letter-spacing: 4px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/*-- main --*/
+.main-w3layouts {
+  padding: 3em 0 1em;
+}
+
+.main-agileinfo {
+  width: 35%;
+  margin: 3em auto;
+  background: rgba(0, 0, 0, 0.18);
+  background-size: cover;
+}
+
+.agileits-top {
+  padding: 3em;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+  font-size: 0.9em;
+  color: #fff;
+  font-weight: 100;
+  width: 94.5%;
+  display: block;
+  border: none;
+  padding: 0.8em;
+  border: solid 1px rgba(255, 255, 255, 0.37);
+  -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #fff 4%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #fff 4%);
+  background-position: -800px 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+input.email, input.text.w3lpass {
+  margin: 2em 0;
+}
+
+#txtFullname{
+ margin: 2em 0;
+}
+.text:focus, .text:valid {
+  box-shadow: none;
+  outline: none;
+  background-position: 0 0;
+}
+
+.text:focus::-webkit-input-placeholder, .text:valid::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: .9em;
+  -webkit-transform: translateY(-30px);
+  -moz-transform: translateY(-30px);
+  -o-transform: translateY(-30px);
+  -ms-transform: translateY(-30px);
+  transform: translateY(-30px);
+  visibility: visible !important;
+}
+
+::-webkit-input-placeholder {
+  color: #fff;
+  font-weight: 100;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
+}
+
+:-ms-input-placeholder {
+  color: #fff;
+}
+
+input[type="submit"] {
+  font-size: .9em;
+  color: #fff;
+  background: #0F5298;
+  outline: none;
+  border: 1px solid #0F5298;
+  cursor: pointer;
+  padding: 0.9em;
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 2em 0;
+  letter-spacing: 4px;
+}
+
+input[type="submit"]:hover {
+  -webkit-transition: .5s all;
+  -moz-transition: .5s all;
+  -o-transition: .5s all;
+  -ms-transition: .5s all;
+  transition: .5s all;
+  background: #8DC26F;
+}
+
+.agileits-top p {
+  font-size: 1em;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.agileits-top p a {
+  color: #fff;
+  -webkit-transition: .5s all;
+  -moz-transition: .5s all;
+  transition: .5s all;
+  font-weight: 400;
+}
+
+.agileits-top p a:hover {
+  color: #76b852;
+}
+
+/*-- //main --*/
+/*-- checkbox --*/
+.wthree-text label {
+  font-size: 0.9em;
+  color: #fff;
+  font-weight: 200;
+  cursor: pointer;
+  position: relative;
+}
+
+input.checkbox {
+  background: #8DC26F;
+  cursor: pointer;
+  width: 1.2em;
+  height: 1.2em;
+}
+
+input.checkbox:before {
+  content: "";
+  position: absolute;
+  width: 1.2em;
+  height: 1.2em;
+  background: inherit;
+  cursor: pointer;
+}
+
+input.checkbox:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0;
+  z-index: 1;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid #fff;
+  -webkit-transition: .4s ease-in-out;
+  -moz-transition: .4s ease-in-out;
+  -o-transition: .4s ease-in-out;
+  transition: .4s ease-in-out;
+}
+
+input.checkbox:checked:after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  height: .5rem;
+  border-color: #fff;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+
+.anim input.checkbox:checked:after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  height: .5rem;
+  border-color: transparent;
+  border-right-color: transparent;
+  animation: .4s rippling .4s ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes rippling {
+  50% {
+    border-left-color: #fff;
+  }
+
+  100% {
+    border-bottom-color: #fff;
+    border-left-color: #fff;
+  }
+}
+
+/*-- //checkbox --*/
+/*-- copyright --*/
+.colorlibcopy-agile {
+  margin: 2em 0 1em;
+  text-align: center;
+}
+
+.colorlibcopy-agile p {
+  font-size: .9em;
+  color: #fff;
+  line-height: 1.8em;
+  letter-spacing: 1px;
+  font-weight: 100;
+}
+
+.colorlibcopy-agile p a {
+  color: #fff;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+}
+
+.colorlibcopy-agile p a:hover {
+  color: #000;
+}
+
+/*-- //copyright --*/
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.colorlib-bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.colorlib-bubbles li {
+  position: absolute;
+  list-style: none;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.15);
+  bottom: -160px;
+  -webkit-animation: square 20s infinite;
+  -moz-animation: square 250s infinite;
+  -o-animation: square 20s infinite;
+  -ms-animation: square 20s infinite;
+  animation: square 20s infinite;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  -ms-transition-timing-function: linear;
+  transition-timing-function: linear;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.colorlib-bubbles li:nth-child(1) {
+  left: 10%;
+}
+
+.colorlib-bubbles li:nth-child(2) {
+  left: 20%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  -o-animation-delay: 2s;
+  -ms-animation-delay: 2s;
+  animation-delay: 2s;
+  -webkit-animation-duration: 17s;
+  -moz-animation-duration: 17s;
+  -o-animation-duration: 17s;
+  animation-duration: 17s;
+}
+
+.colorlib-bubbles li:nth-child(3) {
+  left: 25%;
+  -webkit-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+  -o-animation-delay: 4s;
+  -ms-animation-delay: 4s;
+  animation-delay: 4s;
+}
+
+.colorlib-bubbles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation-duration: 22s;
+  -moz-animation-duration: 22s;
+  -o-animation-duration: 22s;
+  -ms-animation-duration: 22s;
+  animation-duration: 22s;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.colorlib-bubbles li:nth-child(5) {
+  left: 70%;
+}
+
+.colorlib-bubbles li:nth-child(6) {
+  left: 80%;
+  width: 120px;
+  height: 120px;
+  -webkit-animation-delay: 3s;
+  -moz-animation-delay: 3s;
+  -o-animation-delay: 3s;
+  -ms-animation-delay: 3s;
+  animation-delay: 3s;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.colorlib-bubbles li:nth-child(7) {
+  left: 32%;
+  width: 160px;
+  height: 160px;
+  -webkit-animation-delay: 7s;
+  -moz-animation-delay: 7s;
+  -o-animation-delay: 7s;
+  -ms-animation-delay: 7s;
+  animation-delay: 7s;
+}
+
+.colorlib-bubbles li:nth-child(8) {
+  left: 55%;
+  width: 20px;
+  height: 20px;
+  -webkit-animation-delay: 15s;
+  -moz-animation-delay: 15s;
+  animation-delay: 15s;
+  -webkit-animation-duration: 40s;
+  -moz-animation-duration: 40s;
+  animation-duration: 40s;
+}
+
+.colorlib-bubbles li:nth-child(9) {
+  left: 25%;
+  width: 10px;
+  height: 10px;
+  -webkit-animation-delay: 2s;
+  animation-delay: 2s;
+  -webkit-animation-duration: 40s;
+  animation-duration: 40s;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.colorlib-bubbles li:nth-child(10) {
+  left: 90%;
+  width: 160px;
+  height: 160px;
+  -webkit-animation-delay: 11s;
+  animation-delay: 11s;
+}
+
+@-webkit-keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    -webkit-transform: translateY(-700px) rotate(600deg);
+    -moz-transform: translateY(-700px) rotate(600deg);
+    -o-transform: translateY(-700px) rotate(600deg);
+    -ms-transform: translateY(-700px) rotate(600deg);
+    transform: translateY(-700px) rotate(600deg);
+  }
+}
+
+@keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    -webkit-transform: translateY(-700px) rotate(600deg);
+    -moz-transform: translateY(-700px) rotate(600deg);
+    -o-transform: translateY(-700px) rotate(600deg);
+    -ms-transform: translateY(-700px) rotate(600deg);
+    transform: translateY(-700px) rotate(600deg);
+  }
+}
+
+/*-- responsive-design --*/
+@media(max-width:1440px) {
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 94%;
+  }
+}
+
+@media(max-width:1366px) {
+  h1 {
+    font-size: 2.6em;
+  }
+
+  .agileits-top {
+    padding: 2.5em;
+  }
+
+  .main-agileinfo {
+    margin: 2em auto;
+  }
+
+  .main-agileinfo {
+    width: 36%;
+  }
+}
+
+@media(max-width:1280px) {
+  .main-agileinfo {
+    width: 40%;
+  }
+}
+
+@media(max-width:1080px) {
+  .main-agileinfo {
+    width: 46%;
+  }
+}
+
+@media(max-width:1024px) {
+  .main-agileinfo {
+    width: 49%;
+  }
+}
+
+@media(max-width:991px) {
+  h1 {
+    font-size: 2.4em;
+  }
+
+  .main-w3layouts {
+    padding: 2em 0 1em;
+  }
+}
+
+@media(max-width:900px) {
+  .main-agileinfo {
+    width: 58%;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 93%;
+  }
+}
+
+@media(max-width:800px) {
+  h1 {
+    font-size: 2.2em;
+  }
+}
+
+@media(max-width:736px) {
+  .main-agileinfo {
+    width: 62%;
+  }
+}
+
+@media(max-width:667px) {
+  .main-agileinfo {
+    width: 67%;
+  }
+}
+
+@media(max-width:600px) {
+  .agileits-top {
+    padding: 2.2em;
+  }
+
+  input.email, input.text.w3lpass {
+    margin: 1.5em 0;
+  }
+
+  input[type="submit"] {
+    margin: 2em 0;
+  }
+
+  h1 {
+    font-size: 2em;
+    letter-spacing: 3px;
+  }
+}
+
+@media(max-width:568px) {
+  .main-agileinfo {
+    width: 75%;
+  }
+
+  .colorlibcopy-agile p {
+    padding: 0 2em;
+  }
+}
+
+@media(max-width:480px) {
+  h1 {
+    font-size: 1.8em;
+    letter-spacing: 3px;
+  }
+
+  .agileits-top {
+    padding: 1.8em;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 91%;
+  }
+
+  .agileits-top p {
+    font-size: 0.9em;
+  }
+}
+
+@media(max-width:414px) {
+  h1 {
+    font-size: 1.8em;
+    letter-spacing: 2px;
+  }
+
+  .main-agileinfo {
+    width: 85%;
+    margin: 1.5em auto;
+  }
+
+  .text:focus, .text:valid {
+    background-position: 0 0px;
+  }
+
+  .wthree-text ul li, .wthree-text ul li:nth-child(2) {
+    display: block;
+    float: none;
+  }
+
+  .wthree-text ul li:nth-child(2) {
+    margin-top: 1.5em;
+  }
+
+  input[type="submit"] {
+    margin: 2em 0 1.5em;
+    letter-spacing: 3px;
+  }
+
+  input[type="submit"] {
+    margin: 2em 0 1.5em;
+  }
+
+  .colorlibcopy-agile {
+    margin: 1em 0 1em;
+  }
+}
+
+@media(max-width:384px) {
+  .main-agileinfo {
+    width: 88%;
+  }
+
+  .colorlibcopy-agile p {
+    padding: 0 1em;
+  }
+}
+
+@media(max-width:375px) {
+  .agileits-top p {
+    letter-spacing: 0px;
+  }
+}
+
+@media(max-width:320px) {
+  .main-w3layouts {
+    padding: 1.5em 0 0;
+  }
+
+  .agileits-top {
+    padding: 1.2em;
+  }
+
+  .colorlibcopy-agile {
+    margin: 0 0 1em;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"] {
+    width: 89.5%;
+    font-size: 0.85em;
+  }
+
+  h1 {
+    font-size: 1.7em;
+    letter-spacing: 0px;
+  }
+
+  .main-agileinfo {
+    width: 92%;
+    margin: 1em auto;
+  }
+
+  .text:focus, .text:valid {
+    background-position: 0 0px;
+  }
+
+  input[type="submit"] {
+    margin: 1.5em 0;
+    padding: 0.8em;
+    font-size: .85em;
+  }
+
+  .colorlibcopy-agile p {
+    font-size: .85em;
+  }
+
+  .wthree-text label {
+    font-size: 0.85em;
+  }
+
+  .main-w3layouts {
+    padding: 1em 0 0;
+  }
+}
+
+span{
+color: #e1e1e1;
+}
 
 .error_signup{
-	color: #AAA !important;
-	padding:0 !important;
-	font-size: 12px;
-	margin: 0 !important;
-	
+
 }
+
+</style>
 
 <body>
 
-    <div class="login">
-        <!-- <img class="wave" src="#"> -->
-        <div class="container">
-            <div class="img">
-                <img src="../images/createAccount.jpg" >
-            </div>
-            <div class="login-content">
-                <form action="${pageContext.request.contextPath}/signUp" method = "post">
-                    <h2 class="title"> Account</h2>
-                    
-                     <div class="input-div one">
-                        <div class="i">
-                            <i class="fas fa-user-edit"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="text" class="form-control" placeholder = "Your name" name = "name" value = "${name}">
-                            
-                        </div>
-                        
-                    </div>
-                     <label class = "error_signup"> <c:out value = "${errName}"></c:out></label>
-                    <div class="input-div one">
-                        <div class="i">
-                            <i class="fas fa-envelope-open-text"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="text" class="form-control" placeholder = "email" name = "email" value = "${email}">
-                            
-                        </div>
-                        
-                    </div>
-                    <label class = "error_signup"> <c:out value = "${errEmail}"></c:out></label>
-                    <div class="input-div pass">
-                        <div class="i">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="text" class="form-control" placeholder = "username " name = "username" value = "${username}">
-                            
-                        </div>
-                       
-                    </div>
-                     <label class = "error_signup"> <c:out value = "${errUsername}"></c:out></label>
-                    <div class="input-div pass">
-                        <div class="i">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="password" class="form-control" placeholder = "password" name = "password" value = "${password}">
-                           
-                        </div>
-                        
-                    </div>
-                     <label class = "error_signup"> <c:out value = "${errPass}"></c:out></label>
-                      <div class="input-div pass">
-                        <div class="i">
-                            <i class="fas fa-lock-open"></i>
-                        </div>
-                        <div class="div">
-                            
-                            <input type="password" class="form-control" placeholder = "confirm your password" name = "passwordConfirm" value = "${passwordConfirm}">
-                           
-                        </div>
-                        
-                    </div>
-                     <label class = "error_signup"> <c:out value = "${errPassConfirm}"></c:out></label>
-                    <a href="login.jsp"> Are you have account ?</a>
-                    <input type="submit" class="btn" value="sign up" >
-                   
-                </form>
-                
-            </div>
-            
-        </div>
-        
 
+<div class="main-w3layouts wrapper">
+		<h1>Creative Account</h1>
+		<div class="main-agileinfo">
+			<div class="agileits-top">
+				<form action="${pageContext.request.contextPath}/signUp" method = "post">
+					
+					<input  class="text" type="text" value = "${fullname}" name="fullname" placeholder="Full name" required="">
+					<span class = "error_signup"> <c:out value = "${errName}"></c:out></span>
+					<input id = "txtFullname" class="text" type="text"name = "username" value = "${username}" placeholder="Username" required="">
+					<span class = "error_signup"> <c:out value = "${errUsername}"></c:out></span>
+					
+					<input class="text email" type="email" name = "email" value = "${email}"placeholder="Email" required="">
+					 <span class = "error_signup"> <c:out value = "${errEmail}"></c:out></span>
+					<input id = "password" class="text" type="password" name = "password" value = "${password}"  placeholder="Password" required="">
+					<span id = "message"> </span>  
+					<input id = "password2"  class="text w3lpass" type="password" name="password2" placeholder="Confirm Password" required="">
+					
+					<input id = "btnSignup" type="submit" value="SIGNUP">
+				</form>
+				<p>Don't have an Account? <a href="login.jsp"> Login Now!</a></p>
+			</div>
+		</div>
+		<!-- copyright -->
+		<div class="colorlibcopy-agile">
+			<p>X4FIT</p>
+		</div>
+		<!-- //copyright -->
+		<ul class="colorlib-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<!-- //main -->
+	
+	 <script>
+
+       document.getElementById('password2').onkeyup=function(){
+           var password = $("#password").val();
+           var confirm_password = $("#password2").val();
+           if(password != confirm_password) {
+                  $("#password2").css('color', "red");
+                  document.getElementById("btnSignup").disabled = true;
+           }
+               else{
+                  $("#password2").css('color', "#fff");
+                  document.getElementById("btnSignup").disabled = false;
+               }
+       }
+   </script>
+   
+   <script>
+   document.getElementById('password').onkeyup=function(){
+      
+	   var format = /[!@#$%^&*()_+\-=\[\]{}:\\|,.<>\/?]+/;
+       var pw = document.getElementById("password").value;  
+       //check empty password field  
+       if(pw == "") {  
+          document.getElementById("message").innerHTML = "**Fill the password please!";  
+          document.getElementById("btnSignup").disabled = true;
+          
+       } 
+       else
+    
+      //minimum password length validation  
+       if(pw.length < 6) {  
+          document.getElementById("message").innerHTML = "**Password length must be atleast 6 characters";  
+          document.getElementById("btnSignup").disabled = true;
+         
+       }
+       else
+       if(format.test(pw) == false){
+    	 
+    	   document.getElementById("message").innerHTML = "**At least 1 special character [!@#$%^&*()_+\-=\[\]{}:\\|,.<>\/?+]";  
+           document.getElementById("btnSignup").disabled = true;
+       }
+       
+       //maximum length of password validation  
+       else if(pw.length > 10) {  
+           document.getElementById("message").innerHTML = "**Password length must not exceed 10 characters";  
+           document.getElementById("btnSignup").disabled = true;
+          
+        }
+     
+       else
+           
+       { 
+    	   document.getElementById("message").innerHTML = "**Password correct";  
+	       document.getElementById("btnSignup").disabled = false;
+       }
+  
+   }
+   
+   </script>
+                                                
 </body>
+
+
 
 </html>

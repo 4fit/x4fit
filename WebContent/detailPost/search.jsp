@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset= UTF-8"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,model.User,java.util.Date,java.text.SimpleDateFormat,java.util.ArrayList,javax.annotation.Resource,javax.sql.DataSource"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -667,6 +667,11 @@ li {
     border-color: rgb(255, 255, 255);
     border-image: initial;
 }
+
+.highlight{
+ font-weight: bold;
+ color: #5488c7;
+}
 </style>
 <body>
  <header>
@@ -680,8 +685,8 @@ li {
                     <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="#">Post</a>
                     <a class="nav-item nav-link" href="#">Profile</a>
-                   <form class="input-group mb-10" action = "home" method = "get">
-                        <input name = "textSearch" type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+                   <form class="input-group mb-10" action = "${pageContext.request.contextPath}/home" method = "get">
+                        <input value = "${ textSearch}"name = "textSearch" type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
                             <button type = "hidden" value = "search_home" name = "userCurrentAction" style = "border: none; height: 100%; width: 100%;"><span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span></button>
                         </div>
@@ -724,11 +729,11 @@ li {
     </header>
     <div class="row">
     <div class = "col-md-9">
-    <form class="search-box" action = "home" method = "get" >
+    <form class="search-box" action = "${pageContext.request.contextPath}/home" method = "get" >
     <div class = "d-flex">
-     <input name = "textSearch" type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+     <input id = "text_search" value = "${ textSearch}"name = "textSearch" type="text" class="form-control" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
       <div class="input-group-prepend">
-          <button name = "userCurrentAction" value = "search_home" type = "submit" class = "btn btn-primary"><span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span></button>
+          <button name = "userCurrentAction" onclick = "highlightTextHome()" value = "search_home" type = "submit" class = "btn btn-primary "><i class="btn btn-primary fas fa-search"></i></button>
       </div>
       </div>
 </form>
@@ -746,7 +751,7 @@ li {
             <div id="Bookmarks" class="tabcontent">
                 <div class="jumbotron jumbotron-fluid">
                 <c:choose>
-                <c:when test =" ${listPost.size() == 0}">
+                <c:when test =" ${lenListpost == 0}">
                 <p style = "color: #d9d9d9;"> Không tìm thấy bài viết !</p>
                  </c:when> 
                  </c:choose>
@@ -755,10 +760,12 @@ li {
                 
                     <div class="post-div container">
                         <img class="img-pro-post float-left" src="A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
-                        <a class="name-pro-post display-9">${post.getNameUser()}</a>
-                        <p class="postime">${post.published_at}</p>
-                        <p class="lead ml-2 title-post ">${post.title}</p>
+                        <a class="name-pro-post display-9">@${post.getUsername()}</a>
                         
+                         <span class="name-pro-post display-9">${post.getNameUser()}</span>
+                        <p class="postime">${post.published_at}</p>
+                        <p id = "textTitle" class="lead ml-2 title-post ">${post.title}</p>
+                        <p class = "text-muted" id = "">${post.getShortContent()}</p>
                         <div class="tag d-flex">
                             
                             <button class="btn-secondary">${post.category}</button>
@@ -788,7 +795,7 @@ li {
         	
         		<!-- block author  -->
         		<c:choose>
-        	 <c:when test ="${listAuthor == NULL}" >
+        	 <c:when test ="${lenListauthor == 0}" >
                 <span> Không tìm thấy tác giả !</span>
                  </c:when> 
                  </c:choose>
@@ -799,7 +806,7 @@ li {
                                     <img class="avatar-user float-left" src="images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg">
                                 </a>
                                 <div class="user-info overflow-hidden">
-                                    <a class="username">user.getUsername()</a>
+                                    <a class="username">${ user.getUsername()}</a>
                                     <div class="user-icon">
                                         <span class="viewtag t ">
                                             <i class="fas fa-user-plus"></i><label class="view">16</label>
@@ -831,36 +838,36 @@ li {
 		<div class = "col-md-3">
        
 	        <div class="section-title-line mb-1">
-	        <h4 class="text-uppercase">
+	        <h4 class="text-uppercase text-muted" style = "margin-top: 30px">
 	            Search syntax
 	        </h4><hr class="filler-line"></div>
 	        
 	        <div class = "main-search-syntax">
 		        <div>
-		        <a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
-	                title:Git </a> 
+		        <a class = "btn btn-secondary" data-v-1ebc36b8="" href="${pageContext.request.contextPath}/home?textSearch=title:Overfitting&userCurrentAction=search_home" class="el-tag tag active el-tag--info el-tag--default">
+	                title:Overfitting </a> 
 	            <p class="text-muted">
-	                Containing "Git" in title </p>
+	                Containing "Overfitting" in title </p>
 	            </div>
 		        
 			        <div>
-			        <a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
-	                tag:Rails </a> 
-	            <p class="text-muted">Tagged with "Rails"</p>
+			        <a class = "btn btn-secondary" data-v-1ebc36b8="" href="${pageContext.request.contextPath}/home?textSearch=tag:new&userCurrentAction=search_home" class="el-tag tag active el-tag--info el-tag--default">
+	                tag:new </a> 
+	            <p class="text-muted">Tagged with "new"</p>
 	            </div>
            
            
-           		<div><a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
-                tag:Rails
+           		<div><a class = "btn btn-secondary" data-v-1ebc36b8="" href="${pageContext.request.contextPath}/home?textSearch=NOT:xuân&userCurrentAction=search_home" class="el-tag tag active el-tag--info el-tag--default">
+                NOT:xuân
             </a> <p class="text-muted">
-                Tagged with "Rails"
+                Must not contain "xuân"
             </p></div>
             
             
-            <div><a data-v-1ebc36b8="" href="#" class="el-tag tag active el-tag--info el-tag--default">
-                user:name
+            <div><a class = "btn btn-secondary" data-v-1ebc36b8="" href="${pageContext.request.contextPath}/home?textSearch=user:Tien&userCurrentAction=search_home" class="el-tag tag active el-tag--info el-tag--default">
+                user:Tien
             </a> <p class="text-muted">
-                Created by user "name"
+                Created by user "Tien"
             </p></div>
             
             
@@ -892,6 +899,24 @@ li {
        document.getElementById("defaultOpen").onclick();
     </script>
     
-    
+    <script>
+
+    window.onload = function()
+    {
+    	highlightTextHome();
+    };
+     
+	    function highlightTextHome() {
+    		var text = document.getElementById("text_search").value;
+    		
+    	  var inputText = document.getElementById("textTitle");
+    	  var innerHTML = inputText.innerHTML;
+    	  var index = innerHTML.indexOf(text);
+    	  if (index >= 0) { 
+    	   innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+    	   inputText.innerHTML = innerHTML;
+    	  }
+    	}
+    </script>
 </body>
 </html>

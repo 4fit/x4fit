@@ -492,7 +492,7 @@ public class Post extends Model {
 	public static List<Post> searchPost(String textSearch)
 	{
 		
-		
+		int checkContent = 0;
 		List<Post> lPost = new ArrayList<Post>();
 		
 		
@@ -530,7 +530,7 @@ public class Post extends Model {
 			else if(fieldName.contains("tag"))
 			{
 				
-				regexQuery.put("category", new BasicDBObject("$not", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i")));
+				regexQuery.put("category", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
 				
 			}
 			else
@@ -543,13 +543,7 @@ public class Post extends Model {
 				
 				//tìm kiếm trong content
 				regexQueryContent.put("content", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
-				FindIterable<Document>  listPostContent = Model.POST.find(regexQueryContent);
-				Iterator<Document> listContent = listPostContent.iterator();
-				
-				while(listContent.hasNext())
-				{
-					lPost.add(ConverseToPost(listContent.next()));			
-				}
+				checkContent = 1;
 			}
 		
 		
@@ -564,7 +558,16 @@ public class Post extends Model {
 			lPost.add(ConverseToPost(list.next()));			
 		}
 		
-		
+		if(checkContent == 1)
+		{
+			FindIterable<Document>  listPostContent = Model.POST.find(regexQueryContent);
+			Iterator<Document> listContent = listPostContent.iterator();
+			
+			while(listContent.hasNext())
+			{
+				lPost.add(ConverseToPost(listContent.next()));			
+			}
+		}
 		
 		
 		return lPost;
@@ -647,7 +650,7 @@ public class Post extends Model {
 		return p;
 	}
 	
-	public String getNameUser()
+	public  String getNameUser()
 	{
 		Document user = User.GetUserDocumentByUserID(this.user_id);
 		String name = "name author";
@@ -664,6 +667,30 @@ public class Post extends Model {
 		return name;
 	}
 	
+	public  String getUsername()
+	{
+		Document account = Account.getDocumentAccountByUserId(this.user_id);
+		String username = "username";
+		
+		try
+		{if(account.getString("username")!= null)
+			username = account.getString("username");
+		}
+		catch(NullPointerException x)
+		{
+			username = "username";
+		}
+		
+		return username;
+	}
+	
+	public String getShortContent()
+	{
+		if(this.getContent().length() < 80)
+			return this.getContent();
+		return (this.getContent().substring(0, 80) + "...");
+		
+	}
 
 	public int getCommentCount()
 	{

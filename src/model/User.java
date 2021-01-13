@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
@@ -258,7 +259,7 @@ public User(String name, String username, String pass, String email ) {
 //	}
 
 	public static User getUserByEmail(String email) {
-		FindIterable<Document> cursor = USER.find(Filters.eq("email", email));
+		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("email", email));
 		Iterator<Document> it = cursor.iterator();
 		if (it.hasNext()) {
 			Document doc = USER.find(Filters.eq("email", email)).first();
@@ -274,7 +275,7 @@ public User(String name, String username, String pass, String email ) {
 		Document doc = ACCOUNT.find(Filters.eq("username", username)).first();
 		if (doc!=null)
 		{
-			int userID = doc.getInteger("userID");
+			int userID = doc.getInteger("user_id");
 			Document user = USER.find(Filters.eq("id", userID)).first();
 			return Doc2User(user);
 		}
@@ -305,7 +306,7 @@ public User(String name, String username, String pass, String email ) {
 	public static User GetUserInfoFromCookies(Cookie[] cookie) 
 	{
 		int userID = GetUserIDFromCookies(cookie);
-		Document doc = USER.find(Filters.eq("userID", userID)).first();
+		Document doc = USER.find(Filters.eq("user_id", userID)).first();
 		if (doc != null)
 			return Doc2User(doc);
 		else return null;
@@ -313,12 +314,9 @@ public User(String name, String username, String pass, String email ) {
 	
 	public static Document GetUserDocumentByUserID(int userID) {
 
-		FindIterable<Document> cursor = USER.find(Filters.eq("userID", userID));
-		Iterator<Document> it = cursor.iterator();
-		if (it.hasNext()) {
-			return USER.find(Filters.eq("userID", userID)).first();
-		} else
-			return null;
+		Document cursor = USER.find(Filters.eq("id", userID)).first();
+		return cursor;
+		
 	}
 	
 	public static void updateNewPass(String newPass, String username) {
@@ -425,6 +423,26 @@ public User(String name, String username, String pass, String email ) {
 		
 		return username;
 		
+	}
+	
+	public static void createUserByID(int id, String fullname) // Tạo user với user_id đã được tạo ở model account
+	{
+		Document doc = new Document("_id", new ObjectId());
+		
+		 List<Integer> follower = new ArrayList<Integer>();
+		 List<Integer> following = new ArrayList<Integer>();
+		 List<Integer> clips = new ArrayList<Integer>();
+		 String status = "ACTIVE";
+		
+		doc.append("id", id);
+		doc.append("fullname", fullname);
+		doc.append("avatar", "");
+		doc.append("url", "");
+		doc.append("status", status);
+		doc.append("follower", follower);
+		doc.append("following", following);
+		doc.append("clips", clips);
+		Model.Insert(doc, "USER");
 	}
 	
 }

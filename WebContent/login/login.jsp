@@ -14,12 +14,7 @@
 	<script src="https://kit.fontawesome.com/f93b4d7888.js"></script>
 	<title>Login</title>
 </head>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> 9cff7bb38a89dc281fa650b96282c1b10a42c301
 
 <style>
 
@@ -244,10 +239,6 @@ a:hover{
 
 </style>
 
-<<<<<<< HEAD
->>>>>>> yen
-=======
->>>>>>> 9cff7bb38a89dc281fa650b96282c1b10a42c301
 <body>
 	<div class="login">
 		<img class="wave" src="${pageContext.request.contextPath}/images/bgLogin.jpg">
