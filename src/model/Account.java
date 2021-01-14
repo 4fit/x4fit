@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 public class Account extends Model {
 
@@ -118,6 +119,26 @@ public class Account extends Model {
 		User user = new User(user_id, fullname);
 	}
 	
+	public static void createNewMod(String username, String password, String email, String fullname)
+	{
+		Document doc = new Document("_id", new ObjectId());
+		int user_id = getLastestID(USER) + 1;
+		doc.append("id", getLastestID(ACCOUNT) + 1);
+		doc.append("user_id", user_id);
+		doc.append("username", username);
+		doc.append("password", password);
+		doc.append("email", email);
+		doc.append("user_type", "MOD");
+
+		Model.Insert(doc, "ACCOUNT");
+		
+		Document docUser = new Document("_id", new ObjectId());
+		docUser.append("id", user_id);
+		docUser.append("fullname", fullname);
+		docUser.append("status", "ACTIVE");
+		Model.Insert(docUser, "USER");
+	}
+	
 	public static boolean checkExitUsername(String username)
 	{
 		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("username", username));
@@ -164,5 +185,4 @@ public class Account extends Model {
 
 		ACCOUNT.updateOne(query, updateObject);
 	}
-
 }
