@@ -576,4 +576,7 @@ public class User extends Account {
 		return true;
 	}
 	
+	public static void updateUserStatus(int userId, String newStatus) {
+		USER.updateOne(Filters.eq("id", userId), Updates.set("status", newStatus));
+	}
 }

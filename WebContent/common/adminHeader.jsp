@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
       <div class="logo" style="border-bottom: 1px solid #ccc">
-          <a href="${pageContext.request.contextPath}/mod/all-categories">
+          <a href="${pageContext.request.contextPath}/admin/all-users">
               <img src="https://colorlib.com/polygon/adminator/assets/static/images/logo.png">
               <span>X4FIT</span>
           </a>
@@ -11,13 +11,13 @@
       <div class="nav-left">
           <ul>
               <li id="user">
-                  <a id="a2" href="${pageContext.request.contextPath}/mod/all-categories">
+                  <a id="a2" href="${pageContext.request.contextPath}/admin/all-users">
                       <i class="fa fa-list-alt" aria-hidden="true"></i>
                       <span>USER</span> 
                   </a>
               </li>
               <li id="report">
-                  <a id="a3" href="${pageContext.request.contextPath}/mod/all-posts">
+                  <a id="a3" href="${pageContext.request.contextPath}/admin/all-reports">
                       <i class="fa fa-book" aria-hidden="true"></i>
                       <span>REPORT</span> 
                   </a>

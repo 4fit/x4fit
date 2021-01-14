@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Account;
 import model.User;
 import model.UserAccount;
 
@@ -17,6 +18,8 @@ import model.UserAccount;
  */
 @WebServlet(urlPatterns = {
 		"/admin/all-users", 
+		"/admin/create-mod",
+		"/admin/update-status",
 		})
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +42,12 @@ public class AdminController extends HttpServlet {
 			case "/admin/all-users":
 				getAllUsersInfo(request, response);
 				return;
+			case "/admin/create-mod":
+				createMod(request, response);
+				return;
+			case "/admin/update-status":
+				updateAccountStatus(request, response);
+				return;
 		}
 	}
 
@@ -52,6 +61,44 @@ public class AdminController extends HttpServlet {
 
 	protected void getAllUsersInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
+			request.setAttribute("userInfoList", allUserInfoList);
+			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
+	
+	protected void createMod(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = (String)request.getParameter("username");
+		String email = (String)request.getParameter("email");
+		String fullname = (String)request.getParameter("fullname");
+		String password = (String)request.getParameter("password");
+		try {
+			if (Account.checkExitEmail(email) || Account.checkExitUsername(username)) {
+				String errorMessage = "Username or Email already exist!";
+				request.setAttribute("errorMessage", errorMessage);
+			} else {
+				Account.createNewMod(username, password, email, fullname);
+				System.out.println("New Mod Created!");
+			}
+			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
+			request.setAttribute("userInfoList", allUserInfoList);
+			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
+	
+	protected void updateAccountStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String status = (String)request.getParameter("status");
+		int userId = Integer.parseInt((String)request.getParameter("userId"));
+		try {
+			User.updateUserStatus(userId, status);
 			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
