@@ -901,7 +901,7 @@ color: #e1e1e1;
        else
            
        { 
-    	   document.getElementById("message").innerHTML = "**Password correct";  
+    	   document.getElementById("message").innerHTML = "**Password syntax correct";  
 	       document.getElementById("btnSignup").disabled = false;
        }
   

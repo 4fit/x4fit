@@ -113,7 +113,6 @@ public class loginController extends HttpServlet {
 			Account account = Account.GetAccountByUserID(userID);
 			
 			String url = request.getContextPath() + "/home";
-
 			response.sendRedirect(url);
 		} else {
 			String url = "login/login.jsp";

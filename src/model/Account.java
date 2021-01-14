@@ -111,7 +111,7 @@ public class Account extends Model {
 		doc.append("username", username);
 		doc.append("password", password);
 		doc.append("email", email);
-		doc.append("user_type", "USER");
+		doc.append("user_type", "NOT ACTIVE");
 
 		Model.Insert(doc, "ACCOUNT");
 		
