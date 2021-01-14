@@ -37,7 +37,23 @@ public class signUpController extends HttpServlet {
 		HttpSession session = request.getSession();
 		int user_id;
 
-		if(request.getParameter("userCurrentAction").equals("btn"))
+		int isHaveuserCurrentAction = 1;
+		String valueBtn = null;
+		
+		try
+		{
+			valueBtn = request.getParameter("userCurrentAction");
+		}
+		catch(NullPointerException x)
+		{
+			if(valueBtn != null)
+				isHaveuserCurrentAction = 0;
+		}
+		
+		
+		if(isHaveuserCurrentAction == 1)
+		{
+			if(request.getParameter("userCurrentAction").equals("btn"))
 			{
 				user_id = (int)session.getAttribute("userID");
 				String code = request.getParameter("code");
@@ -53,6 +69,7 @@ public class signUpController extends HttpServlet {
 				}
 				
 			}
+		}
 		else
 			
 		{

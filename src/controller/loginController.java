@@ -118,7 +118,7 @@ public class loginController extends HttpServlet {
 			String url = request.getContextPath() + "/home";
 			session.setAttribute("userID", userID);
 			session.setAttribute("Verification", "Yes");
-			session.setAttribute("Page", "logInController");
+			session.setAttribute("Page", "loginController");
 			
 			response.sendRedirect(url);
 		} else {
