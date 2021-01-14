@@ -19,10 +19,7 @@
     <servlet-name>controller.galleryController</servlet-name>
     <url-pattern>/gallery</url-pattern>
 </servlet-mapping>
-<servlet-mapping>
-    <servlet-name>controller.homeController</servlet-name>
-    <url-pattern>/home</url-pattern>
-</servlet-mapping>
+
 
 <servlet-mapping>
     <servlet-name>controller.profileController</servlet-name>
