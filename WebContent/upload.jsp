@@ -44,6 +44,7 @@
 	<div class="gallary" align="center">
 		<h5>Gallery</h5>
 		<c:forEach var="img" items="${images_gallary}">
+
 				<img src="${pageContext.request.contextPath}/upload/${img}" alt="${img}" height="64px" width="64px"
 							onclick="insertImage(content, '${pageContext.request.contextPath}/upload/${img}')"/>
 		</c:forEach>

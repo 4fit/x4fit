@@ -1246,11 +1246,7 @@ ul.social-network li {
 
 		
 		// Chuyển markdown sang HTML
-		
-		
-	
-    
-	  
+
 	
 	});
   

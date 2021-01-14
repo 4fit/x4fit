@@ -33,10 +33,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
-public class logInController extends HttpServlet {
+public class loginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public logInController() {
+	public loginController() {
 		super();
 	}
 
@@ -44,8 +44,10 @@ public class logInController extends HttpServlet {
 	public int Login(String username, String password) {
 		Document doc = Model.ACCOUNT.find(Filters.eq("username", username)).first();
 		if (doc != null) {
+			
 			String _password_ = doc.getString("password");
 			String hashed_password = DigestUtils.sha256Hex(password);
+			System.out.print(hashed_password +" AND " +_password_ );
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
@@ -81,6 +83,19 @@ public class logInController extends HttpServlet {
 			String rawValidator = RandomStringUtils.randomAlphanumeric(64);
 			String hashedValidator = DigestUtils.sha256Hex(rawValidator);
 			
+			for (Cookie c : request.getCookies()) {
+				if (c.getName().equals("selector"))
+				{
+					c.setMaxAge(0);
+					response.addCookie(c);
+				}
+				if (c.getName().equals("validator"))
+				{
+					c.setMaxAge(0);
+					response.addCookie(c);
+				}
+					
+			}
 			Cookie cookieSelector = new Cookie("selector", selector);
 			cookieSelector.setMaxAge(604800);
 			 
@@ -90,21 +105,18 @@ public class logInController extends HttpServlet {
 			response.addCookie(cookieSelector);
 			response.addCookie(cookieValidator);
 			
+			System.out.print(cookieSelector.getValue() +"validator " +cookieValidator.getValue());
+			
 			Authenticator.Update(userID, selector, hashedValidator);
 			
 			User user = User.GetUserByUserID(userID);
 			Account account = Account.GetAccountByUserID(userID);
 			
-			
 			String url = request.getContextPath() + "/home";
-			session.setAttribute("userID", userID);
-			session.setAttribute("Verification", "Yes");
-			session.setAttribute("Page", "logInController");
-			
+
 			response.sendRedirect(url);
 		} else {
-			String url = "login/signup.jsp";
-			session.setAttribute("Verification", "No");
+			String url = "login/login.jsp";
 			response.sendRedirect(url);
 		}	
 	}

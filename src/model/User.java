@@ -1,21 +1,12 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-
-import javax.print.Doc;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
-
 import org.bson.Document;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
-
-import x4fit.Utilities;
 
 public class User extends Model {
 	private int userID;
@@ -23,6 +14,7 @@ public class User extends Model {
 	private String avatar;
 	private String url;
 	private String status;
+
 
 	public int getUserID() {
 		return userID;
@@ -32,12 +24,15 @@ public class User extends Model {
 		this.userID = userID;
 	}
 
+
+
 	public String getFullname() {
 		return this.fullname;
 	}
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+
 	}
 
 	public String getAvatar() {
@@ -65,6 +60,16 @@ public class User extends Model {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getEmail(int userID)
+	{
+		return Account.GetAccountByUserID(userID).getEmail();
+	}
+
+	public String getUsername(int userID)
+	{
+		return Account.GetAccountByUserID(userID).getUsername();
+	}
 
 	public User() {
 
@@ -90,7 +95,6 @@ public class User extends Model {
 		this.setStatus(status);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static User Doc2User(Document doc) 
 	{
 		return new User(
@@ -131,40 +135,14 @@ public class User extends Model {
 		USER.updateOne(query, updateObject);
 	}
 
-	// Follow bao gồm follower, following
-//	public void updateFollow(String nameField, int idMain, int id) // idMain là ai được update thuộc tính follow
-//	{
-//		Document user = GetUserDocumentByUserID(idMain);
-//		System.out.print(user.get(nameField));
-//		List<Integer> follow = (ArrayList<Integer>) user.get(nameField);
-//		if (isExitInArray(follow, id) == 0) // Kiểm tra xem user đó đã thực hiện follow chưa, nếu có thì không cần
-//											// update
-//		{
-//			follow.add(id);
-//
-//			BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh
-//			query.put("id", idMain);
-//
-//			BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách follow
-//			newList.put(nameField, follow);
-//
-//			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
-//			updateObject.put("$set", newList);
-//
-//			USER.updateOne(query, updateObject);
-//
-//		}
-//	}
-
 	public static User getUserByEmail(String email) {
-		FindIterable<Document> cursor = USER.find(Filters.eq("email", email));
+		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("email", email));
 		Iterator<Document> it = cursor.iterator();
 		if (it.hasNext()) {
 			Document doc = USER.find(Filters.eq("email", email)).first();
 			return Doc2User(doc);
 		} else
 			return null;
-
 	}
 
 	public static User getUserByUsername(String username) 
@@ -186,38 +164,46 @@ public class User extends Model {
 		return Doc2User(doc);
 	}
 	
+
 	public static int GetUserIDFromCookies(Cookie[] cookie) 
 	{
 		String selector = "", validator = "";
 		for (Cookie c : cookie) {
 			if (c.getName().equals("selector"))
+			{
+				System.out.print(c.getValue());
 				selector = c.getValue();
+			}
 			if (c.getName().equals("validator"))
+			{
+				System.out.print(c.getValue());
 				validator = c.getValue();
+			}	
 		}
 		int userID = Model.Authenticator(selector, validator);
+		System.out.print(userID);
 		return userID;
 	}
 	
 	public static User GetUserInfoFromCookies(Cookie[] cookie) 
 	{
 		int userID = GetUserIDFromCookies(cookie);
-		Document doc = USER.find(Filters.eq("user_id", userID)).first();
+		Document doc = USER.find(Filters.eq("id", userID)).first();
 		if (doc != null)
+		{
 			return Doc2User(doc);
+		}
 		else return null;
 	}
 	
 	public static Document GetUserDocumentByUserID(int userID) {
-		FindIterable<Document> cursor = USER.find(Filters.eq("user_id", userID));
-		Iterator<Document> it = cursor.iterator();
-		if (it.hasNext()) {
-			return USER.find(Filters.eq("user_id", userID)).first();
-		} else
-			return null;
-	}
 
-	public void updateNewPass(String newPass, String username) {
+		Document cursor = USER.find(Filters.eq("id", userID)).first();
+		return cursor;
+		
+	}
+	
+	public static void updateNewPass(String newPass, String username) {
 		BasicDBObject query = new BasicDBObject();
 		query.put("username", username);
 

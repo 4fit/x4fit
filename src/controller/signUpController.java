@@ -3,10 +3,12 @@ package controller;
 import model.Account;
 import model.Model;
 import model.User;
+import x4fit.Utilities;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -31,75 +34,124 @@ public class signUpController extends HttpServlet {
 		String url = "";
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		int user_id;
 
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
-		User user = new User();
+		if(request.getParameter("userCurrentAction").equals("btn"))
+			{
+				user_id = (int)session.getAttribute("userID");
+				String code = request.getParameter("code");
+				if(isUserCode(user_id, code))
+					{
+					User.updateStatus(user_id);
+					url = "/login/login.jsp";
+					}
+				else
+				{
 
-		int error = 0;
-		if (username.equals("")) {
-			request.setAttribute("errUsername", " have not null !");
-			error = error + 1;
+					url = "login/confirm.jsp";
+				}
+				
+			}
+		else
+			
+		{
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			String email = request.getParameter("email");
+			String fullname = request.getParameter("fullname");
+		
+
+			int error = 0;
+			if (username.equals("")) {
+				request.setAttribute("errUsername", " have not null !");
+				error = error + 1;
+			}
+
+			if (email.equals("")) {
+				request.setAttribute("errEmail", " have not null !");
+				error = error + 1;
+			}
+
+			if (password.equals("")) {
+				request.setAttribute("errPass", " have not null !");
+				error = error + 1;
+			}
+
+			if (Account.checkExitUsername(username)) {
+				request.setAttribute("errUsername", "Username already exist !");
+				error = error + 1;
+			}
+
+			if (Account.checkExitEmail(email)) {
+				request.setAttribute("errEmail", "Email already exist !");
+				error = error + 1;
+			}
+
+
+			
+			String hashedPassword = DigestUtils.sha256Hex(password);
+			request.setAttribute("username", username);
+			request.setAttribute("password", password);
+			request.setAttribute("email", email);
+			request.setAttribute("fullname", fullname);
+
+			if (error == 0) 
+			{			
+				Account.createNewAccount(username, hashedPassword, email, fullname);
+				
+				if (Account.checkExitUsername(username))
+					{
+						user_id = Account.getAccountByUsername(username).getInteger("user_id");
+						url = "${pageContext.request.contextPath}/confirm.jsp";
+						session.setAttribute("userID", user_id);
+						sendmail(email, fullname, hashedPassword);
+					}
+				else
+					url = "/login/signup.jsp";
+			} else
+				url = "/login/signup.jsp";
+
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+			dispatcher.forward(request, response);
 		}
-
-		if (email.equals("")) {
-			request.setAttribute("errEmail", " have not null !");
-			error = error + 1;
-		}
-
-		if (password.equals("")) {
-			request.setAttribute("errPass", " have not null !");
-			error = error + 1;
-		}
-
-		if (User.getUserByEmail(email) != null) {
-			request.setAttribute("errEmail", " already exist !");
-			error = error + 1;
-		}
-
-		if (User.getUserByUsername(username) != null) {
-			request.setAttribute("errUsername", " already exist !");
-			error = error + 1;
-		}
-
-		request.setAttribute("username", username);
-		request.setAttribute("password", password);
-		request.setAttribute("email", email);
-
-		if (error == 0) {
-			User acc = null;// new User(username, password, email);
-			// AccountDAO dao = new AccountDAO();
-			signUpSuccess(acc);
-			if (isLoginSuccess("USER", acc) != null)
-				url = "index.jsp";
-			else
-				url = "/logInController/signup.jsp";
-		} else
-			url = "/logInController/signup.jsp";
-
-		response.sendRedirect(url);
-		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-		dispatcher.forward(request, response);
+	}
+	
+	public boolean isUserCode(int user_id, String code)
+	{
+		Document doc = Account.getDocumentAccountByUserId(user_id);
+		if(code.equals(doc.getString("password").substring(0, 5)))
+			return true;
+		return false;
 	}
 
-	public void signUpSuccess(User user) {
-		Document doc = new Document("_id", new ObjectId());
-
-		doc.append("id", user.getUserID());
-		doc.append("username", user.getUsername());
-		doc.append("password", user.getPassword());
-		doc.append("email", user.getEmail());
-		doc.append("name", user.getName());
-		doc.append("posts_count", user.getPostsCount());
-		doc.append("following_count", user.getFollowing_count());
-		doc.append("follower_count", user.getFollower_count());
-		doc.append("clips_count", user.getClips_count());
-		doc.append("follower", user.getFollower());
-		doc.append("following", user.getFollowing());
-		doc.append("clips", user.getClips());
-		Model.Insert(doc, "USER");
+	
+	public void sendmail(String email, String fullname, String hashedPassword)
+	{
+		String from  = "ngocyen174308@gmail.com";
+    	String pass = "18110402yen";
+    	String OTP = hashedPassword.substring(0, 5); // Lấy 6 số đầu trong đoạn mã hash để người dùng xác nhận
+    	String subject = "Wellcome to X4FIT";
+    	
+    	String body = "Dear " + fullname + ",\n\n"
+    	+ "Your code:" + OTP;
+    	boolean isBodyHTML = false;
+    	
+    	try {
+    		
+    		Utilities.sendMail(from,pass, email,  subject, body, isBodyHTML);
+    		
+    		System.out.println("sSend ddc mail");
+    		
+    	}catch(MessagingException e)
+    	{
+    		System.out.println("Khong send ddc mail");
+    		System.out.println(e);
+    	}
+    	
 	}
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

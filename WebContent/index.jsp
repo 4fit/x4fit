@@ -18,16 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
 </head>
 <body>
-<%-- 	<jsp:include page="/home" /> --%>
 	<jsp:include page="navbar.jsp"></jsp:include>
-	<!--  
-	<div class="banner container-fluid">
-		<div class="container px-0 pl-0">
-			<img class="img-banner img-fluid"
-				src="${pageContext.request.contextPath}/images/A-Field-of-Eternal-Blue-Bluebonnet-Texas.jpg" alt="">
-		</div>
-	</div>
-	-->
 	<!------------------------------THANH BAR------------------------------>
 	<div class="bg-dark py-md-1 py-05">
 		<div class="container">
@@ -55,16 +46,6 @@
 									</div>
 							</a>
 							</li>
-							
-<!-- 							<li class="feedbar-item"> -->
-<!-- 								<a href="#" class="feed-link posts-trending"> -->
-<!-- 									<div class="el-badge badge-has-new"> -->
-<!-- 										Trending <sup -->
-<!-- 											class="el-badge__content el-badge__content--undefined is-fixed" -->
-<!-- 											style="display: none;"></sup> -->
-<!-- 									</div> -->
-<!-- 							</a></li> -->
-
 							<li class="feedbar-item">
 								<a href="/clip/posts" class="feed-link posts-clip">
 									<div class="el-badge badge-has-new"> My Clips 
@@ -74,11 +55,6 @@
 						</ul>
 					</div>
 				</div>
-<!-- 				<a href="posts/create.jsp" -->
-<!-- 					class="btn btn-primary float-right text-uppercase hidden-md-down mr-2" -->
-<!-- 					style="font-size: 13px; font-weight: 600; font-family: sans-serif;"> -->
-<!-- 					<i aria-hidden="true" class="fas fa-pencil-alt"></i> Create Post -->
-<!-- 				</a> -->
 			</div>
 		</div>
 	</div>
@@ -156,7 +132,8 @@
 				<li
 					class="list-group-item  d-flex justify-content-between align-items-center">
 					<div class="d-flex exhibition-item user ">
-						<a class="d-flex img-user-div" href="#"> <img
+						<a class="d-flex img-user-div" href="#"> 
+						<img alt="" 
 							class="avatar-user float-left"
 							src="${pageContext.request.contextPath}/images/avt.png">
 						</a>
@@ -180,7 +157,8 @@
 					class="list-group-item d-flex w-100 justify-content-between align-items-center">
 
 					<div class="d-flex exhibition-item user mt-2">
-						<a class="d-flex img-user-div pt-1" href="#"> <img
+						<a class="d-flex img-user-div pt-1" href="#"> 
+						<img alt="" 
 							class="avatar-user float-left"
 							src="${pageContext.request.contextPath}/images/avt.png">
 						</a>
@@ -229,5 +207,22 @@
 		</div>
 
 	</div>
+	<script>
+    document.getElementById("dropdownMenu2").onclick=function(){
+    	if(document.getElementsByClassName("dropdown-menu")[0].style.display=="block")
+    	{
+    		document.getElementsByClassName("dropdown-menu")[0].style.display="none";
+    		document.getElementsByClassName("dropdown-menu")[0].style.top=	"60%";
+    	}
+    	else
+    	{
+    		document.getElementsByClassName("dropdown-menu")[0].style.display="block";
+    		document.getElementsByClassName("dropdown-menu")[0].style.transition="top 1s"
+    	      document.getElementsByClassName("dropdown-menu")[0].style.top=	"95%";
+    	}
+    
+    }
+    
+    </script>
 </body>
 </html>
