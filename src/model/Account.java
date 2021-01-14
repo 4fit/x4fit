@@ -11,11 +11,11 @@ import com.mongodb.client.model.Filters;
 
 public class Account extends Model {
 
-	private String username;
-	private String password;
-	private String email;
-	private String user_type;
-	private int userID;
+	protected String username;
+	protected String password;
+	protected String email;
+	protected String user_type;
+	protected int userID;
 
 	public int getUserID() {
 		return userID;
