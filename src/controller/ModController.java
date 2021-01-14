@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Category;
 
 import model.Post;
+import model.UserAccount;
 
 /**
  * Servlet implementation class ModController
@@ -75,7 +76,7 @@ public class ModController extends HttpServlet {
 				searchPost(request, response);
 				return;
 			default:
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("../index.jsp");
 				return;
 
 		}
@@ -87,6 +88,18 @@ public class ModController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	protected void getAllUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
+			request.setAttribute("userInfoList", allUserInfoList);
+			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
 	}
 	
 	protected void getAllPosts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
