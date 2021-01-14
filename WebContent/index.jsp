@@ -19,69 +19,7 @@
 </head>
 <body>
 <%-- 	<jsp:include page="/home" /> --%>
-	<header>
-		<nav id="navbar"
-			class="navbar navbar-expand-md navbar-light sticky-top">
-			<!-- Logo -->
-			<div>
-				<a class="navbar-brand logo"
-					href="${pageContext.request.contextPath}/">X4FIT </a>
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-<!-- 					<a class="nav-item nav-link active" href="#">Home  -->
-<!-- 						<span class="sr-only">(current)</span> -->
-<!-- 					</a>  -->
-<!-- 					<a class="nav-item nav-link" href="#">Post</a>  -->
-<!-- 					<a class="nav-item nav-link" href="#">Profile</a> -->
-					<div class="input-group mb-10">
-						<input type="text" class="form-control" placeholder="Search"
-							aria-label="Username" aria-describedby="basic-addon1">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon1"><i
-								class="fas fa-search"></i></span>
-						</div>
-					</div>
-					<button class="btn btn-primary mt-1" type="button">
-						<i class="fas fa-bell"></i>
-					</button>
-					<a href="posts/create.jsp">
-						<button class="btn btn-secondary mt-1" type="button">
-							<i class="fas fa-edit"></i>
-						</button>
-					</a>
-				</div>
-			</div>
-			<div class="img-pro"></div>
-			<button type="button" class="btn dropdown-toggle"
-				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img class="img-profile" src="${pageContext.request.contextPath}/images/avt.png" alt="">
-			</button>
-			<div class="dropdown-menu dropdown-menu-right ">
-				<div class="dropdown-item profile-popup">
-					<img class="img-profile"
-						src="${pageContext.request.contextPath}/images/avt.png" alt="">
-					<div class="info-popup">
-						<h5 class="name-info">Hoang</h5>
-						<p class="gmail-info">hoang1811@gmail.com</p>
-						<button class="btn btn-primary btn-edit" type="button">Edit</button>
-
-					</div>
-				</div>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Profile</a> <a
-					class="dropdown-item" href="#">My content</a>
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Sign out</a>
-			</div>
-		</nav>
-
-	</header>
+	<jsp:include page="navbar.jsp"></jsp:include>
 	<!--  
 	<div class="banner container-fluid">
 		<div class="container px-0 pl-0">
@@ -165,28 +103,43 @@
 <!-- 					</div> -->
 					
 					<c:forEach var="p" items="${topPosts}" begin="0" end="${topPosts.size()}" varStatus="loop">
-						<div class="post-div container">
-							<img class="img-pro-post float-left"
-								src="${pageContext.request.contextPath}/images/${lstAuthors.get(loop.index).getAvatar() }" 
-								alt="${lstAuthors.get(loop.index).getFullname() }">
-							<a class="name-pro-post display-9">
-								${lstAuthors.get(loop.index).getFullname() }
-							</a>
-							<br>
-							<p class="postime">${p.getPublished_at()}</p>
-							<a class="lead ml-2 title-post" 
-								 href="${pageContext.request.contextPath}/post?p=${p.getURL()}">${p.getTitle() }</a>
-							<div class="tag d-flex">
-								<button class="btn-secondary">${p.getCategory() }</button>
-	
-							</div>
-							<span class="viewtag t ml-20"> <i class="far fa-eye"></i><label
-								class="view">${p.getViews_count() }</label>
-							</span> <span class="viewtag t "> <i class="fas fa-paperclip"></i><label
-								class="view">${p.getClips_count() }</label>
-							</span> <span class="viewtag t"> <i class="far fa-comment"></i></i><label
-								class="view">16</label>
-							</span>
+						<div class="card bg-light" style="margin-top: 1.5em; margin-bottom: 1.5em; ">
+						  <h6 class="card-header" style="padding: 0.5rem 1.25rem;">
+						  	<img class="img-pro-post float-left"
+									src="${pageContext.request.contextPath}/images/${lstAuthors.get(loop.index).getAvatar() }" 
+									alt="${lstAuthors.get(loop.index).getFullname() }">
+								<a style="margin: 10px;" href="#">
+									${lstAuthors.get(loop.index).getFullname() }
+								</a>
+								<br>
+								<small><span style="margin: 10px;">${p.getPublished_at()}</span></small>
+							</h6>
+						  <div class="card-body">
+						    <h3 class="card-title">
+						    	<a href="${pageContext.request.contextPath}/post?p=${p.getURL()}">
+								 			${p.getTitle() }
+									</a>
+									<br>
+									<h6>
+									<span class="viewtag t ml-20"> 
+										<i class="far fa-eye"></i>
+										<label class="view"> ${p.getViews_count()}</label>
+									</span> 
+									<span class="viewtag t "> 
+										<i class="fas fa-paperclip"></i>
+										<label class="view"> ${p.getClips_count()}</label>
+									</span> 
+									<span class="viewtag t"> 
+										<i class="far fa-comment"></i>
+										<label class="view"> ${p.getCommentsCount()}</label>
+									</span>
+									<a class="badge badge-info" style="margin-left: 20px;" href="#">${p.getCategory() }</a>
+									</h6>
+						    </h3>
+						    <p class="card-text">${p.getShortContent()}...</p>
+						    <a href="${pageContext.request.contextPath}/post?p=${p.getURL()}" 
+						    		class="btn btn-primary">Đọc tiếp...</a>
+						  </div>
 						</div>
 						
 					</c:forEach>

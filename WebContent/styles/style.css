@@ -18,5 +18,5 @@ ol {
 
 li:before {
     counter-increment: section;
-    content: counters(section, ".") ". Link " counters(section, ".") " ";
+/*     content: counters(section, ".") ". Link " counters(section, ".") " "; */
 }

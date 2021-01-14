@@ -485,4 +485,21 @@ public class Post extends Model {
 			return -1;
 		}
 	}
+	
+	public long getCommentsCount()
+	{
+		return CMT.count(Filters.eq("post_id", this.getID()));
+	}
+	
+	public String getShortContent()
+	{
+		try
+		{
+			String re = this.getContent().substring(0, 200);
+			return re;
+		}
+		catch (Exception e) {
+			return this.getContent();
+		}
+	}
 }

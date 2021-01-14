@@ -5,62 +5,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Tạo bài viết</title>
-<link rel="icon" type="image/png"
-	href="${pageContext.request.contextPath}/images/logo2.png" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/styles/post.css">
-<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
-<!-- GetBootstrap -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
-<script
-	src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-
-<!-- MD Bootstrap CDN -->
-<!-- Bootstrap core CSS -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"
-	rel="stylesheet">
-<!-- JQuery -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Tạo bài viết</title>
+	<link rel="icon" type="image/png" href="images/logo2.png" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-light bg-light">
-		<a class="navbar-brand logo"
-			href="${pageContext.request.contextPath}/">X4FIT</a> <a
-			class="navbar-brand"
-			href="${pageContext.request.contextPath}/about.jsp">ABOUT</a>
-	</nav>
+	<jsp:include page="../navbar.jsp"></jsp:include>
 	<div class="container">
 		<h3 align="center">TẠO BÀI VIẾT</h3>
 		<form action="${pageContext.request.contextPath}/create" method="post">
