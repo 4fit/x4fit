@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.User;
+import model.UserAccount;
 
 /**
  * Servlet implementation class AdminController
@@ -51,7 +52,7 @@ public class AdminController extends HttpServlet {
 
 	protected void getAllUsersInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			List<User> allUserInfoList = User.getAllUsers();
+			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		} catch (Exception e) {

@@ -16,9 +16,23 @@
 	<div class="main-panel mt-3">
       <div class="content">
           <div class="container-fluid">
-          	<a href="#" class="btn btn-success mb-1">New User</a>
               <div class="row">
                   <div class="col-md-12">
+                  	<c:if test="${not empty errorMessage}">
+                       <div class="alert alert-danger alert-dismissible fade show" role="alert">
+						  <c:out value="${errorMessage}" />
+						   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						 	   <span aria-hidden="true">&times;</span>
+						   </button>
+						</div>
+                    </c:if>
+                    <div class="d-flex">
+                    	<button class="mb-2 btn btn-primary" data-toggle="modal" data-target="#create-mod">Add Mod</button>
+                        <form class="mb-2 form-inline my-2 ml-auto mr-5" action="${pageContext.request.contextPath}/mod/search-category">
+				        	<input class="form-control mr-sm-1 search-bar" style="width: 400px; border: 1px solid #007bff;" name="query" value="${query}" type="search" placeholder="Search">
+				            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+				        </form>
+                    </div>
                       <div class="card card-plain">
                           <div class="card-header card-header-primary" style="background-color: #007bff; color: #fff">
                               <h4 class="card-title mt-0">User Management</h4>
@@ -109,5 +123,6 @@
   		w3.addClass('#a2','color-white')
   	</script>
 	<jsp:include page="../common/footer.jsp" />
+	<jsp:include page="../modals/createModModal.jsp" />
 </body>
 </html>

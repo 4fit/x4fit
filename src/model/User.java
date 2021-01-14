@@ -172,11 +172,7 @@ public class User extends Account {
 				doc.getString("fullname"), 
 				doc.getString("avatar"),
 				doc.getString("url"),
-				doc.getString("status"),
-				doc.getString("username"),
-				doc.getString("password"),
-				doc.getString("email"),
-				doc.getString("user_type"));
+				doc.getString("status"));
 	}
 	
 	public static User DocToUser(Document doc) {
@@ -208,7 +204,11 @@ public class User extends Account {
 				doc.getString("fullname"), 
 				doc.getString("avatar"),
 				doc.getString("url"),
-				doc.getString("status"));
+				doc.getString("status"),
+				doc.getString("username"),
+				doc.getString("password"),
+				doc.getString("email"),
+				doc.getString("user_type"));
 	}
 	
 	public static ArrayList<User> getAllUsers() {
@@ -218,7 +218,7 @@ public class User extends Account {
 		if (it.hasNext()) {
 			while (it.hasNext()) {
 				Document doc = it.next();
-				User user = Doc2UserFullInfo(doc);
+				User user = Doc2User(doc);
 				data.add(user);
 			}
 		}
