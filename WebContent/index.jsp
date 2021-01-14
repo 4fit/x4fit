@@ -203,7 +203,8 @@
 				<li
 					class="list-group-item d-flex justify-content-between align-items-center">
 					<div class="d-flex exhibition-item user mt-2">
-						<a class="d-flex img-user-div pt-1" href="#"> <img
+						<a class="d-flex img-user-div pt-1" href="#"> 
+						<img alt=""
 							class="avatar-user float-left"
 							src="${pageContext.request.contextPath}/images/avt.png">
 						</a>
