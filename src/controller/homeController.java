@@ -29,9 +29,7 @@ public class homeController extends HttpServlet {
         super();
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    	
+    private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
     	
   	topPosts = Post.GetLastestPost(20);
     	lstAuthors = new ArrayList<User>();
@@ -46,9 +44,7 @@ public class homeController extends HttpServlet {
    	String url = "/index.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);
-    
-
-		
+	
 
 //    	if(request.getParameter("userCurrentAction")!= null)
 //    	{
@@ -95,6 +91,7 @@ public class homeController extends HttpServlet {
 //    		dispatcher.forward(request, response);
 //    	}
 //        
+
     }
     
     public List<Post> getListPostForSearch(String textSearch)
