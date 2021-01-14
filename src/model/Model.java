@@ -31,6 +31,7 @@ public class Model
 	public static MongoCollection<Document> AUTHENTICATION = db.getCollection("AUTHENTICATION");
 	public static MongoCollection<Document> CATEGORY = db.getCollection("CATEGORY");
 	public static MongoCollection<Document> GALLERY = db.getCollection("GALLERY");
+	public static MongoCollection<Document> REPORT = db.getCollection("REPORT");
 	
 	public Model()
 	{
