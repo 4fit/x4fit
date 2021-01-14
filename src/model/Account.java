@@ -1,7 +1,5 @@
 package model;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.bson.Document;
@@ -9,10 +7,7 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-
-import x4fit.Utilities;
 
 public class Account extends Model {
 
@@ -116,11 +111,11 @@ public class Account extends Model {
 		doc.append("username", username);
 		doc.append("password", password);
 		doc.append("email", email);
-		doc.append("user_type", "USER");
+		doc.append("user_type", "NOT ACTIVE");
 
 		Model.Insert(doc, "ACCOUNT");
 		
-		User.createUserByID(user_id, fullname);
+		User user = new User(user_id, fullname);
 	}
 	
 	public static boolean checkExitUsername(String username)

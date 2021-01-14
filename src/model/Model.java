@@ -1,11 +1,9 @@
 package model;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -31,6 +29,7 @@ public class Model
 	public static MongoCollection<Document> AUTHENTICATION = db.getCollection("AUTHENTICATION");
 	public static MongoCollection<Document> CATEGORY = db.getCollection("CATEGORY");
 	public static MongoCollection<Document> GALLERY = db.getCollection("GALLERY");
+	public static MongoCollection<Document> REPORT = db.getCollection("REPORT");
 	
 	public Model()
 	{
@@ -79,7 +78,7 @@ public class Model
 			id = Integer.parseInt(lastInsertion.get("id").toString());
 		}
 		catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		return id;
 	}
@@ -93,11 +92,7 @@ public class Model
 						Filters.eq("validator", validator))
 				).first();
 		if (doc != null)
-		{
 			return doc.getInteger("user_id");
-
-		}
-		
 		return -1;
 	}
 }

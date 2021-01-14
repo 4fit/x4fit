@@ -78,10 +78,10 @@ public class Gallery extends Model
 	public Gallery() {}
 	
 	@SuppressWarnings("unchecked")
-	public Gallery(int id, User user, Object images, Object follower, Object following, Object clips)
+	public Gallery(int id, int user, Object images, Object follower, Object following, Object clips)
 	{
 		this.setID(id);
-		this.setUser(user);
+		this.setUserID(user);
 		List<String> imgs = (List<String>) x4fit.Utilities.convertObjectToList(images);
 		this.setImages(imgs);
 		List<Integer> followers = (List<Integer>) x4fit.Utilities.convertObjectToList(follower);
@@ -128,7 +128,7 @@ public class Gallery extends Model
 	
 	public static Gallery GetGallery(int userID)
 	{
-		Document doc = Model.GALLERY.find(Filters.eq("userID", userID)).first();
+		Document doc = Model.GALLERY.find(Filters.eq("user_id", userID)).first();
 		if (doc != null)
 			return Doc2Gallary(doc);
 		return null;
@@ -138,7 +138,7 @@ public class Gallery extends Model
 	{
 		return new Gallery(
 				doc.getInteger("id"),
-				(User)doc.get("user"),
+				doc.getInteger("user_id"),
 				doc.get("images"),
 				doc.get("follower"),
 				doc.get("following"),
@@ -151,7 +151,7 @@ public class Gallery extends Model
 		List<String> empty = Arrays.asList();
 		List<Integer> emp = Arrays.asList();
 		Document doc = new Document("id", this.getID())
-				.append("userID", this.getUserID())
+				.append("user_id", this.getUserID())
 				.append("images", empty)
 				.append("following", emp)
 				.append("follower", emp)

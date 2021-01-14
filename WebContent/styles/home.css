@@ -282,8 +282,9 @@ body {
 /* Style the tab content (and add height:100% for full page content) */
 
 .tabcontent {
-    color: white;
-    padding: 30px 30px;
+/*     color: white; */
+    padding-left: 15%;
+    padding-right: 5%; 
     height: 100%;
 }
 

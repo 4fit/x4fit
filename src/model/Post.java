@@ -215,7 +215,7 @@ public class Post extends Model {
 	}
 
 	public ArrayList<Comment> GetAllComments() {
-		FindIterable<Document> cursor = CMT.find(Filters.eq("postID", this.getID()));
+		FindIterable<Document> cursor = CMT.find(Filters.eq("post_id", this.getID()));
 		Iterator<Document> it = cursor.iterator();
 		ArrayList<Comment> listComments = new ArrayList<Comment>();
 		if (it.hasNext()) {
@@ -305,7 +305,7 @@ public class Post extends Model {
 	}
 
 	public static Post GetPost(String p) {
-		Document doc = POST.find(Filters.eq("url", p)).first();
+		Document doc = POST.findOneAndUpdate(Filters.eq("url", p), Updates.inc("views_count", 1));
 		if (doc == null)
 			return null;
 		try {
@@ -352,6 +352,11 @@ public class Post extends Model {
 		return topPost;
 	}
 
+	public static void Vote(int id, int point)
+	{
+		POST.findOneAndUpdate(Filters.eq("id", id), Updates.inc("points", point));
+	}
+	
 	// Lấy tất cả các bài postController của một user
 	// Truyền vào user id
 
@@ -377,7 +382,7 @@ public class Post extends Model {
 			newURL = Utilities.createURL(title);
 		POST.updateOne(Filters.eq("url", p),
 				Updates.combine(Updates.set("url", newURL), 
-						Updates.set("title", title), 
+						Updates.set("title", new_title), 
 						Updates.set("content", content),
 						Updates.set("category", category), 
 						Updates.set("is_public", is_public),
@@ -523,22 +528,21 @@ public class Post extends Model {
 		}
 	}
 	
+	public long getCommentsCount()
+	{
+		return CMT.count(Filters.eq("post_id", this.getID()));
+	}
 	
 	public static List<Post> searchPost(String textSearch)
 	{
-		
 		int checkContent = 0;
 		List<Post> lPost = new ArrayList<Post>();
-		
-		
 		BasicDBObject regexQuery = new BasicDBObject();
 		BasicDBObject regexQueryContent = new BasicDBObject();
 		BasicDBObject regexQueryUser = new BasicDBObject();
 		if(textSearch.contains(":"))
 		{
-			
 			// tìm kiếm theo tên field
-			
 			String fieldName = "";
 			String content = "";
 			String[] parts = textSearch.split(":");
@@ -550,23 +554,18 @@ public class Post extends Model {
 					regexQueryUser.put("fullname", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
 					FindIterable<Document>  fListUser = USER.find(regexQueryUser);
 					Iterator<Document> iListUser = fListUser.iterator();
-					
 					while(iListUser.hasNext())
 					{
 						addListPostByidUser(lPost, iListUser.next().getInteger("id"));
 					}
-				
 				}
 			else if(fieldName.contains("NOT"))
 			{
 				regexQuery.put("title", new BasicDBObject("$not", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i")));
 			}
-			
 			else if(fieldName.contains("tag"))
 			{
-				
 				regexQuery.put("category", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
-				
 			}
 			else
 				regexQuery.put(fieldName, new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
@@ -581,12 +580,8 @@ public class Post extends Model {
 				checkContent = 1;
 			}
 		
-		
 		FindIterable<Document>  listPost = Model.POST.find(regexQuery);
 		Iterator<Document> list = listPost.iterator();
-		
-		
-		
 	
 		while(list.hasNext())
 		{
@@ -610,15 +605,12 @@ public class Post extends Model {
 	
 	public static void addListPostByidUser(List<Post> lPost, int idUser)
 	{
-		
-		
 		FindIterable<Document> listPost = Model.POST.find(Filters.eq("user_id", idUser));
 		Iterator<Document> list = listPost.iterator();
 		while(list.hasNext())
 		{
 			lPost.add(ConverseToPost(list.next()));
 		}
-		
 	}
 	
 	public static List<User> searchAuthor(String textSearch)
@@ -633,7 +625,7 @@ public class Post extends Model {
 	
 		while(list.hasNext())
 		{
-			lUser.add(User.convertToUserObject(list.next()));			
+			lUser.add(User.Doc2User(list.next()));			
 		}
 		
 		return lUser;
@@ -721,9 +713,9 @@ public class Post extends Model {
 	
 	public String getShortContent()
 	{
-		if(this.getContent().length() < 80)
+		if(this.getContent().length() < 150)
 			return this.getContent();
-		return (this.getContent().substring(0, 80) + "...");
+		return (this.getContent().substring(0, 150) + "...");
 		
 	}
 
@@ -732,5 +724,4 @@ public class Post extends Model {
 		return Comment.getCommentByIdPost(this.getID()).size();
 		
 	}
-	
 }

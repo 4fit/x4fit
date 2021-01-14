@@ -51,7 +51,6 @@ public class loginController extends HttpServlet {
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
-
 				int userID = doc.getInteger("user_id");
 				return userID;
 			}
@@ -113,17 +112,10 @@ public class loginController extends HttpServlet {
 			User user = User.GetUserByUserID(userID);
 			Account account = Account.GetAccountByUserID(userID);
 			
-
-			
 			String url = request.getContextPath() + "/home";
-			session.setAttribute("userID", userID);
-			session.setAttribute("Verification", "Yes");
-			session.setAttribute("Page", "logInController");
-			
 			response.sendRedirect(url);
 		} else {
 			String url = "login/login.jsp";
-			session.setAttribute("Verification", "No");
 			response.sendRedirect(url);
 		}	
 	}

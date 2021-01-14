@@ -30,87 +30,71 @@ public class homeController extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//    	topPosts = Post.GetLastestPost(20);
-//    	lstAuthors = new ArrayList<User>();
-//    	for (Post p : topPosts) {
-//			User user = User.GetUserByUserID(p.getUser_id());
-//			lstAuthors.add(user);
-//		}
-//    
-//    	request.setAttribute("topPosts", topPosts);
-//    	request.setAttribute("lstAuthors", lstAuthors);
-//    	
-//    	String url = "/index.jsp";
-//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-//		dispatcher.forward(request, response);
-//    
-    	if(request.getParameter("userCurrentAction")!= null)
 
-<<<<<<< HEAD
-    	if(request.getParameter("userCurrentAction")!= null)
-    		if(request.getParameter("userCurrentAction").equals("search_home"))
-        	{
-    		
-        		String textSearch = request.getParameter("textSearch");
-    	    	if(textSearch != "")
-    	    	{
-    	    		List<Post> listPost = getListPostForSearch( textSearch);
-    	    		List<User> listAuthor = getListAuthorForSearch(textSearch);
-    	    		
-    	    		request.setAttribute("listPost",listPost);
-    	    		request.setAttribute("listAuthor",listAuthor);
-    	    		request.setAttribute("lenListpost",listPost.size());
-    	    		request.setAttribute("lenListauthor",listAuthor.size());
-    	    		request.setAttribute("textSearch",textSearch);
-    	    		RequestDispatcher dis = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
     	
     	
+  	topPosts = Post.GetLastestPost(20);
+    	lstAuthors = new ArrayList<User>();
+   	for (Post p : topPosts) {
+			User user = User.GetUserByUserID(p.getUser_id());
+			lstAuthors.add(user);
+		}
+   
+   	request.setAttribute("topPosts", topPosts);
+    	request.setAttribute("lstAuthors", lstAuthors);
     	
-    	       	   	dis.forward(request, response);
-    	    	}
-        	}
-=======
-	    	if(request.getParameter("userCurrentAction").equals("search_home"))
-	    	{
-			
-	    		String textSearch = request.getParameter("textSearch");
-		    	if(textSearch != "")
-		    	{
-		    		List<Post> listPost = getListPostForSearch( textSearch);
-		    		List<User> listAuthor = getListAuthorForSearch(textSearch);
-		    		
-		    		request.setAttribute("listPost",listPost);
-		    		request.setAttribute("listAuthor",listAuthor);
-		    		request.setAttribute("lenListpost",listPost.size());
-		    		request.setAttribute("lenListauthor",listAuthor.size());
-		    		request.setAttribute("textSearch",textSearch);
-		    		RequestDispatcher dis = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	       
+   	String url = "/index.jsp";
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+		dispatcher.forward(request, response);
+    
+
 		
-		
-		
-		       	   	dis.forward(request, response);
-		    	}
-	    	}
->>>>>>> f54ff1397d49c3c495293abdc50e55b043016926
-    	else
-    		
-    	{ 
-        	topPosts = Post.GetLastestPost(20);
-        	lstAuthors = new ArrayList<User>();
-        	for (Post p : topPosts) {
-        		System.out.print(p.getUser_id());
-    			User user = User.GetUserByUserID(p.getUser_id());
-    			lstAuthors.add(user);
-    		}
-        
-        	request.setAttribute("topPosts", topPosts);
-        	request.setAttribute("lstAuthors", lstAuthors);
-        	
-        	String url = "/index.jsp";
-    		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-    		dispatcher.forward(request, response);
-    	}
-        
+
+//    	if(request.getParameter("userCurrentAction")!= null)
+//    	{
+//    		
+//
+//    		if(request.getParameter("userCurrentAction").equals("search_home"))
+//        	{
+//    		
+//        		String textSearch = request.getParameter("textSearch");
+//    	    	if(textSearch != "")
+//    	    	{
+//    	    		List<Post> listPost = getListPostForSearch( textSearch);
+//    	    		List<User> listAuthor = getListAuthorForSearch(textSearch);
+//    	    		
+//    	    		request.setAttribute("listPost",listPost);
+//    	    		request.setAttribute("listAuthor",listAuthor);
+//    	    		request.setAttribute("lenListpost",listPost.size());
+//    	    		request.setAttribute("lenListauthor",listAuthor.size());
+//    	    		request.setAttribute("textSearch",textSearch);
+//    	    		RequestDispatcher dis = getServletContext().getRequestDispatcher("/detailPost/search.jsp");	          
+//    	       	   	dis.forward(request, response);
+//    	    	}
+//        	}
+//    	}
+//
+//    	else
+//    		
+//    	{ 
+//    		
+//
+//        	topPosts = Post.GetLastestPost(20);
+//        	lstAuthors = new ArrayList<User>();
+//	        	for (Post p : topPosts) {
+//	        		System.out.print(p.getUser_id());
+//	    			User user = User.GetUserByUserID(p.getUser_id());
+//	    			lstAuthors.add(user);
+//	    		}
+//        
+//        	request.setAttribute("topPosts", topPosts);
+//        	request.setAttribute("lstAuthors", lstAuthors);
+//        	
+//        	String url = "/index.jsp";
+//    		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+//    		dispatcher.forward(request, response);
+//    	}
+//        
     }
     
     public List<Post> getListPostForSearch(String textSearch)

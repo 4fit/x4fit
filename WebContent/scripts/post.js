@@ -136,11 +136,45 @@ function FileUpload(url) {
 	const xhr = new XMLHttpRequest();
 	this.xhr = xhr;
 	// Open
-    xhr.open("POST", url);
+	xhr.open("POST", url);
 	xhr.overrideMimeType("multipart/form-data;");
 	//xhr.setRequestHeader("Content-Type", "multipart/form-data; boundary=$boundary");
 	xhr.send(fd);
 	$('.upload-btn').hide();
 	$('.remove-btn').show();
-	
+
+}
+
+function insertImage(simplemde, image_url) {
+	var pos = simplemde.codemirror.getCursor();
+	simplemde.codemirror.setSelection(pos, pos);
+	simplemde.codemirror.replaceSelection("![Title](" + image_url + ")");
+}
+
+function Vote(id, type, point, url) {
+	const xhr = new XMLHttpRequest();
+	this.xhr = xhr;
+	var parameters = "?id=" + id + "&type=" + type + "&point=" + point;
+	xhr.open("POST", url + parameters, true);
+	var fd = new FormData();
+	fd.append("type", type);
+	fd.append("id", id);
+	fd.append("point", point);
+	xhr.send(fd);
+}
+
+function incrementValue(id)
+{
+    let value = parseInt(document.getElementById(id).value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById(id).value = value;
+}
+
+function decrementValue(id)
+{
+    let value = parseInt(document.getElementById(id).value, 10);
+    value = isNaN(value) ? 0 : value;
+    value--;
+    document.getElementById(id).value = value;
 }
