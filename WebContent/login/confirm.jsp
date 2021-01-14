@@ -106,7 +106,7 @@
 <body style="background-color: #6FC9E7; margin: 0 !important; padding: 0 !important;">
     <!-- HIDDEN PREHEADER TEXT -->
     <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account. </div>
-    <form  action = "#" method = "get">
+    <form  action = "${pageContext.request.contextPath}/signUp" method = "post">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <!-- LOGO -->
         <tr>
@@ -146,10 +146,10 @@
                                         <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
                                             <td style="padding: 0px 0px 0px 0px;">
-                                            <input type = "text" value = "${code}" placeholder = "CODE" style = "width: 250px; height: 55px; text-align:center;"></td>
+                                            <input type = "text" name = "code" value = "${code}" placeholder = "CODE" style = "width: 250px; height: 55px; text-align:center;"></td>
                                                 <td align="center" style="border-radius: 3px;" bgcolor="#6FC9E7">
                                              
-                                                 <button id ="btn"  type = "submit" name = "userCurrentAction" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff;  color: #ffffff;  padding: 15px 25px; border-radius: 2px; border: 1px solid #6FC9E7; display: inline-block;background-color:#6FC9E7; line: none;">Confirm Account</button></td>
+                                                 <button id ="btn"  type = "submit" name = "userCurrentAction" value = "btn"style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff;  color: #ffffff;  padding: 15px 25px; border-radius: 2px; border: 1px solid #6FC9E7; display: inline-block;background-color:#6FC9E7; line: none;">Confirm Account</button></td>
                                             </tr>
                                             <span id = "message"></span>
                                         </table>

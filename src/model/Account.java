@@ -111,11 +111,11 @@ public class Account extends Model {
 		doc.append("username", username);
 		doc.append("password", password);
 		doc.append("email", email);
-		doc.append("user_type", "NOT ACTIVE");
+		doc.append("user_type", "USER");
 
 		Model.Insert(doc, "ACCOUNT");
 		
-		User user = new User(user_id, fullname);
+		User.createUserByID(user_id, fullname);
 	}
 	
 	public static boolean checkExitUsername(String username)

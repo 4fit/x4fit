@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import model.Post;
 import model.User;
 
-@WebServlet(urlPatterns = {"/home", "/index"})
+@WebServlet("/home")
 public class homeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

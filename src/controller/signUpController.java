@@ -37,47 +37,23 @@ public class signUpController extends HttpServlet {
 		HttpSession session = request.getSession();
 		int user_id;
 
-		int isHaveuserCurrentAction = 1;
-		String valueBtn = null;
-		
-		try
-		{
-			valueBtn = request.getParameter("userCurrentAction");
-		}
-		catch(NullPointerException x)
-		{
-			if(valueBtn != null)
-				isHaveuserCurrentAction = 0;
-		}
-		
-		
-		if(isHaveuserCurrentAction == 1)
-		{
-			if(request.getParameter("userCurrentAction").equals("btn"))
-			{
-				user_id = (int)session.getAttribute("userID");
+		if (request.getParameter("userCurrentAction") != null) {
+			if (request.getParameter("userCurrentAction").equals("btn")) {
+				user_id = (int) session.getAttribute("userID");
 				String code = request.getParameter("code");
-				if(isUserCode(user_id, code))
-					{
+				if (isUserCode(user_id, code)) {
 					User.updateStatus(user_id);
 					url = "/login/login.jsp";
-					}
-				else
-				{
+				} else {
 
 					url = "login/confirm.jsp";
 				}
-				
 			}
-		}
-		else
-			
-		{
+		} else {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String email = request.getParameter("email");
 			String fullname = request.getParameter("fullname");
-		
 
 			int error = 0;
 			if (username.equals("")) {
@@ -105,70 +81,57 @@ public class signUpController extends HttpServlet {
 				error = error + 1;
 			}
 
-
-			
 			String hashedPassword = DigestUtils.sha256Hex(password);
 			request.setAttribute("username", username);
 			request.setAttribute("password", password);
 			request.setAttribute("email", email);
 			request.setAttribute("fullname", fullname);
 
-			if (error == 0) 
-			{			
+			if (error == 0) {
 				Account.createNewAccount(username, hashedPassword, email, fullname);
-				
-				if (Account.checkExitUsername(username))
-					{
-						user_id = Account.getAccountByUsername(username).getInteger("user_id");
-						url = "${pageContext.request.contextPath}/confirm.jsp";
-						session.setAttribute("userID", user_id);
-						sendmail(email, fullname, hashedPassword);
-					}
-				else
+
+				if (Account.checkExitUsername(username)) {
+					user_id = Account.getAccountByUsername(username).getInteger("user_id");
+					url = "/login/confirm.jsp";
+					session.setAttribute("userID", user_id);
+					sendmail(email, fullname, hashedPassword);
+				} else
 					url = "/login/signup.jsp";
 			} else
 				url = "/login/signup.jsp";
-
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
 		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
-	
-	public boolean isUserCode(int user_id, String code)
-	{
+
+	public boolean isUserCode(int user_id, String code) {
 		Document doc = Account.getDocumentAccountByUserId(user_id);
-		if(code.equals(doc.getString("password").substring(0, 5)))
+		if (code.equals(doc.getString("password").substring(0, 5)))
 			return true;
 		return false;
 	}
 
-	
-	public void sendmail(String email, String fullname, String hashedPassword)
-	{
-		String from  = "ngocyen174308@gmail.com";
-    	String pass = "18110402yen";
-    	String OTP = hashedPassword.substring(0, 5); // Lấy 6 số đầu trong đoạn mã hash để người dùng xác nhận
-    	String subject = "Wellcome to X4FIT";
-    	
-    	String body = "Dear " + fullname + ",\n\n"
-    	+ "Your code:" + OTP;
-    	boolean isBodyHTML = false;
-    	
-    	try {
-    		
-    		Utilities.sendMail(from,pass, email,  subject, body, isBodyHTML);
-    		
-    		System.out.println("sSend ddc mail");
-    		
-    	}catch(MessagingException e)
-    	{
-    		System.out.println("Khong send ddc mail");
-    		System.out.println(e);
-    	}
-    	
-	}
+	public void sendmail(String email, String fullname, String hashedPassword) {
+		String from = "ngocyen174308@gmail.com";
+		String pass = "18110402yen";
+		String OTP = hashedPassword.substring(0, 5); // Lấy 6 số đầu trong đoạn mã hash để người dùng xác nhận
+		String subject = "Wellcome to X4FIT";
 
+		String body = "Dear " + fullname + ",\n\n" + "Your code:" + OTP;
+		boolean isBodyHTML = false;
+
+		try {
+
+			Utilities.sendMail(from, pass, email, subject, body, isBodyHTML);
+
+			System.out.println("sSend ddc mail");
+
+		} catch (MessagingException e) {
+			System.out.println("Khong send ddc mail");
+			System.out.println(e);
+		}
+
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

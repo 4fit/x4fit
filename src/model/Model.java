@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bson.Document;
@@ -36,7 +37,7 @@ public class Model
 		//Kết nối đến CSDL
 		this.uri = new MongoClientURI(mongoClientURI);
 		this.mongoClient = new MongoClient(uri);
-
+		mongoLogger.setLevel(Level.SEVERE);
 		this.db = mongoClient.getDatabase("X4FIT2");
 
 	}

@@ -2,8 +2,12 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import org.bson.Document;
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
@@ -68,7 +72,8 @@ public class User extends Model {
 
 	public String getUsername(int userID)
 	{
-		return Account.GetAccountByUserID(userID).getUsername();
+		Document doc = ACCOUNT.find(Filters.eq("user_id", userID)).first();
+		return doc.getString("username");
 	}
 
 	public User() {
@@ -215,4 +220,39 @@ public class User extends Model {
 
 		USER.updateOne(query, updateObject);
 	}
+	
+	public static void updateStatus(int id) {
+		BasicDBObject query = new BasicDBObject();
+		query.put("id", id);
+
+		BasicDBObject newStatusDoc = new BasicDBObject();
+		newStatusDoc.put("status", "ACTIVE");
+
+		BasicDBObject updateObject = new BasicDBObject();
+		updateObject.put("$set", newStatusDoc);
+
+		USER.updateOne(query, updateObject);
+	}
+	
+	public static void createUserByID(int id, String fullname) // Tạo user với user_id đã được tạo ở model account
+	{
+		Document doc = new Document("_id", new ObjectId());
+		
+		 List<Integer> follower = new ArrayList<Integer>();
+		 List<Integer> following = new ArrayList<Integer>();
+		 List<Integer> clips = new ArrayList<Integer>();
+		 String status = "NOT ACTIVE";
+		
+		doc.append("id", id);
+		doc.append("fullname", fullname);
+		doc.append("avatar", "");
+		doc.append("url", "");
+		doc.append("status", status);
+		doc.append("follower", follower);
+		doc.append("following", following);
+		doc.append("clips", clips);
+		Model.Insert(doc, "USER");
+	}
+	
+	
 }
