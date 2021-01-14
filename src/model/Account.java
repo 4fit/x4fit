@@ -76,12 +76,13 @@ public class Account extends Model {
 		this.setUserID(getLastestID("USER") + 1);
 	}
 	
-	public Account(int userID, String password, String user_type, String email)
+	public Account(int userID, String password, String user_type, String email , String username)
 	{
 		this.setUserID(userID);
 		this.setUser_type(user_type);
 		this.setPassword(password);
 		this.setEmail(email);
+		this.setUsername(username);
 	}
 	
 	public static Account Doc2Account(Document doc)
@@ -89,10 +90,9 @@ public class Account extends Model {
 		return new Account(doc.getInteger("user_id"),
 						   doc.getString("password"),
 						   doc.getString("user_type"),
-						   doc.getString("email"));
+						   doc.getString("email"),
+						   doc.getString("username"));
 	}
-	
-	
 	
 	public static Account GetAccountByUserID(int userID)
 	{
