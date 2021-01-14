@@ -49,7 +49,7 @@ public class logInController extends HttpServlet {
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
-				int userID = doc.getInteger("userID");
+				int userID = doc.getInteger("user_id");
 				return userID;
 			}
 			else
@@ -95,22 +95,6 @@ public class logInController extends HttpServlet {
 			User user = User.GetUserByUserID(userID);
 			Account account = Account.GetAccountByUserID(userID);
 			
-			String fullname = user.getFullname();
-			String avatar = user.getAvatar();
-			String email = account.getEmail();
-			long postCount = Model.POST.count(Filters.eq("userID", userID));
-			long followingCount = 0; 
-			long followerCount = 0;
-			long clipsCount = 0; 
-			try
-			{
-				followingCount = user.getFollowing().size();
-				followerCount = user.getFollower().size();
-				clipsCount = user.getClips().size();
-			}
-			catch (Exception e) {
-				
-			}
 			
 			String url = request.getContextPath() + "/home";
 			session.setAttribute("userID", userID);

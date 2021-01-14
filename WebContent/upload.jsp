@@ -43,12 +43,10 @@
 	</div>
 	<div class="gallary" align="center">
 		<h5>Gallery</h5>
-		<div style="display: flex;">
 		<c:forEach var="img" items="${images_gallary}">
-				<img src="${pageContext.request.contextPath}/upload/${img}" alt="${img}" width="32px"
-							onclick="insertImage(content, '${pageContext.request.contextPath}/upload/${img}')"/>&nbsp;
+				<img src="${pageContext.request.contextPath}/upload/${img}" alt="${img}" height="64px" width="64px"
+							onclick="insertImage(content, '${pageContext.request.contextPath}/upload/${img}')"/>
 		</c:forEach>
-		</div>
 	</div>
 </body>
 </html>

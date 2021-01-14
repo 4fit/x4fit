@@ -18,8 +18,8 @@ body, html {
 }
 
 .editor-preview pre, .editor-preview-side pre {
-    background: #fff7dd;
-    margin-bottom: 10px;
+    background: rgb(223, 242, 251);
+    margin: 10px;
 }
 
 .post-actions {
@@ -212,10 +212,6 @@ div {
 	display: block;
 }
 
-button {
-	outline: none !important;
-}
-
 .text-muted {
 	color: #9b9b9b !important;
 }
@@ -276,7 +272,10 @@ ul {
 
 button {
 	background-color: transparent;
-	color: #0099CC;
+	outline: none !important;
+	cursor: pointer;
+	padding: 0;
+	border: none;
 }
 
 .nav-item {
@@ -670,30 +669,28 @@ button {
 
 .info_user_comment {
 	display: block;
-	height: 50px;
 }
 
 .img_user_comment_post {
 	display: inline-block;
-	height: 40px;
-	width: 40px;
+	height: 48px;
+	width: 48px;
 	border-radius: 50%;
 }
 
 #avt_comment {
-	height: 40px;
-	width: 40px;
+	height: 48px;
+	width: 48px;
 	border-radius: 50%;
 }
 
 .info_username_comment {
 	display: inline-block;
-	width: 70%;
+	width: 50%;
 }
 
 .time_comment {
 	display: inline-block;
-	width: 20%;
 }
 
 .content_comment {
@@ -704,6 +701,8 @@ button {
 	display: block;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	margin: 10px;
+	margin-left: 20px;
 }
 
 .score {
@@ -713,8 +712,8 @@ button {
 
 .action_with_comment {
 	display: inline-block;
-	width: 84%;
 	margin-left: 0px;
+	border: none;
 }
 
 .more_comment {

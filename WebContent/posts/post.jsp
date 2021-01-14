@@ -25,66 +25,7 @@
 	<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 </head>
 <body>
-	<nav id="navbar" class="navbar navbar-expand-md navbar-light sticky-top">
-		<!-- Logo -->
-		<div>
-			<a class="navbar-brand logo"
-				href="${pageContext.request.contextPath}/">X4FIT </a>
-		</div>
-		
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		
-		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-<!-- 				<a class="nav-item nav-link" href="#">Post</a>  -->
-<!-- 				<a class="nav-item nav-link" href="#">Profile</a> -->
-				<div class="input-group mb-10">
-					<input type="text" class="form-control" placeholder="Search"
-						aria-label="Username" aria-describedby="basic-addon1">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1"><i
-							class="fas fa-search"></i></span>
-					</div>
-				</div>
-				<button class="btn btn-primary mt-1" type="button">
-					<i class="fas fa-bell"></i>
-				</button>
-				<a href="posts/create.jsp">
-					<button class="btn btn-secondary mt-1" type="button">
-						<i class="fas fa-edit"></i>
-					</button>
-				</a>
-	
-			</div>
-		</div>
-		<div class="img-pro"></div>
-		<button type="button" class="btn dropdown-toggle"
-			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<img class="img-profile"
-				src="${pageContext.request.contextPath}/images/avt.png" alt="">
-		</button>
-		<div class="dropdown-menu dropdown-menu-right ">
-			<div class="dropdown-item profile-popup">
-				<img class="img-profile"
-					src="${pageContext.request.contextPath}/images/avt.png" alt="">
-				<div class="info-popup">
-					<h5 class="name-info">Hoang</h5>
-					<p class="gmail-info">hoang1811@gmail.com</p>
-					<button class="btn btn-primary btn-edit" type="button">Edit</button>
-	
-				</div>
-			</div>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">Profile</a> <a
-				class="dropdown-item" href="#">My content</a>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">Sign out</a>
-		</div>
-	</nav>
+	<jsp:include page="../navbar.jsp"></jsp:include>
 
 	<div class="container-fluid" style="margin-top: 30px">
 		<div class="row">
@@ -95,11 +36,18 @@
 
 					<!-- Points -->
 					<div class="vote" align="center">
-						<button class="icon-btn" data-original-title="Upvote">
+						<button class="icon-btn" data-original-title="Upvote" 
+										onclick="Vote(${postID}, 'POST', 1, '${pageContext.request.contextPath}/vote');
+														 incrementValue('${postID}');">
 							<i class="fa fa-caret-up"></i>
 						</button>
-						<div class="points">${points}</div>
-						<button class="icon-btn" data-original-title="Downvote">
+						<br>
+						<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
+									disabled size="1" class="points" id="${postID}" value="${points}">
+						<br>
+						<button class="icon-btn" data-original-title="Downvote"
+										onclick="Vote(${postID}, 'POST', 1, '${pageContext.request.contextPath}/vote');
+														 decrementValue('${postID}');">
 							<i class="fa fa-caret-down"></i>
 						</button>
 					</div>
@@ -112,33 +60,54 @@
 						</button>
 					</div>
 
-					<!-- Share -->
 					<div align="center">
+						<!-- Share -->
 						<a
 							href="https://www.facebook.com/sharer.php?u=http://x4fit.herokuapp.com/post?p=${url}"
 							target="_blank" type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook"> 
-							<img src="https://img.icons8.com/color/64/000000/facebook.png" />
+							<img src="https://img.icons8.com/color/48/000000/facebook.png" />
 						</a> 
 						<a class="zalo-share-button share" data-href="" data-oaid="579745863508352884" data-layout="2" data-color="white" data-customize=true> 
-							<img src="https://img.icons8.com/ios-filled/64/4a90e2/zalo.png" />
+							<img src="https://img.icons8.com/ios-filled/48/4a90e2/zalo.png" />
 						</a>
+						
+						<br>
+						
+						<c:if test="${is_author}">
+							<!-- Edit -->
+							<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
+								<button type="submit" value="EDIT" class="btn btn-primary">
+									<i class="fa fa-edit"></i>
+								</button>
+							</form>
+							<br>
+						</c:if>
+						
+						<!-- Báo cáo -->
+						<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
+							<button type="submit" value="REPORT" class="btn btn-danger">
+								<i class="fa fa-flag"></i>
+							</button>
+						</form>
 					</div>
 				</div>
 			</div>
 
 			<!-- Content -->
 			<div class="col-sm-8">
-				<h1 align="center">
+				<h1 align="center" style="margin: 20px;">
 					<b>${title}</b>
 				</h1>
 				<textarea id="content" name="content">${content}</textarea>
 				<br>
 				
 				<h4>Bình luận</h4>
-				<form action="${pageContext.request.contextPath}/comment">
+				<form action="${pageContext.request.contextPath}/comment" method="post">
 					<textarea id="comment" name="comment"></textarea>
 					<br>
 					<div class="align-middle text-center">
+						<input type="hidden" value="${postID}" name="postID">
+						<input type="hidden" value="${url}" name="url">
 						<input class="btn btn-primary" type="submit" value="Bình luận">
 					</div>
 				</form>
@@ -159,15 +128,18 @@
 								</div>
 
 								<div class="info_username_comment">
-									<a href="${listUserCmt.get(i).getUrl()}"><c:out
-											value="${listUserCmt.get(i).getFullname()}"></c:out></a> <br /> <span
-										class="text-muted">@author</span>
+									<a href="${listUserCmt.get(i).getUrl()}">
+										<c:out value="${listUserCmt.get(i).getFullname()}"></c:out>
+									</a> 
+									<br /> 
+									<c:if test="${is_author}">
+										<span class="badge badge-info">@author</span>
+									</c:if>
+									<div class="time_comment">
+										<span class="text-muted">${cmt.getCreated_at()}</span>
+									</div>
 								</div>
-
-								<div class="time_comment">
-									<a>Created at:</a> <br /> <span class="text-muted"><c:out
-											value="${cmt.getCreated_at()}"></c:out></span>
-								</div>
+								
 							</div>
 
 							<div class="content_comment" >
@@ -175,43 +147,38 @@
 							</div>
 
 							<div class="vote_comment">
-								<div class="score">
-									<button class="icon-btn vote" data-toggle="tooltip"
-										data-placement="bottom" title="Upvote">
-										<i aria-hidden="true" class="fa fa-chevron-up text-muted"></i>
+								<div class="action_with_comment">
+									<span class="btn btn-danger btn-sm font-weight-bold">
+										<input style="cursor: none; background-color:transparent; color:white; font-weight:bolder; border:none; text-align: right;" 
+														disabled size="1" id="cmt${cmt.getID()}" value="${cmt.getPoints()}"/> 
+										<i class="fa fa-heart" aria-hidden="true"></i>
+									</span>
+									<button type="submit" value="Upvote" class="btn btn-warning btn-sm font-weight-bold"
+													onclick="Vote(${cmt.getID()}, 'COMMENT', 1, '${pageContext.request.contextPath}/vote');
+																	 incrementValue('cmt${cmt.getID()}');">
+										<i class="fas fa-thumbs-up"></i>&nbsp;Upvote
 									</button>
-			
-									<span class="point_vote_comment"><c:out value="${cmt.getPoints()}"></c:out></span>
-			
-									<button class="icon-btn vote" data-toggle="tooltip"
-										data-placement="bottom" title="downvote">
-										<i aria-hidden="true" class="fa fa-chevron-down text-muted"></i>
+									<button type="submit" value="Downvote" class="btn btn-dark btn-sm font-weight-bold"
+													onclick="Vote(${cmt.getID()}, 'COMMENT', -1, '${pageContext.request.contextPath}/vote');
+																	 decrementValue('cmt${cmt.getID()}');">
+										<i class="fas fa-thumbs-down"></i>&nbsp;Downvote
 									</button>
-			
-								</div>
-			
-								<div class="action_with_comment d">
-									<a class="reply_comment"> <span class="text-muted" id="reply">Reply</span>
-									</a> <a class="share_comment"> <span class="text-muted">Share</span>
-									</a>
-								</div>
-			
-								<div class="more_comment">
-									<div class="menu__post">
-										<div class="dropdown_comment">
-			
-											<button type="button" class="dropbtn" data-toggle="tooltip"
-												data-placement="bottom" title="Show more active">
-												<i class="fa fa-ellipsis-h text-muted"></i>
-											</button>
-			
-											<div class="dropdown-content">
-												<a href="#"> repost</a>
-											</div>
-										</div>
+									
+									<!-- More -->
+									<div class="btn-group dropright">
+									  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle font-weight-bold" 
+									  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									    More
+									  </button>
+									  <div class="dropdown-menu">
+									    <a class="dropdown-item" href="#">Action</a>
+									    <a class="dropdown-item" href="#">Another action</a>
+									    <a class="dropdown-item" href="#">Something else here</a>
+									  </div>
 									</div>
+								
 								</div>
-			
+								
 							</div>
 						</div>
 						<%
@@ -223,36 +190,23 @@
 			</div>
 			<!-- Right -->
 			<div class="col-sm-2">
-				<div class="post-actions d-flex flex-column align-items-center mx-auto">
-					<!-- Edit -->
-					<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
-						<button type="submit" value="EDIT" class="btn btn-primary">
-							<i class="fa fa-edit"></i>
-						</button>
-					</form>
-					<br>
-					<!-- Báo cáo -->
-					<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
-						<button type="submit" value="REPORT" class="btn btn-danger">
-							<i class="fa fa-flag"></i>
-						</button>
-					</form>
-				</div>
+				
 			</div>
 		</div>
 		<hr>
 	</div>
+	
 	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
 	<jsp:include page="../modals/modalReport.jsp"></jsp:include>
 
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>
 	<script type="text/javascript">
-		content = ViewContent(); 
-		content.togglePreview();
+		detailPost = ViewContent(); 
+		detailPost.togglePreview();
 		var listComments = ViewComments();
 		listComments.forEach((comment) => comment.togglePreview());
 		
-		cmt = Comment();
+		content = Comment();
 		$('.image-upload-wrap').bind('dragover', function() {
 			$('.image-upload-wrap').addClass('image-dropping');
 		});
