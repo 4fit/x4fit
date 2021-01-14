@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 <div class="row">
   <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
