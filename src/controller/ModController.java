@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 
-import javax.servlet.RequestDispatcher;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,7 +73,7 @@ public class ModController extends HttpServlet {
 				searchPost(request, response);
 				return;
 			default:
-				response.sendRedirect("index.jsp");
+				response.sendRedirect("../index.jsp");
 				return;
 
 		}

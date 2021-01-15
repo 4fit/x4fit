@@ -1,33 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <script src="https://www.w3schools.com/lib/w3.js"></script>
-<div class="row">
-  <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
-      <div class="logo" style="border-bottom: 1px solid #ccc">
-          <a href="${pageContext.request.contextPath}/mod/all-categories">
-              <img src="https://colorlib.com/polygon/adminator/assets/static/images/logo.png">
-              <span>X4FIT</span>
-          </a>
-      </div>
-      
-      <div class="nav-left">
-          <ul>
-              <li id="category">
-                  <a id="a2" href="${pageContext.request.contextPath}/mod/all-categories">
-                      <i class="fa fa-list-alt" aria-hidden="true"></i>
-                      <span>CATEGORY</span> 
-                  </a>
-              </li>
-              <li id="post">
-                  <a id="a3" href="${pageContext.request.contextPath}/mod/all-posts">
-                      <i class="fa fa-book" aria-hidden="true"></i>
-                      <span>POSTS</span> 
-                  </a>
-              </li>
-          </ul>
-      </div>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
     <div class="row">
         <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
             <div class="logo" style="border-bottom: 1px solid #ccc">

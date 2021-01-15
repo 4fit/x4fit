@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Lỗi</title>
+<title>XFIT - Error</title>
 </head>
 <body>
-	<h1>Hệ thống đã xảy ra lỗi. Vui lòng thử lại sau...</h1>
+	<h1>The server have some problem. Please try again.</h1>
+	<a href="${pageContext.request.contextPath}">Click here to comeback</a>
 </body>
 </html>
