@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Account;
+import model.Report;
 import model.User;
 import model.UserAccount;
 
@@ -20,6 +21,7 @@ import model.UserAccount;
 		"/admin/all-users", 
 		"/admin/create-mod",
 		"/admin/update-status",
+		"/admin/all-reports",
 		})
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -48,6 +50,9 @@ public class AdminController extends HttpServlet {
 			case "/admin/update-status":
 				updateAccountStatus(request, response);
 				return;
+			case "/admin/all-reports":
+				getAllReports(request, response);
+				return;
 		}
 	}
 
@@ -64,6 +69,18 @@ public class AdminController extends HttpServlet {
 			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
+	
+	protected void getAllReports(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<Report> allReportsList = Report.getAllReports();
+			request.setAttribute("allReportsList", allReportsList);
+			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
