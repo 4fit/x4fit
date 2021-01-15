@@ -4,18 +4,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Navigator</title>
-<!-- 	<link rel="icon" type="image/png" href="images/logo2.png" /> -->
-<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" /> --%>
-<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" /> --%>
-<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" /> --%>
-<!-- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
-<!-- 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet"> -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> -->
-<!-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> -->
-<!-- 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
-<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
-<!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
 </head>
 <body>
 <nav id="navbar" class="navbar navbar-expand-md navbar-light sticky-top">
@@ -32,19 +22,19 @@
 		</button>
 		
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				<div class="input-group mb-10">
+			<div class="navbar-nav" align="center">
+				<div class="input-group mb-9">
 					<form class="search-box" action = "${pageContext.request.contextPath}/search" method = "get" >
-					    <div class = "d-flex">
+					  <div class="form-inline">
 					     <input id = "text_search" value = "${ textSearch}"name = "textSearch" type="text" 
-					     				class="form-control" width="40%" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+					     				class="form-control" style="width: 40vw;" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
 					      <div class="input-group-prepend">
 					          <button name = "userCurrentAction" onclick = "highlightTextHome()" 
 					          				value = "search_home" type = "submit" class = "btn btn-primary ">
 					          	<i class="fas fa-search"></i>
 					          </button>
 					      </div>
-					      </div>
+					  </div>
 					</form>			
 				</div>
 				<button class="btn btn-primary mt-1" type="button">
