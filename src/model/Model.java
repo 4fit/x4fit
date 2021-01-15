@@ -8,6 +8,8 @@ import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientOptions.Builder;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -16,10 +18,11 @@ import com.mongodb.client.model.Filters;
 public class Model 
 {
 	private static String mongoClientURI = "mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority";
-
 	private static MongoClientURI uri = new MongoClientURI(mongoClientURI);
 	private static MongoClient mongoClient = new MongoClient(uri);
 	public static MongoDatabase db = mongoClient.getDatabase("X4FIT2");
+	
+	
 
 	Logger mongoLogger = Logger.getLogger( "org.mongodb.driver");
 	

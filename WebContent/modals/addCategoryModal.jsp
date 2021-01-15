@@ -14,10 +14,10 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" rows="3" required
-                            placeholder="Description here" name="description"></textarea>
+                        <textarea class="form-control" id="description" rows="3" required placeholder="Description here"
+                            name="description"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-success text-xs-center">Add</button>
+                    <button type="submit" class="btn btn-success text-xs-center" style="width: 100%;">Add</button>
                 </form>
             </div>
         </div>

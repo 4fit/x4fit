@@ -8,14 +8,15 @@ import org.bson.types.ObjectId;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 public class Account extends Model {
 
-	private String username;
-	private String password;
-	private String email;
-	private String user_type;
-	private int userID;
+	protected String username;
+	protected String password;
+	protected String email;
+	protected String user_type;
+	protected int userID;
 
 	public int getUserID() {
 		return userID;
@@ -76,12 +77,13 @@ public class Account extends Model {
 		this.setUserID(getLastestID("USER") + 1);
 	}
 	
-	public Account(int userID, String password, String user_type, String email)
+	public Account(int userID, String password, String user_type, String email , String username)
 	{
 		this.setUserID(userID);
 		this.setUser_type(user_type);
 		this.setPassword(password);
 		this.setEmail(email);
+		this.setUsername(username);
 	}
 	
 	public static Account Doc2Account(Document doc)
@@ -89,10 +91,9 @@ public class Account extends Model {
 		return new Account(doc.getInteger("user_id"),
 						   doc.getString("password"),
 						   doc.getString("user_type"),
-						   doc.getString("email"));
+						   doc.getString("email"),
+						   doc.getString("username"));
 	}
-	
-	
 	
 	public static Account GetAccountByUserID(int userID)
 	{
@@ -116,6 +117,26 @@ public class Account extends Model {
 		Model.Insert(doc, "ACCOUNT");
 		
 		User.createUserByID(user_id, fullname);
+	}
+	
+	public static void createNewMod(String username, String password, String email, String fullname)
+	{
+		Document doc = new Document("_id", new ObjectId());
+		int user_id = getLastestID(USER) + 1;
+		doc.append("id", getLastestID(ACCOUNT) + 1);
+		doc.append("user_id", user_id);
+		doc.append("username", username);
+		doc.append("password", password);
+		doc.append("email", email);
+		doc.append("user_type", "MOD");
+
+		Model.Insert(doc, "ACCOUNT");
+		
+		Document docUser = new Document("_id", new ObjectId());
+		docUser.append("id", user_id);
+		docUser.append("fullname", fullname);
+		docUser.append("status", "ACTIVE");
+		Model.Insert(docUser, "USER");
 	}
 	
 	public static boolean checkExitUsername(String username)
@@ -164,5 +185,4 @@ public class Account extends Model {
 
 		ACCOUNT.updateOne(query, updateObject);
 	}
-
 }
