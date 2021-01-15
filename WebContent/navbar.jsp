@@ -4,18 +4,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Navigator</title>
-<!-- 	<link rel="icon" type="image/png" href="images/logo2.png" /> -->
-<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" /> --%>
-<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" /> --%>
-<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" /> --%>
-<!-- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
-<!-- 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet"> -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> -->
-<!-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> -->
-<!-- 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
-<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
-<!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
 </head>
 <body>
 <nav id="navbar" class="navbar navbar-expand-md navbar-light sticky-top">
@@ -32,16 +22,20 @@
 		</button>
 		
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-<!-- 				<a class="nav-item nav-link" href="#">Post</a>  -->
-<!-- 				<a class="nav-item nav-link" href="#">Profile</a> -->
-				<div class="input-group mb-10">
-					<input type="text" class="form-control" placeholder="Search"
-						aria-label="Username" aria-describedby="basic-addon1">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1"><i
-							class="fas fa-search"></i></span>
-					</div>
+			<div class="navbar-nav" align="center">
+				<div class="input-group mb-9">
+					<form class="search-box" action = "${pageContext.request.contextPath}/search" method = "get" >
+					  <div class="form-inline">
+					     <input id = "text_search" value = "${ textSearch}"name = "textSearch" type="text" 
+					     				class="form-control" style="width: 40vw;" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+					      <div class="input-group-prepend">
+					          <button name = "userCurrentAction" onclick = "highlightTextHome()" 
+					          				value = "search_home" type = "submit" class = "btn btn-primary ">
+					          	<i class="fas fa-search"></i>
+					          </button>
+					      </div>
+					  </div>
+					</form>			
 				</div>
 				<button class="btn btn-primary mt-1" type="button">
 					<i class="fas fa-bell"></i>
@@ -54,7 +48,6 @@
 	
 			</div>
 		</div>
-		<div class="img-pro"></div>
 		<button type="button" class="btn dropdown-toggle"
 			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<img class="img-profile"
@@ -63,10 +56,9 @@
 		<div class="dropdown-menu dropdown-menu-right ">
 			<div class="dropdown-item profile-popup">
 				<img class="img-profile"
-					src="${pageContext.request.contextPath}/images/avt.png" alt="">
+					src="${pageContext.request.contextPath}/images/${user.getAvatar()}" alt="">
 				<div class="info-popup">
-					<h5 class="name-info">Hoang</h5>
-					<p class="gmail-info">hoang1811@gmail.com</p>
+					<h5 class="name-info">${user.getFullname() }</h5>
 					<button class="btn btn-primary btn-edit" type="button">Edit</button>
 	
 				</div>
@@ -78,5 +70,47 @@
 			<a class="dropdown-item" href="#">Sign out</a>
 		</div>
 	</nav>
+	 <script>
+        function openPage(nampage, element) {
+            var i, tabcontent, tablink;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablink = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablink.length; i++) {
+                tablink[i].style.backgroundColor = "rgb(161, 161, 161)";
+            }
+
+            document.getElementById(nampage).style.display = "block";
+
+            element.style.backgroundColor = "rgb(20, 20, 20)";
+        }
+       // openPage('Post',document.getElementById("defaultOpen"));     
+       document.getElementById("defaultOpen").onclick();
+    </script>
+    
+    <script>
+
+    window.onload = function()
+    {
+    	highlightTextHome();
+    };
+     
+	    function highlightTextHome() {
+    		var text = document.getElementById("text_search").value;
+    		
+    	  var inputText = document.getElementsByClassName("title-post");
+    	  for (var i = 0; i < inputText.length; i++)
+    	 { 	var innerHTML = inputText[i].innerHTML;
+		   	  var index = innerHTML.indexOf(text);
+			  if (index >= 0) { 
+			   innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+			   inputText[i].innerHTML = innerHTML;
+	  			}
+    	 }
+	    }
+    </script>
 </body>
 </html>

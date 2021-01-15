@@ -106,7 +106,8 @@ public class User extends Account {
 
 	public String getUsername(int userID)
 	{
-		return Account.GetAccountByUserID(userID).getUsername();
+		Document doc = ACCOUNT.find(Filters.eq("user_id", userID)).first();
+		return doc.getString("username");
 	}
 
 	public User() {
@@ -137,9 +138,6 @@ public class User extends Account {
 		this.setFollowing(following);
 		this.setStatus("ACTIVE");
 	}
-
-
-	
 
 	public User(int userID, String fullname, String avatar, String url, String status) 
 	{
@@ -546,6 +544,26 @@ public class User extends Account {
 		updateObject.put("$set", newStatusDoc);
 
 		USER.updateOne(query, updateObject);
+	}
+	
+	public static void createUserByID(int id, String fullname) // Tạo user với user_id đã được tạo ở model account
+	{
+		Document doc = new Document("_id", new ObjectId());
+		
+		 List<Integer> follower = new ArrayList<Integer>();
+		 List<Integer> following = new ArrayList<Integer>();
+		 List<Integer> clips = new ArrayList<Integer>();
+		 String status = "NOT ACTIVE";
+		
+		doc.append("id", id);
+		doc.append("fullname", fullname);
+		doc.append("avatar", "");
+		doc.append("url", "");
+		doc.append("status", status);
+		doc.append("follower", follower);
+		doc.append("following", following);
+		doc.append("clips", clips);
+		Model.Insert(doc, "USER");
 	}
 	
 	public boolean updateInforUser(int iduser,String fullname, String email, String username,String password)

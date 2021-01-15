@@ -26,7 +26,6 @@ public class Post extends Model {
 	private int views_count;
 	private int points;
 
-	private int clips_count; // Không có trong database
 	private boolean is_public;
 	private String thumbnail_url;
 
@@ -127,7 +126,7 @@ public class Post extends Model {
 		return post.getClips().size();
 	}
 	public void setClips_count(int clips_count) {
-		this.clips_count = clips_count;
+		//this.clips_count = clips_count;
 	}
 	
 
@@ -621,13 +620,16 @@ public class Post extends Model {
 		BasicDBObject regexQuery = new BasicDBObject();
 		regexQuery.put("fullname", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
 		FindIterable<Document>  listUser = Model.USER.find(regexQuery);
+		
 		Iterator<Document> list = listUser.iterator();
 	
+		int i=0;
 		while(list.hasNext())
 		{
-			lUser.add(User.Doc2User(list.next()));			
+			lUser.add(User.Doc2User(list.next()));	
+			i+=1;
 		}
-		
+		System.out.println(i);;
 		return lUser;
 	}
 	
@@ -696,6 +698,7 @@ public class Post extends Model {
 	
 	public  String getUsername()
 	{
+		
 		Document account = Account.getDocumentAccountByUserId(this.user_id);
 		String username = "username";
 		
@@ -723,5 +726,10 @@ public class Post extends Model {
 	{
 		return Comment.getCommentByIdPost(this.getID()).size();
 		
+	}
+	
+	public long getClips_count()
+	{
+		return 0;// this.getClips().size();
 	}
 }

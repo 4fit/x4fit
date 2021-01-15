@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bson.Document;
@@ -34,15 +35,16 @@ public class Model
 	public static MongoCollection<Document> GALLERY = db.getCollection("GALLERY");
 	public static MongoCollection<Document> REPORT = db.getCollection("REPORT");
 	
-//	public Model()
-//	{
-//		//Kết nối đến CSDL
-//		this.uri = new MongoClientURI(mongoClientURI);
-//		this.mongoClient = new MongoClient(uri);
-//		this.db = mongoClient.getDatabase("X4FIT2");
-//
-//	}
-//	
+	public Model()
+	{
+		//Kết nối đến CSDL
+		this.uri = new MongoClientURI(mongoClientURI);
+		this.mongoClient = new MongoClient(uri);
+		mongoLogger.setLevel(Level.SEVERE);
+		this.db = mongoClient.getDatabase("X4FIT2");
+
+	}
+	
 	public static int isExitInArray(List<Integer> list, int x)
 	{
 		for(int i = 0; i < list.size(); i++)
