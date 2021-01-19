@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>${title}</title>
+	<title>${post.getTitle()}</title>
 	<link rel="icon" type="image/png" href="images/logo2.png" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
@@ -26,7 +26,8 @@
 </head>
 <body>
 	<jsp:include page="../navbar.jsp"></jsp:include>
-
+	<% boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");%>
+	
 	<div class="container-fluid" style="margin-top: 30px">
 		<div class="row">
 
@@ -37,16 +38,16 @@
 					<!-- Points -->
 					<div class="vote" align="center">
 						<button class="icon-btn" data-original-title="Upvote" 
-										onclick="Vote(${postID}, 'POST', 1, '${pageContext.request.contextPath}/vote');
+										onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
 														 incrementValue('${postID}');">
 							<i class="fa fa-caret-up"></i>
 						</button>
 						<br>
 						<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
-									disabled size="1" class="points" id="${postID}" value="${points}">
+									disabled size="1" class="points" id="${postID}" value="${post.getPoints()}">
 						<br>
 						<button class="icon-btn" data-original-title="Downvote"
-										onclick="Vote(${postID}, 'POST', 1, '${pageContext.request.contextPath}/vote');
+										onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
 														 decrementValue('${postID}');">
 							<i class="fa fa-caret-down"></i>
 						</button>
@@ -96,21 +97,22 @@
 			<!-- Content -->
 			<div class="col-sm-8">
 				<h1 align="center" style="margin: 20px;">
-					<b>${title}</b>
+					<b>${post.getTitle()}</b>
 				</h1>
-				<textarea id="content" name="content">${content}</textarea>
+				<textarea id="content" name="content">${post.getContent()}</textarea>
 				<br>
-				
-				<h4>Bình luận</h4>
-				<form action="${pageContext.request.contextPath}/comment" method="post">
-					<textarea id="comment" name="comment"></textarea>
-					<br>
-					<div class="align-middle text-center">
-						<input type="hidden" value="${postID}" name="postID">
-						<input type="hidden" value="${url}" name="url">
-						<input class="btn btn-primary" type="submit" value="Bình luận">
-					</div>
-				</form>
+				<c:if test="${is_logged }">
+					<h4>Bình luận</h4>
+					<form action="${pageContext.request.contextPath}/comment" method="post">
+						<textarea id="comment" name="comment"></textarea>
+						<br>
+						<div class="align-middle text-center">
+							<input type="hidden" value="${post.getId()}" name="postID">
+							<input type="hidden" value="${post.getUrl()}" name="url">
+							<input class="btn btn-primary" type="submit" value="Bình luận">
+						</div>
+					</form>
+				</c:if>
 				<br>
 				<%
 					int i = 0;
@@ -150,17 +152,17 @@
 								<div class="action_with_comment">
 									<span class="btn btn-danger btn-sm font-weight-bold">
 										<input style="cursor: none; background-color:transparent; color:white; font-weight:bolder; border:none; text-align: right;" 
-														disabled size="1" id="cmt${cmt.getID()}" value="${cmt.getPoints()}"/> 
+														disabled size="1" id="cmt${cmt.getId()}" value="${cmt.getPoints()}"/> 
 										<i class="fa fa-heart" aria-hidden="true"></i>
 									</span>
 									<button type="submit" value="Upvote" class="btn btn-warning btn-sm font-weight-bold"
-													onclick="Vote(${cmt.getID()}, 'COMMENT', 1, '${pageContext.request.contextPath}/vote');
-																	 incrementValue('cmt${cmt.getID()}');">
+													onclick="Vote('${cmt.getId()}', 'COMMENT', 1, '${pageContext.request.contextPath}/vote');
+																	 incrementValue('cmt${cmt.getId()}');">
 										<i class="fas fa-thumbs-up"></i>&nbsp;Upvote
 									</button>
 									<button type="submit" value="Downvote" class="btn btn-dark btn-sm font-weight-bold"
-													onclick="Vote(${cmt.getID()}, 'COMMENT', -1, '${pageContext.request.contextPath}/vote');
-																	 decrementValue('cmt${cmt.getID()}');">
+													onclick="Vote('${cmt.getId()}', 'COMMENT', -1, '${pageContext.request.contextPath}/vote');
+																	 decrementValue('cmt${cmt.getId()}');">
 										<i class="fas fa-thumbs-down"></i>&nbsp;Downvote
 									</button>
 									

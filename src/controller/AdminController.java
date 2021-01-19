@@ -9,14 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.types.ObjectId;
+
 import model.Account;
 import model.Report;
 import model.User;
 import model.UserAccount;
 
-/**
- * Servlet implementation class AdminController
- */
 @WebServlet(urlPatterns = {
 		"/admin/all-users", 
 		"/admin/create-mod",
@@ -26,19 +25,15 @@ import model.UserAccount;
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AdminController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
 		String action = request.getServletPath();
 		switch (action) {
 			case "/admin/all-users":
@@ -56,21 +51,17 @@ public class AdminController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
 	protected void getAllUsersInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
+		request.setAttribute("userInfoList", allUserInfoList);
+		request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		try {
-			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
-			request.setAttribute("userInfoList", allUserInfoList);
-			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");
 		}
@@ -82,7 +73,6 @@ public class AdminController extends HttpServlet {
 			request.setAttribute("allReportsList", allReportsList);
 			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");
 		}
@@ -105,7 +95,6 @@ public class AdminController extends HttpServlet {
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");
 		}
@@ -113,14 +102,13 @@ public class AdminController extends HttpServlet {
 	
 	protected void updateAccountStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String status = (String)request.getParameter("status");
-		int userId = Integer.parseInt((String)request.getParameter("userId"));
+		ObjectId userId = new ObjectId(request.getParameter("userId"));
 		try {
-			User.updateUserStatus(userId, status);
+			User.updateUserStatusByAccountID(userId, status);
 			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");
 		}

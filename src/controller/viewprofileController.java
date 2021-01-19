@@ -26,7 +26,6 @@ public class viewprofileController extends HttpServlet {
 		Cookie[]  cookies = request.getCookies();
 		//if(cookies[0].getName()!="selector" && cookies[1].getName()!=" validator")
 		{
-			
 			user=User.GetUserInfoFromCookies(cookies);
 			if(user!= null)
 			{
@@ -56,7 +55,7 @@ public class viewprofileController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("following", user.getFollowingUser(user1));
+		request.setAttribute("following", user.getListFollowing(user1));
 		
 		
 	}	
@@ -66,7 +65,7 @@ public class viewprofileController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("follower", user.getFollowerUser(user1));
+		request.setAttribute("follower", user.getListFollower(user1));
 		
 		
 	}	
@@ -78,7 +77,7 @@ public class viewprofileController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 			// System.out.print(user.getEmail()+ user.getId());
-		List<Post> posts = post.readAllPersonalPost(user1.getUserID());
+		List<Post> posts = post.GetAllPostByUserID(user1.getId());
 		request.setAttribute("listpost", posts);
 	}
 	
@@ -89,9 +88,7 @@ public class viewprofileController extends HttpServlet {
 		ValidateUser(request);
 		if(request.getParameter("email")!=null)
 		{
-			
-			User userprofile= User.getUserByEmail(request.getParameter("email").toString());
-			
+			User userprofile= User.GetUserByEmail(request.getParameter("email").toString());
 			request.setAttribute("curUser", userprofile);
 			getListPost(userprofile,request, response);
 			getListBookmark(userprofile, request, response);
@@ -106,9 +103,7 @@ public class viewprofileController extends HttpServlet {
 	
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.types.ObjectId;
+import org.eclipse.persistence.nosql.annotations.Field;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
@@ -14,55 +17,49 @@ import com.mongodb.client.model.Updates;
 
 import x4fit.Utilities;
 
-
 public class Post extends Model {
-	private int id;
+	private ObjectId id;
 	private String title;
-	private int user_id;
+	private User author;
 	private String url;
 	private String content;
 	private String published_at;
 	private String updated_at;
 	private int views_count;
 	private int points;
-
 	private boolean is_public;
 	private String thumbnail_url;
-
 	private String status;
 	private String category;
-	private List<Integer> upvote;	// chứa DS userID đã upvote cho bài viết
-	private List<Integer> downvote;	// chứa DS userID đã downvote cho bài viết
-	private List<Integer> clips;	// chứa DS userID đã ghim bài viết
+	private List<ObjectId> upvote;	// chứa DS userID đã upvote cho bài viết
+	private List<ObjectId> downvote;// chứa DS userID đã downvote cho bài viết
+	private List<ObjectId> clips;	// chứa DS userID đã ghim bài viết
 
-	public List<Integer> getClips() {
-
+	public List<ObjectId> getClips() {
 		return clips;
-		}
+	}
 	
-	
-	public void setClips(List<Integer> clips) {
+	public void setClips(List<ObjectId> clips) {
 		this.clips = clips;
 	}
-	public List<Integer> getUpvote() {
+	public List<ObjectId> getUpvote() {
 		return upvote;
 	}
-	public void setUpvote(List<Integer> upvote) {
+	public void setUpvote(List<ObjectId> upvote) {
 		this.upvote = upvote;
 	}
-	public List<Integer> getDownvote() {
+	public List<ObjectId> getDownvote() {
 		return downvote;
 	}
 
-	public void setDownvote(List<Integer> downvote) {
-
+	public void setDownvote(List<ObjectId> downvote) {
 		this.downvote = downvote;
 	}
 
-	public int getID() {
+	public ObjectId getId() {
 		return id;
 	}
-	public void setID(int id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 	
@@ -73,18 +70,20 @@ public class Post extends Model {
 		this.title = title;
 	}
 
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public User getAuthor() {
+		return author;
 	}
 
-	public String getURL() {
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public String getUrl() {
 		return url;
 	}
-	public void setURL(String p) {
-		this.url = p;
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getContent() {
@@ -125,10 +124,6 @@ public class Post extends Model {
 	public int getClips_count(Post post) {
 		return post.getClips().size();
 	}
-	public void setClips_count(int clips_count) {
-		//this.clips_count = clips_count;
-	}
-	
 
 	public boolean getIs_public() {
 		return is_public;
@@ -158,20 +153,15 @@ public class Post extends Model {
 		this.status = status;
 	}
 	
-	public String getAuthor (int iduser)
-	{
-		return User.Doc2User( USER.find(Filters.eq("id", iduser)).first()).getFullname();
-	}
-	
 	public Post() {
 	}
 
 
-	public Post(String title, int user_id, String content, boolean is_public, String thumbnail_url, String category) 
+	public Post(String title, ObjectId user_id, String content, boolean is_public, String thumbnail_url, String category) 
 	{
-		this.id = getPostID();
+		this.id = new ObjectId();
 		this.title = title;
-		this.user_id = user_id;
+		this.author = User.GetUserByUserID(user_id);
 		this.url = Utilities.createURL(title);
 		this.content = content;
 		this.published_at = this.updated_at = Utilities.GetCurrentDateTime();
@@ -181,30 +171,15 @@ public class Post extends Model {
 		this.thumbnail_url = thumbnail_url;
 		this.category = category;
 		this.status = "Chờ duyệt";
-	}
-
-	public Post(int id, String title, int user_id, String p, String content, String published_at, String updated_at,
-			boolean is_public, int views_count, int points, String thumbnail_url, String category, String status, List<Integer> clips) {
-		this.id = id;
-		this.title = title;
-		this.user_id = user_id;
-		this.url = p;
-		this.content = content;
-		this.published_at = published_at;
-		this.updated_at = updated_at;
-		this.views_count = views_count;
-		this.points = points;
-		this.is_public = is_public;
-		this.thumbnail_url = thumbnail_url;
-		this.category = category;
-		this.status = status;
-		this.clips= clips;
+		this.setClips(new ArrayList<ObjectId>());
+		this.setUpvote(new ArrayList<ObjectId>());
+		this.setDownvote(new ArrayList<ObjectId>());
 	}
 	
 	// Duyệt bài post
 	public static boolean acceptPost(int postId) {
 		try {
-			POST.updateOne(Filters.eq("id", postId), new Document("$set", new Document("status", "Đã duyệt")));
+			POST.updateOne(Filters.eq("_id", postId), new Document("$set", new Document("status", "Đã duyệt")));
 			System.out.println("Accepted post!");
 			return true;
 		} catch (Exception ex) {
@@ -214,82 +189,43 @@ public class Post extends Model {
 	}
 
 	public ArrayList<Comment> GetAllComments() {
-		FindIterable<Document> cursor = CMT.find(Filters.eq("post_id", this.getID()));
-		Iterator<Document> it = cursor.iterator();
+		FindIterable<Comment> cursor = COMMENT.find(Filters.eq("post_id", this.getId()));
+		Iterator<Comment> it = cursor.iterator();
 		ArrayList<Comment> listComments = new ArrayList<Comment>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
-				Document doc = it.next();
-				Comment cmt = Comment.Doc2Cmt(doc);
-				listComments.add(cmt);
+				listComments.add(it.next());
 			}
 		}
 		return listComments;
 	}
 
-	public static int getPostID() {
-		return getLastestID(POST) + 1;
-	}
-
+	@BsonIgnore
 	public static List<Post> getAllPosts() {
-		FindIterable<Document> cursor = POST.find();
-		Iterator<Document> it = cursor.iterator();
+		FindIterable<Post> cursor = POST.find();
+		Iterator<Post> it = cursor.iterator();
 		List<Post> data = new ArrayList<Post>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
-				Document doc = it.next();
-				Post post = Doc2Post(doc);
-				data.add(post);
+				data.add(it.next());
 			}
 		}
 		return data;
 	}
 
-	public static void Insert(Post p) {
-		Insert( p.getID(), 
-				p.getTitle(), 
-				p.getUser_id(), 
-				p.getURL(), 
-				p.getContent(), 
-				p.getPublished_at(), 
-				p.getIs_public(),
-				p.getViews_count(), 
-				p.getPoints(), 
-				p.getThumbnail_url(), 
-				p.getCategory());
-	}
-
-	public static void Insert(int id, String title, int user_id, String p, String content, String published_at,
-			boolean is_public, int views_count, int points, String thumbnail_url, String category) 
+	public void Insert()
 	{
-		List<Integer> empty = Arrays.asList();
-		Document doc = new Document("id", id)
-				.append("title", title)
-				.append("user_id", user_id)
-				.append("url", p)
-				.append("content", content)
-				.append("published_at", published_at)
-				.append("updated_at", published_at)
-				.append("views_count", views_count)
-				.append("points", points)
-				.append("is_public", is_public)
-				.append("thumbnail_url", thumbnail_url)
-				.append("status", "Chờ duyệt")
-				.append("upvote", empty)
-				.append("downvote", empty)
-				.append("clips", empty);
-		Insert(doc, POST);
+		POST.insertOne(this);
 	}
 	
 	public static List<Post> search(String query) {
-		FindIterable<Document> cursor = POST.find();
-		Iterator<Document> it = cursor.iterator();
+		FindIterable<Post> cursor = POST.find();
+		Iterator<Post> it = cursor.iterator();
 		List<Post> data = new ArrayList<Post>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
-				Document doc = it.next();
-				Post post = Doc2Post(doc);
-				if (String.valueOf(post.getID()).equals(query)
+				Post post = it.next();
+				if (String.valueOf(post.getId()).equals(query)
 						|| post.getTitle().equals(query)
 						|| post.getCategory().equals(query)
 						|| String.valueOf(post.getViews_count()).equals(query)
@@ -304,73 +240,38 @@ public class Post extends Model {
 	}
 
 	public static Post GetPost(String p) {
-		Document doc = POST.findOneAndUpdate(Filters.eq("url", p), Updates.inc("views_count", 1));
-		if (doc == null)
-			return null;
-		try {
-			return Doc2Post(doc);
-		} catch (Exception e) {
-
-		}
-		return null;
-	}
-
-	public static Post Doc2Post(Document doc) {
-		List<Integer> clips = (List<Integer>) Utilities.convertObjectToList(doc.get("clips"));
-
-		return new Post(
-				doc.getInteger("id"), 
-				doc.getString("title"), 
-				doc.getInteger("user_id"), 
-				doc.getString("url"),
-				doc.getString("content"), 
-				doc.getString("published_at"), 
-				doc.getString("updated_at"),
-				doc.getBoolean("is_public"), 
-				doc.getInteger("views_count"), 
-				doc.getInteger("points"), 
-				doc.getString("thumbnail_url"), 
-				doc.getString("category"),
-				doc.getString("status"),
-				clips
-				);
+		Post post = POST.findOneAndUpdate(Filters.eq("url", p), Updates.inc("views_count", 1));
+		return post;
 	}
 	
 	public static ArrayList<Post> GetLastestPost(int lim)
 	{
-		FindIterable<Document> cursor = POST.find().sort(new BasicDBObject("id", -1)).limit(lim);
-		Iterator<Document> it = cursor.iterator();
+		FindIterable<Post> cursor = POST.find().sort(new BasicDBObject("_id", -1)).limit(lim);
+		Iterator<Post> it = cursor.iterator();
 		ArrayList<Post> topPost = new ArrayList<Post>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
-				Document doc = it.next();
-				Post p = Doc2Post(doc);
-				topPost.add(p);
+				topPost.add(it.next());
 			}
 		}
 		return topPost;
 	}
 
-	public static void Vote(int id, int point)
+	public static void Vote(ObjectId id, int point)
 	{
-		POST.findOneAndUpdate(Filters.eq("id", id), Updates.inc("points", point));
+		POST.findOneAndUpdate(Filters.eq("_id", id), Updates.inc("points", point));
 	}
 	
-	// Lấy tất cả các bài postController của một user
-	// Truyền vào user id
-
-	public List<Post> readAllPersonalPost(int iduser) {
-		FindIterable<Document> cursor = POST.find(new BasicDBObject("user_id", iduser));
-		Iterator<Document> it = cursor.iterator();
-		List<Post> data = new ArrayList<Post>();
+	public static List<Post> GetAllPostByUserID(ObjectId userID) {
+		FindIterable<Post> cursor = POST.find(new BasicDBObject("author", userID));
+		Iterator<Post> it = cursor.iterator();
+		List<Post> lstPost = new ArrayList<Post>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
-				Document doc = it.next();
-				Post p = Doc2Post(doc);
-				data.add(p);
+				lstPost.add(it.next());
 			}
 		}
-		return data;
+		return lstPost;
 	}
 
 	public static String Update(String p, String title, String new_title, String content, 
@@ -391,120 +292,33 @@ public class Post extends Model {
 		
 	}
 
-	public void updateVote(String nameField, int idPost, int idUserVote) // Bao gồm upvote, downvote
+	public void updateVote(ObjectId userID, int point)
 	{
-		Document post = getPostByIdPost(idPost);
-		// System.out.print(postController.get(nameField));
-		List<Integer> vote = (ArrayList<Integer>) post.get(nameField);
-		if (isExitInArray(vote, idUserVote) == 0) // Kiểm tra xem user đó đã thực hiện vote chưa, nếu có thì không cần
-													// update
-		{
-			vote.add(idUserVote);
-
-			BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh
-			query.put("id", idPost);
-
-			BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách follow
-			newList.put(nameField, vote);
-
-			BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update follow
-			updateObject.put("$set", newList);
-
-			POST.updateOne(query, updateObject);
-
-		}
+		String field = "upvote";
+		if (point < 0) field = "downvote";
+		POST.findOneAndUpdate(
+				Filters.eq("_id", this.getId()), 
+				Updates.combine(
+						Updates.inc("points", point),
+						Updates.addToSet(field, userID)
+						)
+				);
+		
 	}
 
-	public Document getPostByIdPost(int idPost) {
-		return POST.find(Filters.eq("id", idPost)).first();
-	}
-
-	public void updateItem(String nameField, int user_id, int post_id) {
-		Document postDoc = new Document();
-		postDoc = this.getPostByIdPost(post_id);
-
-		List<Integer> listIdPost = new ArrayList<Integer>();
-		listIdPost = (ArrayList) postDoc.get(nameField);
-
-		if (isExitInArray(listIdPost, user_id) == 0) {
-			listIdPost.add(user_id);
-
-			BasicDBObject query = new BasicDBObject();
-			query.put("id", post_id);
-
-			BasicDBObject newList = new BasicDBObject();
-			newList.put("clips", listIdPost);
-
-			BasicDBObject updateObject = new BasicDBObject();
-			updateObject.put("$set", newList);
-
-			POST.updateOne(query, updateObject);
-
-			updateCount("clips_count", post_id);
-		}
+	public static Post GetPostByID(ObjectId id) {
+		return POST.find(Filters.eq("_id", id)).first();
 	}
 
 	public List<Post> getPostOfUser(int idUser) {
 		List<Post> lPost = new ArrayList<Post>();
-		FindIterable<Document> listPost = POST.find(Filters.eq("user_id", idUser));
-		Iterator<Document> list = listPost.iterator();
+		FindIterable<Post> listPost = POST.find(Filters.eq("author", idUser));
+		Iterator<Post> list = listPost.iterator();
 		while (list.hasNext()) {
-			lPost.add(Doc2Post(list.next()));
+			lPost.add(list.next());
 		}
 
 		return lPost;
-	}
-
-	public void updateCount(String nameField, int idMain) {
-		Document post = this.getPostByIdPost(idMain);
-		int count = post.getInteger(nameField) + 1;
-
-		BasicDBObject query = new BasicDBObject(); // Lệnh query để so sánh
-		query.put("id", idMain);
-
-		BasicDBObject newList = new BasicDBObject(); // Tạo mới danh sách count clip trong postController
-		newList.put(nameField, count);
-
-		BasicDBObject updateObject = new BasicDBObject(); // thực hiện lệnh $set để update count_clips
-		updateObject.put("$set", newList);
-
-		POST.updateOne(query, updateObject);
-	}
-
-	public int countComment(int post_id) {
-		FindIterable<Document> listCMT = CMT.find(Filters.eq("post_id", post_id));
-		Iterator<Document> lCMT = listCMT.iterator();
-
-		int count = 0;
-		while (lCMT.hasNext()) {
-			lCMT.next();
-			count++;
-		}
-		return count;
-	}
-	
-	public static void InsertUpvote(String url, int userID)
-	{
-		POST.findOneAndUpdate(
-				Filters.eq("url", url), 
-				Updates.combine(
-						Updates.addToSet("upvote", userID), 
-						Updates.inc("points", 1)
-						)
-				);
-
-	}
-	
-	public static void InsertDownvote(String url, int userID)
-	{
-		POST.findOneAndUpdate(
-				Filters.eq("url", url), 
-				Updates.combine(
-						Updates.addToSet("downvote", userID), 
-						Updates.inc("points", -1)
-						)
-				);
-		
 	}
 	
 	public static void InsertClips(String url, int userID)
@@ -512,27 +326,13 @@ public class Post extends Model {
 		POST.findOneAndUpdate(Filters.eq("url", url), Updates.addToSet("clips", userID));
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static int GetClipsCount(String url)
+	@BsonIgnore
+	public long getComments_Count()
 	{
-		Document doc = POST.find(Filters.eq("url", url)).first();
-		try
-		{
-			List<Integer> clips = (List<Integer>) Utilities.convertObjectToList(doc.get("clips"));
-			return clips.size();
-		}
-		catch (Exception e) {
-			System.out.println(e);
-			return -1;
-		}
+		return COMMENT.count(Filters.eq("_id", this.getId()));
 	}
 	
-	public long getCommentsCount()
-	{
-		return CMT.count(Filters.eq("post_id", this.getID()));
-	}
-	
-	public static List<Post> searchPost(String textSearch)
+	public static List<Post> SearchPost(String textSearch)
 	{
 		int checkContent = 0;
 		List<Post> lPost = new ArrayList<Post>();
@@ -551,11 +351,11 @@ public class Post extends Model {
 			if(fieldName.contains("user"))
 				{
 					regexQueryUser.put("fullname", new BasicDBObject("$regex", ".*" + content + ".*").append("$options", "i"));
-					FindIterable<Document>  fListUser = USER.find(regexQueryUser);
-					Iterator<Document> iListUser = fListUser.iterator();
+					FindIterable<User>  fListUser = USER.find(regexQueryUser);
+					Iterator<User> iListUser = fListUser.iterator();
 					while(iListUser.hasNext())
 					{
-						addListPostByidUser(lPost, iListUser.next().getInteger("id"));
+						addListPostByUserID(lPost, iListUser.next().getId());
 					}
 				}
 			else if(fieldName.contains("NOT"))
@@ -579,22 +379,22 @@ public class Post extends Model {
 				checkContent = 1;
 			}
 		
-		FindIterable<Document>  listPost = Model.POST.find(regexQuery);
-		Iterator<Document> list = listPost.iterator();
+		FindIterable<Post>  listPost = Model.POST.find(regexQuery);
+		Iterator<Post> list = listPost.iterator();
 	
 		while(list.hasNext())
 		{
-			lPost.add(ConverseToPost(list.next()));			
+			lPost.add(list.next());			
 		}
 		
 		if(checkContent == 1)
 		{
-			FindIterable<Document>  listPostContent = Model.POST.find(regexQueryContent);
-			Iterator<Document> listContent = listPostContent.iterator();
+			FindIterable<Post>  listPostContent = Model.POST.find(regexQueryContent);
+			Iterator<Post> listContent = listPostContent.iterator();
 			
 			while(listContent.hasNext())
 			{
-				lPost.add(ConverseToPost(listContent.next()));			
+				lPost.add(listContent.next());			
 			}
 		}
 		
@@ -602,13 +402,13 @@ public class Post extends Model {
 		return lPost;
 	}
 	
-	public static void addListPostByidUser(List<Post> lPost, int idUser)
+	public static void addListPostByUserID(List<Post> lPost, ObjectId userID)
 	{
-		FindIterable<Document> listPost = Model.POST.find(Filters.eq("user_id", idUser));
-		Iterator<Document> list = listPost.iterator();
+		FindIterable<Post> listPost = Model.POST.find(Filters.eq("author", userID));
+		Iterator<Post> list = listPost.iterator();
 		while(list.hasNext())
 		{
-			lPost.add(ConverseToPost(list.next()));
+			lPost.add(list.next());
 		}
 	}
 	
@@ -619,99 +419,40 @@ public class Post extends Model {
 		
 		BasicDBObject regexQuery = new BasicDBObject();
 		regexQuery.put("fullname", new BasicDBObject("$regex", ".*" + textSearch + ".*").append("$options", "i"));
-		FindIterable<Document>  listUser = Model.USER.find(regexQuery);
+		FindIterable<User>  listUser = Model.USER.find(regexQuery);
 		
-		Iterator<Document> list = listUser.iterator();
-	
-		int i=0;
+		Iterator<User> list = listUser.iterator();
 		while(list.hasNext())
 		{
-			lUser.add(User.Doc2User(list.next()));	
-			i+=1;
+			lUser.add(list.next());	
 		}
-		System.out.println(i);;
 		return lUser;
 	}
 	
-	
-	public static Post ConverseToPost(Document Obj)
-	{	
-		//doc.getInteger("points"), 
-		Post p = new Post();
-		
-		if(Obj.get("status")!=null)
-			p.setStatus((String) Obj.get("status"));
-		
-		if(Obj.get("content")!=null)
-			p.setContent((String) Obj.get("content"));
-		
-		if(Obj.get("title")!=null)
-			p.setTitle((String) Obj.get("title"));
-		
-		if(Obj.get("category")!=null)
-			p.setCategory((String) Obj.get("category"));
-		
-		p.setID(Obj.getInteger("id"));
-		
-		if(Obj.get("thumbnail_url")!=null)
-			p.setThumbnail_url((String) Obj.get("thumbnail_url"));
-		
-		
-		if(Obj.get("published_at")!=null)
-			p.setPublished_at(Obj.get("published_at").toString());
-		
-		if(Obj.get("updated_at")!=null)
-			p.setUpdated_at(Obj.get("updated_at").toString());
-		
-		if(Obj.get("is_public")!=null)
-			p.setIs_public(Obj.getBoolean("is_public"));
-		
-	
-		if(Obj.get("views_count")!=null)
-			p.setViews_count(Integer.parseInt(Obj.get("views_count").toString()));
-		
-
-		if(Obj.get("user_id")!=null)
-			p.setUser_id((Obj.getInteger("user_id")));	 
-		
-		
+	{
+//	public  String getNameUser()
+//	{
+//		User user = User.GetUserByUserID(this.author);
+//		String name = "name author";
 //		
-		return p;
+//		try
+//		{if(user.getFullname() != null)
+//			name = user.getFullname();
+//		}
+//		catch(NullPointerException x)
+//		{
+//			name = "name author";
+//		}
+//		
+//		return name;
+//	}
 	}
 	
-	public  String getNameUser()
+	public String getUsername()
 	{
-		Document user = User.GetUserDocumentByUserID(this.user_id);
-		String name = "name author";
-		
-		try
-		{if(user.getString("fullname")!= null)
-			name = user.getString("fullname");
-		}
-		catch(NullPointerException x)
-		{
-			name = "name author";
-		}
-		
-		return name;
-	}
-	
-	public  String getUsername()
-	{
-		
-		Document account = Account.getDocumentAccountByUserId(this.user_id);
-		String username = "username";
-		
-		try
-		{if(account.getString("username")!= null)
-			username = account.getString("username");
-		}
-		catch(NullPointerException x)
-		{
-			username = "username";
-		}
-		
-		return username;
+		if (this.getAuthor() != null)
+			return this.getAuthor().getUsername();
+		return null;
 	}
 	
 	public String getShortContent()
@@ -721,15 +462,16 @@ public class Post extends Model {
 		return (this.getContent().substring(0, 150) + "...");
 		
 	}
-
-	public int getCommentCount()
+	
+	public int getClips_count()
 	{
-		return Comment.getCommentByIdPost(this.getID()).size();
-		
+		return this.getClips().size();
 	}
 	
-	public long getClips_count()
+	public ObjectId getAuthorID()
 	{
-		return 0;// this.getClips().size();
+		if (this.getAuthor()!=null)
+			return this.getAuthor().getId();
+		return null;
 	}
 }

@@ -1,11 +1,12 @@
 package controller;
 
 import model.Account;
-import model.Authenticator;
+import model.Authentication;
 import model.Model;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.model.Filters;
 
@@ -29,23 +30,22 @@ public class loginController extends HttpServlet {
 		super();
 	}
 
-	// Kiểm tra đăng nhập và trả lại thông tin user
-	public int Login(String username, String password) {
-		Document doc = Model.ACCOUNT.find(Filters.eq("username", username)).first();
-		if (doc != null) {
+	// Kiểm tra đăng nhập và trả lại account_id nếu đăng nhập thành công
+	public ObjectId Login(String username, String password) {
+		Account acc = Model.ACCOUNT.find(Filters.eq("username", username)).first();
+		if (acc != null) {
 			
-			String _password_ = doc.getString("password");
+			String _password_ = acc.getPassword();
 			String hashed_password = DigestUtils.sha256Hex(password);
 			System.out.print(hashed_password +" AND " +_password_ );
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
-				int userID = doc.getInteger("user_id");
-				return userID;
+				return acc.getId();
 			}
-			else
-				return -1;
-		} return -1;
+			else return null;
+		} 
+		return null;
 	}
 
 	protected void process(HttpServletRequest request, HttpServletResponse response)
@@ -60,13 +60,13 @@ public class loginController extends HttpServlet {
 		
 		if (username==null || password == null)
 		{
-			String url = "login/login.jsp";
+			String url = getServletContext().getContextPath() + "/login/login.jsp";
 			response.sendRedirect(url);
 			return;
 		}
 		
-		int userID = Login(username, password);
-		if ( userID >= 0) {
+		ObjectId account_id = Login(username, password);
+		if ( account_id != null) {
 			//Lưu cookie
 			String selector = RandomStringUtils.randomAlphanumeric(12);
 			String rawValidator = RandomStringUtils.randomAlphanumeric(64);
@@ -94,14 +94,18 @@ public class loginController extends HttpServlet {
 			response.addCookie(cookieSelector);
 			response.addCookie(cookieValidator);
 			
-			System.out.print(cookieSelector.getValue() +"validator " +cookieValidator.getValue());
+			Authentication auth = new Authentication(account_id, selector, hashedValidator);
+			auth.Update();
 			
-			Authenticator.Update(userID, selector, hashedValidator);
-			
-			User user = User.GetUserByUserID(userID);
-			Account account = Account.GetAccountByUserID(userID);
+			Account account = Account.GetAccountByID(account_id);
 			
 			String url = request.getContextPath() + "/home";
+			
+			session.setAttribute("is_logged", true); 
+			if (account.getUser_type().equals("ADMIN"))
+				url = request.getContextPath() + "/admin/all-users";
+			else if (account.getUser_type().equals("MOD"))
+				url = request.getContextPath() + "/mod/all-categories";;
 			response.sendRedirect(url);
 		} else {
 			String url = "login/login.jsp";
@@ -109,18 +113,15 @@ public class loginController extends HttpServlet {
 		}	
 	}
 
-	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			process(request, response);
 		} catch (NoSuchAlgorithmException | ServletException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

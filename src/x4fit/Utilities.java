@@ -88,8 +88,7 @@ public class Utilities {
 
 	public static String GetCurrentDateTime() {
 		LocalDateTime currentDateTime = java.time.LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-		return currentDateTime.format(formatter);
+		return currentDateTime.toString().replace("T", " ");
 	}
 
 	public static String GetHash() {

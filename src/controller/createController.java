@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.bson.types.ObjectId;
+
 @WebServlet("/create")
 public class createController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +37,7 @@ public class createController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String selector = (String) session.getAttribute("selector");
 		String validator = (String) session.getAttribute("validator");
-		int user_id = Model.Authenticator(selector, validator);
+		ObjectId user_id = Model.Authenticator(selector, validator);
 		//is_public
 		boolean is_public = request.getParameter("is_public") != null;
 		//category
@@ -47,12 +49,9 @@ public class createController extends HttpServlet {
 		
 		//Tạo đối tượng postController
 		Post post = new Post(title, user_id, content, is_public, thumbnail_url, category);
-		
+		post.Insert();
 		//p
-		String p = post.getURL();
-		
-		Post.Insert(post);
-;		
+		String p = post.getUrl();
 		String url = "/post";
 		response.sendRedirect(request.getContextPath() + url + "?p=" + p);
 	}

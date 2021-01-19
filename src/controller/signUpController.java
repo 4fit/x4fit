@@ -35,14 +35,15 @@ public class signUpController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		int user_id;
+		ObjectId account_id;
 
 		if (request.getParameter("userCurrentAction") != null) {
 			if (request.getParameter("userCurrentAction").equals("btn")) {
-				user_id = (int) session.getAttribute("userID");
+				account_id = new ObjectId((String)session.getAttribute("account_id"));
 				String code = request.getParameter("code");
-				if (isUserCode(user_id, code)) {
-					User.updateStatus(user_id);
+				if (isUserCode(account_id, code)) {
+					//TODO
+					User.updateUserStatusByAccountID(account_id, "ACTIVE");
 					url = "/login/login.jsp";
 				} else {
 
@@ -91,9 +92,9 @@ public class signUpController extends HttpServlet {
 				Account.createNewAccount(username, hashedPassword, email, fullname);
 
 				if (Account.checkExitUsername(username)) {
-					user_id = Account.getAccountByUsername(username).getInteger("user_id");
+					account_id = Account.GetAccountByUsername(username).getId();
 					url = "/login/confirm.jsp";
-					session.setAttribute("userID", user_id);
+					session.setAttribute("account_id", account_id);
 					sendmail(email, fullname, hashedPassword);
 				} else
 					url = "/login/signup.jsp";
@@ -104,9 +105,9 @@ public class signUpController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	public boolean isUserCode(int user_id, String code) {
-		Document doc = Account.getDocumentAccountByUserId(user_id);
-		if (code.equals(doc.getString("password").substring(0, 5)))
+	public boolean isUserCode(ObjectId account_id, String code) {
+		String password = Account.GetAccountByID(account_id).getPassword();
+		if (code.equals(password.substring(0, 5)))
 			return true;
 		return false;
 	}
@@ -121,13 +122,8 @@ public class signUpController extends HttpServlet {
 		boolean isBodyHTML = false;
 
 		try {
-
 			Utilities.sendMail(from, pass, email, subject, body, isBodyHTML);
-
-			System.out.println("sSend ddc mail");
-
 		} catch (MessagingException e) {
-			System.out.println("Khong send ddc mail");
 			System.out.println(e);
 		}
 
@@ -142,7 +138,6 @@ public class signUpController extends HttpServlet {
 		try {
 			process(request, response);
 		} catch (NoSuchAlgorithmException | ServletException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

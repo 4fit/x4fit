@@ -12,16 +12,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
-import org.bson.Document;
+import org.bson.types.ObjectId;
 
-import model.Gallery;
-import model.Model;
 import model.User;
 
 @WebServlet("/upload")
@@ -73,10 +69,9 @@ public class uploadController extends HttpServlet {
 		if (formItems != null && formItems.size() > 0) {
 			//Lấy userID
 			Cookie[] cookie = request.getCookies();
-			int userID = User.GetUserIDFromCookies(cookie);
+			ObjectId userID = User.GetAccountIdFromCookies(cookie);
 			// iterates over form's fields
 			for (FileItem item : formItems) {
-				int id = Model.getLastestID(Model.GALLERY) + 1;
 				// processes only fields that are not form fields
 				if (!item.isFormField()) {
 					String fileName = new File(item.getName()).getName();
@@ -91,8 +86,7 @@ public class uploadController extends HttpServlet {
 						e.printStackTrace();
 					}
 					
-					Gallery.InsertImage(id, fileName, userID, fileName);
-					id += 1;
+					User.InsertImage(userID, fileName);
 				}
 			}
 		}

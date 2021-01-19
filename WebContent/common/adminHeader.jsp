@@ -16,12 +16,12 @@
                       <span>USER</span> 
                   </a>
               </li>
-              <li id="report">
-                  <a id="a3" href="${pageContext.request.contextPath}/admin/all-reports">
-                      <i class="fa fa-book" aria-hidden="true"></i>
-                      <span>REPORT</span> 
-                  </a>
-              </li>
+<!--               <li id="report"> -->
+<%--                   <a id="a3" href="${pageContext.request.contextPath}/admin/all-reports"> --%>
+<!--                       <i class="fa fa-book" aria-hidden="true"></i> -->
+<!--                       <span>REPORT</span>  -->
+<!--                   </a> -->
+<!--               </li> -->
           </ul>
       </div>
 
@@ -36,13 +36,13 @@
                   <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-5">
                       <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span><img class="avata" src=""></span>
-                            Văn Cụi
+                            <span><img class="avata" src="https://global-uploads.webflow.com/5ef5480befd392489dacf544/5f9f5e5943de7e69a1339242_5f44a7398c0cdf460857e744_img-image.jpeg"></span>
+                            Nguyen Huynh Minh Tien
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Setting</a>
+<!--                             <a class="dropdown-item" href="#">Setting</a> -->
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
                           </div>
                         </li>
                   </ul>

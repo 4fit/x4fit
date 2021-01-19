@@ -68,7 +68,7 @@ public class profileController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("following", user.getFollowingUser(user1));
+		request.setAttribute("following", user.getListFollowing(user1));
 		
 		
 	}	
@@ -78,7 +78,7 @@ public class profileController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("follower", user.getFollowerUser(user1));
+		request.setAttribute("follower", user.getListFollower(user1));
 		
 		
 	}	
@@ -90,7 +90,7 @@ public class profileController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 			// System.out.print(user.getEmail()+ user.getId());
-		List<Post> posts = post.readAllPersonalPost(user1.getUserID());
+		List<Post> posts = Post.GetAllPostByUserID(user1.getId());
 		request.setAttribute("listpost", posts);
 	}
 	
@@ -128,12 +128,14 @@ public class profileController extends HttpServlet {
 		}
 		else
 		{
-			User a= User.getUserByUsername(username);
-			if(a!=null && a.getUserID()!=currentuser.getUserID() )
+			User user= User.GetUserByUsername(username);
+			if(user!=null)
 			{
-				valid=false;
-				request.setAttribute("usernameError","This username is exists!");
-
+				if (user.getId()!=currentuser.getId() )
+				{
+					valid=false;
+					request.setAttribute("usernameError","This username is exists!");
+				}
 			}
 			else
 				request.setAttribute("usernameError","");
@@ -194,10 +196,10 @@ public class profileController extends HttpServlet {
 			System.out.print(changeAccount);
 			if(changeAccount==false)
 			{
-				return user.updateInforUser(currentuser.getUserID(), fullname, email, username, "");
+				return user.updateInforUser(currentuser.getId(), fullname, email, username, "");
 			}
 			else
-			 	return user.updateInforUser(currentuser.getUserID(), fullname, email, username, newpass);
+			 	return user.updateInforUser(currentuser.getId(), fullname, email, username, newpass);
 		}
 		
 		return false;
@@ -212,8 +214,8 @@ public class profileController extends HttpServlet {
 	
 	public void showProfile( HttpServletRequest request, User user)
 	{
-		Account a= Account.GetAccountByUserID(user.getUserID());
-	   request.setAttribute("acc", a);
+		Account acc= Account.GetAccountByID(user.getAccount_id());
+	    request.setAttribute("acc", acc);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -232,7 +234,7 @@ public class profileController extends HttpServlet {
 							
 						showProfile( request, usercurrent);
 						getListPost(usercurrent,request, response);
-						getListBookmark(usercurrent, request, response);
+						//getListBookmark(usercurrent, request, response);
 						
 						getFollowingUser(usercurrent, request, response);
 						getFollowerUser(usercurrent,request, response);

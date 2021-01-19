@@ -27,14 +27,12 @@ public class postController extends HttpServlet {
 
     private void GetAllComments(Post post)
     {
-    	listCmts = new ArrayList<Comment>();
     	listCmts = post.GetAllComments();
     	if (listCmts.size() == 0)
     		return;
     	listUserCmt = new ArrayList<User>();
     	for (Comment comment : listCmts) {
-			User user = User.GetUserByUserID(comment.getUserID());
-			listUserCmt.add(user);
+			listUserCmt.add(comment.GetUser());
 		}
     }
     
@@ -49,17 +47,11 @@ public class postController extends HttpServlet {
 		if (post != null)
 		{
 			GetAllComments(post);
-			boolean is_author = post.getUser_id() == User.GetUserIDFromCookies(request.getCookies());
-			
-			request.setAttribute("title", post.getTitle());
-			request.setAttribute("content", post.getContent());
-			request.setAttribute("category", post.getCategory());
-			request.setAttribute("points", post.getPoints());
-			request.setAttribute("url", p);
+			boolean is_author = post.getAuthorID() == User.GetAccountIdFromCookies(request.getCookies());
+			request.setAttribute("post", post);
 			request.setAttribute("comments", listCmts);
 			request.setAttribute("listUserCmt", listUserCmt);
-			request.setAttribute("postID", post.getID());
-			request.setAttribute("views_count", post.getViews_count());
+			request.setAttribute("postID", post.getId().toHexString());
 			request.setAttribute("is_author", is_author);
 			
 			String url = "/posts/post.jsp";

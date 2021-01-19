@@ -53,7 +53,7 @@ public class forgotPassword extends HttpServlet {
         		
         		Utilities.sendMail(from,pass, email,  subject, body, isBodyHTML);
         		String hashedPassword = DigestUtils.sha256Hex(newPass);
-        		Account.updateNewPass(hashedPassword, username);
+        		Account.updateNewPassword(hashedPassword, username);
         		System.out.println("sSend ddc mail");
         		url = "/login/login.jsp";
         	}catch(MessagingException e)

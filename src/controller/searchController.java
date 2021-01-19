@@ -60,7 +60,7 @@ public class searchController extends HttpServlet {
     	
     	List<Post> listPost = new ArrayList<Post>();
 
-    	listPost = Post.searchPost(textSearch);
+    	listPost = Post.SearchPost(textSearch);
     	return listPost;
     }
 

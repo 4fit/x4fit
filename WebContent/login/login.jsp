@@ -59,7 +59,7 @@ a{
 }
 
 .btn-signup{
-    color: #3229d8;
+    
     text-align: center;
     margin-top: 50px;
 }
@@ -183,7 +183,6 @@ a:hover{
 	border-radius: 25px;
 	outline: none;
 	border: none;
-	background-image: linear-gradient(to right, #625bff, #625bff, #625bff);
 	background-size: 200%;
 	font-size: 1.2rem;
 	color: #fff;
@@ -192,6 +191,7 @@ a:hover{
 	margin: 1rem 0;
 	cursor: pointer;
 	transition: .5s;
+	text-align: center;
 }
 .btn:hover{
 	background-position: right;
@@ -271,12 +271,14 @@ a:hover{
 								placeholder="password" name="password">
 						</div>
 					</div>
+					<input type="submit" class="btn btn-primary" value="login"> 
+					<a class="btn btn-secondary" href="forgot.jsp"> Forgot password/username ?</a> 
 					
-					<a href="forgot.jsp"> Forgot password/username ?</a> <input
-						type="submit" class="btn" value="login"> <a
-						href="signup.jsp" class="btn-signup">Sign up</a>
+					<a class="btn btn-danger" href="signup.jsp" class="btn-signup">Sign up</a>
+					
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/home">Về HOME</a>
 				</form>
-
+				
 			</div>
 		</div>
 	</div>

@@ -11,21 +11,20 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
 public class Account extends Model {
-
+	protected ObjectId id;
 	protected String username;
 	protected String password;
 	protected String email;
 	protected String user_type;
-	protected int userID;
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
 	
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
 	public String getUser_type() {
 		return user_type;
 	}
@@ -67,122 +66,86 @@ public class Account extends Model {
 		this.setPassword(password);
 		this.setEmail(email);
 		this.setUser_type(user_type);
-		this.setUserID(getLastestID("USER") + 1);
 	}
 
 	public Account(String username, String password, String email) {
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setUser_type("USER");
-		this.setUserID(getLastestID("USER") + 1);
-	}
-	
-	public Account(int userID, String password, String user_type, String email , String username)
-	{
-		this.setUserID(userID);
-		this.setUser_type(user_type);
-		this.setPassword(password);
-		this.setEmail(email);
-		this.setUsername(username);
-	}
-	
-	public static Account Doc2Account(Document doc)
-	{
-		return new Account(doc.getInteger("user_id"),
-						   doc.getString("password"),
-						   doc.getString("user_type"),
-						   doc.getString("email"),
-						   doc.getString("username"));
-	}
-	
-	public static Account GetAccountByUserID(int userID)
-	{
-		Document doc = ACCOUNT.find(Filters.eq("user_id", userID)).first();
-		if (doc == null)
-			return null;
-		return Doc2Account(doc);
 	}
 	
 	public static void createNewAccount(String username, String password, String email, String fullname)
 	{
-		Document doc = new Document("_id", new ObjectId());
-		int user_id = getLastestID(USER) + 1;
-		doc.append("id", getLastestID(ACCOUNT) + 1);
-		doc.append("user_id", user_id);
-		doc.append("username", username);
-		doc.append("password", password);
-		doc.append("email", email);
-		doc.append("user_type", "USER");
-
-		Model.Insert(doc, "ACCOUNT");
-		
-		User.createUserByID(user_id, fullname);
+		Account user_acc = new Account(username, password, email);
+		user_acc.Insert();
+		ObjectId account_id = ACCOUNT.find(
+				Filters.and(
+						Filters.eq("username",username), 
+						Filters.eq("email", email))
+				).first().getId();
+		User user = new User(fullname, account_id, username);
+		user.Insert();
 	}
 	
 	public static void createNewMod(String username, String password, String email, String fullname)
 	{
-		Document doc = new Document("_id", new ObjectId());
-		int user_id = getLastestID(USER) + 1;
-		doc.append("id", getLastestID(ACCOUNT) + 1);
-		doc.append("user_id", user_id);
-		doc.append("username", username);
-		doc.append("password", password);
-		doc.append("email", email);
-		doc.append("user_type", "MOD");
-
-		Model.Insert(doc, "ACCOUNT");
+		Account mod = new Account(username, password, email, "MOD");
+		mod.Insert();
 		
-		Document docUser = new Document("_id", new ObjectId());
-		docUser.append("id", user_id);
-		docUser.append("fullname", fullname);
-		docUser.append("status", "ACTIVE");
-		Model.Insert(docUser, "USER");
+		ObjectId account_id = ACCOUNT.find(
+				Filters.and(
+						Filters.eq("username",username), 
+						Filters.eq("email", email))
+				).first().getId();
+		User user = new User(fullname, account_id, username);
+		user.Insert();
 	}
 	
 	public static boolean checkExitUsername(String username)
 	{
-		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("username", username));
-		Iterator<Document> it = cursor.iterator();
-		if (it.hasNext()) {
-			return true;
-		}
-		return false;
+		Account acc = ACCOUNT.find(Filters.eq("username", username)).first();
+		if (acc==null) return false;
+		return true;
 	}
 	
-	public static Document getAccountByUsername(String username)
+	public static Account GetAccountByUsername(String username)
 	{
-		return ACCOUNT.find(Filters.eq("username", username)).first();
-		
+		return ACCOUNT.find(Filters.eq("username", username)).first();	
 	}
 	
+	public static Account GetAccountByEmail(String email)
+	{
+		return ACCOUNT.find(Filters.eq("email", email)).first();	
+	}
+	
+	public static Account GetAccountByID(ObjectId id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", id)).first();
+	}
 	
 	public static boolean checkExitEmail(String email)
 	{
-		FindIterable<Document> cursor = ACCOUNT.find(Filters.eq("email", email));
-		Iterator<Document> it = cursor.iterator();
-		if (it.hasNext()) {
-			return true;
-		}
-		return false;
+		Account acc = ACCOUNT.find(Filters.eq("email", email)).first();
+		if (acc==null) return false;
+		return true;
 	}
 	
-	public static Document getDocumentAccountByUserId(int user_id)
 	{
-		Document cursor = ACCOUNT.find(Filters.eq("user_id", user_id)).first();
-		return cursor;
-		
+//	public static Document getDocumentAccountByUserId(int user_id)
+//	{
+//		Document cursor = ACCOUNT.find(Filters.eq("user_id", user_id)).first();
+//		return cursor;
+//		
+//	}
 	}
 	
-	public static void updateNewPass(String newPass, String username) {
-		BasicDBObject query = new BasicDBObject();
-		query.put("username", username);
-
-		BasicDBObject newPassDoc = new BasicDBObject();
-		newPassDoc.put("password", newPass);
-
-		BasicDBObject updateObject = new BasicDBObject();
-		updateObject.put("$set", newPassDoc);
-
-		ACCOUNT.updateOne(query, updateObject);
+	public static void updateNewPassword(String newPassword, String username) 
+	{
+		ACCOUNT.updateOne(Filters.eq("username", username), Updates.set("password", newPassword));
+	}
+	
+	public void Insert()
+	{
+		ACCOUNT.insertOne(this);
 	}
 }

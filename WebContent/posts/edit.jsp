@@ -60,7 +60,7 @@
 </head>
 <body>
 	<jsp:include page="../navbar.jsp"></jsp:include>
-	
+	<% boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");%>
 	<div class="container">
 		<h3 align="center">CHỈNH SỬA BÀI VIẾT</h3>
 		<form action="${pageContext.request.contextPath}/save?p=${p}" method="post">

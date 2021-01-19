@@ -5,11 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 
 public class UserAccount extends Model {
-	protected int userID;
+	protected ObjectId userID;
 	protected String username;
 	protected String email;
 	protected String user_type;
@@ -18,32 +19,71 @@ public class UserAccount extends Model {
 	protected String url;
 	protected String status;
 	
-	public int getUserID() {
+	public ObjectId getUserID() {
 		return userID;
 	}
+
+	public void setUserID(ObjectId userID) {
+		this.userID = userID;
+	}
+
 	public String getUsername() {
 		return username;
 	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getEmail() {
 		return email;
 	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getUser_type() {
 		return user_type;
 	}
+
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
+	}
+
 	public String getFullname() {
 		return fullname;
 	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
 	public String getAvatar() {
 		return avatar;
 	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public String getUrl() {
 		return url;
 	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public String getStatus() {
 		return status;
 	}
-	
-	public UserAccount(int userID, String username, String email, String user_type, String fullname,
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public UserAccount(ObjectId userID, String username, String email, String user_type, String fullname,
 			String avatar, String url, String status) {
 		super();
 		this.userID = userID;
@@ -61,10 +101,16 @@ public class UserAccount extends Model {
 		ArrayList<UserAccount> data = new ArrayList<UserAccount>();
 		for (int i = 0; i < allUserList.size(); i++) {
 			User user = allUserList.get(i);
-			Account account = Account.GetAccountByUserID(user.getUserID());
-			UserAccount userAccount = new UserAccount(user.getUserID(), account.getUsername(), 
-					account.getEmail(), account.getUser_type(), user.getFullname(), 
-					user.getAvatar(), user.getUrl(), user.getStatus());
+			Account account = Account.GetAccountByID(user.getAccount_id());
+			UserAccount userAccount = new UserAccount(
+					user.getId(),
+					account.getUsername(), 
+					account.getEmail(), 
+					account.getUser_type(), 
+					user.getFullname(), 
+					user.getAvatar(), 
+					user.getUrl(), 
+					user.getStatus());
 			data.add(userAccount);
 		}
 		return data;

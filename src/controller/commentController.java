@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.bson.types.ObjectId;
+
 @WebServlet("/comment")
 public class commentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,8 +27,8 @@ public class commentController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		int postID = Integer.parseInt((String)request.getParameter("postID"));
-		int userID = User.GetUserIDFromCookies(request.getCookies());
+		ObjectId postID = new ObjectId(request.getParameter("postID"));
+		ObjectId userID = User.GetAccountIdFromCookies(request.getCookies());
 		
 		String p = request.getParameter("url");
 		String content = request.getParameter("comment");
@@ -34,12 +36,6 @@ public class commentController extends HttpServlet {
 		cmt.Insert();
 		
 		String url = "post?p=" + p;
-//    	 RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
-//	       
-// 		dispatcher.forward(request, response);
-
-//    	String url = "/detailController";
-//		response.sendRedirect(request.getContextPath() + url);
 		response.sendRedirect(url);
 
 	}

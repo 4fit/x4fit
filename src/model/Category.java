@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -17,7 +18,7 @@ import x4fit.Utilities;
 
 public class Category extends Model 
 {
-	private int id;
+	private ObjectId id;
 	private String name;
 	private String description;
 	private String shortDes;
@@ -31,10 +32,10 @@ public class Category extends Model
 		this.shortDes = shortDes;
 	}
 	
-	public int getId() {
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -62,8 +63,9 @@ public class Category extends Model
 		this.url = url;
 	}
 	
+	public Category() {}
+	
 	public Category(String name, String description) {
-		this.id = Model.getLastestID(CATEGORY) + 1;
 		this.name = name;
 		this.description = description;
 		this.shortDes = description;
@@ -71,9 +73,10 @@ public class Category extends Model
 			this.shortDes = description.substring(0, 90) + "..." ;
 		}
 		this.count_post = 0;
+		this.url = Utilities.createURL(name);
 	}
 	
-	public Category(int id, String name, String description, String shortDes, int count_post, String url) {
+	public Category(ObjectId id, String name, String description, String shortDes, int count_post, String url) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -83,47 +86,26 @@ public class Category extends Model
 		this.url = url;
 	}
 	
-	public static Category Doc2Category(Document doc)
-	{
-		if (doc == null)
-			return null;
-		return new Category(
-				doc.getInteger("id"), 
-				doc.getString("name"), 
-				doc.getString("description"),
-				doc.getString("shortDes"),
-				doc.getInteger("count_post"),
-				doc.getString("url"));
-	}
-	
 	public static List<Category> getAllCategories() {
-		FindIterable<Document> cursor = CATEGORY.find();
-		Iterator<Document> it = cursor.iterator();
+		FindIterable<Category> cursor = CATEGORY.find();
+		Iterator<Category> it = cursor.iterator();
 		ArrayList<Category> listCategories = new ArrayList<Category>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
-				Document doc = it.next();
-				Category category = Category.Doc2Category(doc);
+				Category category = it.next();
 				listCategories.add(category);
 			}
 		}
 		return listCategories;
 	}
 	
-	public static void Insert(Category category) {
-		Insert(category.getId(), category.getName(), category.getDescription(), category.getShortDes());
+	public void Insert() {
+	 	CATEGORY.insertOne(this);
 	}
 	
-	
-	public static void Insert(int id, String name, String description, String shortDescription) {
-		String url = Utilities.createURL(name);
-		Document doc = new Document("id", id)
-							.append("name", name)
-							.append("description", description)
-							.append("shortDes", shortDescription)
-							.append("count_post", 0)
-							.append("url", url);
-		Insert(doc, CATEGORY);				
+	public static void Insert(String name, String description) {
+		Category cat = new Category(name, description);
+		CATEGORY.insertOne(cat);			
 	}
 	
 	public static String Update(String url, String oldName, String newName, String description) {
@@ -155,12 +137,8 @@ public class Category extends Model
 	
 	public static boolean existCategory(String categoryName) {
 		try {
-			FindIterable<Document> cursor = CATEGORY.find(Filters.eq("name", categoryName));
-			Iterator<Document> it = cursor.iterator();
-			if (it.hasNext()) {
-				System.out.println("Category exist!");
-				return true;
-			}
+			Category cat = CATEGORY.find(Filters.eq("name", categoryName)).first();
+			if (cat==null) return false;
 			return false;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -170,13 +148,12 @@ public class Category extends Model
 	}
 	
 	public static List<Category> search(String query) {
-		FindIterable<Document> cursor = CATEGORY.find();
-		Iterator<Document> it = cursor.iterator();
+		FindIterable<Category> cursor = CATEGORY.find();
+		Iterator<Category> it = cursor.iterator();
 		ArrayList<Category> listCategories = new ArrayList<Category>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
-				Document doc = it.next();
-				Category category = Category.Doc2Category(doc);
+				Category category = it.next();
 				if (String.valueOf(category.getId()).equals(query)
 						|| category.getName().equals(query)
 						|| category.getDescription().equals(query)

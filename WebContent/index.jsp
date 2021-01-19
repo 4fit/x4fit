@@ -66,19 +66,6 @@
 
 			<div id="Bookmarks" class="tabcontent">
 				<div class="jumbotron jumbotron-fluid">
-<!-- 					<div class="btn-group dropdown"> -->
-<!-- 						<button type="button" class="btn">Sort by:</button> -->
-<!-- 						<label class="sorttype"> Publish date</label> -->
-<!-- 						<button type="button" class="btn dropdown-toggle dropdown-toggle-split" -->
-<!-- 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!-- 							<span class="sr-only">Toggle Dropdown</span> -->
-<!-- 						</button> -->
-<!-- 						<div class="dropdown-menu"> -->
-<!-- 							<a class="dropdown-item" href="#">Publish date</a> <a -->
-<!-- 								class="dropdown-item" href="#">Clip date</a> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-					
 					<c:forEach var="p" items="${topPosts}" begin="0" end="${topPosts.size()}" varStatus="loop">
 						<div class="card bg-light" style="margin-top: 1.5em; margin-bottom: 1.5em; ">
 						  <h6 class="card-header" style="padding: 0.5rem 1.25rem;">
@@ -93,7 +80,7 @@
 							</h6>
 						  <div class="card-body">
 						    <h3 class="card-title">
-						    	<a href="${pageContext.request.contextPath}/post?p=${p.getURL()}">
+						    	<a href="${pageContext.request.contextPath}/post?p=${p.getUrl()}">
 								 			${p.getTitle() }
 									</a>
 									<br>
@@ -108,13 +95,13 @@
 									</span> 
 									<span class="viewtag t"> 
 										<i class="far fa-comment"></i>
-										<label class="view"> ${p.getCommentsCount()}</label>
+										<label class="view"> ${p.getComments_Count()}</label>
 									</span>
 									<a class="badge badge-info" style="margin-left: 20px;" href="#">${p.getCategory() }</a>
 									</h6>
 						    </h3>
 						    <p class="card-text">${p.getShortContent()}...</p>
-						    <a href="${pageContext.request.contextPath}/post?p=${p.getURL()}" 
+						    <a href="${pageContext.request.contextPath}/post?p=${p.getUrl()}" 
 						    		class="btn btn-primary">Đọc tiếp...</a>
 						  </div>
 						</div>

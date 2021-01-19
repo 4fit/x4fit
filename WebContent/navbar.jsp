@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,38 +38,48 @@
 					  </div>
 					</form>			
 				</div>
-				<button class="btn btn-primary mt-1" type="button">
-					<i class="fas fa-bell"></i>
-				</button>
+<!-- 				<button class="btn btn-primary mt-1" type="button"> -->
+<!-- 					<i class="fas fa-bell"></i> -->
+<!-- 				</button> -->
+				<c:if test="${is_logged == true}">
 				<a href="${pageContext.request.contextPath}/posts/create.jsp">
 					<button class="btn btn-secondary mt-1" type="button">
 						<i class="fas fa-edit"></i>
 					</button>
 				</a>
+				</c:if>
 	
 			</div>
 		</div>
-		<button type="button" class="btn dropdown-toggle"
-			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<img class="img-profile"
-				src="${pageContext.request.contextPath}/images/avt.png" alt="">
-		</button>
-		<div class="dropdown-menu dropdown-menu-right ">
-			<div class="dropdown-item profile-popup">
+		
+		<c:if test="${is_logged == true}">
+			<button type="button" class="btn dropdown-toggle"
+				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="img-profile"
-					src="${pageContext.request.contextPath}/images/${user.getAvatar()}" alt="">
-				<div class="info-popup">
-					<h5 class="name-info">${user.getFullname() }</h5>
-					<button class="btn btn-primary btn-edit" type="button">Edit</button>
-	
+					src="${pageContext.request.contextPath}/images/avt.png" alt="">
+			</button>
+			
+			<div class="dropdown-menu dropdown-menu-right ">
+				<div class="dropdown-item profile-popup">
+					<img class="img-profile"
+						src="${pageContext.request.contextPath}/images/${user.getAvatar()}" alt="">
+					<div class="info-popup">
+						<h5 class="name-info">${user.getFullname() }</h5>
+						<a href="${pageContext.request.contextPath}/profile" class="btn btn-primary btn-edit" type="button">Edit</a>
+					</div>
 				</div>
-			</div>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">Profile</a> <a
-				class="dropdown-item" href="#">My content</a>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">Sign out</a>
-		</div>
+				<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/profile">Profile</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Sign out</a>
+				</div>
+		</c:if>
+		<c:if test="${is_logged==false }">
+				<div style="width: 5vw;">
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/login">
+					LOGIN</a>
+				</div>
+		</c:if>
 	</nav>
 	 <script>
         function openPage(nampage, element) {
