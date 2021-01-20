@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.bson.types.ObjectId;
 
 import model.Category;
+import model.Model;
 import model.Post;
+import x4fit.Utilities;
 
 @WebServlet(urlPatterns = {
 		"/mod/all-posts", 

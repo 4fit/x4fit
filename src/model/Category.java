@@ -135,16 +135,16 @@ public final class Category extends Model
 	}
 	
 	public static List<Category> search(String query) {
+		query = query.toLowerCase();
 		FindIterable<Category> cursor = CATEGORY.find();
 		Iterator<Category> it = cursor.iterator();
 		ArrayList<Category> listCategories = new ArrayList<Category>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
 				Category category = it.next();
-				if (String.valueOf(category.getId()).equals(query)
-						|| category.getName().equals(query)
-						|| category.getDescription().equals(query)
-						|| String.valueOf(category.getCount_post()).equals(query)) {
+				if (category.getName().toLowerCase().indexOf(query) != -1
+						|| category.getDescription().toLowerCase().indexOf(query) != -1
+						|| String.valueOf(category.getCount_post()).indexOf(query) != -1) {
 					listCategories.add(category);
 				}
 			}

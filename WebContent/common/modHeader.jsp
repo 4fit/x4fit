@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <div class="row">
@@ -14,13 +15,13 @@
                     <li id="category">
                         <a id="a2" href="${pageContext.request.contextPath}/mod/all-categories">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
-                            <span>CATEGORY</span>
+                            <span>Thể loại</span>
                         </a>
                     </li>
                     <li id="post">
                         <a id="a3" href="${pageContext.request.contextPath}/mod/all-posts">
                             <i class="fa fa-book" aria-hidden="true"></i>
-                            <span>POSTS</span>
+                            <span>Bài viết</span>
                         </a>
                     </li>
                 </ul>

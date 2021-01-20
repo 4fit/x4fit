@@ -13,7 +13,7 @@
               <li id="user">
                   <a id="a2" href="${pageContext.request.contextPath}/admin/all-users">
                       <i class="fa fa-list-alt" aria-hidden="true"></i>
-                      <span>USER</span> 
+                      <span>Người dùng</span> 
                   </a>
               </li>
 <!--               <li id="report"> -->
@@ -49,3 +49,4 @@
               </div>
           </nav>
       </div>
+      

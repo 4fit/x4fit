@@ -1,8 +1,10 @@
 package model;
 
+import java.text.Normalizer;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
