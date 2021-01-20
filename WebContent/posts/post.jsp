@@ -101,6 +101,78 @@
 				<h1 align="center" style="margin: 20px;">
 					<b>${post.getTitle()}</b>
 				</h1>
+				<div class="mb-05">
+							<div class="d-sm-flex align-items-start mb-2">
+								<div class="post-author mb-2 mb-sm-0">
+									<div class="post-author__avatar">
+										<a class="d-flex mr-05" href="#" target="_blank">
+											<div class="d-inline-block avatar--lg">
+												<img
+													src="${pageContext.request.contextPath}/images/mainAboutMe.jpg"
+													alt="" class="avatar avatar--lg img-fluid">
+											</div>
+										</a>
+									</div>
+									<div class="post-author__info overflow-hidden mr-1">
+										<div class="d-flex">
+											<div class="overflow-hidden flex-fix mr-05">
+												<a class="text-bold post-author__name" href="#">${name_author}</a>
+												<span class="text-muted"> @<c:out
+														value="${username_author}"></c:out></span>
+											</div>
+											<form class="subscribe_follow"
+												action="${pageContext.request.contextPath}/detailPost"
+												method="post">
+												<button type="submit" class="following" value="follow"
+													name="userCurrentAction">
+													<span>Follow</span>
+												</button>
+											</form>
+										</div>
+										<div class="stats align-items-center">
+											<span class="stat-item text-muted" data-toggle="tooltip"
+												data-placement="bottom" title="Follower: 1"> <i
+												aria-hidden="true" class="stat-item__icon fa fa-user-plus"></i>
+												1
+											</span> <span class="stat-item text-muted" data-toggle="tooltip"
+												data-placement="bottom" title="Post: 1"> <i
+												aria-hidden="true" class="stat-item__icon fa fa-pencil"></i>
+												1
+											</span>
+										</div>
+									</div>
+
+								</div>
+								<div
+									class="post-meta d-flex flex-column flex-wrap align-items-sm-end">
+									<div class="text-muted">${post.getPublished_at()}</div>
+									<div class="d-flex align-items-center">
+										<div class="post-meta__item mr-1">
+											<button type="button" class=" button " data-toggle="tooltip"
+															data-placement="bottom" 
+															title="Views: ${post.getViews_count()}">
+												<i class="fa fa-eye"> </i> 
+												<span> ${post.getViews_count()} </span>
+											</button>
+										</div>
+										<div class="post-meta__item mr-1">
+											<button type="button" class=" button " data-toggle="tooltip"
+															data-placement="bottom" 
+															title="Comment:  ${post.getComments_Count()} ">
+												<i class="fa fa-comments"> </i> 
+												<span> ${post.getComments_Count()} </span>
+											</button>
+											<button type="button" class=" button " data-toggle="tooltip"
+															data-placement="bottom" title="Clip: ${post.getClips_count()}">
+												<i class="fa fa-paperclip"> </i> 
+												<span> ${post.getClips_count()} </span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
 				<textarea id="content" name="content">${post.getContent()}</textarea>
 				<br>
 <%-- 				<c:if test="${is_logged }"> --%>

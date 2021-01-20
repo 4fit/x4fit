@@ -10,7 +10,7 @@
 						<p class="about_x4fit">We share everything about infomation
 							technology</p>
 						<p>
-							<a style = "margin-top: 25px;" class="btn btn-primary" id = "btn-footer" href="../login/signup.jsp">Become A Member</a>
+							<a style = "margin-top: 25px;" class="btn btn-primary" id = "btn-footer" href="${pageContext.request.contextPath}/login/signup.jsp">Become A Member</a>
 						</p>
 					</div>
 

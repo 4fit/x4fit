@@ -108,95 +108,98 @@
 						    		class="btn btn-primary">Đọc tiếp...</a>
 						  </div>
 						</div>
-						
 					</c:forEach>
+					<div align="center">
+						<form action="${pageContext.request.contextPath}/home" method="post">
+							<input type="hidden" name="page" value="${page}">
+							<button type="submit" class="btn btn-secondary">XEM THÊM >>></button>
+						</form>
 				</div>
 			</div>
 		</div>
 
-		<!------------------------------Top AUTHORT---------------------------->
-		<div class="list-static col-lg-3 hidden-md-down float-right">
-			<ul class="list-group ">
-				<li class="label">
-					<h3>TOP AUTHORS</h3>
-				</li>
-				<li
-					class="list-group-item  d-flex justify-content-between align-items-center">
-					<div class="d-flex exhibition-item user ">
-						<a class="d-flex img-user-div" href="#"> 
-						<img alt="" 
-							class="avatar-user float-left"
-							src="${pageContext.request.contextPath}/images/avt.png">
-						</a>
-						<div class="user-info overflow-hidden">
-							<a class="username">Minh Hoàng</a>
-							<div class="user-icon">
-								<span class="viewtag t "> <i class="fas fa-user-plus"></i><label
-									class="view">16</label>
-								</span> <span class="viewtag t"> <i class="far fa-edit"></i><label
-									class="view">16</label>
-								</span>
-							</div>
-							<div class="follow">
-								<button class="btn btn-follow" type="button">Follow</button>
-							</div>
-						</div>
+<!-- 		<!------------------------------Top AUTHORT-------------------------- --> 
+<!-- 		<div class="list-static col-lg-3 hidden-md-down float-right"> -->
+<!-- 			<ul class="list-group "> -->
+<!-- 				<li class="label"> -->
+<!-- 					<h3>TOP AUTHORS</h3> -->
+<!-- 				</li> -->
+<!-- 				<li -->
+<!-- 					class="list-group-item  d-flex justify-content-between align-items-center"> -->
+<!-- 					<div class="d-flex exhibition-item user "> -->
+<!-- 						<a class="d-flex img-user-div" href="#">  -->
+<!-- 						<img alt=""  -->
+<!-- 							class="avatar-user float-left" -->
+<%-- 							src="${pageContext.request.contextPath}/images/avt.png"> --%>
+<!-- 						</a> -->
+<!-- 						<div class="user-info overflow-hidden"> -->
+<!-- 							<a class="username">Minh Hoàng</a> -->
+<!-- 							<div class="user-icon"> -->
+<!-- 								<span class="viewtag t "> <i class="fas fa-user-plus"></i><label -->
+<!-- 									class="view">16</label> -->
+<!-- 								</span> <span class="viewtag t"> <i class="far fa-edit"></i><label -->
+<!-- 									class="view">16</label> -->
+<!-- 								</span> -->
+<!-- 							</div> -->
+<!-- 							<div class="follow"> -->
+<!-- 								<button class="btn btn-follow" type="button">Follow</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
-					</div>
-				</li>
-				<li
-					class="list-group-item d-flex w-100 justify-content-between align-items-center">
+<!-- 					</div> -->
+<!-- 				</li> -->
+<!-- 				<li class="list-group-item d-flex w-100 justify-content-between align-items-center"> -->
+<!-- 					<div class="d-flex exhibition-item user mt-2"> -->
+<!-- 						<a class="d-flex img-user-div pt-1" href="#">  -->
+<!-- 						<img alt=""  -->
+<!-- 							class="avatar-user float-left" -->
+<%-- 							src="${pageContext.request.contextPath}/images/avt.png"> --%>
+<!-- 						</a> -->
+<!-- 						<div class="user-info overflow-hidden"> -->
+<!-- 							<a class="username">Minh Hoàng</a> -->
+<!-- 							<div class="user-icon"> -->
+<!-- 								<span class="viewtag t "> <i class="fas fa-user-plus"></i><label -->
+<!-- 									class="view">16</label> -->
+<!-- 								</span> <span class="viewtag t"> <i class="far fa-edit"></i><label -->
+<!-- 									class="view">16</label> -->
+<!-- 								</span> -->
+<!-- 							</div> -->
+<!-- 							<div class="follow"> -->
+<!-- 								<button class="btn btn-follow" type="button">Follow</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
-					<div class="d-flex exhibition-item user mt-2">
-						<a class="d-flex img-user-div pt-1" href="#"> 
-						<img alt="" 
-							class="avatar-user float-left"
-							src="${pageContext.request.contextPath}/images/avt.png">
-						</a>
-						<div class="user-info overflow-hidden">
-							<a class="username">Minh Hoàng</a>
-							<div class="user-icon">
-								<span class="viewtag t "> <i class="fas fa-user-plus"></i><label
-									class="view">16</label>
-								</span> <span class="viewtag t"> <i class="far fa-edit"></i><label
-									class="view">16</label>
-								</span>
-							</div>
-							<div class="follow">
-								<button class="btn btn-follow" type="button">Follow</button>
-							</div>
-						</div>
+<!-- 					</div> -->
+<!-- 				</li> -->
+<!-- 				<li -->
+<!-- 					class="list-group-item d-flex justify-content-between align-items-center"> -->
+<!-- 					<div class="d-flex exhibition-item user mt-2"> -->
+<!-- 						<a class="d-flex img-user-div pt-1" href="#">  -->
+<!-- 						<img alt="" -->
+<!-- 							class="avatar-user float-left" -->
+<%-- 							src="${pageContext.request.contextPath}/images/avt.png"> --%>
+<!-- 						</a> -->
+<!-- 						<div class="user-info overflow-hidden"> -->
+<!-- 							<a class="username">Minh Hoàng</a> -->
+<!-- 							<div class="user-icon"> -->
+<!-- 								<span class="viewtag t "> <i class="fas fa-user-plus"></i><label -->
+<!-- 									class="view">16</label> -->
+<!-- 								</span> <span class="viewtag t"> <i class="far fa-edit"></i><label -->
+<!-- 									class="view">16</label> -->
+<!-- 								</span> -->
+<!-- 							</div> -->
+<!-- 							<div class="follow"> -->
+<!-- 								<button class="btn btn-follow" type="button">Follow</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
-					</div>
-				</li>
-				<li
-					class="list-group-item d-flex justify-content-between align-items-center">
-					<div class="d-flex exhibition-item user mt-2">
-						<a class="d-flex img-user-div pt-1" href="#"> 
-						<img alt=""
-							class="avatar-user float-left"
-							src="${pageContext.request.contextPath}/images/avt.png">
-						</a>
-						<div class="user-info overflow-hidden">
-							<a class="username">Minh Hoàng</a>
-							<div class="user-icon">
-								<span class="viewtag t "> <i class="fas fa-user-plus"></i><label
-									class="view">16</label>
-								</span> <span class="viewtag t"> <i class="far fa-edit"></i><label
-									class="view">16</label>
-								</span>
-							</div>
-							<div class="follow">
-								<button class="btn btn-follow" type="button">Follow</button>
-							</div>
-						</div>
+<!-- 					</div> -->
+<!-- 				</li> -->
 
-					</div>
-				</li>
-
-			</ul>
-		</div>
-
+<!-- 			</ul> -->
+<!-- 		</div> -->
+	
+	</div>
 	</div>
 	
 	<jsp:include page="./common/footer.jsp"/>
@@ -211,9 +214,8 @@
     	{
     		document.getElementsByClassName("dropdown-menu")[0].style.display="block";
     		document.getElementsByClassName("dropdown-menu")[0].style.transition="top 1s"
-    	      document.getElementsByClassName("dropdown-menu")[0].style.top=	"95%";
+    	  document.getElementsByClassName("dropdown-menu")[0].style.top=	"95%";
     	}
-    
     }
     
     </script>

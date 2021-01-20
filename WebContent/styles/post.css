@@ -803,3 +803,10 @@ ul.social-network li {
     color: #c0c0c0 !important;
     border-color: #c0c0c0 !important;
 }
+
+.avatar {
+	margin-top: -45px;
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+}
