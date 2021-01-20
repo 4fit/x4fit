@@ -44,7 +44,7 @@ public class forgotPassword extends HttpServlet {
         	String pass = "18110402yen";
         	String username = ""; //userDoc.getString("username");
         	String subject = "Change you password to X4FIT";
-        	String newPass = "12345678"; // Viết hàm tạo pass mới
+        	String newPass = "123456@"; // Viết hàm tạo pass mới
         	String body = "Dear " + username + ",\n\n"
         	+ "new password for you: " + newPass;
         	boolean isBodyHTML = false;

@@ -44,7 +44,7 @@ public class signUpController extends HttpServlet {
 				if (isUserCode(account_id, code)) {
 					//TODO
 					User.updateUserStatusByAccountID(account_id, "ACTIVE");
-					url = "/login/login.jsp";
+					url = "/login/success.jsp";
 				} else {
 
 					url = "login/confirm.jsp";

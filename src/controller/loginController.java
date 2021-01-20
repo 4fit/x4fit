@@ -37,6 +37,9 @@ public class loginController extends HttpServlet {
 			
 			String _password_ = acc.getPassword();
 			String hashed_password = DigestUtils.sha256Hex(password);
+
+			//System.out.print(hashed_password +" AND " +_password_ );
+
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
@@ -84,20 +87,43 @@ public class loginController extends HttpServlet {
 			response.addCookie(cookieValidator);
 			
 			Account account = Account.GetAccountByID(account_id);
+			User user = User.GetUserByAccountID(account_id);
+			String url = "";
 			
-			String url = request.getContextPath() + "/home";
 			
-			session.setAttribute("is_logged", true); 
-			session.setAttribute("is_create", false); 
-			if (account.getUser_type().equals("ADMIN"))
-				url = request.getContextPath() + "/admin/all-users";
-			else if (account.getUser_type().equals("MOD"))
-				url = request.getContextPath() + "/mod/all-categories";;
+
+			if(user.getStatus().equals("BLOCK"))
+			{
+				session.setAttribute("status", "BLOCK");
+				url = "login/status.jsp";
+				
+			}
+				
+			else if(user.getStatus().equals("NOT ACTIVE"))
+			{
+				session.setAttribute("status", "NOT ACTIVE");
+				url = "login/status.jsp";
+			}
+			else 
+				{
+				url = request.getContextPath() + "/home";
+				
+			
+				session.setAttribute("is_logged", true); 
+				if (account.getUser_type().equals("ADMIN"))
+					url = request.getContextPath() + "/admin/all-users";
+				else if (account.getUser_type().equals("MOD"))
+					url = request.getContextPath() + "/mod/all-categories";
+				}
+			
+
 			response.sendRedirect(url);
 		} else {
 			String url = "login/login.jsp";
 			response.sendRedirect(url);
-		}	
+		}
+		
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

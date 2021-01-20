@@ -127,10 +127,11 @@ public final class User extends Model
 	}
 
 	public User(String fullname, ObjectId account_id, String username) {
+		this.setId(new ObjectId());
 		this.setFullname(fullname);
 		this.setAccount_id(account_id);
 		this.setAvatar("avt.png");
-		this.setStatus("ACTIVE");
+		this.setStatus("NOT ACTIVE"); // Lúc mới tạo user chưa xác nhận email thì set not active
 		this.setUrl(username + RandomStringUtils.random(5));
 		this.setClips(new ArrayList<ObjectId>());
 		this.setFollower(new ArrayList<ObjectId>());
