@@ -53,7 +53,6 @@ public final class Authentication extends Model{
 		if (account_id==null)
 			return false;
 		Authentication auth = AUTHENTICATION.find(Filters.eq("account_id", this.getAccount_id())).first();
-		System.out.println(auth);
 		if (auth != null)
 		{
 			AUTHENTICATION.updateOne(Filters.eq("account_id", this.getAccount_id()), 

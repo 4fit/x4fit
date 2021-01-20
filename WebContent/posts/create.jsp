@@ -64,6 +64,7 @@
 <!-- 					</div> -->
 				</div>
 				<textarea name="content" id="content"></textarea>
+				<input type="hidden" name="is_create" value="True">
 				<input class="btn btn-primary btn-sm btn-block" type="submit"
 					value="Post">
 			</div>

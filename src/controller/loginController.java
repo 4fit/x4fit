@@ -88,6 +88,7 @@ public class loginController extends HttpServlet {
 			String url = request.getContextPath() + "/home";
 			
 			session.setAttribute("is_logged", true); 
+			session.setAttribute("is_create", false); 
 			if (account.getUser_type().equals("ADMIN"))
 				url = request.getContextPath() + "/admin/all-users";
 			else if (account.getUser_type().equals("MOD"))

@@ -79,6 +79,8 @@ public class Utilities {
 	}
 
 	public static String removeAccent(String s) {
+		if (s == null)
+			return "";
 		StringBuilder sb = new StringBuilder(s);
 		for (int i = 0; i < sb.length(); i++) {
 			sb.setCharAt(i, removeAccent(sb.charAt(i)));
