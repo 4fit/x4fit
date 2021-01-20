@@ -37,25 +37,25 @@
 										<div class="table-responsive">
 											<table class="table table-hover">
 												<thead class="">
-													<th>
+													<th class="align-middle">
 														Tiêu đề
 													</th>
-													<th>
+													<th class="align-middle">
 														Thể loại
 													</th>
-													<th class="align-center">
+													<th class="align-middle">
 														Lược xem
 													</th>
-													<th class="align-center">
+													<th class="align-middle">
 														Điểm
 													</th>
-													<th class="align-center">
+													<th class="align-middle">
 														Chế độ
 													</th>
 													<th>
 														Trạng thái
 													</th>
-													<th class="align-center">
+													<th class="align-middle">
 														Thao tác
 													</th>
 												</thead>
@@ -69,13 +69,13 @@
 															<td>
 																${post.getCategory()}
 															</td>
-															<td class="align-center">
+															<td class="align-middle">
 																${post.getViews_count()}
 															</td>
-															<td class="align-center">
+															<td class="align-middle">
 																${post.getPoints()}
 															</td>
-															<td class="align-center">
+															<td class="align-middle">
 																<c:if test="${post.getIs_public() == true}">
 																	<c:out value="Công khai" />
 																</c:if>
@@ -86,11 +86,60 @@
 															<td>
 																${post.getStatus()}
 															</td>
-															<td>
-																<a type="button" data-toggle="modal"
-																	data-target="#allow-post${post.getId()}"><i
-																		class="fa fa-check-circle"></i></a>
+															<td class="align-center d-flex">
+																<c:set var="accepted" value="Đã duyệt" />
+																<c:set var="unaccepted" value="Chờ duyệt" />
+																<c:if test="${post.getStatus() == accepted}">
+																	<button disabled style="border: none; background-color: transparent;" type="button" data-toggle="modal" data-target="#allow-post${post.getId()}">
+																		<i class="fa fa-check"></i>
+																	</button>	
+																</c:if>
+																<c:if test="${post.getStatus() == unaccepted}">
+																	<button style="border: none; background-color: transparent;" type="button" data-toggle="modal" data-target="#allow-post${post.getId()}">
+																		<i class="fa fa-check"></i>
+																	</button>	
+																</c:if>
+																<button style="border: none; background-color: transparent;" type="button" data-toggle="modal" data-target="#delete-post${post.getId()}">
+																	<i class="fa fa-trash"></i>
+																</button>
 																<!-- Allow post Modal -->
+																<div class="modal fade" id="delete-post${post.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																	<div class="modal-dialog" role="document">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																				<h5 class="modal-title"
+																					id="exampleModalLabel">Xóa bài viết
+																				</h5>
+																				<button type="button"
+																					class="close"
+																					data-dismiss="modal"
+																					aria-label="Close">
+																					<span
+																						aria-hidden="true">&times;</span>
+																				</button>
+																			</div>
+																			<div class="modal-body">
+																				Xóa bài viết khỏi cơ sở dữ liệu?
+																			</div>
+																			<div class="modal-footer">
+																				<button type="button"
+																					class="btn btn-secondary"
+																					data-dismiss="modal">Đóng</button>
+																				<form
+																					action="${pageContext.request.contextPath}/mod/delete-post"
+																					method="get">
+																					<input type="hidden"
+																						name="postId"
+																						value="${post.getId()}" />
+																						<button type="submit"
+																							class="btn btn-danger">Xóa</button>
+																					</form>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	
+																	<!-- Delete post Modal -->
 																<div class="modal fade" id="allow-post${post.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 																	<div class="modal-dialog" role="document">
 																		<div class="modal-content">
