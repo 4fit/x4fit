@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.types.ObjectId;
+
 import model.Category;
 import model.Post;
 
@@ -86,17 +88,19 @@ public class ModController extends HttpServlet {
 	protected void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String categoryName = (String)request.getParameter("category-name");
 		String description = (String)request.getParameter("description");
-		Category category = new Category(categoryName, description);
 		try {
-			if (Category.existCategory(categoryName)) {
+			boolean checkExist = Category.existCategory(categoryName);
+			if (checkExist) {
 				String errorMessage = "Category name already exist!";
 				request.setAttribute("errorMessage", errorMessage);
 			} else {
+				Category category = new Category(categoryName, description);
 				category.Insert();
 			}
-			List<Category> allCategories = Category.getAllCategories();
+			List<Category> allCategories = Category.GetAllCategories();
 			request.setAttribute("allCategories", allCategories);
 			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
+			return;
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
@@ -108,7 +112,7 @@ public class ModController extends HttpServlet {
 		String url = (String)request.getParameter("url");
 		try {
 			Category.Delete(url);
-			List<Category> allCategories = Category.getAllCategories();
+			List<Category> allCategories = Category.GetAllCategories();
 			request.setAttribute("allCategories", allCategories);
 			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
 		} catch (Exception e) {
@@ -123,26 +127,27 @@ public class ModController extends HttpServlet {
 		String oldName = (String)request.getParameter("oldName");
 		String newName = (String)request.getParameter("category-name");
 		String description = (String)request.getParameter("description");
-		try {
+//		try {
 			if (Category.existCategory(newName)) {
 				String errorMessage = "Category name already exist!";
 				request.setAttribute("errorMessage", errorMessage);
 			} else {
 				Category.Update(url, oldName, newName, description);
 			}
-			List<Category> allCategories = Category.getAllCategories();
+			List<Category> allCategories = Category.GetAllCategories();
 			request.setAttribute("allCategories", allCategories);
 			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-			request.getRequestDispatcher("../500.jsp").forward(request, response);
-		}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			System.out.println(e.getMessage());
+//			request.getRequestDispatcher("../500.jsp").forward(request, response);
+//		}
 	}
 	
 	protected void getAllCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("đây nè");
 		try {
-			List<Category> allCategories = Category.getAllCategories();
+			List<Category> allCategories = Category.GetAllCategories();
 			request.setAttribute("allCategories", allCategories);
 			request.getRequestDispatcher("/mod/category.jsp").forward(request, response);
 		} catch (Exception e) {
@@ -156,7 +161,7 @@ public class ModController extends HttpServlet {
 		String query = (String)request.getParameter("query");
 		try {
 			if (query.equals("")) {
-				List<Category> allCategories = Category.getAllCategories();
+				List<Category> allCategories = Category.GetAllCategories();
 				request.setAttribute("allCategories", allCategories);
 			} else {
 				List<Category> listCategories = Category.search(query);
@@ -193,8 +198,8 @@ public class ModController extends HttpServlet {
 	}
 	
 	protected void acceptPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int postId = Integer.parseInt((String)request.getParameter("postId"));
-
+		ObjectId postId = new ObjectId(request.getParameter("postId"));
+		
 		try {
 			Post.acceptPost(postId);
 			List<Post> allPosts = Post.getAllPosts();

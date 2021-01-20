@@ -603,7 +603,7 @@ a {
 
 .footer-pad h5 {
 	margin-bottom: 15px;
-	font-weight: bold;
+	font-weight: lighter;
 	font-size: 15px;
 	letter-spacing: 2px;
 	text-transform: uppercase;
@@ -632,18 +632,25 @@ ul.social-network li {
 	width: 25px;
 	text-align: center;
 	display: inline-block;
+	transition: all 1s;
+}
+
+.iconFooter:hover, .iconFooter:active{
+background-color: #D5F3FE;
+color:#66D3FA;
+
 }
 
 .copy {
-	margin-top: 40px;
+	margin-top: 120px;
 	font-size: 12px;
-	padding: 10px;
-	border-top: 1px solid #FFFFFF;
+	
+	border-top: 1px solid #AAA;
 }
 
 .h5_footer_contact {
 	margin-bottom: 15px;
-	font-weight: bold;
+	font-weight: lighter;
 	font-size: 15px;
 	letter-spacing: 2px;
 	text-transform: uppercase;
@@ -651,6 +658,11 @@ ul.social-network li {
 
 .a_footer {
 	color: #ffffff;
+}
+
+#footer{
+margin-top: 40px;
+display: block;
 }
 </style>
 <body>
@@ -744,7 +756,7 @@ ul.social-network li {
 	<div class="banner"></div>
 
 	<div class="main-content">
-		<div class="container post-body position-relative">
+		<div class="container post-body position-relative" >
 			<div class="row">
 				<div class="p-0 hidden-md-down col-lg-1">
 					<form
@@ -1072,7 +1084,7 @@ ul.social-network li {
 		</div>
 	</div>
 	<footer class="main_footer">
-		<div class="container">
+		<div class="container" id = "footer">
 			<div class="row">
 				<div class="col-md-3 col-sm-6">
 					<!-- infoFIT  -->
@@ -1081,7 +1093,7 @@ ul.social-network li {
 						<p class="about_x4fit">We share everything about infomation
 							technology</p>
 						<p>
-							<a class="btn btn-primary" href="#">Become A Member</a>
+							<a style = "margin-top: 25px;" class="btn btn-primary" href="../login/signup.jsp">Become A Member</a>
 						</p>
 					</div>
 
@@ -1090,8 +1102,10 @@ ul.social-network li {
 					<!-- RESOURCES  -->
 					<div class="footer-pad">
 						<h5>RESOURCES</h5>
-						<ul class="list-unstyled">
-							<li><a class="a_footer" href="#">Post</a></li>
+						<ul style = "display:block" class="list-unstyled">
+							<li style = "display:block; margin-top: 10px;"><a class="a_footer" href="../index.jsp">Post</a></li>
+							
+							<li style = "display:block; margin-top: 10px;" ><a class="a_footer" href="#">Search</a></li>
 						</ul>
 					</div>
 
@@ -1120,7 +1134,7 @@ ul.social-network li {
 			</div>
 			<div class="row">
 				<div class="col-md-12 copy">
-					<p class="text-center">x4fit</p>
+					<p class="text-center text-muted">Copyright x4fit</p>
 				</div>
 			</div>
 		</div>

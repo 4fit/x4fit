@@ -16,7 +16,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/f93b4d7888.js"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
@@ -195,6 +198,8 @@
 		</div>
 
 	</div>
+	
+	<jsp:include page="./common/footer.jsp"/>
 	<script>
     document.getElementById("dropdownMenu2").onclick=function(){
     	if(document.getElementsByClassName("dropdown-menu")[0].style.display=="block")

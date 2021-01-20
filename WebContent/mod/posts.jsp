@@ -66,13 +66,13 @@
 
 													<c:forEach items="${allPosts}" var="post">
 														<tr>
-															<td class="align-center">
-																${post.getID()}
+															<td>
+																${post.getId()}
 															</td>
 															<td>
 																${post.getTitle()}
 															</td>
-															<td class="align-center">
+															<td>
 																${post.getCategory()}
 															</td>
 															<td class="align-center">
@@ -84,15 +84,15 @@
 															<td class="align-center">
 																${post.getIs_public() }
 															</td>
-															<td class="align-center">
+															<td>
 																${post.getStatus() }
 															</td>
 															<td>
 																<a type="button" data-toggle="modal"
-																	data-target="#allow-post${post.getID()}"><i
+																	data-target="#allow-post${post.getId()}"><i
 																		class="fa fa-check-circle"></i></a>
 																<!-- Allow post Modal -->
-																<div class="modal fade" id="allow-post${post.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																<div class="modal fade" id="allow-post${post.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 																	<div class="modal-dialog" role="document">
 																		<div class="modal-content">
 																			<div class="modal-header">
@@ -119,9 +119,9 @@
 																					method="get">
 																					<input type="hidden"
 																						name="postId"
-																						value="${post.getID()}" />
+																						value="${post.getId()}" />
 																						<button type="submit"
-																							class="btn btn-success">Allow</button>
+																							class="btn btn-primary">Allow</button>
 																					</form>
 																				</div>
 																			</div>
