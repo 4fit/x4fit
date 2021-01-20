@@ -42,7 +42,7 @@
 <!-- 					<i class="fas fa-bell"></i> -->
 <!-- 				</button> -->
 				<c:if test="${is_logged == true}">
-				<a href="${pageContext.request.contextPath}/posts/create.jsp">
+				<a href="${pageContext.request.contextPath}/create">
 					<button class="btn btn-secondary mt-1" type="button">
 						<i class="fas fa-edit"></i>
 					</button>
@@ -65,7 +65,8 @@
 						src="${pageContext.request.contextPath}/images/${user.getAvatar()}" alt="">
 					<div class="info-popup">
 						<h5 class="name-info">${user.getFullname() }</h5>
-						<a href="${pageContext.request.contextPath}/profile" class="btn btn-primary btn-edit" type="button">Edit</a>
+						<a href="${pageContext.request.contextPath}/profile" 
+							 class="btn btn-primary btn-edit" type="button">Edit</a>
 					</div>
 				</div>
 				<div class="dropdown-divider"></div>

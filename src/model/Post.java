@@ -444,7 +444,6 @@ public final class Post extends Model {
 	
 	public User GetAuthor()
 	{
-		System.out.println("acc: "+ this.getAuthor_id());
 		return USER.find(Filters.eq("account_id", this.getAuthor_id())).first();
 	}
 }

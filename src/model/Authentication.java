@@ -53,7 +53,6 @@ public final class Authentication extends Model{
 		if (account_id==null)
 			return false;
 		Authentication auth = AUTHENTICATION.find(Filters.eq("account_id", this.getAccount_id())).first();
-		System.out.println(auth);
 		if (auth != null)
 		{
 			AUTHENTICATION.updateOne(Filters.eq("account_id", this.getAccount_id()), 
@@ -70,5 +69,20 @@ public final class Authentication extends Model{
 	public void Insert() 
 	{
 		AUTHENTICATION.insertOne(this);
+	}
+	
+	public static boolean isMod(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("MOD");
+	}
+	
+	public static boolean isAdmin(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("ADMIN");
+	}
+	
+	public static boolean isUser(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("USER");
 	}
 }

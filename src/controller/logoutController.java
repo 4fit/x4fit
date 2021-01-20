@@ -36,6 +36,7 @@ public class logoutController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("is_logged", false);
+		session.setAttribute("is_create", false);
 		
 		for (Cookie c : request.getCookies()) {
 			if (c.getName().equals("selector"))
