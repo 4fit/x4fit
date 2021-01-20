@@ -70,10 +70,10 @@
 						<div class="card bg-light" style="margin-top: 1.5em; margin-bottom: 1.5em; ">
 						  <h6 class="card-header" style="padding: 0.5rem 1.25rem;">
 						  	<img class="img-pro-post float-left"
-									src="${pageContext.request.contextPath}/images/${lstAuthors.get(loop.index).getAvatar() }" 
-									alt="${lstAuthors.get(loop.index).getFullname() }">
+									src="${pageContext.request.contextPath}/images/${p.GetAuthor().getAvatar() }" 
+									alt="${p.GetAuthor().getFullname() }">
 								<a style="margin: 10px;" href="#">
-									${lstAuthors.get(loop.index).getFullname() }
+									${p.GetAuthor().getFullname() }
 								</a>
 								<br>
 								<small><span style="margin: 10px;">${p.getPublished_at()}</span></small>

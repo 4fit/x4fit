@@ -24,7 +24,6 @@ public class homeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     private ArrayList<Post> topPosts;
-    private ArrayList<User> lstAuthors;
     
     public homeController() {
         super();
@@ -33,10 +32,6 @@ public class homeController extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
 		topPosts = Post.GetLastestPost(20);
-		lstAuthors = new ArrayList<User>();
-		for (Post p : topPosts) {
-				lstAuthors.add(p.getAuthor());
-			}
 	
 		Cookie[] cookies = request.getCookies();
 		if (cookies!=null)
@@ -60,7 +55,6 @@ public class homeController extends HttpServlet {
 		ObjectId userID = User.GetAccountIdFromCookies(cookies);
 		
 		request.setAttribute("topPosts", topPosts);
-		request.setAttribute("lstAuthors", lstAuthors);
 		
 		String url = "/index.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

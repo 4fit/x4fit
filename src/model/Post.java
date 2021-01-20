@@ -17,10 +17,10 @@ import com.mongodb.client.model.Updates;
 
 import x4fit.Utilities;
 
-public class Post extends Model {
+public final class Post extends Model {
 	private ObjectId id;
 	private String title;
-	private User author;
+	private ObjectId author_id;
 	private String url;
 	private String content;
 	private String published_at;
@@ -70,12 +70,12 @@ public class Post extends Model {
 		this.title = title;
 	}
 
-	public User getAuthor() {
-		return author;
+	public ObjectId getAuthor_id() {
+		return author_id;
 	}
 
-	public void setAuthor(User author) {
-		this.author = author;
+	public void setAuthor_id(ObjectId author_id) {
+		this.author_id = author_id;
 	}
 
 	public String getUrl() {
@@ -157,11 +157,11 @@ public class Post extends Model {
 	}
 
 
-	public Post(String title, ObjectId user_id, String content, boolean is_public, String thumbnail_url, String category) 
+	public Post(String title, ObjectId author_id, String content, boolean is_public, String thumbnail_url, String category) 
 	{
 		this.id = new ObjectId();
 		this.title = title;
-		this.author = User.GetUserByUserID(user_id);
+		this.author_id = author_id;
 		this.url = Utilities.createURL(title);
 		this.content = content;
 		this.published_at = this.updated_at = Utilities.GetCurrentDateTime();
@@ -429,32 +429,6 @@ public class Post extends Model {
 		return lUser;
 	}
 	
-	{
-//	public  String getNameUser()
-//	{
-//		User user = User.GetUserByUserID(this.author);
-//		String name = "name author";
-//		
-//		try
-//		{if(user.getFullname() != null)
-//			name = user.getFullname();
-//		}
-//		catch(NullPointerException x)
-//		{
-//			name = "name author";
-//		}
-//		
-//		return name;
-//	}
-	}
-	
-	public String getUsername()
-	{
-		if (this.getAuthor() != null)
-			return this.getAuthor().getUsername();
-		return null;
-	}
-	
 	public String getShortContent()
 	{
 		if(this.getContent().length() < 150)
@@ -468,10 +442,9 @@ public class Post extends Model {
 		return this.getClips().size();
 	}
 	
-	public ObjectId getAuthorID()
+	public User GetAuthor()
 	{
-		if (this.getAuthor()!=null)
-			return this.getAuthor().getId();
-		return null;
+		System.out.println("acc: "+ this.getAuthor_id());
+		return USER.find(Filters.eq("account_id", this.getAuthor_id())).first();
 	}
 }

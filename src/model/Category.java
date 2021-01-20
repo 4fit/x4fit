@@ -16,7 +16,7 @@ import com.mongodb.client.model.Updates;
 
 import x4fit.Utilities;
 
-public class Category extends Model 
+public final class Category extends Model 
 {
 	private ObjectId id;
 	private String name;

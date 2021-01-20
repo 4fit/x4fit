@@ -1,8 +1,10 @@
 
 package controller;
 
+import model.Authentication;
 import model.Model;
 import model.Post;
+import model.User;
 
 import java.io.IOException;
 
@@ -35,9 +37,7 @@ public class createController extends HttpServlet {
 		String title = request.getParameter("title");
 		//user_id
 		HttpSession session = request.getSession();
-		String selector = (String) session.getAttribute("selector");
-		String validator = (String) session.getAttribute("validator");
-		ObjectId user_id = Model.Authenticator(selector, validator);
+		ObjectId accout_id = User.GetAccountIdFromCookies(request.getCookies());
 		//is_public
 		boolean is_public = request.getParameter("is_public") != null;
 		//category
@@ -48,7 +48,7 @@ public class createController extends HttpServlet {
 		String content = request.getParameter("content");
 		
 		//Tạo đối tượng postController
-		Post post = new Post(title, user_id, content, is_public, thumbnail_url, category);
+		Post post = new Post(title, accout_id, content, is_public, thumbnail_url, category);
 		post.Insert();
 		//p
 		String p = post.getUrl();

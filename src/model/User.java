@@ -16,7 +16,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 
-public class User extends Model 
+public final class User extends Model 
 {
 	private ObjectId id;
 	private String fullname;

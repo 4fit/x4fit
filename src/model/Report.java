@@ -9,7 +9,7 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 
-public class Report extends Model {
+public final class Report extends Model {
 	
 	private ObjectId id;
 	private String time;

@@ -28,7 +28,10 @@
 	<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 </head>
 <body>
-	<% boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");%>
+	<% try {
+	boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");
+	}
+	catch (Exception e){}%>
 	
 	<jsp:include page="../navbar.jsp"></jsp:include>
 	<div class="container">

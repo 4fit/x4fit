@@ -26,7 +26,9 @@
 </head>
 <body>
 	<jsp:include page="../navbar.jsp"></jsp:include>
-	<% boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");%>
+	<% 
+	try {boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");}
+	catch (Exception e){}%>
 	
 	<div class="container-fluid" style="margin-top: 30px">
 		<div class="row">
