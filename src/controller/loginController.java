@@ -37,7 +37,6 @@ public class loginController extends HttpServlet {
 			
 			String _password_ = acc.getPassword();
 			String hashed_password = DigestUtils.sha256Hex(password);
-			System.out.print(hashed_password +" AND " +_password_ );
 			if (hashed_password.equals(_password_))
 			{
 				//Đăng nhập thành công
@@ -72,19 +71,9 @@ public class loginController extends HttpServlet {
 			String rawValidator = RandomStringUtils.randomAlphanumeric(64);
 			String hashedValidator = DigestUtils.sha256Hex(rawValidator);
 			
-			for (Cookie c : request.getCookies()) {
-				if (c.getName().equals("selector"))
-				{
-					c.setMaxAge(0);
-					response.addCookie(c);
-				}
-				if (c.getName().equals("validator"))
-				{
-					c.setMaxAge(0);
-					response.addCookie(c);
-				}
-					
-			}
+			Authentication auth = new Authentication(account_id, selector, hashedValidator);
+			auth.Update();
+			
 			Cookie cookieSelector = new Cookie("selector", selector);
 			cookieSelector.setMaxAge(604800);
 			 
@@ -93,9 +82,6 @@ public class loginController extends HttpServlet {
 			 
 			response.addCookie(cookieSelector);
 			response.addCookie(cookieValidator);
-			
-			Authentication auth = new Authentication(account_id, selector, hashedValidator);
-			auth.Update();
 			
 			Account account = Account.GetAccountByID(account_id);
 			

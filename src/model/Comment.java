@@ -13,7 +13,7 @@ import com.mongodb.client.model.Updates;
 
 import x4fit.Utilities;
 
-public class Comment extends Model
+public final class Comment extends Model
 {
 	private ObjectId id;
 	private ObjectId account_id ;

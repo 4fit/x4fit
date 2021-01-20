@@ -10,7 +10,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
-public class Account extends Model {
+public final class Account extends Model {
 	protected ObjectId id;
 	protected String username;
 	protected String password;

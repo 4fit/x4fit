@@ -42,12 +42,12 @@
                  <c:forEach var="p" items="${listPost}" begin="0" end="${listPost.size()}" varStatus="loop">
 										<div class="card bg-light" style="margin-top: 1.5em; margin-bottom: 1.5em; ">
 										  <h6 class="card-header text-dark" style="padding: 0.5rem 1.25rem;">
-										  	<a class="h3" href="${pageContext.request.contextPath}/post?p=${p.getURL()}">
+										  	<a class="h3" href="${pageContext.request.contextPath}/post?p=${p.getUrl()}">
 												 			${p.getTitle() }
 												</a>
 												<br>
 												<a style="margin: 10px;" href="#">
-													${post.getNameUser()}
+													${post.getAuthor().getFullname()}
 												</a>
 												<br>
 												<small><span style="margin: 10px;">${p.getPublished_at()}</span></small>

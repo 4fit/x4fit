@@ -1,11 +1,14 @@
 package model;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
-public class Authentication extends Model{
+public final class Authentication extends Model{
 	private ObjectId id;
 	private String selector;
 	private String validator;
@@ -45,14 +48,12 @@ public class Authentication extends Model{
 		this.setValidator(validator);
 	}
 	
-	public void Update()
+	public boolean Update()
 	{
-		Authentication auth = AUTHENTICATION.find(
-				Filters.and(
-						Filters.eq("selector", this.getSelector()),
-						Filters.eq("validator", this.getValidator())
-						)
-				).first();
+		if (account_id==null)
+			return false;
+		Authentication auth = AUTHENTICATION.find(Filters.eq("account_id", this.getAccount_id())).first();
+		System.out.println(auth);
 		if (auth != null)
 		{
 			AUTHENTICATION.updateOne(Filters.eq("account_id", this.getAccount_id()), 
@@ -63,7 +64,7 @@ public class Authentication extends Model{
 		{
 			this.Insert();
 		}
-		
+		return true;
 	}
 	
 	public void Insert() 
