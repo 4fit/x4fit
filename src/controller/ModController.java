@@ -24,7 +24,8 @@ import x4fit.Utilities;
 		"/mod/delete-category",
 		"/mod/update-category",
 		"/mod/search-category",
-		"/mod/search-post"
+		"/mod/search-post",
+		"/mod/delete-post"
 		})
 
 public class ModController extends HttpServlet {
@@ -45,6 +46,9 @@ public class ModController extends HttpServlet {
 				return;
 			case "/mod/accept-posts":
 				acceptPost(request, response);
+				return;
+			case "/mod/delete-post":
+				deletePost(request, response);
 				return;
 			case "/mod/all-categories":
 				getAllCategories(request, response);
@@ -87,13 +91,29 @@ public class ModController extends HttpServlet {
 		}
 	}
 	
+	protected void deletePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectId postId = new ObjectId(request.getParameter("postId"));
+		
+		try {
+			Post.Delete(postId);
+			System.out.println("Post "+ postId + " is deleted");
+			List<Post> allPosts = Post.getAllPosts();
+			request.setAttribute("allPosts", allPosts);
+			request.getRequestDispatcher("/mod/posts.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
+	
 	protected void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String categoryName = (String)request.getParameter("category-name");
 		String description = (String)request.getParameter("description");
 		try {
 			boolean checkExist = Category.existCategory(categoryName);
 			if (checkExist) {
-				String errorMessage = "Category name already exist!";
+				String errorMessage = "Tên thể loại đã tồn tại!";
 				request.setAttribute("errorMessage", errorMessage);
 			} else {
 				Category category = new Category(categoryName, description);
@@ -176,7 +196,6 @@ public class ModController extends HttpServlet {
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");
 		}
-
 	}
 	
 	protected void searchPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

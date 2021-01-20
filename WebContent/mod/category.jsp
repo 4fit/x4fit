@@ -57,23 +57,23 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
                                                         <thead class="">
-                                                            <th>
+                                                            <th class="align-middle">
                                                                 Tên
                                                             </th>
-                                                            <th>
+                                                            <th class="align-middle">
                                                                 Mô tả
                                                             </th>
-                                                            <th class="align-center">
+                                                            <th class="align-middle">
                                                                 Số lượng bài viết
                                                             </th>
-                                                            <th class="align-center">
+                                                            <th class="align-middle">
                                                                 Thao tác
                                                             </th>
                                                         </thead>
                                                         <tbody>
                                                             <c:forEach items="${allCategories}" var="category">
                                                                 <tr>
-                                                                    <td>
+                                                                    <td  class="align-middle">
                                                                         ${category.getName()}
                                                                     </td>
                                                                     <td>
@@ -83,7 +83,7 @@
                                                                         ${category.getCount_post()}
                                                                     </td>
                                                                     <td>
-                                                                    	<div class="align-center">
+                                                                    	<div class="align-middle">
 	                                                                        <a type="button" data-toggle="modal"  data-target="#update-category${category.getId()}"><i class="fa fa-edit"></i></a>
 	                                                                        <span> | </span>
 	                                                                        <a type="button" data-toggle="modal"  data-target="#delete-category${category.getId()}"><i class="fa fa-trash"></i></a>

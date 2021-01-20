@@ -310,6 +310,10 @@ public final class Post extends Model {
 		return newURL;
 		
 	}
+	
+	public static void Delete(ObjectId postId) {
+		POST.deleteOne(Filters.eq("_id", postId));
+	}
 
 	public void updateVote(ObjectId userID, int point)
 	{
