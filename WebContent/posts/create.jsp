@@ -47,11 +47,15 @@
 				</div>
 				<div>
 					<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon1">Category</span>
-						</div>
-						<input type="text" class="form-control"
-							placeholder="Chủ đề bài viết" name="category">
+					  <div class="input-group-prepend">
+					    <label class="input-group-text" for="inputGroupSelect01">Chủ đề</label>
+					  </div>
+					  <select class="custom-select" id="category" name="category">
+					    <option selected>Chọn chủ đề cho bài viết...</option>
+					    <c:forEach var="cat" items="${lstCat}">
+					    	<option value="${cat.getName()}">${cat.getName()}</option>
+					    </c:forEach>
+					  </select>
 					</div>
 <!-- 					<div class="input-group mb-3"> -->
 <!-- 						<div class="input-group-prepend"> -->

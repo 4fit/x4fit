@@ -1,10 +1,12 @@
 
 package controller;
 
+import model.Category;
 import model.Post;
 import model.User;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -66,6 +68,8 @@ public class createController extends HttpServlet {
 		if (accout_id != null)
 		{
 			String url =  "/posts/create.jsp";
+			List<Category> lstCategories = Category.GetAllCategories();
+			request.setAttribute("lstCat", lstCategories);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 		}

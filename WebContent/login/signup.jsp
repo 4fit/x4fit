@@ -807,7 +807,7 @@ color: #e1e1e1;
 <body>
 
 <div class="main-w3layouts wrapper">
-		<h1>Creative Account</h1>
+		<h1>Create Account</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form action="${pageContext.request.contextPath}/signUp" method = "post">

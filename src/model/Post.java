@@ -263,9 +263,9 @@ public final class Post extends Model {
 		return post;
 	}
 	
-	public static ArrayList<Post> GetLastestPost(int lim)
+	public static ArrayList<Post> GetLastestPost(int skip, int lim)
 	{
-		FindIterable<Post> cursor = POST.find().sort(new BasicDBObject("_id", -1)).limit(lim);
+		FindIterable<Post> cursor = POST.find().sort(new BasicDBObject("_id", -1)).skip(skip).limit(lim);
 		Iterator<Post> it = cursor.iterator();
 		ArrayList<Post> topPost = new ArrayList<Post>();
 		if (it.hasNext()) {

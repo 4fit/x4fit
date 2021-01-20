@@ -29,10 +29,33 @@ public class homeController extends HttpServlet {
         super();
     }
 
+    private static int skip = 0;
+    int limit = 5;
+    
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
-		topPosts = Post.GetLastestPost(20);
-	
+		if (request.getParameter("page") == null)
+		{
+			topPosts = Post.GetLastestPost(0, limit);
+			request.setAttribute("page", limit);
+			skip = limit;
+		}
+		else
+		{
+			topPosts = Post.GetLastestPost(skip, limit);
+			if (topPosts.size() == 0)
+			{
+				topPosts = Post.GetLastestPost(0, limit);
+				request.setAttribute("page", limit);
+				skip = limit;
+			}
+			else
+			{
+				skip+=2;
+			}
+			int page = Integer.parseInt(request.getParameter("page"));
+			request.setAttribute("page", page);
+		}
 		Cookie[] cookies = request.getCookies();
 		if (cookies!=null)
 		{
