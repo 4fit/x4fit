@@ -23,13 +23,13 @@
 				<div class="row">
 					<div class="col-md-12">
 				        <form class="mb-2 form-inline my-2 ml-auto mr-5" action="${pageContext.request.contextPath}/mod/search-post">
-			            	<input class="form-control mr-sm-1 search-bar" style="width: 500px; border: 1px solid #007bff;" name="query" value="${query}" type="search" placeholder="Search">
-			                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+			            	<input class="form-control mr-sm-1 search-bar" style="width: 500px; border: 1px solid #007bff;" name="query" value="${query}" type="search" placeholder="Tìm trong bài viết.">
+			                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
 				        </form>
 						<div class="card card-plain">
 							<div class="card-header card-header-primary"
 								style="background-color: #007bff; color: #fff">
-								<h4 class="card-title mt-0">Posts Management</h4>
+								<h4 class="card-title mt-0">Quản lý bài viết</h4>
 							</div>
 							<div class="card-body">
 								<c:choose>
@@ -37,38 +37,32 @@
 										<div class="table-responsive">
 											<table class="table table-hover">
 												<thead class="">
-													<th class="align-center">
-														Post ID
+													<th>
+														Tiêu đề
+													</th>
+													<th>
+														Thể loại
 													</th>
 													<th class="align-center">
-														Title
+														Lược xem
 													</th>
 													<th class="align-center">
-														Category
+														Điểm
 													</th>
 													<th class="align-center">
-														View Counts
+														Chế độ
+													</th>
+													<th>
+														Trạng thái
 													</th>
 													<th class="align-center">
-														Points
-													</th>
-													<th class="align-center">
-														Is Public
-													</th>
-													<th class="align-center">
-														Status
-													</th>
-													<th class="align-center">
-														Action
+														Thao tác
 													</th>
 												</thead>
 												<tbody>
 
 													<c:forEach items="${allPosts}" var="post">
 														<tr>
-															<td>
-																${post.getId()}
-															</td>
 															<td>
 																${post.getTitle()}
 															</td>
@@ -82,10 +76,15 @@
 																${post.getPoints()}
 															</td>
 															<td class="align-center">
-																${post.getIs_public() }
+																<c:if test="${post.getIs_public() == true}">
+																	<c:out value="Công khai" />
+																</c:if>
+																<c:if test="${post.getIs_public() == false}">
+																	<c:out value="Riêng tư" />
+																</c:if>
 															</td>
 															<td>
-																${post.getStatus() }
+																${post.getStatus()}
 															</td>
 															<td>
 																<a type="button" data-toggle="modal"
@@ -97,8 +96,8 @@
 																		<div class="modal-content">
 																			<div class="modal-header">
 																				<h5 class="modal-title"
-																					id="exampleModalLabel">Allow
-																					Post</h5>
+																					id="exampleModalLabel">Duyệt bài viết
+																				</h5>
 																				<button type="button"
 																					class="close"
 																					data-dismiss="modal"
@@ -108,12 +107,12 @@
 																				</button>
 																			</div>
 																			<div class="modal-body">
-																				Allow this post public on web?
+																				Cho phép bài viết được đăng lên X4FIT?
 																			</div>
 																			<div class="modal-footer">
 																				<button type="button"
 																					class="btn btn-secondary"
-																					data-dismiss="modal">Close</button>
+																					data-dismiss="modal">Đóng</button>
 																				<form
 																					action="${pageContext.request.contextPath}/mod/accept-posts"
 																					method="get">
@@ -121,7 +120,7 @@
 																						name="postId"
 																						value="${post.getId()}" />
 																						<button type="submit"
-																							class="btn btn-primary">Allow</button>
+																							class="btn btn-primary">Duyệt</button>
 																					</form>
 																				</div>
 																			</div>
@@ -135,7 +134,7 @@
 										</div>
 									</c:when>
 									<c:otherwise>
-										<h1>No data to display!</h1>
+										<h5>Không có dữ liệu.</h5>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -144,6 +143,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 	<script>
 		w3.addClass('#post', 'active-nav')

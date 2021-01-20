@@ -219,19 +219,38 @@ public final class Post extends Model {
 	}
 	
 	public static List<Post> search(String query) {
+		query = Utilities.removeAccent(query.toLowerCase());
+		String isPublic = "cong khai";
+		String isPrivate = "rieng tu";
 		FindIterable<Post> cursor = POST.find();
 		Iterator<Post> it = cursor.iterator();
 		List<Post> data = new ArrayList<Post>();
 		if (it.hasNext()) {
 			while (it.hasNext()) {
 				Post post = it.next();
-				if (String.valueOf(post.getId()).equals(query)
-						|| post.getTitle().equals(query)
-						|| post.getCategory().equals(query)
-						|| String.valueOf(post.getViews_count()).equals(query)
-						|| String.valueOf(post.getPoints()).equals(query)
-						|| String.valueOf(post.is_public).equals(query)
-						|| post.getStatus().equals(query)) {
+				
+				// Handle data in database
+				String tilte = Utilities.removeAccent(post.getTitle().toLowerCase());
+				String category = Utilities.removeAccent(post.getCategory().toLowerCase());
+				String status = Utilities.removeAccent(post.getStatus().toLowerCase());
+				
+				if (tilte.indexOf(query) != -1
+						|| category.indexOf(query) != -1
+						|| String.valueOf(post.getViews_count()).indexOf(query) != -1
+						|| String.valueOf(post.getPoints()).indexOf(query) != -1
+						|| status.indexOf(query) != -1) {
+					data.add(post);
+				}
+				
+				// Tìm kiếm theo trạng thái
+				String statusQuery = "";
+				if (isPublic.indexOf(query) != -1) {
+					statusQuery = "true";
+				} else if (isPrivate.indexOf(query) != -1) {
+					statusQuery = "false";
+				}
+				
+				if (String.valueOf(post.is_public).equals(statusQuery)) {
 					data.add(post);
 				}
 			}

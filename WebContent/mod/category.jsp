@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <!DOCTYPE html>
         <html>
@@ -40,16 +40,16 @@
 									</div>
                             	</c:if>
                             	<div class="d-flex">
-                            		<button class="mb-2 btn btn-primary" data-toggle="modal" data-target="#add-category">Add category</button>
+                            		<button class="mb-2 btn btn-primary" data-toggle="modal" data-target="#add-category">Thêm loại</button>
 	                                <form class="mb-2 form-inline my-2 ml-auto mr-5" action="${pageContext.request.contextPath}/mod/search-category">
-					                      <input class="form-control mr-sm-1 search-bar" style="width: 400px; border: 1px solid #007bff;" name="query" value="${query}" type="search" placeholder="Search">
-					                      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+					                      <input class="form-control mr-sm-1 search-bar" style="width: 400px; border: 1px solid #007bff;" name="query" value="${query}" type="search" placeholder="Tìm trong thể loại.">
+					                      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm kiếm</button>
 					                </form>
                             	</div>
                                 <div class="card card-plain">
                                     <div class="card-header card-header-primary"
                                         style="background-color: #007bff; color: #fff">
-                                        <h4 class="card-title mt-0">Category Management</h4>
+                                        <h4 class="card-title mt-0">Quản lý thể loại</h4>
                                     </div>
                                     <div class="card-body">
                                         <c:choose>
@@ -57,28 +57,22 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
                                                         <thead class="">
-                                                            <th class="align-center">
-                                                                ID
+                                                            <th>
+                                                                Tên
+                                                            </th>
+                                                            <th>
+                                                                Mô tả
                                                             </th>
                                                             <th class="align-center">
-                                                                Name
+                                                                Số lượng bài viết
                                                             </th>
                                                             <th class="align-center">
-                                                                Description
-                                                            </th>
-                                                            <th class="align-center">
-                                                                Counts Post
-                                                            </th>
-                                                            <th class="align-center">
-                                                                Action
+                                                                Thao tác
                                                             </th>
                                                         </thead>
                                                         <tbody>
                                                             <c:forEach items="${allCategories}" var="category">
                                                                 <tr>
-                                                                    <td>
-                                                                        ${category.getId()}
-                                                                    </td>
                                                                     <td>
                                                                         ${category.getName()}
                                                                     </td>
@@ -159,7 +153,7 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <h3>No data to display!</h3>
+                                                <h5>Không có dữ liệu</h5>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
@@ -170,8 +164,11 @@
                 </div>
             </div>
             
+            </div>
+            </div>
             <jsp:include page="../modals/addCategoryModal.jsp" />
             <jsp:include page="../common/footer.jsp" />
+            
             <script>
                 w3.addClass('#category', 'active-nav')
                 w3.addClass('#a2', 'color-white')
