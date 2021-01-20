@@ -1,4 +1,4 @@
-<footer class="main_footer">
+<div class="main_footer">
 		<div class="container" id = "footer">
 			<div class="row">
 				<div class="col-md-3 col-sm-6">
@@ -8,7 +8,7 @@
 						<p class="about_x4fit">We share everything about infomation
 							technology</p>
 						<p>
-							<a style = "margin-top: 25px;" class="btn btn-primary" href="../login/signup.jsp">Become A Member</a>
+							<a style = "margin-top: 25px;" class="btn btn-primary" id = "btn-footer" href="../login/signup.jsp">Become A Member</a>
 						</p>
 					</div>
 
@@ -41,7 +41,7 @@
 					<h5 class="h5_footer_contact">Contact</h5>
 					<ul class="social-network social-circle">
 						<li><a href="#" class="iconFooter" title="Facebook"><i
-								class="fa fa-facebook text-muted"></i></a></li>
+								class="fa fa-facebook text-muted" ></i></a></li>
 						<li><a href="#" class="iconFooter" title="Github"><i
 								class="fa fa-github text-muted"></i></a></li>
 					</ul>
@@ -53,7 +53,7 @@
 				</div>
 			</div>
 		</div>
-	</footer>
+	</div>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

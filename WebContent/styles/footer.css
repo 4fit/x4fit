@@ -41,21 +41,22 @@ ul.social-network li {
 	border-radius: 45%;
 	height: 25px;
 	width: 25px;
+	color: #AAA !important;
 	text-align: center;
 	display: inline-block;
 	transition: all 1s;
 }
 
 .iconFooter:hover, .iconFooter:active{
-background-color: #D5F3FE;
-color:#66D3FA;
+background-color: #27798f;
+color:#27798f;
 
 }
 
 .copy {
 	margin-top: 120px;
 	font-size: 12px;
-	
+	padding-top: 20px;
 	border-top: 1px solid #AAA;
 }
 
@@ -74,4 +75,16 @@ color:#66D3FA;
 #footer{
 margin-top: 40px;
 display: block;
+}
+
+#btn-footer{
+	transition: all 1s !important;
+}
+#btn-footer:hover, #btn-footer:active{
+	
+	background-color: #de6600 !important;
+	margin-left:-10px;
+	border: none;
+	width: 180px !important;
+	
 }
