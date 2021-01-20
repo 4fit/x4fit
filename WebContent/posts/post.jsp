@@ -76,22 +76,22 @@
 						
 						<br>
 						
-						<c:if test="${is_author}">
+<%-- 						<c:if test="${is_author}"> --%>
 							<!-- Edit -->
-							<form action="${pageContext.request.contextPath}/edit?p=${url}" method="post">
+							<form action="${pageContext.request.contextPath}/edit?p=${post.getUrl()}" method="post">
+								<input type="hidden" name="postID" value="${postID }">
 								<button type="submit" value="EDIT" class="btn btn-primary">
 									<i class="fa fa-edit"></i>
 								</button>
 							</form>
 							<br>
-						</c:if>
+<%-- 						</c:if> --%>
 						
 						<!-- Báo cáo -->
-						<form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
-							<button type="submit" value="REPORT" class="btn btn-danger">
-								<i class="fa fa-flag"></i>
-							</button>
-						</form>
+						<button type="button" data-toggle="modal" data-target="#modelReport"
+										value="REPORT"  class="btn btn-danger">
+							<i class="fa fa-flag"></i>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -103,7 +103,7 @@
 				</h1>
 				<textarea id="content" name="content">${post.getContent()}</textarea>
 				<br>
-				<c:if test="${is_logged }">
+<%-- 				<c:if test="${is_logged }"> --%>
 					<h4>Bình luận</h4>
 					<form action="${pageContext.request.contextPath}/comment" method="post">
 						<textarea id="comment" name="comment"></textarea>
@@ -114,7 +114,7 @@
 							<input class="btn btn-primary" type="submit" value="Bình luận">
 						</div>
 					</form>
-				</c:if>
+<%-- 				</c:if> --%>
 				<br>
 				<%
 					int i = 0;
@@ -169,15 +169,19 @@
 									</button>
 									
 									<!-- More -->
-									<div class="btn-group dropright">
+									<div class="btn-group dropup">
 									  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle font-weight-bold" 
 									  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									    More
 									  </button>
 									  <div class="dropdown-menu">
-									    <a class="dropdown-item" href="#">Action</a>
-									    <a class="dropdown-item" href="#">Another action</a>
-									    <a class="dropdown-item" href="#">Something else here</a>
+									    <a class="dropdown-item" href="#">Sửa</a>
+									    <a class="dropdown-item" href="#">Xóa</a>
+									    <hr>
+									    <form class="dropdown-item" 
+									    		  action="${pageContext.request.contextPath}/report?p=${post.getUrl()}&comment_id=${cmt.getId()}&type=COMMENT" method="post">
+									    	<input type="submit" value="Báo cáo spam" class="btn btn-primary"/>
+									    </form>
 									  </div>
 									</div>
 								
@@ -200,7 +204,10 @@
 		<hr>
 	</div>
 	
+	<!-- Modal Upload -->
 	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
+	
+	<!-- Modal Report -->
 	<jsp:include page="../modals/modalReport.jsp"></jsp:include>
 
 	<script src="${pageContext.request.contextPath}/scripts/post.js"></script>

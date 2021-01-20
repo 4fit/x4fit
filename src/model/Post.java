@@ -348,7 +348,8 @@ public final class Post extends Model {
 	@BsonIgnore
 	public long getComments_Count()
 	{
-		return COMMENT.count(Filters.eq("_id", this.getId()));
+		long count = COMMENT.countDocuments(Filters.eq("post_id", this.getId()));
+		return count;
 	}
 	
 	public static List<Post> SearchPost(String textSearch)

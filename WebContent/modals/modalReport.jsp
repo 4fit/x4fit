@@ -26,7 +26,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					 <form action="${pageContext.request.contextPath}/report?p=${url}" method="post">
+					 <form action="${pageContext.request.contextPath}/report?p=${post.getUrl()}&type=POST" method="post">
 					  <div class="form-group">
 					    <label for="report">Mô tả</label>
 					    <input type="text" class="form-control" id="report" name="report">
@@ -34,7 +34,8 @@
 					  </div>
 					  
 					  <div align="center">
-					  	<button type="submit" class="btn btn-primary">Submit</button>
+								<input type="hidden" name="report_postID" value="${postID}">
+					  		<button type="submit" class="btn btn-primary">Submit</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						</div>
 					</form>

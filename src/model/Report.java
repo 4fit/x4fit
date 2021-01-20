@@ -5,22 +5,39 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bson.Document;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 
+import x4fit.Utilities;
+
 public final class Report extends Model {
 	
 	private ObjectId id;
+	private ObjectId obj_id;
+	private String type;
 	private String time;
 	private String description;
-	private int userID;
+	private ObjectId account_id;
 	
 	public ObjectId getId() {
 		return id;
 	}
 	public void setId(ObjectId id) {
 		this.id = id;
+	}
+	public ObjectId getObj_id() {
+		return obj_id;
+	}
+	public void setObj_id(ObjectId obj_id) {
+		this.obj_id = obj_id;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getTime() {
 		return time;
@@ -34,23 +51,24 @@ public final class Report extends Model {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getUserID() {
-		return userID;
+	public ObjectId getAccount_id() {
+		return account_id;
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setAccount_id(ObjectId account_id) {
+		this.account_id = account_id;
 	}
-	
 	public Report() {}
 	
-	public Report(ObjectId id, String time, String description, int userID) {
-		super();
-		this.id = id;
-		this.time = time;
+	public Report(ObjectId obj_id, String type, String description, ObjectId account_id) {
+		this.id = new ObjectId();
+		this.obj_id = obj_id;
+		this.type = type;
+		this.time = Utilities.GetCurrentDateTime();
 		this.description = description;
-		this.userID = userID;
+		this.account_id = account_id;
 	}
 	
+	@BsonIgnore
 	public static List<Report> getAllReports() {
 		FindIterable<Report> cursor = REPORT.find();
 		Iterator<Report> it = cursor.iterator();
@@ -61,5 +79,11 @@ public final class Report extends Model {
 			}
 		}
 		return listReports;
+	}
+	
+	public void Insert()
+	{
+		REPORT.insertOne(this);
+		
 	}
 }

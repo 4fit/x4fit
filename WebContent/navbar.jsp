@@ -41,18 +41,18 @@
 <!-- 				<button class="btn btn-primary mt-1" type="button"> -->
 <!-- 					<i class="fas fa-bell"></i> -->
 <!-- 				</button> -->
-				<c:if test="${is_logged == true}">
+<%-- 				<c:if test="${is_logged == true}"> --%>
 				<a href="${pageContext.request.contextPath}/create">
 					<button class="btn btn-secondary mt-1" type="button">
 						<i class="fas fa-edit"></i>
 					</button>
 				</a>
-				</c:if>
+<%-- 				</c:if> --%>
 	
 			</div>
 		</div>
 		
-		<c:if test="${is_logged == true}">
+<%-- 		<c:if test="${is_logged == true}"> --%>
 			<button type="button" class="btn dropdown-toggle"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="img-profile"
@@ -74,7 +74,7 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Sign out</a>
 				</div>
-		</c:if>
+<%-- 		</c:if> --%>
 		<c:if test="${is_logged==false }">
 				<div style="width: 5vw;">
 					<a class="btn btn-primary" href="${pageContext.request.contextPath}/login">

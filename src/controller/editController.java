@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.types.ObjectId;
+
 import model.Post;
 
 @WebServlet("/edit")
@@ -25,8 +27,9 @@ public class editController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
-		String p = (String) request.getParameter("p");
-		Post post = Post.GetPost(p);
+		String p = request.getParameter("p");
+		ObjectId post_id = new ObjectId((String)request.getParameter("postID"));
+		Post post = Post.GetPostByID(post_id);
 		String title = post.getTitle();
 		String content = post.getContent();
 		String category = post.getCategory();
