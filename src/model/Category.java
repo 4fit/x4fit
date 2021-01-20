@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
@@ -66,6 +62,7 @@ public class Category extends Model
 	public Category() {}
 	
 	public Category(String name, String description) {
+		this.id = new ObjectId();
 		this.name = name;
 		this.description = description;
 		this.shortDes = description;
@@ -76,17 +73,7 @@ public class Category extends Model
 		this.url = Utilities.createURL(name);
 	}
 	
-	public Category(ObjectId id, String name, String description, String shortDes, int count_post, String url) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.shortDes = shortDes;
-		this.count_post = count_post;
-		this.url = url;
-	}
-	
-	public static List<Category> getAllCategories() {
+	public static List<Category> GetAllCategories() {
 		FindIterable<Category> cursor = CATEGORY.find();
 		Iterator<Category> it = cursor.iterator();
 		ArrayList<Category> listCategories = new ArrayList<Category>();
@@ -139,7 +126,7 @@ public class Category extends Model
 		try {
 			Category cat = CATEGORY.find(Filters.eq("name", categoryName)).first();
 			if (cat==null) return false;
-			return false;
+			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());

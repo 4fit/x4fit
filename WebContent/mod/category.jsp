@@ -76,7 +76,7 @@
                                                         <tbody>
                                                             <c:forEach items="${allCategories}" var="category">
                                                                 <tr>
-                                                                    <td class="align-center">
+                                                                    <td>
                                                                         ${category.getId()}
                                                                     </td>
                                                                     <td>
@@ -115,7 +115,7 @@
 																		                    </div>
 																		                    <input type="hidden" name="oldName" value="${category.getName()}">
 																		                    <input type="hidden" name="url" value="${category.getUrl()}">
-																		                    <button type="submit" class="btn btn-success">Update</button>
+																		                    <button type="submit" class="btn btn-primary btn-block">Update</button>
 																		                </form>
 																		            </div>
 																		        </div>

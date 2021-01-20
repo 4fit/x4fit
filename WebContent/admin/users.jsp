@@ -115,7 +115,7 @@
                                                                                 <div class="form-group">
                                                                                     <label for="status">Status</label>
                                                                                     <select class="form-control" name="status" id="status">
-                                                                                        <option value="ok" selected disabled hidden>
+                                                                                        <option value="${user.getStatus()}" selected disabled hidden>
                                                                                             ${user.getStatus()}
                                                                                         </option>
                                                                                         <option value="ACTIVE">ACTIVE</option>
@@ -123,8 +123,8 @@
                                                                                         <option value="NOT ACTIVE">NOT ACTIVE</option>
                                                                                     </select>
                                                                                 </div>
-                                                                                <input type="hidden" name="userId" value="${user.getUserID()}">
-                                                                                <button type="submit" class="btn btn-danger">Block</button>
+                                                                                <input type="hidden" name="accountId" value="${user.getUserID()}">
+                                                                                <button type="submit" class="btn btn-primary btn-block">SET</button>
                                                                             </form>
                                                                         </div>
                                                                     </div>

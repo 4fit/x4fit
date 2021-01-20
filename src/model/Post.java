@@ -177,7 +177,7 @@ public class Post extends Model {
 	}
 	
 	// Duyệt bài post
-	public static boolean acceptPost(int postId) {
+	public static boolean acceptPost(ObjectId postId) {
 		try {
 			POST.updateOne(Filters.eq("_id", postId), new Document("$set", new Document("status", "Đã duyệt")));
 			System.out.println("Accepted post!");

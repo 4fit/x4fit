@@ -378,7 +378,7 @@ public class User extends Model
 	}
 
 	public static void updateUserStatusByAccountID(ObjectId account_id, String newStatus) {
-		USER.updateOne(Filters.eq("account_id", account_id), Updates.set("status", newStatus));
+		ACCOUNT.updateOne(Filters.eq("_id", account_id), Updates.set("status", newStatus));
 	}
 	
 	public static void InsertImage(ObjectId userID, String filePath)

@@ -102,9 +102,10 @@ public class AdminController extends HttpServlet {
 	
 	protected void updateAccountStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String status = (String)request.getParameter("status");
-		ObjectId userId = new ObjectId(request.getParameter("userId"));
+		ObjectId accountId = new ObjectId(request.getParameter("accountId"));
+	
 		try {
-			User.updateUserStatusByAccountID(userId, status);
+			User.updateUserStatusByAccountID(accountId, status);
 			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
