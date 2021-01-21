@@ -200,8 +200,12 @@
                                                                             liệu?
                                                                         </div>
                                                                         <div class="modal-footer">
-                                                                            <button type="button"
+                                                                        	<form action="${pageContext.request.contextPath}/admin/delete-user">
+                                                                        		<input type="hidden" name="username" value="${user.getUsername()}">
+                                                                        		<button type="submit"
                                                                                 class="btn btn-danger">Xóa</button>
+                                                                        	</form>
+                                                                            
                                                                             <button type="button"
                                                                                 class="btn btn-secondary"
                                                                                 data-dismiss="modal">Đóng</button>

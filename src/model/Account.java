@@ -111,6 +111,14 @@ public final class Account extends Model {
 		user.Insert();
 	}
 	
+	public static void deleteAccountByUsername(String username)
+	{
+		ObjectId userId = User.GetUserByUsername(username).getId();
+		USER.deleteOne(Filters.eq("_id", userId));
+		ACCOUNT.deleteOne(Filters.eq("username", username));
+		System.out.println("delete thanh cong");
+	}
+	
 	public static boolean checkExitUsername(String username)
 	{
 		Account acc = ACCOUNT.find(Filters.eq("username", username)).first();
