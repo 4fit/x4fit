@@ -323,7 +323,7 @@ public final class User extends Model
 		return user.getClips().size();
 	}
 
-	{
+	
 //	public static void createUserByID(ObjectId accId, String fullname) // Tạo user với user_id đã được tạo ở model account
 //	{
 //		Document doc = new Document("_id", new ObjectId());
@@ -343,7 +343,7 @@ public final class User extends Model
 //		doc.append("clips", clips);
 //		Model.Insert(doc, "USER");
 //	}
-	}
+	
 	
 	public static boolean updateInforUser(ObjectId accId, String fullname, String email, String username, String password) {
 
@@ -391,4 +391,6 @@ public final class User extends Model
 	{
 		USER.insertOne(this);
 	}
+	
+	
 }

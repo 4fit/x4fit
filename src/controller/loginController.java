@@ -88,6 +88,8 @@ public class loginController extends HttpServlet {
 			
 			Account account = Account.GetAccountByID(account_id);
 			User user = User.GetUserByAccountID(account_id);
+			request.setAttribute("user", user);
+			request.setAttribute("is_logged", true);
 			String url = "";
 			
 			

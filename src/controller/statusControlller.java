@@ -17,7 +17,7 @@ import x4fit.Utilities;
 /**
  * Servlet implementation class statusControlller
  */
-@WebServlet("/statusControlller")
+@WebServlet("/status")
 public class statusControlller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,7 +38,7 @@ public class statusControlller extends HttpServlet {
     	String email = "";
     	String url;
     	HttpSession session = request.getSession();
-    	if(session.getAttribute("status") != null)
+    	if(session.getAttribute("status") != null && request.getAttribute("user") != null)
     	{
     		String status = (String)session.getAttribute("status");
     		request.setAttribute("status", status);
@@ -48,7 +48,7 @@ public class statusControlller extends HttpServlet {
     		if (Account.checkExitEmail(email) == false) {
 				request.setAttribute("message", "** Email not already exist !");
 				
-				url = "/login/status.jsp";
+				url = "login/status.jsp";
 				request.setAttribute("email", email);
     		}
     		else
@@ -57,14 +57,17 @@ public class statusControlller extends HttpServlet {
     			User user = User.GetUserByAccountID(acc.getId());
     			
     			sendmail(email, user.getFullname(), acc.getPassword());
-    			url = "/login/success.jsp"; // đã xác nhận thành công !
+    			url = "login/success.jsp"; // đã xác nhận thành công !
     			session.setAttribute("status", "ACTIVE");
     		}
     	}
     	else
     	{
-    		url = "/login/login.jsp";
+    		url = "login/login.jsp";
+    		
     	}
+    	
+    	response.sendRedirect(url);
     }
     
     

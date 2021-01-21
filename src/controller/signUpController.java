@@ -118,7 +118,7 @@ public class signUpController extends HttpServlet {
 		String OTP = hashedPassword.substring(0, 5); // Lấy 6 số đầu trong đoạn mã hash để người dùng xác nhận
 		String subject = "Wellcome to X4FIT";
 
-		String body = "Dear " + fullname + ",\n\n" + "Your code:" + OTP;
+		String body = "Dear " + fullname + ",\n\n" + "Your code:" + OTP + "\n\n" + "Confirm: " ;
 		boolean isBodyHTML = false;
 
 		try {

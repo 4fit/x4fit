@@ -89,16 +89,9 @@ public final class Account extends Model {
 					).first()
 					.getId();
 		
-//		System.out.print(username + email);
-//		Account acc = ACCOUNT.find(
-//				Filters.and(
-//						Filters.eq("username",username), 
-//						Filters.eq("email", email))
-//				).first();
-//		
-//				
-//		
+		
 		User user = new User(fullname, account_id, username);
+		System.out.print("new user");
 		user.Insert();
 	}
 	
