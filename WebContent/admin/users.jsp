@@ -6,12 +6,10 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-                integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-                crossorigin="anonymous">
-            <link rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="../mod/style.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/scripts/bootstrap.min.js">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/mod/style.css">
             <title>Quản lý người dùng - X4FIT</title>
         </head>
 
@@ -32,7 +30,7 @@
                                 </c:if>
                                 <div class="d-flex">
                                     <button class="mb-2 btn btn-primary" data-toggle="modal"
-                                        data-target="#create-mod">Thêm mod</button>
+                                        data-target="#create-mod">TẠO MOD</button>
                                     <form class="mb-2 form-inline my-2 ml-auto mr-5"
                                         action="${pageContext.request.contextPath}/admin/search-user">
                                         <input class="form-control mr-sm-1 search-bar"
@@ -50,7 +48,8 @@
                                     <div class="card-body">
                                         <div class="filter">
                                             <form class="d-flex"
-                                                action="${pageContext.request.contextPath}/admin/user/filter" method="get">
+                                                action="${pageContext.request.contextPath}/admin/user/filter"
+                                                method="get">
                                                 <div class="filter-item">
                                                     <label for="account-type">Loại tài khoản:</label>
                                                     <select name="accountType" id="account-type">
@@ -117,7 +116,7 @@
                                                                         class="fa fa-wrench"></i></a>
                                                                 <a type="button" data-toggle="modal"
                                                                     data-target="#delete${user.getUserID()}"><i
-                                                                        class="fa fa-trash"></i></a>
+                                                                        class="fa fa-trash" aria-hidden="true"></i></a>
                                                             </td>
 
                                                             <!-- Status Modal -->
@@ -129,7 +128,8 @@
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
                                                                                 id="exampleModalLabel">
-                                                                                Thay đổi trạng thái tài khoản [<i>${user.getUsername()}</i>]
+                                                                                Thay đổi trạng thái tài khoản
+                                                                                [<i>${user.getUsername()}</i>]
                                                                             </h5>
                                                                             <button type="button" class="close"
                                                                                 data-dismiss="modal" aria-label="Close">
@@ -174,7 +174,8 @@
                                                                 </div>
                                                             </div>
                                                             <!-- Delete Modal -->
-                                                            <div class="modal fade" id="delete${user.getUserID()}" role="dialog">
+                                                            <div class="modal fade" id="delete${user.getUserID()}"
+                                                                role="dialog">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -188,12 +189,17 @@
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                           Xóa vĩnh viễn tài khoản <b>${user.getUsername()}</b> khỏi cơ sở dữ liệu?
+                                                                            Xóa vĩnh viễn tài khoản
+                                                                            <b>${user.getUsername()}</b> khỏi cơ sở dữ
+                                                                            liệu?
                                                                         </div>
                                                                         <div class="modal-footer">
-																	        <button type="button" class="btn btn-danger">Xóa</button>
-																	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-																	    </div>
+                                                                            <button type="button"
+                                                                                class="btn btn-danger">Xóa</button>
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Đóng</button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

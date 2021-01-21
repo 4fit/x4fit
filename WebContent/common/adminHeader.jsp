@@ -20,7 +20,7 @@
                     <li id="report">
                         <a id="a3" href="${pageContext.request.contextPath}/admin/all-reports">
                             <i class="fa fa-book" aria-hidden="true"></i>
-                            <span>REPORT</span>
+                            <span>Báo cáo</span>
                         </a>
                     </li>
                 </ul>
