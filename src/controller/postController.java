@@ -9,8 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import org.bson.types.ObjectId;
 
+import model.Account;
 import model.Comment;
 import model.Post;
 import model.User;
@@ -41,13 +42,19 @@ public class postController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		String p = (String) request.getParameter("p");
-		HttpSession session = request.getSession();
+		if (Account.isLogged(request.getCookies()))
+		{
+			request.setAttribute("is_logged", true);
+		}
+		else request.setAttribute("is_logged", false);
+		
+		String p = request.getParameter("p");
 		Post post = Post.GetPost(p);
 		if (post != null)
 		{
+			ObjectId account_id = User.GetAccountIdFromCookies(request.getCookies());
 			GetAllComments(post);
-			boolean is_author = post.getAuthor_id() == User.GetAccountIdFromCookies(request.getCookies());
+			boolean is_author = post.getAuthor_id().equals(account_id);
 			request.setAttribute("post", post);
 			request.setAttribute("comments", listCmts);
 			request.setAttribute("listUserCmt", listUserCmt);
@@ -64,13 +71,14 @@ public class postController extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 			dispatcher.forward(request, response);
 		}
-		
     }
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

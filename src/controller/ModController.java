@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 
+import model.Account;
 import model.Category;
 import model.Model;
 import model.Post;
@@ -39,6 +40,14 @@ public class ModController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		
 		String action = request.getServletPath();
 		switch (action) {
 			case "/mod/all-posts":

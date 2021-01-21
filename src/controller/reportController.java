@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 
+import model.Account;
 import model.Model;
 import model.Report;
 import model.User;
@@ -27,6 +28,13 @@ public class reportController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
 		
 		ObjectId account_id = User.GetAccountIdFromCookies(request.getCookies());
 		if (account_id == null)

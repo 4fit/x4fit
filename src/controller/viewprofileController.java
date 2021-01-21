@@ -78,12 +78,18 @@ public class viewprofileController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 			// System.out.print(user.getEmail()+ user.getId());
-		List<Post> posts = Post.GetAllPostByUserID(user1.getAccount_id());
+		List<Post> posts = Post.GetAllPostByAccountID(user1.getAccount_id());
 		request.setAttribute("listpost", posts);
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		if (Account.isLogged(request.getCookies()) == false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
 		
 		ValidateUser(request);
 		if(request.getParameter("email")!=null)

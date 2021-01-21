@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${post.getTitle()}</title>
-	<link rel="icon" type="image/png" href="images/logo2.png" />
+	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.ico" />
 	<link rel="image_src" href="${post.getThumbnail_url()}">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
@@ -16,20 +16,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/simplemde.min.css">
-<!-- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"> -->
-<!-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> -->
+<!--  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> -->
 	<script src="${pageContext.request.contextPath}/scripts/jquery-3.5.1.slim.min.js"></script>
 <!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/scripts/simplemde.min.js"></script>
 	<script src="${pageContext.request.contextPath}/scripts/highlight.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 </head>
 <body>
 	<jsp:include page="../navbar.jsp"></jsp:include>
-	<% 
-	try {boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");}
-	catch (Exception e){}%>
-
 	
 	<div class="container-fluid" style="margin-top: 30px">
 		<div class="row">
@@ -37,33 +33,33 @@
 			<!-- Left -->
 			<div class="col-sm-2">
 				<div class="post-actions d-flex flex-column mx-auto">
-
-					<!-- Points -->
-					<div class="vote" align="center">
-						<button class="icon-btn" data-original-title="Upvote" 
-										onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
-														 incrementValue('${postID}');">
-							<i class="fa fa-caret-up"></i>
-						</button>
-						<br>
-						<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
-									disabled size="1" class="points" id="${postID}" value="${post.getPoints()}">
-						<br>
-						<button class="icon-btn" data-original-title="Downvote"
-										onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
-														 decrementValue('${postID}');">
-							<i class="fa fa-caret-down"></i>
-						</button>
-					</div>
-
-					<!-- Clips -->
-					<div align="center">
-						<button type="button" class="clip"
-							data-original-title="Clip this post">
-							<i class="fa fa-paperclip"></i>
-						</button>
-					</div>
-
+					<c:if test="${is_logged == true }">
+						<!-- Points -->
+						<div class="vote" align="center">
+							<button class="icon-btn" data-original-title="Upvote" 
+											onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
+															 incrementValue('${postID}');">
+								<i class="fa fa-caret-up"></i>
+							</button>
+							<br>
+							<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
+										disabled size="1" class="points" id="${postID}" value="${post.getPoints()}">
+							<br>
+							<button class="icon-btn" data-original-title="Downvote"
+											onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
+															 decrementValue('${postID}');">
+								<i class="fa fa-caret-down"></i>
+							</button>
+						</div>
+	
+						<!-- Clips -->
+						<div align="center">
+							<button type="button" class="clip"
+								data-original-title="Clip this post">
+								<i class="fa fa-paperclip"></i>
+							</button>
+						</div>
+					</c:if>
 					<div align="center">
 						<!-- Share -->
 						<a
@@ -77,7 +73,7 @@
 						
 						<br>
 						
-<%-- 						<c:if test="${is_author}"> --%>
+						<c:if test="${is_author == true}">
 							<!-- Edit -->
 							<form action="${pageContext.request.contextPath}/edit?p=${post.getUrl()}" method="post">
 								<input type="hidden" name="postID" value="${postID }">
@@ -86,13 +82,15 @@
 								</button>
 							</form>
 							<br>
-<%-- 						</c:if> --%>
+						</c:if>
 						
-						<!-- Báo cáo -->
-						<button type="button" data-toggle="modal" data-target="#modelReport"
-										value="REPORT"  class="btn btn-danger">
-							<i class="fa fa-flag"></i>
-						</button>
+						<c:if test="${is_logged == true }">
+							<!-- Báo cáo -->
+							<button type="button" data-toggle="modal" data-target="#modelReport"
+											value="REPORT"  class="btn btn-danger">
+								<i class="fa fa-flag"></i>
+							</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -117,28 +115,18 @@
 									<div class="post-author__info overflow-hidden mr-1">
 										<div class="d-flex">
 											<div class="overflow-hidden flex-fix mr-05">
-												<a class="text-bold post-author__name" href="#">${name_author}</a>
-												<span class="text-muted"> @<c:out
-														value="${username_author}"></c:out></span>
+												<a class="text-bold post-author__name" href="#">${post.GetAuthor().getFullname()}</a>
+												<br>
+												<span class="text-muted">@${post.GetAuthor().getUsername()}</span>
 											</div>
-											<form class="subscribe_follow"
-												action="${pageContext.request.contextPath}/detailPost"
-												method="post">
-												<button type="submit" class="following" value="follow"
-													name="userCurrentAction">
-													<span>Follow</span>
-												</button>
-											</form>
 										</div>
 										<div class="stats align-items-center">
 											<span class="stat-item text-muted" data-toggle="tooltip"
 												data-placement="bottom" title="Follower: 1"> <i
 												aria-hidden="true" class="stat-item__icon fa fa-user-plus"></i>
-												1
 											</span> <span class="stat-item text-muted" data-toggle="tooltip"
 												data-placement="bottom" title="Post: 1"> <i
 												aria-hidden="true" class="stat-item__icon fa fa-pencil"></i>
-												1
 											</span>
 										</div>
 									</div>
@@ -176,7 +164,7 @@
 						
 				<textarea id="content" name="content">${post.getContent()}</textarea>
 				<br>
-<%-- 				<c:if test="${is_logged }"> --%>
+				<c:if test="${is_logged }">
 					<h4>Bình luận</h4>
 					<form action="${pageContext.request.contextPath}/comment" method="post">
 						<textarea id="comment" name="comment"></textarea>
@@ -187,7 +175,7 @@
 							<input class="btn btn-primary" type="submit" value="Bình luận">
 						</div>
 					</form>
-<%-- 				</c:if> --%>
+				</c:if>
 				<br>
 				<%
 					int i = 0;
@@ -277,6 +265,7 @@
 		<hr>
 	</div>
 	
+	<jsp:include page="../common/footer.jsp"/>
 	<!-- Modal Upload -->
 	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
 	

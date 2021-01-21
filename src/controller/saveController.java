@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Account;
 import model.Post;
 
 @WebServlet("/save")
@@ -26,6 +27,13 @@ public class saveController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		
 		String p = (String) request.getParameter("p"); // để biết bài viết nào được saveController
 		// title
 		String title = request.getParameter("title");

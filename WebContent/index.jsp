@@ -6,66 +6,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Trang chủ</title>
-	<link rel="icon" type="image/png" href="images/logo2.png" />
+	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.ico" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
-	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
-
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/font-awesome.min.css" />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.js" integrity="sha512-4WpSQe8XU6Djt8IPJMGD9Xx9KuYsVCEeitZfMhPi8xdYlVA5hzRitm0Nt1g2AZFS136s29Nq4E4NVvouVAVrBw==" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<script src="https://kit.fontawesome.com/f93b4d7888.js"
-	crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<script src="${pageContext.request.contextPath}/scripts/jquery-3.5.1.slim.min.js"></script>
+	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
 </head>
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
-	<!------------------------------THANH BAR------------------------------>
-	<div class="bg-dark py-md-1 py-05">
-		<div class="container">
-			<div class="row d-flex align-items-center justify-content-between">
-				<div class="feed-bar">
-					<div class="feedbar-wrapper">
-						<ul class="feed-links">
-							<li class="feedbar-item">
-							</li>
-							
-							<li class="feedbar-item nuxt-link-exact-active active">
-								<a href="#" class="feed-link posts-newest">
-									<div class="el-badge badge-has-new"> Newest 
-									<sup
-											class="el-badge__content el-badge__content--undefined is-fixed"
-											style="display: none;"></sup>
-									</div>
-							</a></li>
-
-							<li class="feedbar-item">
-								<a href="/followings" class="feed-link posts-subscriptions" aria-current="page">
-									<div class="el-badge badge-has-new"> Followings 
-										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;">
-										</sup>
-									</div>
-							</a>
-							</li>
-							<li class="feedbar-item">
-								<a href="/clip/posts" class="feed-link posts-clip">
-									<div class="el-badge badge-has-new"> My Clips 
-										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup>
-									</div>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-lg-9 content-main ">
-
-			<!----------------------------------BOOKMARKS--------------------------------------->
-
 			<div id="Bookmarks" class="tabcontent">
 				<div class="jumbotron jumbotron-fluid">
 					<c:forEach var="p" items="${topPosts}" begin="0" end="${topPosts.size()}" varStatus="loop">
