@@ -82,6 +82,8 @@ public class AdminController extends HttpServlet {
 		String status = (String)request.getParameter("status");
 		try {
 			List<UserAccount> allUserInfoList = UserAccount.GetUserFilter(accountType, status);
+			request.setAttribute("accountType", accountType);
+			request.setAttribute("status", status);
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		} catch (Exception e) {

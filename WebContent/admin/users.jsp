@@ -8,8 +8,10 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/scripts/bootstrap.min.js">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/mod/style.css">
+            
             <title>Quản lý người dùng - X4FIT</title>
         </head>
 
@@ -50,29 +52,33 @@
                                             <form class="d-flex"
                                                 action="${pageContext.request.contextPath}/admin/user/filter"
                                                 method="get">
-                                                <div class="filter-item">
+                                                <div class="filter-item form-group">
                                                     <label for="account-type">Loại tài khoản:</label>
-                                                    <select name="accountType" id="account-type">
-                                                        <option value="USER">Người dùng</option>
-                                                        <option value="MOD">Biên tập viên</option>
+                                                    <select name="accountType" id="account-type" class="custom-select">
+                                                        <option value="${accountType}" selected disabled hidden>
+                                                            ${accountType}</option>
+                                                        <option value="USER">USER</option>
+                                                        <option value="MOD">MOD</option>
+                                                        <option value="ALL">ALL</option>
                                                     </select>
                                                 </div>
-                                                <div class="filter-item">
-                                                    <div class="account-type">
-                                                        <label for="status">Trạng thái:</label>
-                                                        <select name="status" id="status">
-                                                            <option value="ACTIVE">Đã kích hoạt</option>
-                                                            <option value="NOT ACTIVE">Chưa kích hoạt</option>
-                                                            <option value="BLOCK">Chặn</option>
-                                                        </select>
-                                                    </div>
+                                                <div class="filter-item form-group">
+                                                    <label for="status">Trạng thái:</label>
+                                                    <select name="status" id="status" class="custom-select">
+                                                        <option value="${status}" selected disabled hidden>${status}
+                                                        </option>
+                                                        <option value="ACTIVE">ACTIVE</option>
+                                                        <option value="NOT ACTIVE">NOT ACTIVE</option>
+                                                        <option value="BLOCK">BLOCK</option>
+                                                    </select>
                                                 </div>
-                                                <button class="filter-item" type="submit">Lọc</button>
+                                                <button class="filter-item btn-filter btn btn-primary"
+                                                    type="submit">Lọc</button>
                                             </form>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table table-hover">
-                                                <thead>
+                                                <tr>
                                                     <th>
                                                         ID
                                                     </th>
@@ -91,7 +97,7 @@
                                                     <th>
                                                         Thao tác
                                                     </th>
-                                                </thead>
+                                                </tr>
                                                 <tbody>
                                                     <c:forEach items="${userInfoList}" var="user">
                                                         <tr>

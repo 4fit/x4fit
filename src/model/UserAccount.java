@@ -166,8 +166,14 @@ public class UserAccount extends Model {
 					user.getAvatar(), 
 					user.getUrl(), 
 					user.getStatus());
-			if (userAccount.getUser_type().equals(accountType) && userAccount.getStatus().equals(status)) {
-				data.add(userAccount);
+			if (accountType.equals("ALL")) {
+				if (userAccount.getStatus().equals(status)) {
+					data.add(userAccount);
+				}
+			} else {
+				if (userAccount.getUser_type().equals(accountType) && userAccount.getStatus().equals(status)) {
+					data.add(userAccount);
+				}
 			}
 		}
 		return data;
