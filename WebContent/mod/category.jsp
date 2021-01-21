@@ -21,7 +21,7 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
-            <title>Category - Mod</title>
+            <title>Quản lý thể loại - X4FIT</title>
         </head>
 
         <body>
@@ -93,23 +93,23 @@
 																		    <div class="modal-dialog" role="document">
 																		        <div class="modal-content">
 																		            <div class="modal-header">
-																		                <h3 class="modal-title">Update Category</h3>
+																		                <h3 class="modal-title">Cập nhật thể loại</h3>
 																		            </div>
 																		            <div class="modal-body">
 																		                <form action="${pageContext.request.contextPath}/mod/update-category" method="post">
 																		                    <div class="form-group">
-																		                        <label for="category-name">Category Name</label>
+																		                        <label for="category-name">Tên thể loại</label>
 																		                        <input type="text" class="form-control" id="category-name" value="${category.getName()}" required
-																		                            placeholder="Enter Category Name" name="category-name">
+																		                            placeholder="Tên thể loại" name="category-name">
 																		                    </div>
 																		                    <div class="form-group">
-																		                        <label for="description">Description</label>
+																		                        <label for="description">Mô tả</label>
 																		                        <textarea class="form-control" id="description" rows="3" required
-																		                            placeholder="Description here" name="description">${category.getDescription()}</textarea>
+																		                            placeholder="Nhập mô tả" name="description">${category.getDescription()}</textarea>
 																		                    </div>
 																		                    <input type="hidden" name="oldName" value="${category.getName()}">
 																		                    <input type="hidden" name="url" value="${category.getUrl()}">
-																		                    <button type="submit" class="btn btn-primary btn-block">Update</button>
+																		                    <button type="submit" class="btn btn-primary btn-block">Cập nhật ngay!</button>
 																		                </form>
 																		            </div>
 																		        </div>
@@ -124,7 +124,7 @@
 		                                                                        <div class="modal-content">
 		                                                                            <div class="modal-header">
 		                                                                                <h5 class="modal-title"
-		                                                                                    id="exampleModalLabel">Delete Category</h5>
+		                                                                                    id="exampleModalLabel">Xóa thể loại</h5>
 		                                                                                <button type="button" class="close"
 		                                                                                    data-dismiss="modal"
 		                                                                                    aria-label="Close">
@@ -133,13 +133,13 @@
 		                                                                                </button>
 		                                                                            </div>
 		                                                                            <div class="modal-body">
-		                                                                                Do you want to delete category <b><c:out value="${category.getName()}"></c:out></b>?
+		                                                                                Bạn có muốn xóa thể loại <b><c:out value="${category.getName()}"></c:out></b> không?
 		                                                                            </div>
 		                                                                            <div class="modal-footer">
-		                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 		                                                                                <form action="${pageContext.request.contextPath}/mod/delete-category" method="post">
 		                                                                                	<input type="hidden" name="url" value="${category.getUrl()}" />
-		                                                                                	<button type="submit" class="btn btn-danger">Delete</button>
+		                                                                                	<button type="submit" class="btn btn-danger">Xóa</button>
 		                                                                                </form>
 		                                                                            </div>
 		                                                                        </div>

@@ -5,7 +5,7 @@
         <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
             <div class="logo" style="border-bottom: 1px solid #ccc">
                 <a href="${pageContext.request.contextPath}/mod/all-categories">
-                    <img src="https://colorlib.com/polygon/adminator/assets/static/images/logo.png">
+                    <img src="">
                     <span>X4FIT</span>
                 </a>
             </div>
@@ -41,13 +41,13 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span><img class="avata" src="https://global-uploads.webflow.com/5ef5480befd392489dacf544/5f9f5e5943de7e69a1339242_5f44a7398c0cdf460857e744_img-image.jpeg"></span>
+                                    <span><img class="avata" src=""></span>
                                     Van Cui
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 <!--                                     <a class="dropdown-item" href="#">Setting</a> -->
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
                                 </div>
                             </li>
                         </ul>
