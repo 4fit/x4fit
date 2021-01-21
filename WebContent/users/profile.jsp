@@ -142,31 +142,31 @@
                <div class="post-div container">
                  <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }" alt="${curUser.getFullname() }">
                  <a class="name-pro-post display-9">${curUser.getFullname()}</a>
-                 <c:if test="${post.getIs_public()==true}">
-                 	<span class="status">Public</span>
+                 <p class="postime">${post.getPublished_at()}</p>
+                 <p class="lead ml-2 title-post">
+                 	<a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
+                 	<br>
+                 	<c:if test="${post.getIs_public()==true}">
+                 	<span class="badge badge-primary">Public</span>
                  </c:if>
                  <c:if test="${post.getIs_public()==false}">
-                 	<span class="status">Private</span>
+                 	<span class="badge badge-secondary">Private</span>
                  </c:if>
-                
-                 <p class="postime">Create at: ${post.getPublished_at()}</p>
-                 <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
-                 </p>
-                 <p class="card-text">${post.getShortContent()}...</p>
-                 <div class="tag d-flex">
-                   <button class="btn-secondary">${post.getCategory() }</button>
-
-                 </div>
+                 <span class="badge badge-danger">${post.getCategory() }</span>
+                 
                  <span class="viewtag t ml-20">
-                 <i class="far fa-eye"></i><label class="view">${post.getViews_count()} </label>
-               </span>
+	                 <i class="far fa-eye"></i><label class="view">${post.getViews_count()} </label>
+	               	</span>
                  <span class="viewtag t ">
-                 <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
-               </span>
+	                 <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
+	               </span>
                  <span class="viewtag t">
-                 <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
-               </span>
+	                 <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
+	               </span>
+                 </p>
+                 
                </div>
+               <p class="card-text">${post.getShortContent()}</p>
                <div class="divider ml-5 mr-5"></div>
              </c:forEach>
 

@@ -14,9 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
-<%-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/font-awesome.min.css"> --%>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/simplemde.min.css">
- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<!--  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> -->
 	<script src="${pageContext.request.contextPath}/scripts/jquery-3.5.1.slim.min.js"></script>
 <!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
@@ -115,28 +115,18 @@
 									<div class="post-author__info overflow-hidden mr-1">
 										<div class="d-flex">
 											<div class="overflow-hidden flex-fix mr-05">
-												<a class="text-bold post-author__name" href="#">${name_author}</a>
-												<span class="text-muted"> @<c:out
-														value="${username_author}"></c:out></span>
+												<a class="text-bold post-author__name" href="#">${post.GetAuthor().getFullname()}</a>
+												<br>
+												<span class="text-muted">@${post.GetAuthor().getUsername()}</span>
 											</div>
-											<form class="subscribe_follow"
-												action="${pageContext.request.contextPath}/detailPost"
-												method="post">
-												<button type="submit" class="following" value="follow"
-													name="userCurrentAction">
-													<span>Follow</span>
-												</button>
-											</form>
 										</div>
 										<div class="stats align-items-center">
 											<span class="stat-item text-muted" data-toggle="tooltip"
 												data-placement="bottom" title="Follower: 1"> <i
 												aria-hidden="true" class="stat-item__icon fa fa-user-plus"></i>
-												1
 											</span> <span class="stat-item text-muted" data-toggle="tooltip"
 												data-placement="bottom" title="Post: 1"> <i
 												aria-hidden="true" class="stat-item__icon fa fa-pencil"></i>
-												1
 											</span>
 										</div>
 									</div>
