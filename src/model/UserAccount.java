@@ -115,4 +115,26 @@ public class UserAccount extends Model {
 		}
 		return data;
 	}
+	
+	public static List<UserAccount> GetUserFilter(String accountType, String status) {
+		List<User> allUserList = User.getAllUsers();
+		ArrayList<UserAccount> data = new ArrayList<UserAccount>();
+		for (int i = 0; i < allUserList.size(); i++) {
+			User user = allUserList.get(i);
+			Account account = Account.GetAccountByID(user.getAccount_id());
+			UserAccount userAccount = new UserAccount(
+					user.getId(),
+					account.getUsername(), 
+					account.getEmail(), 
+					account.getUser_type(), 
+					user.getFullname(), 
+					user.getAvatar(), 
+					user.getUrl(), 
+					user.getStatus());
+			if (userAccount.getUser_type().equals(accountType) && userAccount.getStatus().equals(status)) {
+				data.add(userAccount);
+			}
+		}
+		return data;
+	}
 }

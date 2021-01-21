@@ -21,6 +21,7 @@ import model.UserAccount;
 		"/admin/create-mod",
 		"/admin/update-status",
 		"/admin/all-reports",
+		"/admin/user/filter",
 		})
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -48,19 +49,34 @@ public class AdminController extends HttpServlet {
 			case "/admin/all-reports":
 				getAllReports(request, response);
 				return;
+			case "/admin/user/filter":
+				getUserFilter(request, response);
+				return;
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+	
+	protected void getUserFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String accountType = (String)request.getParameter("accountType");
+		String status = (String)request.getParameter("status");
+		try {
+			List<UserAccount> allUserInfoList = UserAccount.GetUserFilter(accountType, status);
+			request.setAttribute("userInfoList", allUserInfoList);
+			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
 
 	protected void getAllUsersInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
-		request.setAttribute("userInfoList", allUserInfoList);
-		request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		try {
-			
+			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
+			request.setAttribute("userInfoList", allUserInfoList);
+			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");
@@ -103,7 +119,6 @@ public class AdminController extends HttpServlet {
 	protected void updateAccountStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String status = (String)request.getParameter("status");
 		ObjectId accountId = new ObjectId(request.getParameter("accountId"));
-	
 		try {
 			User.updateUserStatusByAccountID(accountId, status);
 			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
