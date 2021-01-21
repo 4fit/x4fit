@@ -26,6 +26,7 @@ import x4fit.Utilities;
 		"/admin/user/filter",
 		"/admin/delete-report",
 		"/admin/search-report",
+		"/admin/search-user",
 		"/admin/filter-report",
 		})
 public class AdminController extends HttpServlet {
@@ -62,6 +63,9 @@ public class AdminController extends HttpServlet {
 				return;
 			case "/admin/search-report":
 				searchReport(request, response);
+				return;
+			case "/admin/search-user":
+				searchUser(request, response);
 				return;
 			case "/admin/filter-report":
 				filterReport(request, response);
@@ -145,6 +149,19 @@ public class AdminController extends HttpServlet {
 			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
+	
+	protected void searchUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String query = (String)request.getParameter("query");
+		try {
+			List<UserAccount> allUserInfoList = UserAccount.SearchUser(query);
+			request.setAttribute("query", query);
+			request.setAttribute("userInfoList", allUserInfoList);
+			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");
 		}
