@@ -12,7 +12,7 @@
             <link rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="../mod/style.css">
-            <title>4FIT - Admin</title>
+            <title>Quản lý người dùng - X4FIT</title>
         </head>
 
         <body>
@@ -32,20 +32,20 @@
                                 </c:if>
                                 <div class="d-flex">
                                     <button class="mb-2 btn btn-primary" data-toggle="modal"
-                                        data-target="#create-mod">Add Mod</button>
+                                        data-target="#create-mod">Thêm mod</button>
                                     <form class="mb-2 form-inline my-2 ml-auto mr-5"
                                         action="${pageContext.request.contextPath}/admin/search-user">
                                         <input class="form-control mr-sm-1 search-bar"
                                             style="width: 400px; border: 1px solid #007bff;" name="query"
-                                            value="${query}" type="search" placeholder="Search">
+                                            value="${query}" type="search" placeholder="Nhập từ khóa tìm kiếm">
                                         <button class="btn btn-outline-primary my-2 my-sm-0"
-                                            type="submit">Search</button>
+                                            type="submit">Tìm kiếm</button>
                                     </form>
                                 </div>
                                 <div class="card card-plain">
                                     <div class="card-header card-header-primary"
                                         style="background-color: #007bff; color: #fff">
-                                        <h4 class="card-title mt-0">User Management</h4>
+                                        <h4 class="card-title mt-0">Quản lý người dùng</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -55,19 +55,19 @@
                                                         ID
                                                     </th>
                                                     <th>
-                                                        Username
+                                                        Tên đăng nhập
                                                     </th>
                                                     <th>
                                                         Email
                                                     </th>
                                                     <th>
-                                                        Account Type
+                                                        Loại tài khoản
                                                     </th>
                                                     <th>
-                                                        Status
+                                                        Trạng thái
                                                     </th>
                                                     <th>
-                                                        Action
+                                                        Thao tác
                                                     </th>
                                                 </thead>
                                                 <tbody>
@@ -95,15 +95,14 @@
                                                             </td>
 
                                                             <!-- Status Modal -->
-                                                            <div class="modal fade" id="disable${user.getUserID()}"
-                                                                tabindex="-1" role="dialog"
-                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="disable${user.getUserID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
-                                                                                id="exampleModalLabel">Change Account
-                                                                                Status</h5>
+                                                                                id="exampleModalLabel">
+                                                                             	Thay đổi trạng thái tài khoản
+                                                                             </h5>
                                                                             <button type="button" class="close"
                                                                                 data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
@@ -111,9 +110,9 @@
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <form action="${pageContext.request.contextPath}/admin/update-status" method="post">   
-                                                                                <h5>Current Status: <b>${user.getStatus()}</b></h5>
+                                                                                <h5>Trạng thái hiện tại: <b>${user.getStatus()}</b></h5>
                                                                                 <div class="form-group">
-                                                                                    <label for="status">Status</label>
+                                                                                    <label for="status">Trạng thái</label>
                                                                                     <select class="form-control" name="status" id="status">
                                                                                         <option value="${user.getStatus()}" selected disabled hidden>
                                                                                             ${user.getStatus()}
@@ -124,7 +123,7 @@
                                                                                     </select>
                                                                                 </div>
                                                                                 <input type="hidden" name="accountId" value="${user.getUserID()}">
-                                                                                <button type="submit" class="btn btn-primary btn-block">SET</button>
+                                                                                <button type="submit" class="btn btn-primary btn-block">ĐẶT LẠI</button>
                                                                             </form>
                                                                         </div>
                                                                     </div>
