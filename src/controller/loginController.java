@@ -94,7 +94,7 @@ public class loginController extends HttpServlet {
 			User user = User.GetUserByAccountID(account_id);
 			session.setAttribute("user", user);
 			request.setAttribute("is_logged", true);
-			request.setAttribute("is_logged", true);
+			
 			String url = "";
 			
 			if(user.getStatus().equals("BLOCK"))
