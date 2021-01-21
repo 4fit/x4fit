@@ -260,6 +260,16 @@ body {
     }
 }
 
+.card-header .follow {
+	display:flex;
+	margin-top: -25px;
+	margin-left: 180px;
+}
+
+.card-header .btn-follow{
+	display: inline;
+}
+
 .list-static {
     margin-top: 50px;
 }
@@ -435,10 +445,10 @@ body {
     color: rgb(68, 68, 231);
     font-weight: 400;
     font-size: 14px;
-    height: 30px;
+    height: 33px;
     margin-left: 30px;
     border-radius: 8px;
-    padding-bottom: 0px;
+    padding-bottom: 2px;
 }
 
 .user-icon i {

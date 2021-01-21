@@ -30,6 +30,7 @@
 	boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");
 	}
 	catch (Exception e){}%>
+
 	
 	<jsp:include page="../navbar.jsp"></jsp:include>
 	<div class="container">

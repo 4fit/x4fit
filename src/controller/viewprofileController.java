@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Account;
 import model.Post;
 import model.User;
 
@@ -77,19 +78,20 @@ public class viewprofileController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 			// System.out.print(user.getEmail()+ user.getId());
-		List<Post> posts = post.GetAllPostByUserID(user1.getId());
+		List<Post> posts = Post.GetAllPostByUserID(user1.getAccount_id());
 		request.setAttribute("listpost", posts);
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		System.out.print(request.getParameter("email"));
 		ValidateUser(request);
 		if(request.getParameter("email")!=null)
 		{
 			User userprofile= User.GetUserByEmail(request.getParameter("email").toString());
 			request.setAttribute("curUser", userprofile);
+			Account acc= Account.GetAccountByID(userprofile.getAccount_id());
+		    request.setAttribute("acc", acc);
 			getListPost(userprofile,request, response);
 			getListBookmark(userprofile, request, response);
 			

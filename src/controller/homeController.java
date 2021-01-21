@@ -58,10 +58,11 @@ public class homeController extends HttpServlet {
 		Cookie[] cookies = request.getCookies();
 		if (cookies!=null)
 		{
-			ObjectId userID = User.GetAccountIdFromCookies(cookies);
-			if (userID != null)
+			ObjectId accountID = User.GetAccountIdFromCookies(cookies);
+			
+			if (accountID != null)
 			{
-				User user = User.GetUserByUserID(userID);
+				User user = User.GetUserByAccountID(accountID);
 				request.setAttribute("user", user);
 				request.setAttribute("is_logged", true);
 			}

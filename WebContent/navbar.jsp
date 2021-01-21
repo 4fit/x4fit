@@ -1,3 +1,7 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav id="navbar" class="navbar navbar-expand-md navbar-light sticky-top">
 		<!-- Logo -->
 		<div>
@@ -41,8 +45,9 @@
 			</div>
 		</div>
 		
-<%-- 		<c:if test="${is_logged == true}"> --%>
-			<button type="button" class="btn dropdown-toggle"
+
+		<c:if test="${is_logged == true}">
+			<button type="button" id="dropdownMenu2" class="btn dropdown-toggle"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="img-profile"
 					src="${pageContext.request.contextPath}/images/avt.png" alt="">
@@ -63,7 +68,7 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Sign out</a>
 				</div>
-<%-- 		</c:if> --%>
+		</c:if> 
 		<c:if test="${is_logged==false }">
 				<div style="width: 5vw;">
 					<a class="btn btn-primary" href="${pageContext.request.contextPath}/login">
@@ -71,29 +76,23 @@
 				</div>
 		</c:if>
 	</nav>
-	 <script>
-        function openPage(nampage, element) {
-            var i, tabcontent, tablink;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            tablink = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablink.length; i++) {
-                tablink[i].style.backgroundColor = "rgb(161, 161, 161)";
-            }
-
-            document.getElementById(nampage).style.display = "block";
-
-            element.style.backgroundColor = "rgb(20, 20, 20)";
-        }
-       // openPage('Post',document.getElementById("defaultOpen"));     
-       document.getElementById("defaultOpen").onclick();
-    </script>
+	
     
     <script>
 
+    document.getElementById("dropdownMenu2").onclick = function() {
+        if (document.getElementsByClassName("dropdown-menu")[0].style.display == "block") {
+            document.getElementsByClassName("dropdown-menu")[0].style.display = "none";
+            document.getElementsByClassName("dropdown-menu")[0].style.top = "60%";
+        } else {
+            document.getElementsByClassName("dropdown-menu")[0].style.display = "block";
+            document.getElementsByClassName("dropdown-menu")[0].style.transition = "2s ease"
+            document.getElementsByClassName("dropdown-menu")[0].style.top = "95%";
+        }
+
+
+    }
+    
     window.onload = function()
     {
     	highlightTextHome();

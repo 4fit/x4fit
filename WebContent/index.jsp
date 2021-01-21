@@ -9,11 +9,14 @@
 	<link rel="icon" type="image/png" href="images/logo2.png" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
+
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.js" integrity="sha512-4WpSQe8XU6Djt8IPJMGD9Xx9KuYsVCEeitZfMhPi8xdYlVA5hzRitm0Nt1g2AZFS136s29Nq4E4NVvouVAVrBw==" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script src="https://kit.fontawesome.com/f93b4d7888.js"
 	crossorigin="anonymous"></script>
 </head>
@@ -70,15 +73,36 @@
 						  <h6 class="card-header" style="padding: 0.5rem 1.25rem;">
 						  	<img class="img-pro-post float-left"
 									src="${pageContext.request.contextPath}/images/${p.GetAuthor().getAvatar() }" 
-									alt="${p.GetAuthor().getFullname() }">
+									alt="${p.GetAuthor().getFullname()}">
 								<a style="margin: 10px;" href="#">
-									${p.GetAuthor().getFullname() }
+									${p.GetAuthor().getFullname()}
 								</a>
+								<!--<c:if test="${user!=null}">-->
+									<!--<c:if test="${user.getId()!=p.GetAuthor().getId()} ">-->
+										<div class="follow">
+											<input type="hidden" class="mainuser" value="${user.getId()}">
+											<input type="hidden" class="id-author" value="${p.GetAuthor().getId()}">
+											 <c:if test="${user.getUserFromFollowing(p.GetAuthor().getId())==true }">
+	                                            	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+	                                          			  Following
+	                                      			 </button>
+		                                            </c:if>
+		                                            <c:if test="${user.getUserFromFollowing(p.GetAuthor().getId())==false }">
+                                            		<button class="btn btn-follow" style="background: white; color: blue;" type="button">
+                                          			  Follow+
+                                      			 	 </button>
+		                                      </c:if>
+										</div>
+									<!--</c:if>-->
+								<!--</c:if>-->
+								
+								
+								
 								<br>
 								<small><span style="margin: 10px;">${p.getPublished_at()}</span></small>
 							</h6>
 						  <div class="card-body">
-						    <h3 class="card-title">
+						    <h4 class="card-title">
 						    	<a href="${pageContext.request.contextPath}/post?p=${p.getUrl()}">
 								 			${p.getTitle() }
 									</a>
@@ -90,7 +114,7 @@
 									</span> 
 									<span class="viewtag t "> 
 										<i class="fas fa-paperclip"></i>
-										<label class="view"> ${p.getClips_count()}</label>
+										<label class="view"> ${p.getClips_count(p)}</label>
 									</span> 
 									<span class="viewtag t"> 
 										<i class="far fa-comment"></i>
@@ -98,7 +122,7 @@
 									</span>
 									<a class="badge badge-info" style="margin-left: 20px;" href="#">${p.getCategory() }</a>
 									</h6>
-						    </h3>
+						    </h4>
 						    <p class="card-text">${p.getShortContent()}...</p>
 						    <a href="${pageContext.request.contextPath}/post?p=${p.getUrl()}" 
 						    		class="btn btn-primary">Đọc tiếp...</a>
@@ -210,10 +234,14 @@
     	{
     		document.getElementsByClassName("dropdown-menu")[0].style.display="block";
     		document.getElementsByClassName("dropdown-menu")[0].style.transition="top 1s"
-    	  document.getElementsByClassName("dropdown-menu")[0].style.top=	"95%";
+
+    	      document.getElementsByClassName("dropdown-menu")[0].style.top="95%";
     	}
-    }
+    
+    };
+    
     
     </script>
+    <script type="text/javascript" src="scripts/Follow.js"></script>
 </body>
 </html>
