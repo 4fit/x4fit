@@ -236,31 +236,31 @@
     
     .profile-banner {
         height: 30vh;
-        background: rgb(255, 255, 255);
-        padding-top: 10px;
+        background-image: url("${pageContext.request.contextPath}/images/banner.jpg");
     }
     
     .container {
-        max-width: 1200px!important;
-        padding-top: 25px;
+    	padding: 0!important;
     }
     
     .img-profile-ban {
         width: 80px;
         height: 80px;
-        margin-top: 15px;
+        margin-top: 25px;
         border-radius: 40px;
     }
     
     .info-ban {
         position: relative;
         left: 4%;
+        top: 25px;
     }
     
     .name-ban {
         font-family: 'Asap', sans-serif;
         font-weight: 500;
-        font-size: 25px;
+        font-size: 23px;
+        color: white;
     }
     
     .info-ban .btn-edit {
@@ -348,13 +348,14 @@
     
     .jumbotron {
         background: transparent !important;
-        padding-top: 3px ;
+        padding-top: 35px ;
     }
     
     .post-div {
-        margin-top: 50px;
+        margin-top: 30px;
         margin-left: 15px;
         margin-bottom: 15px;
+        background: white;
     }
     
     .img-pro-post {
@@ -858,6 +859,24 @@
             <div class="info-ban">
                 <h5 class="name-ban">${curUser.getFullname()}</h5>
                 <p class="gmail-ban">${acc.getEmail()}</p>
+                <div class="follow">
+                <c:if test="${curUser.getId()!=usermain.getId()}">
+                 
+                     <input type="hidden" class="mainuser" value="${usermain.getId()}">
+                      <input type="hidden" class="id-author" value="${curUser.getId()}">
+                 <c:if test="${usermain.getUserFromFollowing(curUser)==true }">
+                   	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+                 			  Following
+             		</button>
+                  </c:if>
+                  <c:if test="${usermain.getUserFromFollowing(curUser)==false }">
+                   	<button class="btn btn-follow" style="background: white; color: blue;" type="button">
+                 			  Follow+
+             		</button>
+             		
+                  </c:if>                                  
+           		</c:if>
+           		</div>
             </div>
         </div>
     </div>
@@ -872,23 +891,23 @@
             <div class="col-lg-9 content-main ">
                 <c:choose>
                     <c:when test="${updateSuccess==true or updateSuccess==null}">
-                        <button class="tablink" onclick="openPage('Post',this)" id="defaultOpen"> Post</button>
-                        <button class="tablink" onclick="openPage('Bookmarks', this)">Bookmarks</button>
-                        <button class="tablink" onclick="openPage('Following', this)">Following</button>
-                        <button class="tablink" onclick="openPage('Follower',this)">Follower</button>
+                        <button class="tablink" onclick="openPage('Post',this)" id="defaultOpen"> Bài viết của tôi</button>
+                        <button class="tablink" onclick="openPage('Bookmarks', this)">Đánh dấu</button>
+                        <button class="tablink" onclick="openPage('Following', this)">Đang theo dõi</button>
+                        <button class="tablink" onclick="openPage('Follower',this)">Người theo dõi</button>
                         <button class="tablink" <c:if test="${ curUser.getId()== usermain.getId() }">
 	                        	onclick="openPage('Setting',this)"
-	                        </c:if>>	Setting
+	                        </c:if>>	Tài khoản
                               </button>
                     </c:when>
                     <c:when test="${updateSuccess==false}">
-                                <button class="tablink" onclick="openPage('Post',this)"> Post</button>
-                                <button class="tablink" onclick="openPage('Bookmarks', this)">Bookmarks</button>
-                                <button class="tablink" onclick="openPage('Following', this)">Following</button>
-                                <button class="tablink" onclick="openPage('Follower',this)">Follower</button>
+                                <button class="tablink" onclick="openPage('Post',this)"> Bài viết của tôi</button>
+                                <button class="tablink" onclick="openPage('Bookmarks', this)">Đánh dấu</button>
+                                <button class="tablink" onclick="openPage('Following', this)">Đang theo dõi</button>
+                                <button class="tablink" onclick="openPage('Follower',this)">Người theo dõi</button>
                                 <button class="tablink" id="defaultOpen" <c:if test="${ curUser.getId()== usermain.getId() }">
                        		 onclick="openPage('Setting',this)" 
-                        </c:if>>Setting
+                        </c:if>>Tài khoản
                         </button>
                             </c:when>
                 </c:choose>
@@ -897,18 +916,6 @@
                 <!---------------------------------POSTS------------------------------->
 			
                 <div id="Post" class="tabcontent">
-                	<div class=" filter">
-				    		<div class="dropdown ">
-							    <button class="dropbtn">Tất cả
-							      <i class="fa fa-caret-down"></i>
-							    </button>
-							    <div class="dropdown-content">
-							      <a href="#">Tất cả</a>
-							      <a href="#">Công khai</a>
-							      <a href="#">Riêng tư</a>
-							    </div>
-				  			</div> 
-				    </div>
                     <div class="jumbotron jumbotron-fluid" id="list-post">
                         <c:forEach items="${listpost}" var="post">
                             <div class="post-div container">
@@ -972,7 +979,7 @@
                         <c:forEach items="${clipspost}" var="post">
                             <div class="post-div container">
                                 <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${post.GetAuthor().getAvatar() }" alt="">
-                                <a class="name-pro-post display-9" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${User.getEmail(post.GetAuthor().getAccount_id())}">${post.GetAuthor().getFullname()}</a>
+                                <a class="name-pro-post display-9" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(post.getAuthor_id())}">${post.GetAuthor().getFullname()}</a>
                                 <c:if test="${post.getIs_public()==true}">
                                 	<span class="status">Public</span>
                                 </c:if>
@@ -1106,44 +1113,42 @@
 
                                 <div class="row">
                                     <div class="col-md-3 avatar">
-                                        <img src="${pageContext.request.contextPath}/images/${usermain.getAvatar() }">
-                                        <button class="btn-light"> Upload</button>
+                                       
                                     </div>
                                     <div class="col-md-9">
                                         <h3 style="margin-bottom: 10px;">Your information</h3>
-                                        <button class="permit-edit btn-primary">Edit</button>
                                         <c:if test="${updateSuccess==true}">
-                                            <h4>Cập nhật thông tin thành công</h4>
+                                            <h5 style="color: red; margin-top: 10px;">Cập nhật thông tin thành công</h5>
                                         </c:if>
 
                                         <form action="${pageContext.request.contextPath}/profile?action=editaccount" method="POST">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Full name</label>
-                                                <input type="text" class="form-control" name="fullname" placeholder="Enter fullname" value="${usermain.getFullname()}" disabled>
+                                                <label for="exampleInputEmail1">Họ tên </label>
+                                                <input type="text" class="form-control" name="fullname" placeholder="Enter fullname" value="${usermain.getFullname()}" >
                                                 <label>${nameError}</label>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="${acc.getEmail() }" disabled>
+                                                <label for="exampleInputEmail1">Email</label>
+                                                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="${acc.getEmail() }" >
                                                 <label>${emailError}</label>
                                             </div>
-                                            <label class="advance">Change login information</label>
+                                            <label class="advance">Thay đổi thông tin đăng nhập</label>
                                             <div id="advance">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Username</label>
-                                                    <input type="text" class="form-control" name="username" placeholder="username" value="${acc.getUsername() }" disabled>
+                                                    <label for="exampleInputEmail1">Tên đăng nhập</label>
+                                                    <input type="text" class="form-control" name="username" placeholder="username" value="${acc.getUsername() }" >
                                                     <label>${usernameError}</label>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Current password</label>
+                                                    <label for="exampleInputEmail1">Mật khẩu hiện tại</label>
                                                     <input type="password" class="form-control" name="currentpass"  placeholder="current password" value="${acc.getPassword() }" disabled>
 
                                                 </div>
 
-                                                <span> <label class="changepass">Change your password</label> or  <label class="forgotpass">Forgot your password ?</label></span>
+                                                <span> <label class="changepass">Thay đổi mật khẩu </label> or  <a href="${pageContext.request.contextPath}/login/forgot.jsp" class="forgotpass">Quên mật khẩu ?</a></span>
 
                                             </div>
-                                            <button class="btnsave" type="submit">Save change</button>
+                                            <button class="btnsave" type="submit">Lưu thay đổi</button>
                                         </form>
                                     </div>
                                 </div>
@@ -1154,21 +1159,21 @@
                                     <h3>Change your password</h3>
                                     <form  action="${pageContext.request.contextPath}/profile?action=editpass" method="post">
                                     	<div class="form-group">
-	                                        <label for="exampleInputEmail1">Old password</label>
+	                                        <label for="exampleInputEmail1">Mật khẩu hiện tại</label>
 	                                        <input type="password" class="form-control" name="oldpass" placeholder="type your old password">
 	                                        <label>${oldpassError}</label>
 	                                    </div>
 	                                    <div class="form-group">
-	                                        <label for="exampleInputEmail1">New password</label>
+	                                        <label for="exampleInputEmail1">Mật khẩu mới</label>
 	                                        <input type="password" class="form-control" name="newpass" placeholder="type new password">
 	                                        <label>${newpassError}</label>
 	                                    </div>
 	                                    <div class="form-group">
-	                                        <label for="exampleInputEmail1">Confirm new password</label>
+	                                        <label for="exampleInputEmail1">Xác nhận mật khẩu</label>
 	                                        <input type="password" class="form-control" name="confirmnewpass" placeholder="confirm new password">
 	                                        <label>${confirmError}</label>
 	                                    </div>
-	                                    <button class="btnsave" type="submit">Save change</button>
+	                                    <button class="btnsave" type="submit">Lưu thay đổi</button>
                                     	
                                     </form>
                                     
@@ -1182,23 +1187,23 @@
             <div class="list-static col-lg-3 hidden-md-down float-right">
                 <ul class="list-group ">
                     <li class="list-group-item  d-flex justify-content-between align-items-center">
-                        Total post view
+                       Tổng lượt xem 
                         <span class="badge badge-primary badge-pill">${curUser.countTotalPostView(curUser.getAccount_id())}</span>
                     </li>
                     <li class="list-group-item d-flex w-100 justify-content-between align-items-center">
-                        Following user
+						Số người đang theo dõi
                         <span class="badge badge-primary badge-pill">${curUser.countFollowing(curUser)}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Follower
+                        Số người theo dõi
                         <span class="badge badge-primary badge-pill">${curUser.countFollower(curUser)}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Post
+                        Tổng bài đăng
                         <span class="badge badge-primary badge-pill">${listpost.size()}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Clip
+                        Tổng bài đánh dấu
                         <span class="badge badge-primary badge-pill">${curUser.countClips(curUser) }</span>
                     </li>
                 </ul>

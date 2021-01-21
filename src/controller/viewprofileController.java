@@ -46,8 +46,8 @@ public class viewprofileController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
-		request.setAttribute("clipspost", user.getBookmarkPost(user1));
+		//System.out.print(user.getUsername());
+		request.setAttribute("clipspost", User.getBookmarkPost(user1));
 		
 	}
 	
@@ -56,7 +56,7 @@ public class viewprofileController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("following", user.getListFollowing(user1));
+		request.setAttribute("following", user1.getListFollowing(user1));
 		
 		
 	}	
@@ -66,7 +66,7 @@ public class viewprofileController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("follower", user.getListFollower(user1));
+		request.setAttribute("follower", user1.getListFollower(user1));
 		
 		
 	}	

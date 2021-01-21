@@ -118,7 +118,7 @@ public class profileController extends HttpServlet {
 		//	System.out.print( "USER " +user.getUsername());
 			if(user!=null)
 			{
-				if (user.getId()!=currentuser.getId() )
+				if (user.getId().equals(currentuser.getId()) )
 				{
 					valid=false;
 					request.setAttribute("usernameError","This username is exists!");

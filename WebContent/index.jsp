@@ -41,7 +41,7 @@
 									</div>
 							</a></li>
 
-							<li class="feedbar-item">
+							<!-- <li class="feedbar-item">
 								<a href="/followings" class="feed-link posts-subscriptions" aria-current="page">
 									<div class="el-badge badge-has-new"> Followings 
 										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;">
@@ -54,7 +54,7 @@
 									<div class="el-badge badge-has-new"> My Clips 
 										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup>
 									</div>
-							</a></li>
+							</a></li>-->
 						</ul>
 					</div>
 				</div>
@@ -74,7 +74,7 @@
 						  	<img class="img-pro-post float-left"
 									src="${pageContext.request.contextPath}/images/${p.GetAuthor().getAvatar() }" 
 									alt="${p.GetAuthor().getFullname()}">
-								<a style="margin: 10px;" href="#">
+								<a style="margin: 10px;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(p.getAuthor_id())}">
 									${p.GetAuthor().getFullname()}
 								</a>
 								<!--<c:if test="${user!=null}">-->
