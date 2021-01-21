@@ -41,12 +41,12 @@
 			</div>
 		</div>
 		
-<%-- 		<c:if test="${is_logged == true}"> --%>
-			<button type="button" class="btn dropdown-toggle"
+
+		<c:if test="${is_logged == true}">
+			<button type="button" id="dropdownMenu2" class="btn dropdown-toggle"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="img-profile"
 					src="${pageContext.request.contextPath}/images/avt.png" alt="">
-<<<<<<< HEAD
 			</button>
 			
 			<div class="dropdown-menu dropdown-menu-right ">
@@ -64,50 +64,31 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Sign out</a>
 				</div>
-<%-- 		</c:if> --%>
+	</c:if> 
 		<c:if test="${is_logged==false }">
 				<div style="width: 5vw;">
 					<a class="btn btn-primary" href="${pageContext.request.contextPath}/login">
 					LOGIN</a>
 				</div>
 		</c:if>
-=======
-				<div class="info-popup">
-					<h5 class="name-info">Hoang</h5>
-					<p class="gmail-info">hoang1811@gmail.com</p>
-	
-				</div>
-			</div>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="${pageContext.request.contextPath}/profile">Profile</a>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">Sign out</a>
-		</div>
->>>>>>> a9f2122... profile
 	</nav>
-	 <script>
-        function openPage(nampage, element) {
-            var i, tabcontent, tablink;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            tablink = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablink.length; i++) {
-                tablink[i].style.backgroundColor = "rgb(161, 161, 161)";
-            }
-
-            document.getElementById(nampage).style.display = "block";
-
-            element.style.backgroundColor = "rgb(20, 20, 20)";
-        }
-       // openPage('Post',document.getElementById("defaultOpen"));     
-       document.getElementById("defaultOpen").onclick();
-    </script>
+	
     
     <script>
 
+    document.getElementById("dropdownMenu2").onclick = function() {
+        if (document.getElementsByClassName("dropdown-menu")[1].style.display == "block") {
+            document.getElementsByClassName("dropdown-menu")[1].style.display = "none";
+            document.getElementsByClassName("dropdown-menu")[1].style.top = "60%";
+        } else {
+            document.getElementsByClassName("dropdown-menu")[1].style.display = "block";
+            document.getElementsByClassName("dropdown-menu")[1].style.transition = "2s ease"
+            document.getElementsByClassName("dropdown-menu")[1].style.top = "95%";
+        }
+
+
+    }
+    
     window.onload = function()
     {
     	highlightTextHome();

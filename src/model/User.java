@@ -122,6 +122,14 @@ public final class User extends Model
 	public void setImages(List<String> images) {
 		this.images = images;
 	}
+	
+	public String getEmail (ObjectId id)
+	{
+		Account acc = ACCOUNT.find(Filters.eq("user_id", id)).first();
+		if (acc == null)
+			return null;
+		return acc.getUsername();
+	}
 
 	public User() {
 	
@@ -189,11 +197,8 @@ public final class User extends Model
 		ObjectId account_id = Model.Authenticator(selector, validator);
 		return account_id;
 	}
-<<<<<<< HEAD
-
 	@BsonIgnore
-=======
->>>>>>> e962b19... fix conflict
+
 	public static User GetUserInfoFromCookies(Cookie[] cookie) {
 		ObjectId account_id = GetAccountIdFromCookies(cookie);
 		return USER.find(Filters.eq("account_id", account_id)).first();

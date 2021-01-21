@@ -74,6 +74,10 @@
 								<a style="margin: 10px;" href="#">
 									${p.GetAuthor().getFullname() }
 								</a>
+								<div class="follow">
+									<input type="text" name="id-author" value="${p.getAuthor().getId()}">
+									<button class="btn btn-follow" type="button">Follow+</button>
+								</div>
 								<br>
 								<small><span style="margin: 10px;">${p.getPublished_at()}</span></small>
 							</h6>

@@ -223,7 +223,7 @@ public class profileController extends HttpServlet {
 							
 						showProfile( request, usercurrent);
 						getListPost(usercurrent,request, response);
-						//getListBookmark(usercurrent, request, response);
+						getListBookmark(usercurrent, request, response);
 						
 						getFollowingUser(usercurrent, request, response);
 						getFollowerUser(usercurrent,request, response);
