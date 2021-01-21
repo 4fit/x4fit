@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 	<script src="${pageContext.request.contextPath}/scripts/jquery-3.3.1.slim.min.js"></script>
 	<script src="${pageContext.request.contextPath}/scripts/highlight.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 </head>
 <body>

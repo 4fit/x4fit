@@ -79,7 +79,7 @@ public class homeController extends HttpServlet {
 		
 		request.setAttribute("topPosts", topPosts);
 		
-		String url = "/index.jsp";
+		String url = "/index2.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);     
     }

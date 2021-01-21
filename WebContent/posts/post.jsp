@@ -16,7 +16,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/simplemde.min.css">
-<!--  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> -->
+ 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 	<script src="${pageContext.request.contextPath}/scripts/jquery-3.5.1.slim.min.js"></script>
 <!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
@@ -108,7 +108,7 @@
 											<div class="d-inline-block avatar--lg">
 												<img
 													src="${pageContext.request.contextPath}/images/mainAboutMe.jpg"
-													alt="" class="avatar avatar--lg img-fluid">
+													alt="" class="avatar avatar--lg">
 											</div>
 										</a>
 									</div>
