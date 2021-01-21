@@ -133,6 +133,8 @@ public final class Post extends Model {
 	}
 
 	public String getThumbnail_url() {
+		if (thumbnail_url == null || thumbnail_url.equals(""))
+			return "thumbnail.jpg";
 		return thumbnail_url;
 	}
 	public void setThumbnail_url(String thumbnail_url) {
@@ -265,6 +267,7 @@ public final class Post extends Model {
 	
 	public static ArrayList<Post> GetLastestPost(int skip, int lim)
 	{
+		System.out.println("Hello");
 		FindIterable<Post> cursor = POST.find().sort(new BasicDBObject("_id", -1)).skip(skip).limit(lim);
 		Iterator<Post> it = cursor.iterator();
 		ArrayList<Post> topPost = new ArrayList<Post>();

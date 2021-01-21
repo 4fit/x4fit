@@ -27,8 +27,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
 public class Model {
-	
-	public static ConnectionString connectionString = new ConnectionString("mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
+	public static ConnectionString connectionString = new ConnectionString("mongodb+srv://tiennhm:m1nht13n@cluster0.brj3o.mongodb.net/X4FIT2?retryWrites=true&w=majority");
+	//public static ConnectionString connectionString = new ConnectionString("mongodb://tiennhm:m1nht13n@cluster0-shard-00-00.brj3o.mongodb.net:27017,cluster0-shard-00-01.brj3o.mongodb.net:27017,cluster0-shard-00-02.brj3o.mongodb.net:27017/X4FIT?ssl=true&replicaSet=atlas-emonwf-shard-0&authSource=admin&retryWrites=true&w=majority");
 	public static CodecRegistry pojoCodecRegistry = CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build());
 	public static CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
 //	MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()

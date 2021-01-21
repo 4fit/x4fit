@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<title>${post.getTitle()}</title>
 	<link rel="icon" type="image/png" href="images/logo2.png" />
+	<link rel="image_src" href="${post.getThumbnail_url()}">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
@@ -66,7 +67,7 @@
 					<div align="center">
 						<!-- Share -->
 						<a
-							href="https://www.facebook.com/sharer.php?u=http://x4fit.herokuapp.com/post?p=${url}"
+							href="https://www.facebook.com/sharer.php?u=http://x4fit.herokuapp.com/post?p=${post.getUrl()}"
 							target="_blank" type="button" class="share link--muted" data-original-title="Share bài viết lên Facebook"> 
 							<img src="https://img.icons8.com/color/48/000000/facebook.png" />
 						</a> 
