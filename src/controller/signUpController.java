@@ -44,10 +44,10 @@ public class signUpController extends HttpServlet {
 				if (isUserCode(account_id, code)) {
 					//TODO
 					User.updateUserStatusByAccountID(account_id, "ACTIVE");
-					url = request.getContextPath() + "/login/success.jsp";
+					url = "/login/success.jsp";
 				} else {
 
-					url = request.getContextPath() + "/login/confirm.jsp";
+					url = "/login/confirm.jsp";
 				}
 			}
 		} else {
@@ -93,13 +93,13 @@ public class signUpController extends HttpServlet {
 
 				if (Account.checkExitUsername(username)) {
 					account_id = Account.GetAccountByUsername(username).getId();
-					url = request.getContextPath() +"/login/confirm.jsp";
+					url = "/login/confirm.jsp";
 					session.setAttribute("account_id", account_id);
 					sendmail(email, fullname, hashedPassword);
 				} else
-					url = request.getContextPath() +"/login/signup.jsp";
+					url = "/login/signup.jsp";
 			} else
-				url = request.getContextPath() +"/login/signup.jsp";
+				url ="/login/signup.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
@@ -118,8 +118,9 @@ public class signUpController extends HttpServlet {
 		String OTP = hashedPassword.substring(0, 5); // Lấy 6 số đầu trong đoạn mã hash để người dùng xác nhận
 		String subject = "Wellcome to X4FIT";
 
-		String body = "Dear " + fullname + ",\n\n" + "Your code:" + OTP + "\n\n" + "Confirm: " ;
-		boolean isBodyHTML = false;
+//		String body = "Dear " + fullname + ",\n\n" + "Your code:" + OTP + "\n\n" + "Confirm: " ;
+		String body = "Dear " + fullname + ",<br/><br/><br/>" + "Your code:" + OTP + "<br/><br/><br/>" + "Confirm:   "+ "http://localhost:8080/x4fit/login/confirm.jsp" ;
+		boolean isBodyHTML = true;
 
 		try {
 			Utilities.sendMail(from, pass, email, subject, body, isBodyHTML);

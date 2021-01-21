@@ -16,7 +16,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+  <script src="https://kit.fontawesome.com/f93b4d7888.js"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/search.css" />
 </head>
@@ -33,11 +35,11 @@
 
             <div id="Bookmarks" class="tabcontent">
                 <div class="jumbotron jumbotron-fluid">
-                <c:choose>
-                	<c:when test =" ${lenListpost == 0}">
-                		<p class="text-dark" style="margin-left: 40%;"> Không tìm thấy bài viết !</p>
-                 </c:when> 
-                </c:choose>
+               <c:choose>
+        	 		<c:when test ="${listPost.size() == 0}" >
+                <span class="text-dark" style="margin-left: 40%; color: black; margin-top: 50px;"> <b>Không tìm thấy bài viết !</b></span>
+              </c:when> 
+            </c:choose>
                  
                  <c:forEach var="p" items="${listPost}" begin="0" end="${listPost.size()}" varStatus="loop">
                  					
@@ -77,7 +79,10 @@
 										
 									</c:forEach>
                 </div>
-                <div align="center" >
+                
+                <c:choose>
+        	 		<c:when test ="${listPost.size() != 0}" >
+                 <div align="center" >
 						<form action="${pageContext.request.contextPath}/search" method="get">
 							<input type="hidden" name="page" value="${page}">
 							<input type="hidden" name="textSearchHidden" value="${textSearchHidden}">
@@ -86,6 +91,9 @@
            <!-- end block -->
         	
                         </div>
+              </c:when> 
+            </c:choose>
+               
             </div>
         	<div id = "searchAuthor" class="tabcontent">
         	<div class="row following-row " style = "margin-top: 50px;">
@@ -95,7 +103,7 @@
         		<!-- block author  -->
         		<c:choose>
         	 		<c:when test ="${lenListauthor == 0}" >
-                <span class="text-dark" style="margin-left: 40%;"> Không tìm thấy tác giả !</span>
+                <span class="text-dark" style="margin-left: 40%;"> <b> Không tìm thấy tác giả!</b></span>
               </c:when> 
             </c:choose>
         	<c:forEach var = "user" items = "${listAuthor}" >
@@ -175,6 +183,8 @@
 		</div>
     </div>
     </div>
+    
+    <jsp:include page="../common/footer.jsp"/>
      <script>
         function openPage(nampage, element) {
             var i, tabcontent, tablink;
