@@ -8,16 +8,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${post.getTitle()}</title>
-	<link rel="icon" type="image/png" href="images/logo2.png" />
+	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.ico" />
 	<link rel="image_src" href="${post.getThumbnail_url()}">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/font-awesome.min.css">
+<%-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/font-awesome.min.css"> --%>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/simplemde.min.css">
-<!-- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"> -->
-<!-- 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> -->
+ 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 	<script src="${pageContext.request.contextPath}/scripts/jquery-3.5.1.slim.min.js"></script>
 <!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>

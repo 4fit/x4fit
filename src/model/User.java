@@ -398,9 +398,9 @@ public final class User extends Model
 
 	}
 	
-	public static void InsertImage(ObjectId userID, String filePath)
+	public static void InsertImage(ObjectId account_id, String filePath)
 	{
-		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("images", filePath));
+		USER.updateOne(Filters.eq("account_id", account_id), Updates.addToSet("images", filePath));
 	}
 
 	public void Insert()

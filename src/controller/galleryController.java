@@ -22,8 +22,8 @@ public class galleryController extends HttpServlet {
 
     private void GetGallery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-    	ObjectId userID = User.GetAccountIdFromCookies(request.getCookies());
-    	User user = User.GetUserByUserID(userID);
+    	ObjectId account_id = User.GetAccountIdFromCookies(request.getCookies());
+    	User user = User.GetUserByAccountID(account_id);
     	
     	String action = request.getParameter("action");
     	try {

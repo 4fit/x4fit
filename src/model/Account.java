@@ -138,15 +138,6 @@ public final class Account extends Model {
 		return true;
 	}
 	
-	{
-//	public static Document getDocumentAccountByUserId(int user_id)
-//	{
-//		Document cursor = ACCOUNT.find(Filters.eq("user_id", user_id)).first();
-//		return cursor;
-//		
-//	}
-	}
-	
 	public static void updateNewPassword(String newPassword, String username) 
 	{
 		ACCOUNT.updateOne(Filters.eq("username", username), Updates.set("password", newPassword));
@@ -155,5 +146,35 @@ public final class Account extends Model {
 	public void Insert()
 	{
 		ACCOUNT.insertOne(this);
+	}
+	
+	public boolean isMod()
+	{
+		return this.getUser_type().equals("MOD");
+	}
+	
+	public boolean isAdmin()
+	{
+		return this.getUser_type().equals("ADMIN");
+	}
+	
+	public boolean isUser()
+	{
+		return this.getUser_type().equals("USER");
+	}
+	
+	public static boolean isMod(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("MOD");
+	}
+	
+	public static boolean isAdmin(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("ADMIN");
+	}
+	
+	public static boolean isUser(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("USER");
 	}
 }

@@ -69,7 +69,7 @@ public class uploadController extends HttpServlet {
 		if (formItems != null && formItems.size() > 0) {
 			//Lấy userID
 			Cookie[] cookie = request.getCookies();
-			ObjectId userID = User.GetAccountIdFromCookies(cookie);
+			ObjectId account_id = User.GetAccountIdFromCookies(cookie);
 			// iterates over form's fields
 			for (FileItem item : formItems) {
 				// processes only fields that are not form fields
@@ -86,7 +86,7 @@ public class uploadController extends HttpServlet {
 						e.printStackTrace();
 					}
 					
-					User.InsertImage(userID, fileName);
+					User.InsertImage(account_id, fileName);
 				}
 			}
 		}

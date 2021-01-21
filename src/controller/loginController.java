@@ -82,9 +82,13 @@ public class loginController extends HttpServlet {
 			 
 			Cookie cookieValidator = new Cookie("validator", hashedValidator);
 			cookieValidator.setMaxAge(604800);
-			 
+			
+			Cookie cookieIsLogged = new Cookie("is_logged", "true");
+			cookieValidator.setMaxAge(604800);
+			
 			response.addCookie(cookieSelector);
 			response.addCookie(cookieValidator);
+			response.addCookie(cookieIsLogged);
 			
 			Account account = Account.GetAccountByID(account_id);
 			User user = User.GetUserByAccountID(account_id);
@@ -92,13 +96,10 @@ public class loginController extends HttpServlet {
 			request.setAttribute("is_logged", true);
 			String url = "";
 			
-			
-
 			if(user.getStatus().equals("BLOCK"))
 			{
 				session.setAttribute("status", "BLOCK");
 				url = "login/status.jsp";
-				
 			}
 				
 			else if(user.getStatus().equals("NOT ACTIVE"))
@@ -127,8 +128,6 @@ public class loginController extends HttpServlet {
 			String url = "login/login.jsp";
 			response.sendRedirect(url);
 		}
-		
-		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

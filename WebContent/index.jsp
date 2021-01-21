@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Trang chủ</title>
-	<link rel="icon" type="image/png" href="images/logo2.png" />
+	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.ico" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
 
