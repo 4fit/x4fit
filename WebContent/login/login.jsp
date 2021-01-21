@@ -49,7 +49,7 @@
 					</div>
 					<a style = "color: #de6600; text-decoration: none; margin-top:15px;" href="forgot.jsp"> Forgot password/username ?</a> 
 					
-					<input type="submit" class="btn btn-primary" value="login"> 
+					<input type="submit" style = "background-color: #625bff;" class="btn btn-primary" value="login"> 
 					
 					<a href="signup.jsp" class="btn-signup">Sign up</a>
 					
