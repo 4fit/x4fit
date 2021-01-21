@@ -16,7 +16,7 @@
 				<div class="input-group mb-9">
 					<form class="search-box" action = "${pageContext.request.contextPath}/search" method = "get" >
 					  <div class="form-inline">
-					     <input id = "text_search" value = "${ textSearch}"name = "textSearch" type="text" 
+					     <input id = "text_search" value = "${textSearch}"name = "textSearch" type="text" 
 					     				class="form-control" style="width: 40vw;" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
 					      <div class="input-group-prepend">
 					          <button name = "userCurrentAction" onclick = "highlightTextHome()" 

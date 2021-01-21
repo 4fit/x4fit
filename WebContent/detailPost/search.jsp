@@ -34,12 +34,13 @@
             <div id="Bookmarks" class="tabcontent">
                 <div class="jumbotron jumbotron-fluid">
                 <c:choose>
-                	<c:when test =" ${listPost.size() == 0}">
-                		<span class="text-dark" style="margin-left: 40%;"> Không tìm thấy bài viết !</span>
+                	<c:when test =" ${lenListpost == 0}">
+                		<p class="text-dark" style="margin-left: 40%;"> Không tìm thấy bài viết !</p>
                  </c:when> 
                 </c:choose>
                  
                  <c:forEach var="p" items="${listPost}" begin="0" end="${listPost.size()}" varStatus="loop">
+                 					
 										<div class="card bg-light" style="margin-top: 1.5em; margin-bottom: 1.5em; ">
 										  <h6 class="card-header text-dark" style="padding: 0.5rem 1.25rem;">
 										  	<a class="h3" href="${pageContext.request.contextPath}/post?p=${p.getUrl()}">
@@ -64,18 +65,27 @@
 													</span> 
 													<span class="viewtag t h6"> 
 														<i class="far fa-comment"></i>
-														<label class="view"> ${p.getCommentsCount()}</label>
+														<label class="view"> ${p.getComments_Count()}</label>
 													</span>
 													<a class="badge badge-info h6" style="margin-left: 20px;" href="#">${p.getCategory() }</a>
 										    </h3>
 										    <p class="card-text text-dark">${p.getShortContent()}...</p>
-										    <a href="${pageContext.request.contextPath}/post?p=${p.getURL()}" 
+										    <a href="${pageContext.request.contextPath}/post?p=${p.getUrl()}" 
 										    		class="btn btn-primary">Đọc tiếp...</a>
 										  </div>
 										</div>
 										
 									</c:forEach>
                 </div>
+                <div align="center" >
+						<form action="${pageContext.request.contextPath}/search" method="get">
+							<input type="hidden" name="page" value="${page}">
+							<input type="hidden" name="textSearchHidden" value="${textSearchHidden}">
+							<button type="submit" class="btn btn-secondary">XEM THÊM >>></button>
+						</form>      
+           <!-- end block -->
+        	
+                        </div>
             </div>
         	<div id = "searchAuthor" class="tabcontent">
         	<div class="row following-row " style = "margin-top: 50px;">
@@ -114,14 +124,12 @@
                 </div>
             </div>
                         
-                 </c:forEach>       
-           <!-- end block -->
-        	
-                        </div>
+                 </c:forEach> 
+                 
         	</div>
         </div>
 		</div>
-		
+		</div>
 		 <!------------------------------Top SYCHTACH---------------------------->
         
 		<div class = "col-md-3">
@@ -166,7 +174,7 @@
         
 		</div>
     </div>
-    
+    </div>
      <script>
         function openPage(nampage, element) {
             var i, tabcontent, tablink;

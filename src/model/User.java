@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
@@ -127,10 +128,11 @@ public final class User extends Model
 	}
 
 	public User(String fullname, ObjectId account_id, String username) {
+		this.setId(new ObjectId());
 		this.setFullname(fullname);
 		this.setAccount_id(account_id);
 		this.setAvatar("avt.png");
-		this.setStatus("ACTIVE");
+		this.setStatus("NOT ACTIVE"); // Lúc mới tạo user chưa xác nhận email thì set not active
 		this.setUrl(username + RandomStringUtils.random(5));
 		this.setClips(new ArrayList<ObjectId>());
 		this.setFollower(new ArrayList<ObjectId>());
@@ -138,6 +140,7 @@ public final class User extends Model
 		this.setImages(new ArrayList<String>());
 	}
 
+	@BsonIgnore
 	public static ArrayList<User> getAllUsers() {
 		FindIterable<User> cursor = USER.find();
 		Iterator<User> it = cursor.iterator();
@@ -150,6 +153,7 @@ public final class User extends Model
 		return data;
 	}
 	
+	@BsonIgnore
 	public static User GetUserByEmail(String email) {
 		Account acc = ACCOUNT.find(Filters.eq("email", email)).first();
 		if (acc == null)
@@ -158,6 +162,7 @@ public final class User extends Model
 		return user;
 	}
 
+	@BsonIgnore
 	public static User GetUserByUsername(String username) {
 		Account acc = ACCOUNT.find(Filters.eq("username", username)).first();
 		if (acc != null) {
@@ -168,6 +173,7 @@ public final class User extends Model
 			return null;
 	}
 	
+	@BsonIgnore
 	public static ObjectId GetAccountIdFromCookies(Cookie[] cookie) {
 		if (cookie == null)
 			return null;
@@ -184,52 +190,64 @@ public final class User extends Model
 		return account_id;
 	}
 
+	@BsonIgnore
 	public static User GetUserInfoFromCookies(Cookie[] cookie) {
 		ObjectId account_id = GetAccountIdFromCookies(cookie);
 		return USER.find(Filters.eq("account_id", account_id)).first();
 	}
 
+	@BsonIgnore
 	public static User GetUserByUserID(ObjectId userID) {
 		return USER.find(Filters.eq("_id", userID)).first();
 	}
 	
+	@BsonIgnore
 	public static User GetUserByAccountID(ObjectId account_id) {
 		return USER.find(Filters.eq("account_id", account_id)).first();
 	}
 
+	@BsonIgnore
 	public static void updatePassword(String newPass, String username) {
 		ACCOUNT.updateOne(Filters.eq("username", username), Updates.set("passwword", newPass));
 	}
 
+	@BsonIgnore
 	public static void InsertUserToFollower(ObjectId userID, ObjectId followerID)
 	{
 		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("follower", followerID));
 	}
 	
+	@BsonIgnore
 	public static void RemoveUserFromFollower(ObjectId userID, ObjectId followerID)
 	{
 		USER.updateOne(Filters.eq("_id", userID), Updates.pullByFilter(Filters.eq("follower", followerID)));
 	}
 	
+	@BsonIgnore
 	public static void InsertUserToFollowing(ObjectId userID, ObjectId followingID)
 	{
 		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("following", followingID));
 	}
 	
+	@BsonIgnore
 	public static void RemoveUserFromFollowing(ObjectId userID, ObjectId followingID)
 	{
 		USER.updateOne(Filters.eq("_id", userID), Updates.pullByFilter(Filters.eq("following", followingID)));
 	}
+	
+	@BsonIgnore
 	public static void InsertNewClipPost(ObjectId userID, ObjectId postID)
 	{
 		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("clips", postID));
 	}
 	
+	@BsonIgnore
 	public static void RemovePostFromClips(ObjectId userID, ObjectId postID)
 	{
 		USER.updateOne(Filters.eq("_id", userID), Updates.pullByFilter(Filters.eq("clips", postID)));
 	}
 	
+	@BsonIgnore
 	public static User GetUserInfoFromSession(HttpSession session) {
 		if (session == null)
 			return null;
@@ -239,10 +257,12 @@ public final class User extends Model
 		return USER.find(Filters.eq("_id", userID)).first();
 	}
 
+	@BsonIgnore
 	public String getUsername() {
 		return ACCOUNT.find(Filters.eq("_id", this.getAccount_id())).first().getUsername();
 	}
 
+	@BsonIgnore
 	public List<Post> getBookmarkPost(User user) {
 		if (user.getClips()==null) 
 			return null;
@@ -254,6 +274,7 @@ public final class User extends Model
 		return lstPosts;
 	}
 
+	@BsonIgnore
 	public boolean checkPassword(User user, String password) {
 		Account acc = Model.ACCOUNT.find(Filters.eq("_id", user.getAccount_id())).first();
 		if (acc != null) {
@@ -264,6 +285,7 @@ public final class User extends Model
 		return false;
 	}
 
+	@BsonIgnore
 	public List<User> getListFollower(User user) {
 		if (user.getFollower() == null)
 			return null;
@@ -275,6 +297,7 @@ public final class User extends Model
 		return users;
 	}
 
+	@BsonIgnore
 	public List<User> getListFollowing(User user) {
 		if (user.getFollowing() == null)
 			return null;
@@ -296,6 +319,7 @@ public final class User extends Model
 		return user.getFollower().size();
 	}
 
+	@BsonIgnore
 	public int countPost(ObjectId userID) {
 		int count = 0;
 		FindIterable<Post> cursor = POST.find(Filters.eq("user_id", userID));
@@ -309,6 +333,7 @@ public final class User extends Model
 		return count;
 	}
 
+	@BsonIgnore
 	public int coutTotalPostView(ObjectId userID) {
 		int total = 0;
 		List<Post> posts = Post.GetAllPostByUserID(userID);
@@ -322,7 +347,7 @@ public final class User extends Model
 		return user.getClips().size();
 	}
 
-	{
+	
 //	public static void createUserByID(ObjectId accId, String fullname) // Tạo user với user_id đã được tạo ở model account
 //	{
 //		Document doc = new Document("_id", new ObjectId());
@@ -342,8 +367,8 @@ public final class User extends Model
 //		doc.append("clips", clips);
 //		Model.Insert(doc, "USER");
 //	}
-	}
 	
+	@BsonIgnore
 	public static boolean updateInforUser(ObjectId accId, String fullname, String email, String username, String password) {
 
 		UpdateResult result1;
@@ -390,4 +415,6 @@ public final class User extends Model
 	{
 		USER.insertOne(this);
 	}
+	
+	
 }

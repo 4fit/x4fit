@@ -62,6 +62,7 @@ public final class Account extends Model {
 	}
 
 	public Account(String username, String password, String email, String user_type) {
+		this.setId(new ObjectId());
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setEmail(email);
@@ -69,21 +70,28 @@ public final class Account extends Model {
 	}
 
 	public Account(String username, String password, String email) {
+		this.setId(new ObjectId());
 		this.setUsername(username);
 		this.setPassword(password);
+		this.setEmail(email);
 		this.setUser_type("USER");
 	}
 	
 	public static void createNewAccount(String username, String password, String email, String fullname)
 	{
+		
 		Account user_acc = new Account(username, password, email);
 		user_acc.Insert();
 		ObjectId account_id = ACCOUNT.find(
-				Filters.and(
-						Filters.eq("username",username), 
-						Filters.eq("email", email))
-				).first().getId();
+					Filters.and(
+							Filters.eq("username",username), 
+							Filters.eq("email", email))
+					).first()
+					.getId();
+		
+		
 		User user = new User(fullname, account_id, username);
+		System.out.print("new user");
 		user.Insert();
 	}
 	
