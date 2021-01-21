@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 
+import model.Category;
 import model.Post;
 
 @WebServlet("/edit")
@@ -34,10 +36,13 @@ public class editController extends HttpServlet {
 		String content = post.getContent();
 		String category = post.getCategory();
 		boolean is_public = post.getIs_public();
+		List<Category> lstCategories = Category.GetAllCategories();
+		request.setAttribute("lstCat", lstCategories);
 		request.setAttribute("title", title);
 		request.setAttribute("content", content);
 		request.setAttribute("category", category);
 		request.setAttribute("is_public", is_public);
+		request.setAttribute("is_logged", true);
 		request.setAttribute("p", p);
 
 		String url = "/posts/edit.jsp";

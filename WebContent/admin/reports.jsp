@@ -9,15 +9,16 @@
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <link rel="stylesheet" href="${pageContext.request.contextPath}/scripts/bootstrap.min.js">
-		            <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
-		            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		            <link rel="stylesheet" href="${pageContext.request.contextPath}/mod/style.css">
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
+                    <link rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                    <link rel="stylesheet" href="${pageContext.request.contextPath}/mod/style.css">
                     <title>Người dùng báo cáo - X4FIT</title>
                 </head>
 
                 <body>
                     <jsp:include page="../common/adminHeader.jsp" />
-                    <div class="main-panel mt-3">
+                    <div class="main-panel mt-3 mr-3">
                         <div class="content">
                             <div class="container-fluid">
                                 <div class="row">
@@ -32,12 +33,12 @@
                                             </div>
                                         </c:if>
                                         <div class="d-flex">
-                                            <form class="mb-2 form-inline my-2 mr-5"
+                                            <form class="mb-2 form-inline my-2"
                                                 action="${pageContext.request.contextPath}/admin/search-report">
                                                 <input class="form-control mr-sm-1 search-bar"
                                                     style="width: 400px; border: 1px solid #007bff;" name="query"
                                                     value="${query}" type="search" placeholder="Nhập từ khóa tìm kiếm">
-                                                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm
+                                                <button class="btn btn-primary my-2 my-sm-0" type="submit">Tìm
                                                     kiếm</button>
                                             </form>
                                         </div>
@@ -48,42 +49,42 @@
                                             </div>
                                             <div class="card-body">
                                                 <form action="${pageContext.request.contextPath}/admin/filter-report">
-                                                    <div class="filter-report d-flex">
-                                                        <div class="report-type">
-                                                            <label for="type">Loại báo cáo:</label>
-                                                            <select name="reportType" id="type">
+                                                    <div class="filter-report d-flex row">
+                                                        <div class="filter-report-item col-lg-3 form-group">
+                                                            <label for="type">Loại báo cáo</label>
+                                                            <select class="custom-select form-control" name="reportType" id="type">
+                                                                <option value="${reportType}" selected disabled hidden>${reportType}</option>
                                                                 <option value="POST">POST</option>
                                                                 <option value="COMMENT">COMMENT</option>
                                                             </select>
                                                         </div>
-                                                        <div class="time d-flex">
-                                                            <div class="time-item">
-                                                                <label for="from">Từ:</label>
-                                                                <input type="datetime-local" id="form" name="timeFrom">
-                                                            </div>
-                                                            <div class="time-item">
-                                                                <label for="to">Đến:</label>
-                                                                <input type="datetime-local" id="to" name="timeTo">
-                                                            </div>
+                                                        <div class="filter-report-item col-lg-3 form-group">
+                                                            <label for="from">Từ</label>
+                                                            <input class="form-control" type="datetime-local" id="form" name="timeFrom" value="${timeFrom}">
                                                         </div>
-                                                        <button type="submit">Lọc</button>
+                                                        <div class="filter-report-item col-lg-3 form-group">
+                                                            <label for="to">Đến</label>
+                                                            <input class="form-control" type="datetime-local" id="to" name="timeTo" value="${timeTo}">
+                                                        </div>
+                                                        <button class="filter-report-item col-lg-3 btn btn-primary btn-filter" type="submit">Lọc</button>
                                                     </div>
                                                 </form>
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
                                                         <thead>
-                                                            <th>
-                                                                Tên </th>
-                                                            <th>
+                                                            <th class="align-middle align-center">
+                                                                Tên 
+                                                            </th>
+                                                            <th  class="align-middle">
                                                                 Nội dung báo cáo
                                                             </th>
                                                             <th>
                                                                 Loại báo cáo
                                                             </th>
-                                                            <th>
+                                                            <th  class="align-middle align-center">
                                                                 Thời gian báo cáo
                                                             </th>
-                                                            <th>
+                                                            <th  class="align-middle align-center">
                                                                 Id bài báo cáo
                                                             </th>
                                                             <th>
@@ -109,7 +110,7 @@
                                                                     <td>
                                                                         ${r.getObj_id()}
                                                                     </td>
-                                                                    <td>
+                                                                    <td class="align-middle align-center">
                                                                         <a type="button" data-toggle="modal"
                                                                             data-target="#delete${r.getId()}"><i
                                                                                 class="fa fa-trash"></i></a>

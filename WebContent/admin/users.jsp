@@ -8,14 +8,16 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/scripts/bootstrap.min.js">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/mod/style.css">
+
             <title>Quản lý người dùng - X4FIT</title>
         </head>
 
         <body>
             <jsp:include page="../common/adminHeader.jsp" />
-            <div class="main-panel mt-3">
+            <div class="main-panel mt-3 mr-3">
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
@@ -31,12 +33,12 @@
                                 <div class="d-flex">
                                     <button class="mb-2 btn btn-primary" data-toggle="modal"
                                         data-target="#create-mod">TẠO MOD</button>
-                                    <form class="mb-2 form-inline my-2 ml-auto mr-5"
+                                    <form class="mb-2 form-inline my-2 ml-auto"
                                         action="${pageContext.request.contextPath}/admin/search-user">
                                         <input class="form-control mr-sm-1 search-bar"
                                             style="width: 400px; border: 1px solid #007bff;" name="query"
                                             value="${query}" type="search" placeholder="Nhập từ khóa tìm kiếm">
-                                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm
+                                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Tìm
                                             kiếm</button>
                                     </form>
                                 </div>
@@ -47,32 +49,36 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="filter">
-                                            <form class="d-flex"
+                                            <form class="d-flex row"
                                                 action="${pageContext.request.contextPath}/admin/user/filter"
                                                 method="get">
-                                                <div class="filter-item">
+                                                <div class="filter-item col-sm-6 col-lg-4 col-md-6 mb-2">
                                                     <label for="account-type">Loại tài khoản:</label>
-                                                    <select name="accountType" id="account-type">
-                                                        <option value="USER">Người dùng</option>
-                                                        <option value="MOD">Biên tập viên</option>
+                                                    <select name="accountType" id="account-type" class="custom-select">
+                                                        <option value="${accountType}" selected disabled hidden>
+                                                            ${accountType}</option>
+                                                        <option value="USER">USER</option>
+                                                        <option value="MOD">MOD</option>
+                                                        <option value="ALL">ALL</option>
                                                     </select>
                                                 </div>
-                                                <div class="filter-item">
-                                                    <div class="account-type">
-                                                        <label for="status">Trạng thái:</label>
-                                                        <select name="status" id="status">
-                                                            <option value="ACTIVE">Đã kích hoạt</option>
-                                                            <option value="NOT ACTIVE">Chưa kích hoạt</option>
-                                                            <option value="BLOCK">Chặn</option>
-                                                        </select>
-                                                    </div>
+                                                <div class="filter-item col-sm-6 col-lg-4 col-md-6">
+                                                    <label for="status">Trạng thái:</label>
+                                                    <select name="status" id="status" class="custom-select">
+                                                        <option value="${status}" selected disabled hidden>${status}
+                                                        </option>
+                                                        <option value="ACTIVE">ACTIVE</option>
+                                                        <option value="NOT ACTIVE">NOT ACTIVE</option>
+                                                        <option value="BLOCK">BLOCK</option>
+                                                    </select>
                                                 </div>
-                                                <button class="filter-item" type="submit">Lọc</button>
+                                                <button class="col-sm-12 col-lg-4 col-md-12 filter-item btn-filter btn btn-primary"
+                                                    type="submit">Lọc</button>
                                             </form>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table table-hover">
-                                                <thead>
+                                                <tr>
                                                     <th>
                                                         ID
                                                     </th>
@@ -91,7 +97,7 @@
                                                     <th>
                                                         Thao tác
                                                     </th>
-                                                </thead>
+                                                </tr>
                                                 <tbody>
                                                     <c:forEach items="${userInfoList}" var="user">
                                                         <tr>

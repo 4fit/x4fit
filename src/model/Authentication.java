@@ -70,19 +70,4 @@ public final class Authentication extends Model{
 	{
 		AUTHENTICATION.insertOne(this);
 	}
-	
-	public static boolean isMod(ObjectId accout_id)
-	{
-		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("MOD");
-	}
-	
-	public static boolean isAdmin(ObjectId accout_id)
-	{
-		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("ADMIN");
-	}
-	
-	public static boolean isUser(ObjectId accout_id)
-	{
-		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("USER");
-	}
 }

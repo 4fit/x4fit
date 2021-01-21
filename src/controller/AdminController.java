@@ -41,6 +41,13 @@ public class AdminController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		
 		String action = request.getServletPath();
 		switch (action) {
 			case "/admin/all-users":
@@ -82,6 +89,8 @@ public class AdminController extends HttpServlet {
 		String status = (String)request.getParameter("status");
 		try {
 			List<UserAccount> allUserInfoList = UserAccount.GetUserFilter(accountType, status);
+			request.setAttribute("accountType", accountType);
+			request.setAttribute("status", status);
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
 		} catch (Exception e) {
@@ -101,6 +110,9 @@ public class AdminController extends HttpServlet {
 				User user = User.GetUserByAccountID(report.getAccount_id());
 				lstUserReported.add(user);
 			}
+			request.setAttribute("reportType", reportType);
+			request.setAttribute("timeFrom", timeFrom);
+			request.setAttribute("timeTo", timeTo);
 			request.setAttribute("allReportsList", allReportsList);
 			request.setAttribute("lstUserReported", lstUserReported);
 			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);

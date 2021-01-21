@@ -351,7 +351,7 @@ public final class User extends Model
 
 	public int countTotalPostView(ObjectId account_id) {
 		int total = 0;
-		List<Post> posts = Post.GetAllPostByUserID(account_id);
+		List<Post> posts = Post.GetAllPostByAccountID(account_id);
 		for (Post k : posts) {
 			total += k.getViews_count();
 		}
@@ -398,9 +398,9 @@ public final class User extends Model
 
 	}
 	
-	public static void InsertImage(ObjectId userID, String filePath)
+	public static void InsertImage(ObjectId account_id, String filePath)
 	{
-		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("images", filePath));
+		USER.updateOne(Filters.eq("account_id", account_id), Updates.addToSet("images", filePath));
 	}
 
 	public void Insert()
