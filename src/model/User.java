@@ -351,7 +351,7 @@ public final class User extends Model
 
 	public int countTotalPostView(ObjectId account_id) {
 		int total = 0;
-		List<Post> posts = Post.GetAllPostByUserID(account_id);
+		List<Post> posts = Post.GetAllPostByAccountID(account_id);
 		for (Post k : posts) {
 			total += k.getViews_count();
 		}

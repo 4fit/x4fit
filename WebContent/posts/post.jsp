@@ -22,6 +22,7 @@
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/scripts/simplemde.min.js"></script>
 	<script src="${pageContext.request.contextPath}/scripts/highlight.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 </head>
 <body>
 	<jsp:include page="../navbar.jsp"></jsp:include>
@@ -32,33 +33,33 @@
 			<!-- Left -->
 			<div class="col-sm-2">
 				<div class="post-actions d-flex flex-column mx-auto">
-
-					<!-- Points -->
-					<div class="vote" align="center">
-						<button class="icon-btn" data-original-title="Upvote" 
-										onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
-														 incrementValue('${postID}');">
-							<i class="fa fa-caret-up"></i>
-						</button>
-						<br>
-						<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
-									disabled size="1" class="points" id="${postID}" value="${post.getPoints()}">
-						<br>
-						<button class="icon-btn" data-original-title="Downvote"
-										onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
-														 decrementValue('${postID}');">
-							<i class="fa fa-caret-down"></i>
-						</button>
-					</div>
-
-					<!-- Clips -->
-					<div align="center">
-						<button type="button" class="clip"
-							data-original-title="Clip this post">
-							<i class="fa fa-paperclip"></i>
-						</button>
-					</div>
-
+					<c:if test="${is_logged == true }">
+						<!-- Points -->
+						<div class="vote" align="center">
+							<button class="icon-btn" data-original-title="Upvote" 
+											onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
+															 incrementValue('${postID}');">
+								<i class="fa fa-caret-up"></i>
+							</button>
+							<br>
+							<input	style="font-weight: bolder; height: 1em; background-color: transparent; border: none;" 
+										disabled size="1" class="points" id="${postID}" value="${post.getPoints()}">
+							<br>
+							<button class="icon-btn" data-original-title="Downvote"
+											onclick="Vote('${postID}', 'POST', 1, '${pageContext.request.contextPath}/vote');
+															 decrementValue('${postID}');">
+								<i class="fa fa-caret-down"></i>
+							</button>
+						</div>
+	
+						<!-- Clips -->
+						<div align="center">
+							<button type="button" class="clip"
+								data-original-title="Clip this post">
+								<i class="fa fa-paperclip"></i>
+							</button>
+						</div>
+					</c:if>
 					<div align="center">
 						<!-- Share -->
 						<a
@@ -72,7 +73,7 @@
 						
 						<br>
 						
-						<c:if test="${is_author}">
+						<c:if test="${is_author == true}">
 							<!-- Edit -->
 							<form action="${pageContext.request.contextPath}/edit?p=${post.getUrl()}" method="post">
 								<input type="hidden" name="postID" value="${postID }">
@@ -83,11 +84,13 @@
 							<br>
 						</c:if>
 						
-						<!-- Báo cáo -->
-						<button type="button" data-toggle="modal" data-target="#modelReport"
-										value="REPORT"  class="btn btn-danger">
-							<i class="fa fa-flag"></i>
-						</button>
+						<c:if test="${is_logged == true }">
+							<!-- Báo cáo -->
+							<button type="button" data-toggle="modal" data-target="#modelReport"
+											value="REPORT"  class="btn btn-danger">
+								<i class="fa fa-flag"></i>
+							</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -272,6 +275,7 @@
 		<hr>
 	</div>
 	
+	<jsp:include page="../common/footer.jsp"/>
 	<!-- Modal Upload -->
 	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
 	

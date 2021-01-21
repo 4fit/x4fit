@@ -79,7 +79,7 @@ public class profileController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 			// System.out.print(user.getEmail()+ user.getId());
-		List<Post> posts = Post.GetAllPostByUserID(user1.getAccount_id());
+		List<Post> posts = Post.GetAllPostByAccountID(user1.getAccount_id());
 		request.setAttribute("listpost", posts);
 	}
 	

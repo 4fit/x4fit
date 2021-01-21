@@ -284,7 +284,7 @@ public final class Post extends Model {
 		POST.findOneAndUpdate(Filters.eq("_id", id), Updates.inc("points", point));
 	}
 	
-	public static List<Post> GetAllPostByUserID(ObjectId account_id) {
+	public static List<Post> GetAllPostByAccountID(ObjectId account_id) {
 		FindIterable<Post> cursor = POST.find(new BasicDBObject("author_id", account_id));
 		Iterator<Post> it = cursor.iterator();
 		List<Post> lstPost = new ArrayList<Post>();

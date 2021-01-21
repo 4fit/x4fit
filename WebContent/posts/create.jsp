@@ -10,7 +10,6 @@
 	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.ico" />
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/post.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/home.css" />
@@ -21,14 +20,9 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 	<script src="${pageContext.request.contextPath}/scripts/jquery-3.3.1.slim.min.js"></script>
 	<script src="${pageContext.request.contextPath}/scripts/highlight.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 </head>
 <body>
-	<% try {
-	boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");
-	}
-	catch (Exception e){}%>
-
-	
 	<jsp:include page="../navbar.jsp"></jsp:include>
 	<div class="container">
 		<h3 align="center">TẠO BÀI VIẾT</h3>
@@ -53,15 +47,6 @@
 					    </c:forEach>
 					  </select>
 					</div>
-<!-- 					<div class="input-group mb-3"> -->
-<!-- 						<div class="input-group-prepend"> -->
-<!-- 							<span class="input-group-text" id="basic-addon1">Thumbnail</span> -->
-<!-- 						</div> -->
-<!-- 						<div class="custom-file"> -->
-<!-- 							<label class="custom-file-label" for="customFileLang"></label>  -->
-<!-- 							<input type="file" class="custom-file-input" id="customFileLang" lang="vi"> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
 				</div>
 				<textarea name="content" id="content"></textarea>
 				<input type="hidden" name="is_create" value="True">
@@ -71,6 +56,7 @@
 		</form>
 	</div>
 
+	<jsp:include page="../common/footer.jsp"/>
 	<jsp:include page="../modals/modalUpload.jsp"></jsp:include>
 	
 	<hr>

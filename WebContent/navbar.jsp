@@ -34,13 +34,13 @@
 <!-- 				<button class="btn btn-primary mt-1" type="button"> -->
 <!-- 					<i class="fas fa-bell"></i> -->
 <!-- 				</button> -->
-<%-- 				<c:if test="${is_logged == true}"> --%>
+				<c:if test="${is_logged == true}">
 				<a href="${pageContext.request.contextPath}/create">
 					<button class="btn btn-secondary mt-1" type="button">
 						<i class="fas fa-edit"></i>
 					</button>
 				</a>
-<%-- 				</c:if> --%>
+				</c:if>
 	
 			</div>
 		</div>

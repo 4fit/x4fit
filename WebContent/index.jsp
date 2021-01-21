@@ -9,7 +9,6 @@
 	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/logo.ico" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap.min.css">
 	<script src="${pageContext.request.contextPath}/scripts/bootstrap.min.js"></script>
-
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
@@ -17,8 +16,6 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.js" integrity="sha512-4WpSQe8XU6Djt8IPJMGD9Xx9KuYsVCEeitZfMhPi8xdYlVA5hzRitm0Nt1g2AZFS136s29Nq4E4NVvouVAVrBw==" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<script src="https://kit.fontawesome.com/f93b4d7888.js"
-	crossorigin="anonymous"></script>
 </head>
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>

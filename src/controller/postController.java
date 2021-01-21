@@ -52,7 +52,8 @@ public class postController extends HttpServlet {
 		{
 			ObjectId account_id = User.GetAccountIdFromCookies(request.getCookies());
 			GetAllComments(post);
-			boolean is_author = post.getAuthor_id() == account_id;
+			boolean is_author = post.getAuthor_id().equals(account_id);
+			
 			if (account_id != null && Account.isLogged(request.getCookies()))
 			{
 				request.setAttribute("is_logged", true);

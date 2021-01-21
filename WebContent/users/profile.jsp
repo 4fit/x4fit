@@ -897,52 +897,52 @@
                 <!---------------------------------POSTS------------------------------->
 			
                 <div id="Post" class="tabcontent">
-                	<div class=" filter">
-				    		<div class="dropdown ">
-							    <button class="dropbtn">Tất cả
-							      <i class="fa fa-caret-down"></i>
-							    </button>
-							    <div class="dropdown-content">
-							      <a href="#">Tất cả</a>
-							      <a href="#">Công khai</a>
-							      <a href="#">Riêng tư</a>
-							    </div>
-				  			</div> 
-				    </div>
-                    <div class="jumbotron jumbotron-fluid" id="list-post">
-                        <c:forEach items="${listpost}" var="post">
-                            <div class="post-div container">
-                                <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }" alt="${curUser.getFullname() }">
-                                <a class="name-pro-post display-9">${curUser.getFullname()}</a>
-                                <c:if test="${post.getIs_public()==true}">
-                                	<span class="status">Public</span>
-                                </c:if>
-                                <c:if test="${post.getIs_public()==false}">
-                                	<span class="status">Private</span>
-                                </c:if>
-                                 
-                                <p class="postime">Create at: ${post.getPublished_at()}</p>
-                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
-                                </p>
-                                <p class="card-text">${post.getShortContent()}...</p>
-                                <div class="tag d-flex">
-                                    <button class="btn-secondary">${post.getCategory() }</button>
+<!--                 	<div class=" filter"> -->
+<!-- 						    		<div class="dropdown "> -->
+<!-- 									    <button class="dropbtn">Tất cả -->
+<!-- 									      <i class="fa fa-caret-down"></i> -->
+<!-- 									    </button> -->
+<!-- 									    <div class="dropdown-content"> -->
+<!-- 									      <a href="#">Tất cả</a> -->
+<!-- 									      <a href="#">Công khai</a> -->
+<!-- 									      <a href="#">Riêng tư</a> -->
+<!-- 									    </div> -->
+<!-- 						  			</div>  -->
+<!-- 						    	</div> -->
+                   <div class="jumbotron jumbotron-fluid" id="list-post">
+                       <c:forEach items="${listpost}" var="post">
+                           <div class="post-div container">
+                               <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }" alt="${curUser.getFullname() }">
+                               <a class="name-pro-post display-9">${curUser.getFullname()}</a>
+                               <c:if test="${post.getIs_public()==true}">
+                               	<span class="status">Public</span>
+                               </c:if>
+                               <c:if test="${post.getIs_public()==false}">
+                               	<span class="status">Private</span>
+                               </c:if>
+                                
+                               <p class="postime">Create at: ${post.getPublished_at()}</p>
+                               <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
+                               </p>
+                               <p class="card-text">${post.getShortContent()}...</p>
+                               <div class="tag d-flex">
+                                   <button class="btn-secondary">${post.getCategory() }</button>
 
-                                </div>
-                                <span class="viewtag t ml-20">
-                                <i class="far fa-eye"></i><label class="view">${post.getViews_count()} </label>
-                            </span>
-                                <span class="viewtag t ">
-                                <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
-                            </span>
-                                <span class="viewtag t">
-                                <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
-                            </span>
-                            </div>
-                            <div class="divider ml-5 mr-5"></div>
-                        </c:forEach>
+                               </div>
+                               <span class="viewtag t ml-20">
+                               <i class="far fa-eye"></i><label class="view">${post.getViews_count()} </label>
+                           </span>
+                               <span class="viewtag t ">
+                               <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
+                           </span>
+                               <span class="viewtag t">
+                               <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
+                           </span>
+                           </div>
+                           <div class="divider ml-5 mr-5"></div>
+                       </c:forEach>
 
-                    </div>
+                   </div>
                 </div>
                 <script>
                     function openPage(nampage, element) {

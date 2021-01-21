@@ -25,7 +25,6 @@
 			<div class="login-content">
 			
 				<form action="${pageContext.request.contextPath}/login" method="post">
-					
 					<h2 class="title">Welcome</h2>
 					
 					<div class="input-div one">
