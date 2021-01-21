@@ -345,10 +345,11 @@
     
     .jumbotron {
         background: transparent !important;
+        padding-top: 3px ;
     }
     
     .post-div {
-        margin-top: 5px;
+        margin-top: 50px;
         margin-left: 15px;
         margin-bottom: 15px;
     }
@@ -503,6 +504,23 @@
         border-radius: 10px;
     }
     
+    .status{
+    	background: #C41A1A;
+    	color:#fff;
+    	font-weight: 500;
+    	margin-left: 40px;
+    	font-size: 13px;
+    	width: 40px;
+    	border-radius: 8px;
+    }
+    
+    .card-text{
+    	font-size: 16px;
+    	color: grey;
+    	padding-left : 35px;
+    	padding-right: 25px;
+    }
+    
     @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
     .setting-row .container {
         position: absolute;
@@ -588,11 +606,22 @@
         background-color: #05198b;
         color: white;
         border-top: 1px solid white;
-        font-size: 20px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: 500;
         border-radius: 0;
         letter-spacing: 1px;
     }
+    
+    #Following .btn-follow
+    {
+    	background : rgb(68, 68, 231);
+    	color: white;
+    	font-size: 14px !important;
+    	font-weight: 400 !important;
+    	
+    }
+    
+
     
     .setting-btn button:hover {
         letter-spacing: 2px;
@@ -615,6 +644,22 @@
     
     .form-group {
         margin-bottom: 5px !important;
+    }
+    
+    .filter{
+     justify-content: right;
+     margin: 35px;
+    }
+    .dropbtn{
+    	border: none;
+    	min-width: 100px;
+    	border-bottom: 1px solid black;
+    	background: transparent;
+    	margin-right: 10px;
+    	font-size: 14px;
+    	
+    	
+    	
     }
     
     .container .advance {
@@ -650,6 +695,60 @@
         font-family: sans-serif;
     }
     
+    .dropdown-content {
+	  display: none;
+	  position: absolute;
+	  background-color: #f9f9f9;
+	  min-width: 100px;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+	
+	.dropdown-content a {
+	  float: none;
+	  color: black;
+	  padding: 10px 10px;
+	  text-decoration: none;
+	  display: block;
+	  text-align: center;
+	}
+	
+	.permit-edit{
+	width: 80px;
+	float : right;
+	height: 35px;
+	font-size: 15px;
+	margin-top: -20px;
+	outline: none;
+	font-weight: 500;
+	border-radius: 10px;
+	border : 1px solid blue;
+	color: blue;
+	background: white;
+	
+	}
+	
+	.permit-edit:hover{
+		background: blue;
+		color: white;
+		letter-spacing: 1px;
+		font-weight: 600;
+		transition: 0.2s ease-in;
+	}
+	
+	.filter .dropdown {
+		width : 100%;
+		display: inline;
+	}
+	
+	.dropdown-content a:hover {
+	  background-color: #ddd;
+	}
+	
+	.dropdown:hover .dropdown-content {
+	  display: block;
+	}
+	    
     .btnsave {
         font-size: 15px;
         font-weight: 600;
@@ -731,7 +830,7 @@
                         <div class="dropdown-item profile-popup">
                             <img class="img-profile" src="${pageContext.request.contextPath}/images/${usermain.getAvatar() }" alt="">
                             <div class="info-popup">
-                                <h5 class="name-info"><a href="${pageContext.request.contextPath}/profile">${usermain.getFullname()}</a> </h5>
+                                <h5 class="name-info"><a href="${pageContext.request.contextPath}/profile">${usermain.getUsername(usermain)}</a> </h5>
                                 <p class="gmail-info">${usermain.getEmail(usermain.getId())}</p>
                                 <form action="/profile" method="get">
                                     <a href="${pageContext.request.contextPath}/posts/create.jsp"><button class="btn btn-primary btn-edit" type="submit">Edit</button></a>
@@ -755,7 +854,7 @@
             <img class="img-profile-ban  float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }">
             <div class="info-ban">
                 <h5 class="name-ban">${curUser.getFullname()}</h5>
-                <p class="gmail-ban">${curUser.getEmail(curUser.getId())}</p>
+                <p class="gmail-ban">${acc.getEmail()}</p>
             </div>
         </div>
     </div>
@@ -765,6 +864,7 @@
 
 
     <div class="container-fluid">
+    	
         <div class="row">
             <div class="col-lg-9 content-main ">
                 <c:choose>
@@ -792,16 +892,36 @@
 
 
                 <!---------------------------------POSTS------------------------------->
-
+			
                 <div id="Post" class="tabcontent">
+                	<div class=" filter">
+				    		<div class="dropdown ">
+							    <button class="dropbtn">Tất cả
+							      <i class="fa fa-caret-down"></i>
+							    </button>
+							    <div class="dropdown-content">
+							      <a href="#">Tất cả</a>
+							      <a href="#">Công khai</a>
+							      <a href="#">Riêng tư</a>
+							    </div>
+				  			</div> 
+				    </div>
                     <div class="jumbotron jumbotron-fluid" id="list-post">
                         <c:forEach items="${listpost}" var="post">
                             <div class="post-div container">
                                 <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }" alt="${curUser.getFullname() }">
                                 <a class="name-pro-post display-9">${curUser.getFullname()}</a>
-                                <p class="postime">${post.getPublished_at()}</p>
-                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getURL()}">${post.getTitle() }</a>
+                                <c:if test="${post.getIs_public()==true}">
+                                	<span class="status">Public</span>
+                                </c:if>
+                                <c:if test="${post.getIs_public()==false}">
+                                	<span class="status">Private</span>
+                                </c:if>
+                                 
+                                <p class="postime">Create at: ${post.getPublished_at()}</p>
+                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
                                 </p>
+                                <p class="card-text">${post.getShortContent()}...</p>
                                 <div class="tag d-flex">
                                     <button class="btn-secondary">${post.getCategory() }</button>
 
@@ -813,7 +933,7 @@
                                 <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
                             </span>
                                 <span class="viewtag t">
-                                <i class="far fa-comment"></i><label class="view">${post.countComment(post.getID())}</label>
+                                <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
                             </span>
                             </div>
                             <div class="divider ml-5 mr-5"></div>
@@ -848,11 +968,18 @@
                     <div class="jumbotron jumbotron-fluid">
                         <c:forEach items="${clipspost}" var="post">
                             <div class="post-div container">
-                                <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }" alt="${curUser.getFullname() }">
-                                <a class="name-pro-post display-9" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${curUser.getEmail(post.getAuthor().getId())}">${post.getAuthor().getFullname()}</a>
-                                <p class="postime">${post.getPublished_at()}</p>
-                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getURL()}">${post.getTitle() }</a>
+                                <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${post.GetAuthor().getAvatar() }" alt="">
+                                <a class="name-pro-post display-9" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${User.getEmail(post.GetAuthor().getAccount_id())}">${post.GetAuthor().getFullname()}</a>
+                                <c:if test="${post.getIs_public()==true}">
+                                	<span class="status">Public</span>
+                                </c:if>
+                                <c:if test="${post.getIs_public()==false}">
+                                	<span class="status">Private</span>
+                                </c:if>
+                                <p class="postime">Create at :  ${post.getPublished_at()}</p>
+                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
                                 </p>
+                                <p class="card-text">${post.getShortContent()}...</p>
                                 <div class="tag d-flex">
                                     <button class="btn-secondary">${post.getCategory() }</button>
 
@@ -864,7 +991,7 @@
                                 <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
                             </span>
                                 <span class="viewtag t">
-                                <i class="far fa-comment"></i><label class="view">${post.countComment(post.getID())}</label>
+                                <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
                             </span>
                             </div>
                             <div class="divider ml-5 mr-5"></div>
@@ -879,11 +1006,11 @@
                             <div class="col-sm-6 col-md-4 anuser">
                                 <div class="d-flex exhibition-item user mt-4">
                                     <a class="d-flex img-user-div pt-1" href="#">
-                                        <img class="avatar-user float-left" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
+                                        <img class="avatar-user float-left img-fluid" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
                                     </a>
                                     <div class="user-info overflow-hidden">
 
-                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getId())}">${user.getFullname()}</a>
+                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
                                         <div class="user-icon">
                                             <span class="viewtag t ">
                                             <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
@@ -893,9 +1020,26 @@
                                         </span>
                                         </div>
                                         <div class="follow">
-                                            <button class="btn btn-follow" type="button">
-                                            Following
-                                        </button>
+                                        	<input type="hidden" class="mainuser" value="${usermain.getId()}">
+                                            <input type="hidden" class="id-author" value="${user.getId()}">
+                                           <c:if test="${ curUser.getId() != usermain.getId() }">
+	                                          	 <c:if test="${usermain.getUserFromFollowing(user)==false }">
+	                                            	<button class="btn btn-follow" style="background: white; color: blue;" type="button">
+	                                           			 Follow+
+	                                        		</button>
+	                                        	</c:if>
+	                                        	<c:if test="${usermain.getUserFromFollowing(user)==true }">
+	                                            	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+	                                           			 Following
+	                                        		</button>
+	                                        	</c:if>
+                                        	</c:if>
+                                        	<c:if test="${ curUser.getId() == usermain.getId() }">
+                                        		<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+                                           			 Following
+                                        		</button>
+                                        	</c:if>
+                                        	
                                         </div>
                                     </div>
 
@@ -911,10 +1055,10 @@
                             <div class="col-sm-6 col-md-4 anuser">
                                 <div class="d-flex exhibition-item user mt-2">
                                     <a class="d-flex img-user-div pt-1" href="#">
-                                        <img class="avatar-user float-left" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
+                                        <img class="avatar-user float-left img-fluid" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
                                     </a>
                                     <div class="user-info overflow-hidden">
-                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getUserID())}">${user.getFullname()}</a>
+                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
                                         <div class="user-icon">
                                             <span class="viewtag t ">
                                             <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
@@ -924,11 +1068,20 @@
                                         </span>
                                         </div>
                                         <div class="follow">
+                                        	<input type="hidden" name="email" value="${user.getEmail(user.getAccount_id())}">
                                             <input type="hidden" class="mainuser" value="${usermain.getId()}">
-                                            <input type="hidden" class="followid" value="${user.getId()}">
-                                            <button class="btn btn-follow" type="button">
-                                          			  Follow
+                                            <input type="hidden" class="id-author" value="${user.getId()}">
+                                            <c:if test="${usermain.getUserFromFollowing(user)==true }">
+                                            	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+                                          			  Following
                                       			  </button>
+                                            </c:if>
+                                            <c:if test="${usermain.getUserFromFollowing(user)==false }">
+                                            	<button class="btn btn-follow" style="background: white; color: blue;" type="button">
+                                          			  Follow+
+                                      			  </button>
+                                            </c:if>
+                                            
                                         </div>
                                     </div>
 
@@ -955,31 +1108,32 @@
                                     </div>
                                     <div class="col-md-9">
                                         <h3 style="margin-bottom: 10px;">Your information</h3>
+                                        <button class="permit-edit btn-primary">Edit</button>
                                         <c:if test="${updateSuccess==true}">
-                                            <h4>Cáº­p nháº­p thÃ´ng tin thÃ nh cÃ´nng</h4>
+                                            <h4>Cập nhật thông tin thành công</h4>
                                         </c:if>
 
-                                        <form action="${pageContext.request.contextPath}/profile?action=edit" method="POST">
+                                        <form action="${pageContext.request.contextPath}/profile?action=editaccount" method="POST">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Full name</label>
-                                                <input type="text" class="form-control" name="fullname" placeholder="Enter fullname" value="${usermain.getFullname()}">
+                                                <input type="text" class="form-control" name="fullname" placeholder="Enter fullname" value="${usermain.getFullname()}" disabled>
                                                 <label>${nameError}</label>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="${acc.getEmail() }">
+                                                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="${acc.getEmail() }" disabled>
                                                 <label>${emailError}</label>
                                             </div>
                                             <label class="advance">Change login information</label>
                                             <div id="advance">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Username</label>
-                                                    <input type="text" class="form-control" name="username" placeholder="username" value="${acc.getUsername() }">
+                                                    <input type="text" class="form-control" name="username" placeholder="username" value="${acc.getUsername() }" disabled>
                                                     <label>${usernameError}</label>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Current password</label>
-                                                    <input type="password" class="form-control" name="currentpass" disabled="disabled" placeholder="current password" value="${acc.getPassword() }">
+                                                    <input type="password" class="form-control" name="currentpass"  placeholder="current password" value="${acc.getPassword() }" disabled>
 
                                                 </div>
 
@@ -995,23 +1149,26 @@
                             <div class="container">
                                 <div id="changepass">
                                     <h3>Change your password</h3>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Old password</label>
-                                        <input type="password" class="form-control" name="oldpass" placeholder="type your old password">
-                                        <label>${oldpassError}</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">New password</label>
-                                        <input type="password" class="form-control" name="newpass" placeholder="type new password">
-                                        <label>${newpassError}</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Confirm new password</label>
-                                        <input type="password" class="form-control" name="confirmnewpass" placeholder="confirm new password">
-                                        <label>${confirmError}</label>
-                                    </div>
-                                    <button class="btnsave" type="submit">Save change</button>
-
+                                    <form  action="${pageContext.request.contextPath}/profile?action=editpass" method="post">
+                                    	<div class="form-group">
+	                                        <label for="exampleInputEmail1">Old password</label>
+	                                        <input type="password" class="form-control" name="oldpass" placeholder="type your old password">
+	                                        <label>${oldpassError}</label>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="exampleInputEmail1">New password</label>
+	                                        <input type="password" class="form-control" name="newpass" placeholder="type new password">
+	                                        <label>${newpassError}</label>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="exampleInputEmail1">Confirm new password</label>
+	                                        <input type="password" class="form-control" name="confirmnewpass" placeholder="confirm new password">
+	                                        <label>${confirmError}</label>
+	                                    </div>
+	                                    <button class="btnsave" type="submit">Save change</button>
+                                    	
+                                    </form>
+                                    
                                 </div>
                             </div>
 
@@ -1023,7 +1180,7 @@
                 <ul class="list-group ">
                     <li class="list-group-item  d-flex justify-content-between align-items-center">
                         Total post view
-                        <span class="badge badge-primary badge-pill">${curUser.coutTotalPostView(curUser.getId())}</span>
+                        <span class="badge badge-primary badge-pill">${curUser.countTotalPostView(curUser.getAccount_id())}</span>
                     </li>
                     <li class="list-group-item d-flex w-100 justify-content-between align-items-center">
                         Following user
@@ -1035,7 +1192,7 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Post
-                        <span class="badge badge-primary badge-pill"></span>
+                        <span class="badge badge-primary badge-pill">${listpost.size()}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Clip
@@ -1078,34 +1235,16 @@
         document.getElementsByClassName("profile")[0].onclick = function() {
             document.getElementById("profile").checked = true;
         }
-    </script>
-    <script>
-        var follower = document.getElementsByClassName("btn-follow");
-        for (var i = 0; i < follower.lenght; i++) {
-            follower[i].onclick = function(event) {
-                var iduser = event.target.parentElement.getElementsByClassName("followid")[0].value;
-                var mainuser = event.target.parentElement.getElementsByClassName("usermain")[0].value;
-                if (mainuser == null) window.location.href = "../login/login.jsp"
-                return;
-                alert(iduser);
-                $.ajax({
-                    type: "POST",
-                    url: "followAnUser",
-                    data: {
-                        iduser: iduser,
-                        mainuser: mainuser
-                    },
-                    success: function(responseText) {
-
-                        alert(responseText);
-
-                    }
-
-                });
-
-            }
+        
+        document.getElementsByClassName("permit-edit")[0].onclick= function(){
+        	
+        	alert(document.getElementsByClassName("form-control")[0].disabled);
         }
+       
+        
     </script>
+       <script type="text/javascript" src="scripts/Follow.js"></script>
+
 </body>
 
 </html>

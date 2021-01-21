@@ -261,12 +261,13 @@ body {
 }
 
 .card-header .follow {
-	
-	margin-left: 60px;
+	display:flex;
+	margin-top: -25px;
+	margin-left: 180px;
 }
 
 .card-header .btn-follow{
-	height: 35px;
+	display: inline;
 }
 
 .list-static {
@@ -444,10 +445,10 @@ body {
     color: rgb(68, 68, 231);
     font-weight: 400;
     font-size: 14px;
-    height: 35px;
+    height: 33px;
     margin-left: 30px;
     border-radius: 8px;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
 }
 
 .user-icon i {

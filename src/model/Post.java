@@ -284,8 +284,8 @@ public final class Post extends Model {
 		POST.findOneAndUpdate(Filters.eq("_id", id), Updates.inc("points", point));
 	}
 	
-	public static List<Post> GetAllPostByUserID(ObjectId userID) {
-		FindIterable<Post> cursor = POST.find(new BasicDBObject("author", userID));
+	public static List<Post> GetAllPostByUserID(ObjectId account_id) {
+		FindIterable<Post> cursor = POST.find(new BasicDBObject("author_id", account_id));
 		Iterator<Post> it = cursor.iterator();
 		List<Post> lstPost = new ArrayList<Post>();
 		if (it.hasNext()) {
@@ -293,6 +293,7 @@ public final class Post extends Model {
 				lstPost.add(it.next());
 			}
 		}
+		//System.out.print(lstPost.size());
 		return lstPost;
 	}
 
@@ -338,7 +339,7 @@ public final class Post extends Model {
 
 	public List<Post> getPostOfUser(int idUser) {
 		List<Post> lPost = new ArrayList<Post>();
-		FindIterable<Post> listPost = POST.find(Filters.eq("author", idUser));
+		FindIterable<Post> listPost = POST.find(Filters.eq("author_id", idUser));
 		Iterator<Post> list = listPost.iterator();
 		while (list.hasNext()) {
 			lPost.add(list.next());
@@ -357,6 +358,7 @@ public final class Post extends Model {
 	{
 		long count = COMMENT.countDocuments(Filters.eq("post_id", this.getId()));
 		return count;
+
 	}
 	
 	public static List<Post> SearchPost(String textSearch)
@@ -431,7 +433,7 @@ public final class Post extends Model {
 	
 	public static void addListPostByUserID(List<Post> lPost, ObjectId userID)
 	{
-		FindIterable<Post> listPost = Model.POST.find(Filters.eq("author", userID));
+		FindIterable<Post> listPost = Model.POST.find(Filters.eq("author_id", userID));
 		Iterator<Post> list = listPost.iterator();
 		while(list.hasNext())
 		{

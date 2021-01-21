@@ -79,22 +79,19 @@ public class profileController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 			// System.out.print(user.getEmail()+ user.getId());
-		List<Post> posts = Post.GetAllPostByUserID(user1.getId());
+		List<Post> posts = Post.GetAllPostByUserID(user1.getAccount_id());
 		request.setAttribute("listpost", posts);
 	}
 	
 	@SuppressWarnings("static-access")
-	public boolean updateProfile (HttpServletRequest request)
+	public boolean updateInfo (HttpServletRequest request)
 	{
 		String fullname =request.getParameter("fullname")==null ? "":  request.getParameter("fullname").toString();
 		String email = request.getParameter("email")==null ?"": request.getParameter("email").toString();
 		String username =request.getParameter("username")==null ?"": request.getParameter("username").toString();
-		String newpass = request.getParameter("newpass")==null ? "": request.getParameter("newpass").toString();
-		String oldpass= request.getParameter("oldpass") ==null ? "": request.getParameter("oldpass").toString();
-		String confirm = request.getParameter("confirmnewpass")==null ?"": request.getParameter("confirmnewpass").toString();
+		
 		User currentuser= ValidateUser(request);
 		boolean valid= true;
-		boolean changeAccount= true;
 		if(fullname.equals(""))
 		{
 			request.setAttribute("nameError", "You have to fill full name!");
@@ -118,6 +115,7 @@ public class profileController extends HttpServlet {
 		else
 		{
 			User user= User.GetUserByUsername(username);
+		//	System.out.print( "USER " +user.getUsername());
 			if(user!=null)
 			{
 				if (user.getId()!=currentuser.getId() )
@@ -129,13 +127,33 @@ public class profileController extends HttpServlet {
 			else
 				request.setAttribute("usernameError","");
 		}
+		
+		//System.out.print("Minh là valid" +valid);
+		if(valid==true)
+		{
+			//System.out.print(changeAccount);
+			return User.updateInforUser(currentuser.getAccount_id(), fullname, email, username);			
+		}
+		
+		return false;
+			
+	}
+	
+	public boolean updateAccount (HttpServletRequest request)
+	{
+		String newpass = request.getParameter("newpass")==null ? "": request.getParameter("newpass").toString();
+		String oldpass= request.getParameter("oldpass") ==null ? "": request.getParameter("oldpass").toString();
+		String confirm = request.getParameter("confirmnewpass")==null ?"": request.getParameter("confirmnewpass").toString();
+		User currentuser= ValidateUser(request);
+		
+		boolean changeAccount= true;
+
 		if(!(oldpass.equals("") && newpass.equals("") && confirm.equals("")))
 		{
 			if(oldpass.equals("")  )
 			{
 				changeAccount=false;
 				request.setAttribute("oldpassError","You have to confirm your old password!");
-				valid=false;
 			}
 			else
 				request.setAttribute("oldpassError","");
@@ -143,7 +161,6 @@ public class profileController extends HttpServlet {
 				{
 					changeAccount=false;
 					request.setAttribute("confirmError", "Your have to fill confirm your new Password!");
-					valid=false;
 				}
 				else
 					request.setAttribute("confirmError","");
@@ -151,7 +168,6 @@ public class profileController extends HttpServlet {
 			{
 				changeAccount=false;
 				request.setAttribute("newpassError", "Your have to fill your new Password!");
-				valid=false;
 			}
 			else
 				request.setAttribute("newpassError","");
@@ -162,17 +178,18 @@ public class profileController extends HttpServlet {
 				{
 					changeAccount=false;
 					request.setAttribute("confirmError", "Your confirm Password is not correct!");
-					valid=false;
 				}
 				
 				if(checkPassword(oldpass, request)==false)
 				{
+					
 					changeAccount=false;
 					request.setAttribute("oldpassError", "Your old password is not correct!");
-					valid=false;
 				}
 			
 			}
+			
+			System.out.print(changeAccount);
 		}
 		else
 		{
@@ -180,19 +197,13 @@ public class profileController extends HttpServlet {
 		}	
 		
 		
-		if(valid==true)
+		if(changeAccount==true)
 		{
-			System.out.print(changeAccount);
-			if(changeAccount==false)
-			{
-				return user.updateInforUser(currentuser.getId(), fullname, email, username, "");
-			}
-			else
-			 	return user.updateInforUser(currentuser.getId(), fullname, email, username, newpass);
-		}
-		
-		return false;
 			
+		 	return User.updatePassword(currentuser.getAccount_id(), newpass);
+
+		}
+		return false;
 	}
 	 
 	public boolean checkPassword(String pass,HttpServletRequest request)
@@ -214,12 +225,23 @@ public class profileController extends HttpServlet {
 				
 			if(usercurrent!=null)
 			{
+				
+				
 				request.setAttribute("curUser",usercurrent );
-						if(request.getParameter("action")!=null&& request.getParameter("action").toString().equals("edit"))
+						if(request.getParameter("action")!=null&& request.getParameter("action").toString().equals("editaccount"))
 						{
-							Boolean result= updateProfile(request);
+							Boolean result= updateInfo(request);
+							//System.out.print("account "+ result);
+							usercurrent= ValidateUser(request);
 							request.setAttribute("updateSuccess", result);
 						}
+						else
+							if(request.getParameter("action")!=null&& request.getParameter("action").toString().equals("editpass"))
+							{
+								Boolean result= updateAccount(request);
+								usercurrent= ValidateUser(request);
+								request.setAttribute("updateSuccess", result);
+							}
 							
 						showProfile( request, usercurrent);
 						getListPost(usercurrent,request, response);
@@ -227,7 +249,6 @@ public class profileController extends HttpServlet {
 						
 						getFollowingUser(usercurrent, request, response);
 						getFollowerUser(usercurrent,request, response);
-						
 						url="/users/profile.jsp";
 						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher (url);
 						dispatcher.forward(request, response);

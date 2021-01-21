@@ -26,13 +26,11 @@
 	<script src="${pageContext.request.contextPath}/scripts/highlight.min.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
 	<% try {
 	boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");
 	}
 	catch (Exception e){}%>
-=======
->>>>>>> a63aa55... sdf
+
 	
 	<jsp:include page="../navbar.jsp"></jsp:include>
 	<div class="container">

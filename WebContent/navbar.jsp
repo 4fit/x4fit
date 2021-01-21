@@ -77,13 +77,13 @@
     <script>
 
     document.getElementById("dropdownMenu2").onclick = function() {
-        if (document.getElementsByClassName("dropdown-menu")[1].style.display == "block") {
-            document.getElementsByClassName("dropdown-menu")[1].style.display = "none";
-            document.getElementsByClassName("dropdown-menu")[1].style.top = "60%";
+        if (document.getElementsByClassName("dropdown-menu")[0].style.display == "block") {
+            document.getElementsByClassName("dropdown-menu")[0].style.display = "none";
+            document.getElementsByClassName("dropdown-menu")[0].style.top = "60%";
         } else {
-            document.getElementsByClassName("dropdown-menu")[1].style.display = "block";
-            document.getElementsByClassName("dropdown-menu")[1].style.transition = "2s ease"
-            document.getElementsByClassName("dropdown-menu")[1].style.top = "95%";
+            document.getElementsByClassName("dropdown-menu")[0].style.display = "block";
+            document.getElementsByClassName("dropdown-menu")[0].style.transition = "2s ease"
+            document.getElementsByClassName("dropdown-menu")[0].style.top = "95%";
         }
 
 

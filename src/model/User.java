@@ -108,8 +108,8 @@ public final class User extends Model
 //		return Account.GetAccountByUserID(userID).getEmail();
 //	}
 
-	public String getUsername(ObjectId userID) {
-		Account acc = ACCOUNT.find(Filters.eq("user_id", userID)).first();
+	public String getUsername(User user) {
+		Account acc = ACCOUNT.find(Filters.eq("_id", user.getAccount_id())).first();
 		if (acc == null)
 			return null;
 		return acc.getUsername();
@@ -125,10 +125,10 @@ public final class User extends Model
 	
 	public String getEmail (ObjectId id)
 	{
-		Account acc = ACCOUNT.find(Filters.eq("user_id", id)).first();
+		Account acc = ACCOUNT.find(Filters.eq("_id", id)).first();
 		if (acc == null)
 			return null;
-		return acc.getUsername();
+		return acc.getEmail();
 	}
 
 	public User() {
@@ -223,12 +223,16 @@ public final class User extends Model
 	@BsonIgnore
 	public static void InsertUserToFollower(ObjectId userID, ObjectId followerID)
 	{
+		USER.updateOne(Filters.eq("_id", followerID),Updates.addToSet("following", userID));
 		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("follower", followerID));
 	}
 	
 	@BsonIgnore
 	public static void RemoveUserFromFollower(ObjectId userID, ObjectId followerID)
 	{
+		USER.updateOne(Filters.eq("_id", followerID), Updates.pullByFilter(Filters.eq("following", userID)));
+
+		
 		USER.updateOne(Filters.eq("_id", userID), Updates.pullByFilter(Filters.eq("follower", followerID)));
 	}
 	
@@ -288,6 +292,7 @@ public final class User extends Model
 	public boolean checkPassword(User user, String password) {
 		Account acc = Model.ACCOUNT.find(Filters.eq("_id", user.getAccount_id())).first();
 		if (acc != null) {
+			System.out.print(acc.password);
 			String _password_ = acc.getPassword();
 			String hashed_password = DigestUtils.sha256Hex(password);
 			 return hashed_password.equals(_password_);
@@ -343,10 +348,10 @@ public final class User extends Model
 		return count;
 	}
 
-	@BsonIgnore
-	public int coutTotalPostView(ObjectId userID) {
+
+	public int countTotalPostView(ObjectId account_id) {
 		int total = 0;
-		List<Post> posts = Post.GetAllPostByUserID(userID);
+		List<Post> posts = Post.GetAllPostByUserID(account_id);
 		for (Post k : posts) {
 			total += k.getViews_count();
 		}
@@ -357,59 +362,34 @@ public final class User extends Model
 		return user.getClips().size();
 	}
 
-	
-//	public static void createUserByID(ObjectId accId, String fullname) // Tạo user với user_id đã được tạo ở model account
-//	{
-//		Document doc = new Document("_id", new ObjectId());
-//
-//		List<Integer> follower = new ArrayList<Integer>();
-//		List<Integer> following = new ArrayList<Integer>();
-//		List<Integer> clips = new ArrayList<Integer>();
-//		String status = "NOT ACTIVE";
-//
-//		doc.append("id", id);
-//		doc.append("fullname", fullname);
-//		doc.append("avatar", "");
-//		doc.append("url", "");
-//		doc.append("status", status);
-//		doc.append("follower", follower);
-//		doc.append("following", following);
-//		doc.append("clips", clips);
-//		Model.Insert(doc, "USER");
-//	}
-	
-	@BsonIgnore
-	public static boolean updateInforUser(ObjectId accId, String fullname, String email, String username, String password) {
 
-		UpdateResult result1;
+	public static boolean updateInforUser(ObjectId accId, String fullname, String email, String username) {
+
 		UpdateResult result2;
-		if (password == "") 
-		{
+		UpdateResult result1;
 			result1 = ACCOUNT.updateOne(
 					Filters.eq("_id", accId),
 					Updates.combine(
 							Updates.set("email", email), 
 							Updates.set("username", username))
 					);
+		
 			result2 = USER.updateOne(Filters.eq("account_id", accId), Updates.set("fullname", fullname));
-		} 
-		else
-		{
-			String hashed_password = DigestUtils.sha256Hex(password);
-			result1 = USER.updateOne(Filters.eq("account_id", accId), Updates.set("fullname", fullname));
-
-			result2 = ACCOUNT.updateOne(
-					Filters.eq("_id", accId), 
-					Updates.combine(
-							Updates.set("email", email),
-							Updates.set("username", username), 
-							Updates.set("password", hashed_password))
-					);
-
-		}
+			//System.out.print("bool : " +result1 + "||"+result2);
 		if (result1.getModifiedCount() <= 0 || result2.getModifiedCount() <= 0)
 			return false;
 		return true;
+	}
+	
+	public static boolean updatePassword (ObjectId accId, String password) {
+		
+		UpdateResult result2;
+		String hashed_password = DigestUtils.sha256Hex(password);
+		result2 = ACCOUNT.updateOne(Filters.eq("_id", accId), Updates.set("password", hashed_password));
+		if ( result2.getModifiedCount() <= 0)
+			return false;
+		return true;
+
 	}
 
 	public static void updateUserStatusByAccountID(ObjectId account_id, String newStatus) {
@@ -425,6 +405,12 @@ public final class User extends Model
 	{
 		USER.insertOne(this);
 	}
-	
-	
+
+	public boolean getUserFromFollowing (User user)
+	{
+		for(int i=0; i<this.getFollowing().size(); i++)
+			if(this.getFollowing().get(i).equals(user.getId()))	
+				return true;
+		return false;
+	}
 }
