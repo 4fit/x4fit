@@ -110,6 +110,9 @@ public class AdminController extends HttpServlet {
 				User user = User.GetUserByAccountID(report.getAccount_id());
 				lstUserReported.add(user);
 			}
+			request.setAttribute("reportType", reportType);
+			request.setAttribute("timeFrom", timeFrom);
+			request.setAttribute("timeTo", timeTo);
 			request.setAttribute("allReportsList", allReportsList);
 			request.setAttribute("lstUserReported", lstUserReported);
 			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
