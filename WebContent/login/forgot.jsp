@@ -20,7 +20,7 @@
                 <img src="../images/forgotmain.jpg">
             </div>
             <div class="login-content">
-                <form action="forgot" method = "post">
+                <form action="${pageContext.request.contextPath}/forgot" method = "post">
                     
                     <h3 class="title"> Forgot password</h3>
                     <div class="input-div one">

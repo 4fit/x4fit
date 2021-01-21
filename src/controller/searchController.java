@@ -83,7 +83,7 @@ public class searchController extends HttpServlet {
     		else
     		{
     			
-    			limit = limit + 2;
+    			limit = limit + 5;
     			System.out.print(": "  + skip + ":" + limit);
     			listPost = listPostSearch(listPost, skip, limit);
     			
@@ -99,9 +99,11 @@ public class searchController extends HttpServlet {
     				skip+=2;
     			}
     			
-    			
-    			int page = Integer.parseInt(request.getParameter("page"));
-    			request.setAttribute("page", page);
+    			if(request.getParameter("page") != "")
+    			{
+    				int page = Integer.parseInt(request.getParameter("page"));
+        			request.setAttribute("page", page);
+    			}
     		}
     		
     		request.setAttribute("listPost",listPost);
