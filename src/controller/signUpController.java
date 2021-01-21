@@ -119,7 +119,7 @@ public class signUpController extends HttpServlet {
 		String subject = "Wellcome to X4FIT";
 
 //		String body = "Dear " + fullname + ",\n\n" + "Your code:" + OTP + "\n\n" + "Confirm: " ;
-		String body = "Dear " + fullname + ",<br/><br/><br/>" + "Your code:" + OTP + "<br/><br/><br/>" + "Confirm:   "+ "http://localhost:8080/x4fit/login/confirm.jsp" ;
+		String body = "Dear " + fullname + ",<br/><br/><br/>" + "Your code:" + OTP + "<br/><br/><br/>" + "Confirm:   "+ "https://x4fit.herokuapp.com/login/confirm.jsp" ;
 		boolean isBodyHTML = true;
 
 		try {

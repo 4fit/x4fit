@@ -95,7 +95,7 @@
        var pw = document.getElementById("password").value;  
        //check empty password field  
        if(pw == "") {  
-          document.getElementById("message").innerHTML = "**!";  
+          document.getElementById("message").innerHTML = "**Không để trống !";  
           document.getElementById("btnSignup").disabled = true;
           
        } 
@@ -110,7 +110,7 @@
        else
        if(format.test(pw) == false){
     	 
-    	   document.getElementById("message").innerHTML = "**Cần có một ký tự đặc biệt [!@#$%^&*()_+\-=\[\]{}:\\|,.<>\/?+]";  
+    	   document.getElementById("message").innerHTML = "**Cần có một ký tự đặc biệt ";  
            document.getElementById("btnSignup").disabled = true;
        }
        

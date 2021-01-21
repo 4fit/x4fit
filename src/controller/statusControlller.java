@@ -66,6 +66,7 @@ public class statusControlller extends HttpServlet {
     			Account acc = Account.GetAccountByEmail(email);
     			User user = User.GetUserByAccountID(acc.getId());
     			
+    			session.setAttribute("account_id", acc.getId());
     			sendmail(email, user.getFullname(), acc.getPassword());
     			url = "login/confirm.jsp"; // đã xác nhận thành công !
     			session.setAttribute("status", "ACTIVE");

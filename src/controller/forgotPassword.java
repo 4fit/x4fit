@@ -46,7 +46,7 @@ public class forgotPassword extends HttpServlet {
         	String subject = "Change you password to X4FIT";
         	String newPass = "123456@"; // Viết hàm tạo pass mới
         	String body = "Dear " + username + ",\n\n"
-        	+ "new password for you: " + newPass + "\n\n\n login: " + "http://localhost:8080/x4fit/login/login.jsp" ;
+        	+ "new password for you: " + newPass + "\n\n\n login: " + "https://x4fit.herokuapp.com/login/login.jsp" ;
         	boolean isBodyHTML = false;
         	
         	try {

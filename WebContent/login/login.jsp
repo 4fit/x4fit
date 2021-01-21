@@ -33,7 +33,7 @@
 						</div>
 						<div class="div">
 							<input type="text" class="form-control" placeholder="Tên đăng nhập"
-								name="username">
+								name="username" value = "${username }">
 						</div>
 					</div>
 					
@@ -43,12 +43,12 @@
 						</div>
 						<div class="div">
 							<input type="password" class="form-control"
-								placeholder="Mật khẩu" name="password">
+								placeholder="Mật khẩu" name="password" value = "${password }">
 						</div>
 					</div>
 					<a style = "color: #de6600; text-decoration: none; margin-top:15px;" href="forgot.jsp"> Forgot password/username ?</a> 
 					
-					<input type="submit" class="btn btn-primary" value="login"> 
+					<input type="submit" style = "background-color: #625bff;" class="btn btn-primary" value="login"> 
 					
 					<a href="signup.jsp" class="btn-signup">Sign up</a>
 					
