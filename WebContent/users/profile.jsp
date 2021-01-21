@@ -15,6 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/f93b4d7888.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/footer.css" />
 </head>
 <style>
     @charset "UTF-8";
@@ -1204,6 +1207,7 @@
 
         </div>
     </div>
+    <jsp:include page="../common/footer.jsp"/>
     <script>
     
 	    document.getElementById("dropdownMenu2").onclick = function() {

@@ -1,3 +1,7 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav id="navbar" class="navbar navbar-expand-md navbar-light sticky-top">
 		<!-- Logo -->
 		<div>
@@ -64,7 +68,7 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Sign out</a>
 				</div>
-	</c:if> 
+		</c:if> 
 		<c:if test="${is_logged==false }">
 				<div style="width: 5vw;">
 					<a class="btn btn-primary" href="${pageContext.request.contextPath}/login">

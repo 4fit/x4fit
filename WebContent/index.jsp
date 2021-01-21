@@ -77,11 +77,27 @@
 								<a style="margin: 10px;" href="#">
 									${p.GetAuthor().getFullname()}
 								</a>
-								<div class="follow">
-									<input type="hidden" class="mainuser" value="${user.getId()}">
-									<input type="hidden" class="id-author" value="${p.GetAuthor().getId()}">
-									<button class="btn btn-follow" type="button">Follow+</button>
-								</div>
+								<!--<c:if test="${user!=null}">-->
+									<!--<c:if test="${user.getId()!=p.GetAuthor().getId()} ">-->
+										<div class="follow">
+											<input type="hidden" class="mainuser" value="${user.getId()}">
+											<input type="hidden" class="id-author" value="${p.GetAuthor().getId()}">
+											 <c:if test="${user.getUserFromFollowing(p.GetAuthor().getId())==true }">
+	                                            	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+	                                          			  Following
+	                                      			 </button>
+		                                            </c:if>
+		                                            <c:if test="${user.getUserFromFollowing(p.GetAuthor().getId())==false }">
+                                            		<button class="btn btn-follow" style="background: white; color: blue;" type="button">
+                                          			  Follow+
+                                      			 	 </button>
+		                                      </c:if>
+										</div>
+									<!--</c:if>-->
+								<!--</c:if>-->
+								
+								
+								
 								<br>
 								<small><span style="margin: 10px;">${p.getPublished_at()}</span></small>
 							</h6>
