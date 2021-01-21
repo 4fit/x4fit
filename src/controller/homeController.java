@@ -22,8 +22,6 @@ import model.User;
 @WebServlet("/home")
 public class homeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    private ArrayList<Post> topPosts;
     
     public homeController() {
         super();
@@ -34,6 +32,7 @@ public class homeController extends HttpServlet {
     
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
+		ArrayList<Post> topPosts;
 		if (request.getParameter("page") == null)
 		{
 			topPosts = Post.GetLastestPost(0, limit);
@@ -75,7 +74,6 @@ public class homeController extends HttpServlet {
 		{
 			request.setAttribute("is_logged", false);
 		}
-		ObjectId userID = User.GetAccountIdFromCookies(cookies);
 		
 		request.setAttribute("topPosts", topPosts);
 		

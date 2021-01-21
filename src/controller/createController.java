@@ -90,10 +90,12 @@ public class createController extends HttpServlet {
 		boolean is_create = request.getParameter("is_create")!=null;
 		if (is_create)
 		{
+			System.out.println("create");
 			Create(request, response);
 		}
 		else
 		{
+			System.out.println("input");
 			Input(request, response);
 		}
 	}
