@@ -403,7 +403,7 @@ public final class User extends Model
 	}
 
 	public static void updateUserStatusByAccountID(ObjectId account_id, String newStatus) {
-		ACCOUNT.updateOne(Filters.eq("_id", account_id), Updates.set("status", newStatus));
+		USER.updateOne(Filters.eq("_id", account_id), Updates.set("status", newStatus));
 	}
 	
 	public static void InsertImage(ObjectId userID, String filePath)

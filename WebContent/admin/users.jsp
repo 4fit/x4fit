@@ -38,8 +38,8 @@
                                         <input class="form-control mr-sm-1 search-bar"
                                             style="width: 400px; border: 1px solid #007bff;" name="query"
                                             value="${query}" type="search" placeholder="Nhập từ khóa tìm kiếm">
-                                        <button class="btn btn-outline-primary my-2 my-sm-0"
-                                            type="submit">Tìm kiếm</button>
+                                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Tìm
+                                            kiếm</button>
                                     </form>
                                 </div>
                                 <div class="card card-plain">
@@ -48,6 +48,29 @@
                                         <h4 class="card-title mt-0">Quản lý người dùng</h4>
                                     </div>
                                     <div class="card-body">
+                                        <div class="filter">
+                                            <form class="d-flex"
+                                                action="${pageContext.request.contextPath}/admin/user/filter" method="get">
+                                                <div class="filter-item">
+                                                    <label for="account-type">Loại tài khoản:</label>
+                                                    <select name="accountType" id="account-type">
+                                                        <option value="USER">Người dùng</option>
+                                                        <option value="MOD">Biên tập viên</option>
+                                                    </select>
+                                                </div>
+                                                <div class="filter-item">
+                                                    <div class="account-type">
+                                                        <label for="status">Trạng thái:</label>
+                                                        <select name="status" id="status">
+                                                            <option value="ACTIVE">Đã kích hoạt</option>
+                                                            <option value="NOT ACTIVE">Chưa kích hoạt</option>
+                                                            <option value="BLOCK">Chặn</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <button class="filter-item" type="submit">Lọc</button>
+                                            </form>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table table-hover">
                                                 <thead>
@@ -92,40 +115,87 @@
                                                                 <a type="button" data-toggle="modal"
                                                                     data-target="#disable${user.getUserID()}"><i
                                                                         class="fa fa-wrench"></i></a>
+                                                                <a type="button" data-toggle="modal"
+                                                                    data-target="#delete${user.getUserID()}"><i
+                                                                        class="fa fa-trash"></i></a>
                                                             </td>
 
                                                             <!-- Status Modal -->
-                                                            <div class="modal fade" id="disable${user.getUserID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="disable${user.getUserID()}"
+                                                                tabindex="-1" role="dialog"
+                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
                                                                                 id="exampleModalLabel">
-                                                                             	Thay đổi trạng thái tài khoản
-                                                                             </h5>
+                                                                                Thay đổi trạng thái tài khoản [<i>${user.getUsername()}</i>]
+                                                                            </h5>
                                                                             <button type="button" class="close"
                                                                                 data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <form action="${pageContext.request.contextPath}/admin/update-status" method="post">   
-                                                                                <h5>Trạng thái hiện tại: <b>${user.getStatus()}</b></h5>
+                                                                            <form
+                                                                                action="${pageContext.request.contextPath}/admin/update-status"
+                                                                                method="post">
+                                                                                <h5>Trạng thái hiện tại:
+                                                                                    <b>${user.getStatus()}</b>
+                                                                                </h5>
                                                                                 <div class="form-group">
-                                                                                    <label for="status">Trạng thái</label>
-                                                                                    <select class="form-control" name="status" id="status">
-                                                                                        <option value="${user.getStatus()}" selected disabled hidden>
+                                                                                    <label for="status">Trạng
+                                                                                        thái</label>
+                                                                                    <select class="form-control"
+                                                                                        name="status" id="status">
+                                                                                        <option
+                                                                                            value="${user.getStatus()}"
+                                                                                            selected disabled hidden>
                                                                                             ${user.getStatus()}
                                                                                         </option>
-                                                                                        <option value="ACTIVE">ACTIVE</option>
-                                                                                        <option value="BLOCK">BLOCK</option>
-                                                                                        <option value="NOT ACTIVE">NOT ACTIVE</option>
+                                                                                        <option value="ACTIVE">
+                                                                                            ACTIVE
+                                                                                        </option>
+                                                                                        <option value="BLOCK">BLOCK
+                                                                                        </option>
+                                                                                        <option value="NOT ACTIVE">
+                                                                                            NOT
+                                                                                            ACTIVE</option>
                                                                                     </select>
                                                                                 </div>
-                                                                                <input type="hidden" name="accountId" value="${user.getUserID()}">
-                                                                                <button type="submit" class="btn btn-primary btn-block">ĐẶT LẠI</button>
+                                                                                <input type="hidden" name="accountId"
+                                                                                    value="${user.getUserID()}">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary btn-block">ĐẶT
+                                                                                    LẠI</button>
                                                                             </form>
                                                                         </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Delete Modal -->
+                                                            <div class="modal fade" id="delete${user.getUserID()}"
+                                                                tabindex="-1" role="dialog"
+                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">
+                                                                                Xóa tài khoản
+                                                                            </h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                           Xóa vĩnh viễn tài khoản <b>${user.getUsername()}</b> khỏi cơ sở dữ liệu?
+                                                                        </div>
+                                                                        <div class="modal-footer">
+																	        <button type="button" class="btn btn-danger">Xóa</button>
+																	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+																	    </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -141,6 +211,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
             <script>
                 w3.addClass('#user', 'active-nav');
