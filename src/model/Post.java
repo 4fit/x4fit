@@ -181,7 +181,9 @@ public final class Post extends Model {
 	// Duyệt bài post
 	public static boolean acceptPost(ObjectId postId) {
 		try {
-			POST.updateOne(Filters.eq("_id", postId), new Document("$set", new Document("status", "Đã duyệt")));
+//			POST.updateOne(Filters.eq("_id", postId), new Document("$set", new Document("status", "Đã duyệt")));
+			POST.updateOne(Filters.eq("_id", postId), 
+					Updates.combine(Updates.set("status", "Đã duyệt"), Updates.set("is_public", true)));
 			System.out.println("Accepted post!");
 			return true;
 		} catch (Exception ex) {

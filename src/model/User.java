@@ -392,10 +392,10 @@ public final class User extends Model
 
 	}
 
+	@BsonIgnore
 	public static void updateUserStatusByAccountID(ObjectId account_id, String newStatus) {
-
 		USER.updateOne(Filters.eq("account_id", account_id), Updates.set("status", newStatus));
-
+		System.out.println("update thanh cong");
 	}
 	
 	public static void InsertImage(ObjectId account_id, String filePath)

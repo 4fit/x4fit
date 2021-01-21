@@ -25,6 +25,7 @@ import x4fit.Utilities;
 		"/admin/all-reports",
 		"/admin/user/filter",
 		"/admin/delete-report",
+		"/admin/delete-user",
 		"/admin/search-report",
 		"/admin/search-user",
 		"/admin/filter-report",
@@ -68,6 +69,9 @@ public class AdminController extends HttpServlet {
 			case "/admin/delete-report":
 				deleteReport(request, response);
 				return;
+			case "/admin/delete-user":
+				deleteUser(request, response);
+				return;
 			case "/admin/search-report":
 				searchReport(request, response);
 				return;
@@ -82,6 +86,19 @@ public class AdminController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	protected void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = (String)request.getParameter("username");
+		try {
+			Account.deleteAccountByUsername(username);
+			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
+			request.setAttribute("userInfoList", allUserInfoList);
+			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
 	}
 	
 	protected void getUserFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
