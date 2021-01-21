@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import model.Account;
 import model.Report;
 import model.User;
 import model.UserAccount;
+import x4fit.Utilities;
 
 @WebServlet(urlPatterns = {
 		"/admin/all-users", 
@@ -22,6 +24,9 @@ import model.UserAccount;
 		"/admin/update-status",
 		"/admin/all-reports",
 		"/admin/user/filter",
+		"/admin/delete-report",
+		"/admin/search-report",
+		"/admin/filter-report",
 		})
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,6 +57,15 @@ public class AdminController extends HttpServlet {
 			case "/admin/user/filter":
 				getUserFilter(request, response);
 				return;
+			case "/admin/delete-report":
+				deleteReport(request, response);
+				return;
+			case "/admin/search-report":
+				searchReport(request, response);
+				return;
+			case "/admin/filter-report":
+				filterReport(request, response);
+				return;
 		}
 	}
 
@@ -71,6 +85,70 @@ public class AdminController extends HttpServlet {
 			response.sendRedirect("../500.jsp");
 		}
 	}
+	
+	protected void filterReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String reportType = (String)request.getParameter("reportType");
+		String timeFrom = (String)request.getParameter("timeFrom");
+		String timeTo = (String)request.getParameter("timeTo");
+		try {
+			List<Report> allReportsList = Report.GetReportFilter(reportType, timeFrom, timeTo);
+			List<User> lstUserReported = new ArrayList<User>();
+			for (Report report : allReportsList) {
+				User user = User.GetUserByAccountID(report.getAccount_id());
+				lstUserReported.add(user);
+			}
+			request.setAttribute("allReportsList", allReportsList);
+			request.setAttribute("lstUserReported", lstUserReported);
+			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
+	
+	protected void searchReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String returnQuery = (String)request.getParameter("query");
+		String query = Utilities.removeAccent(returnQuery).toLowerCase(); 
+		try {
+			List<Report> allReportsList = Report.getAllReports();
+			List<User> lstUserReported = new ArrayList<User>();
+			for (Report report : allReportsList) {
+				User user = User.GetUserByAccountID(report.getAccount_id());
+				lstUserReported.add(user);
+			}
+			
+			for (int i = 0; i < allReportsList.size(); i++) {
+				Report report = allReportsList.get(i);
+				User user = lstUserReported.get(i);
+				
+				// Xử lý data trước khi lọc
+				String fullName = Utilities.removeAccent(user.getFullname()).toLowerCase();
+				String description = Utilities.removeAccent(report.getDescription()).toLowerCase();
+				String reportType = Utilities.removeAccent(report.getType()).toLowerCase();
+				String time = report.getTime();
+				String reportId = report.getObj_id().toString();
+				
+				if (!(fullName.indexOf(query) != -1
+						|| description.indexOf(query) != -1
+						|| reportType.indexOf(query) != -1
+						|| time.indexOf(query) != -1
+						|| reportId.indexOf(query) != -1)) {
+					allReportsList.remove(i);
+					lstUserReported.remove(i);
+				}
+			}
+			
+			request.setAttribute("allReportsList", allReportsList);
+			request.setAttribute("lstUserReported", lstUserReported);
+			request.setAttribute("query", returnQuery);
+			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
 
 	protected void getAllUsersInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -86,7 +164,13 @@ public class AdminController extends HttpServlet {
 	protected void getAllReports(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			List<Report> allReportsList = Report.getAllReports();
+			List<User> lstUserReported = new ArrayList<User>();
+			for (Report report : allReportsList) {
+				User user = User.GetUserByAccountID(report.getAccount_id());
+				lstUserReported.add(user);
+			}
 			request.setAttribute("allReportsList", allReportsList);
+			request.setAttribute("lstUserReported", lstUserReported);
 			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -124,6 +208,25 @@ public class AdminController extends HttpServlet {
 			List<UserAccount> allUserInfoList = UserAccount.getAllUserInfo();
 			request.setAttribute("userInfoList", allUserInfoList);
 			request.getRequestDispatcher("/admin/users.jsp").forward(request, response);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			response.sendRedirect("../500.jsp");
+		}
+	}
+	
+	protected void deleteReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ObjectId reportId = new ObjectId(request.getParameter("reportId"));
+		try {
+			Report.Delete(reportId);
+			List<Report> allReportsList = Report.getAllReports();
+			List<User> lstUserReported = new ArrayList<User>();
+			for (Report report : allReportsList) {
+				User user = User.GetUserByAccountID(report.getAccount_id());
+				lstUserReported.add(user);
+			}
+			request.setAttribute("allReportsList", allReportsList);
+			request.setAttribute("lstUserReported", lstUserReported);
+			request.getRequestDispatcher("/admin/reports.jsp").forward(request, response);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			response.sendRedirect("../500.jsp");

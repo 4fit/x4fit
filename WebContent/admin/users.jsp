@@ -174,9 +174,7 @@
                                                                 </div>
                                                             </div>
                                                             <!-- Delete Modal -->
-                                                            <div class="modal fade" id="delete${user.getUserID()}"
-                                                                tabindex="-1" role="dialog"
-                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="delete${user.getUserID()}" role="dialog">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
