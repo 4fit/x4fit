@@ -184,12 +184,18 @@ public final class Account extends Model {
 	{
 		if (cookies == null)
 			return false;
+		String is_logged = "";
+		String selector ="";
+		String validator = "";
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals("is_logged"))
-			{
-				return cookie.getValue().equals("true");
-			}
+				is_logged = cookie.getValue();
+			else if (cookie.getName().equals("selector"))
+				selector = cookie.getValue();
+			else if (cookie.getName().equals("validator"))
+				validator = cookie.getValue();
 		}
-		return false;
+		ObjectId account_id = Model.Authenticator(selector, validator);
+		return (account_id!=null && is_logged.equals("true"));
 	}
 }

@@ -55,6 +55,7 @@ public class homeController extends HttpServlet {
 			int page = Integer.parseInt(request.getParameter("page"));
 			request.setAttribute("page", page);
 		}
+		
 		Cookie[] cookies = request.getCookies();
 		if (cookies!=null)
 		{

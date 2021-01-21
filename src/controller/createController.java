@@ -1,6 +1,7 @@
 
 package controller;
 
+import model.Account;
 import model.Category;
 import model.Post;
 import model.User;
@@ -29,55 +30,39 @@ public class createController extends HttpServlet {
     private void Create(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException 
     {
-		//account_id
+    	//account_id
 		ObjectId accout_id = User.GetAccountIdFromCookies(request.getCookies());
-		if (accout_id != null)
-		{
-			//title
-			String title = request.getParameter("title");
-			//is_public
-			boolean is_public = request.getParameter("is_public") != null;
-			//category
-			String category = request.getParameter("category");
-			//image
-			String thumbnail_url = request.getParameter("thumbnail_url");
-			//contents
-			String content = request.getParameter("content");
-			
-			//Tạo đối tượng postController
-			Post post = new Post(title, accout_id, content, is_public, thumbnail_url, category);
-			post.Insert();
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("is_create", false);
-			//p
-			String p = post.getUrl();
-			String url = "/post";
-			response.sendRedirect(request.getContextPath() + url + "?p=" + p);
-		}
-		else
-		{
-			String url = "/login";
-			response.sendRedirect(request.getContextPath() + url);
-		}
+		//title
+		String title = request.getParameter("title");
+		//is_public
+		boolean is_public = request.getParameter("is_public") != null;
+		//category
+		String category = request.getParameter("category");
+		//image
+		String thumbnail_url = request.getParameter("thumbnail_url");
+		//contents
+		String content = request.getParameter("content");
+		
+		//Tạo đối tượng postController
+		Post post = new Post(title, accout_id, content, is_public, thumbnail_url, category);
+		post.Insert();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("is_create", false);
+		//p
+		String p = post.getUrl();
+		String url = "/post";
+		
+		response.sendRedirect(request.getContextPath() + url + "?p=" + p);
 	}
 
 	protected void Input(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		ObjectId accout_id = User.GetAccountIdFromCookies(request.getCookies());
-		if (accout_id != null)
-		{
-			String url =  "/posts/create.jsp";
-			List<Category> lstCategories = Category.GetAllCategories();
-			request.setAttribute("lstCat", lstCategories);
-			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-			dispatcher.forward(request, response);
-		}
-		else
-		{
-			String url = "/login";
-			response.sendRedirect(request.getContextPath() + url);
-		}
+		String url =  "/posts/create.jsp";
+		List<Category> lstCategories = Category.GetAllCategories();
+		request.setAttribute("lstCat", lstCategories);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -87,14 +72,23 @@ public class createController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		boolean is_create = request.getParameter("is_create")!=null;
-		if (is_create)
+		if (Account.isLogged(request.getCookies()))
 		{
-			Create(request, response);
+			boolean is_create = request.getParameter("is_create")!=null;
+			request.setAttribute("is_logged", true);
+			if (is_create)
+			{
+				Create(request, response);
+			}
+			else
+			{
+				Input(request, response);
+			}
 		}
 		else
 		{
-			Input(request, response);
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
 		}
 	}
 

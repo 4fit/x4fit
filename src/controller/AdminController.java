@@ -41,6 +41,13 @@ public class AdminController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		
 		String action = request.getServletPath();
 		switch (action) {
 			case "/admin/all-users":

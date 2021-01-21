@@ -18,6 +18,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 import org.bson.types.ObjectId;
 
+import model.Account;
 import model.User;
 
 @WebServlet("/upload")
@@ -102,6 +103,14 @@ public class uploadController extends HttpServlet {
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		
 		process(request, response);
 
 	}

@@ -84,6 +84,12 @@ public class viewprofileController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		if (Account.isLogged(request.getCookies()) == false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
 		
 		ValidateUser(request);
 		if(request.getParameter("email")!=null)
