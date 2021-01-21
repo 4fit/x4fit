@@ -189,11 +189,15 @@ public final class User extends Model
 		ObjectId account_id = Model.Authenticator(selector, validator);
 		return account_id;
 	}
+<<<<<<< HEAD
 
 	@BsonIgnore
+=======
+>>>>>>> e962b19... fix conflict
 	public static User GetUserInfoFromCookies(Cookie[] cookie) {
 		ObjectId account_id = GetAccountIdFromCookies(cookie);
 		return USER.find(Filters.eq("account_id", account_id)).first();
+
 	}
 
 	@BsonIgnore
@@ -239,6 +243,7 @@ public final class User extends Model
 	public static void InsertNewClipPost(ObjectId userID, ObjectId postID)
 	{
 		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("clips", postID));
+
 	}
 	
 	@BsonIgnore

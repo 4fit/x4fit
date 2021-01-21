@@ -8,7 +8,7 @@ import java.util.List;
 import org.bson.Document;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
-import org.eclipse.persistence.nosql.annotations.Field;
+//import org.eclipse.persistence.nosql.annotations.Field;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;

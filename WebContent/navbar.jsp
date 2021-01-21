@@ -46,6 +46,7 @@
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="img-profile"
 					src="${pageContext.request.contextPath}/images/avt.png" alt="">
+<<<<<<< HEAD
 			</button>
 			
 			<div class="dropdown-menu dropdown-menu-right ">
@@ -70,6 +71,19 @@
 					LOGIN</a>
 				</div>
 		</c:if>
+=======
+				<div class="info-popup">
+					<h5 class="name-info">Hoang</h5>
+					<p class="gmail-info">hoang1811@gmail.com</p>
+	
+				</div>
+			</div>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="${pageContext.request.contextPath}/profile">Profile</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#">Sign out</a>
+		</div>
+>>>>>>> a9f2122... profile
 	</nav>
 	 <script>
         function openPage(nampage, element) {

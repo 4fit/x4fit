@@ -90,7 +90,7 @@
 									</span> 
 									<span class="viewtag t "> 
 										<i class="fas fa-paperclip"></i>
-										<label class="view"> ${p.getClips_count()}</label>
+										<label class="view"> ${p.getClips_count(p)}</label>
 									</span> 
 									<span class="viewtag t"> 
 										<i class="far fa-comment"></i>

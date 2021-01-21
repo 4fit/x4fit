@@ -10,18 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.bson.Document;
-
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 
 import model.Account;
 import model.Post;
@@ -97,12 +86,12 @@ public class profileController extends HttpServlet {
 	@SuppressWarnings("static-access")
 	public boolean updateProfile (HttpServletRequest request)
 	{
-		String fullname =request.getParameter("fullname").toString();
-		String email = request.getParameter("email").toString();
-		String username =request.getParameter("username").toString();
-		String newpass = request.getParameter("newpass").toString();
-		String oldpass= request.getParameter("oldpass".toString());
-		String confirm = request.getParameter("confirmnewpass").toString();
+		String fullname =request.getParameter("fullname")==null ? "":  request.getParameter("fullname").toString();
+		String email = request.getParameter("email")==null ?"": request.getParameter("email").toString();
+		String username =request.getParameter("username")==null ?"": request.getParameter("username").toString();
+		String newpass = request.getParameter("newpass")==null ? "": request.getParameter("newpass").toString();
+		String oldpass= request.getParameter("oldpass") ==null ? "": request.getParameter("oldpass").toString();
+		String confirm = request.getParameter("confirmnewpass")==null ?"": request.getParameter("confirmnewpass").toString();
 		User currentuser= ValidateUser(request);
 		boolean valid= true;
 		boolean changeAccount= true;
