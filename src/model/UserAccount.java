@@ -113,7 +113,9 @@ public class UserAccount extends Model {
 					user.getAvatar(), 
 					user.getUrl(), 
 					user.getStatus());
-			data.add(userAccount);
+			if (!userAccount.getUser_type().equals("ADMIN")) {
+				data.add(userAccount);
+			}
 		}
 		return data;
 	}

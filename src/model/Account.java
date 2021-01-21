@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import javax.servlet.http.Cookie;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -99,7 +100,8 @@ public final class Account extends Model {
 	
 	public static void createNewMod(String username, String password, String email, String fullname)
 	{
-		Account mod = new Account(username, password, email, "MOD");
+		String hashPass = DigestUtils.sha256Hex(password);
+		Account mod = new Account(username, hashPass, email, "MOD");
 		mod.Insert();
 		
 		ObjectId account_id = ACCOUNT.find(
