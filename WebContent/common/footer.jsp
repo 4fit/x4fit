@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="../styles/footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/footer.css">
 <div class="main_footer">
 		<div class="container" id = "footer">
 			<div class="row">
