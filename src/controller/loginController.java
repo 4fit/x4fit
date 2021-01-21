@@ -88,7 +88,7 @@ public class loginController extends HttpServlet {
 			
 			Account account = Account.GetAccountByID(account_id);
 			User user = User.GetUserByAccountID(account_id);
-			request.setAttribute("user", user);
+			session.setAttribute("user", user);
 			request.setAttribute("is_logged", true);
 			String url = "";
 			
@@ -121,6 +121,9 @@ public class loginController extends HttpServlet {
 
 			response.sendRedirect(url);
 		} else {
+			
+			request.setAttribute("username", username);
+			request.setAttribute("password", password);
 			String url = "login/login.jsp";
 			response.sendRedirect(url);
 		}

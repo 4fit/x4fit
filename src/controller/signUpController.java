@@ -35,19 +35,19 @@ public class signUpController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		ObjectId account_id;
+		ObjectId account_id = new ObjectId();
 
 		if (request.getParameter("userCurrentAction") != null) {
 			if (request.getParameter("userCurrentAction").equals("btn")) {
-				account_id = new ObjectId((String)session.getAttribute("account_id"));
+				account_id = (ObjectId)session.getAttribute("account_id");
 				String code = request.getParameter("code");
 				if (isUserCode(account_id, code)) {
 					//TODO
 					User.updateUserStatusByAccountID(account_id, "ACTIVE");
-					url = "/login/success.jsp";
+					url = request.getContextPath() + "/login/success.jsp";
 				} else {
 
-					url = "login/confirm.jsp";
+					url = request.getContextPath() + "/login/confirm.jsp";
 				}
 			}
 		} else {
@@ -93,13 +93,13 @@ public class signUpController extends HttpServlet {
 
 				if (Account.checkExitUsername(username)) {
 					account_id = Account.GetAccountByUsername(username).getId();
-					url = "/login/confirm.jsp";
+					url = request.getContextPath() +"/login/confirm.jsp";
 					session.setAttribute("account_id", account_id);
 					sendmail(email, fullname, hashedPassword);
 				} else
-					url = "/login/signup.jsp";
+					url = request.getContextPath() +"/login/signup.jsp";
 			} else
-				url = "/login/signup.jsp";
+				url = request.getContextPath() +"/login/signup.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

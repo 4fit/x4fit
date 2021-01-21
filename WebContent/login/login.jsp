@@ -18,7 +18,7 @@
 
 <style>
 
-@charset "ISO-8859-1";
+
 *{
 	padding: 0;
 	margin: 0;
@@ -271,12 +271,13 @@ a:hover{
 								placeholder="password" name="password">
 						</div>
 					</div>
+					<a style = "color: #de6600; text-decoration: none; margin-top:15px;" href="forgot.jsp"> Forgot password/username ?</a> 
+					
 					<input type="submit" class="btn btn-primary" value="login"> 
-					<a class="btn btn-secondary" href="forgot.jsp"> Forgot password/username ?</a> 
 					
-					<a class="btn btn-danger" href="signup.jsp" class="btn-signup">Sign up</a>
+					<a href="signup.jsp" class="btn-signup">Sign up</a>
 					
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/home">Về HOME</a>
+					<a  class="btn-signup" style = "color: #AAA" href="${pageContext.request.contextPath}/home"> HOME</a>
 				</form>
 				
 			</div>

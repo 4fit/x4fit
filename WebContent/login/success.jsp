@@ -134,7 +134,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">You have successfully confirmed your account, you can login below</p>
+                            <p style="margin: 0;">You have <b>SUCCESSFULLY</b> confirmed your account, you can login below</p>
                         </td>
                     </tr>
                     <tr>
@@ -148,7 +148,7 @@
                                             
                                                 <td align="center" style="border-radius: 3px;" bgcolor="#6FC9E7">
                                              
-                                                 <a id ="btn"  href = "login.jsp" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff;  color: #ffffff;  padding: 15px 25px; border-radius: 2px; border: 1px solid #6FC9E7; display: inline-block;background-color:#6FC9E7; line: none; text-decoration: none">Login</a></td>
+                                                 <a id ="btn"  href = "${pageContext.request.contextPath}/login" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff;  color: #ffffff;  padding: 15px 25px; border-radius: 2px; border: 1px solid #6FC9E7; display: inline-block;background-color:#6FC9E7; line: none; text-decoration: none">Login</a></td>
                                             </tr>
                                             <span id = "message"></span>
                                         </table>

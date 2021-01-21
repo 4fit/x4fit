@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.bson.types.ObjectId;
+
 import model.Account;
 import model.User;
 import x4fit.Utilities;
@@ -37,8 +39,16 @@ public class statusControlller extends HttpServlet {
     
     	String email = "";
     	String url;
+    	
     	HttpSession session = request.getSession();
-    	if(session.getAttribute("status") != null && request.getAttribute("user") != null)
+		if (session.getAttribute("user")== null)
+		{
+			response.sendRedirect(request.getContextPath() + "/login/login.jsp");
+			return;
+		}
+		
+    	
+    	if(session.getAttribute("status") != null )
     	{
     		String status = (String)session.getAttribute("status");
     		request.setAttribute("status", status);
@@ -57,7 +67,7 @@ public class statusControlller extends HttpServlet {
     			User user = User.GetUserByAccountID(acc.getId());
     			
     			sendmail(email, user.getFullname(), acc.getPassword());
-    			url = "login/success.jsp"; // đã xác nhận thành công !
+    			url = "login/confirm.jsp"; // đã xác nhận thành công !
     			session.setAttribute("status", "ACTIVE");
     		}
     	}
