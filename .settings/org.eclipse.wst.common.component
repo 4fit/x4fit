@@ -5,6 +5,53 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
                 
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-test-sources/test-annotations"/>
+        <dependent-module archiveName="org.eclipse.persistence.oracle.nosql-3.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/org.eclipse.persistence.oracle.nosql-3.0.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hashgenerator-1.1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/hashgenerator-1.1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mongodb-driver-async-3.12.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/mongodb-driver-async-3.12.7.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="json-20201115.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/json-20201115.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.servlet-api-4.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/javax.servlet-api-4.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mongo-java-driver-3.12.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/mongo-java-driver-3.12.7.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-lang3-3.11.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/commons-lang3-3.11.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.eclipse.persistence.nosql-2.7.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/org.eclipse.persistence.nosql-2.7.7.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mongodb-driver-core-3.9.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/mongodb-driver-core-3.9.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.mail.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/javax.mail.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jta-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/jta-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="bson-3.9.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/bson-3.9.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="servlet-api-2.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/servlet-api-2.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-codec-1.15.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/commons-codec-1.15.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jstl-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/Docs/HCMUTE/Sofware Engineering/BaoCao/x4fit/WebContent/WEB-INF/lib/jstl-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
                 
         <property name="context-root" value="x4fit"/>
                 
