@@ -25,10 +25,6 @@
 </head>
 <body>
 	<jsp:include page="../navbar.jsp"></jsp:include>
-	<% 
-	try {boolean is_logged = (boolean) request.getSession().getAttribute("is_logged");}
-	catch (Exception e){}%>
-
 	
 	<div class="container-fluid" style="margin-top: 30px">
 		<div class="row">
@@ -76,7 +72,7 @@
 						
 						<br>
 						
-<%-- 						<c:if test="${is_author}"> --%>
+						<c:if test="${is_author}">
 							<!-- Edit -->
 							<form action="${pageContext.request.contextPath}/edit?p=${post.getUrl()}" method="post">
 								<input type="hidden" name="postID" value="${postID }">
@@ -85,7 +81,7 @@
 								</button>
 							</form>
 							<br>
-<%-- 						</c:if> --%>
+						</c:if>
 						
 						<!-- Báo cáo -->
 						<button type="button" data-toggle="modal" data-target="#modelReport"
@@ -175,7 +171,7 @@
 						
 				<textarea id="content" name="content">${post.getContent()}</textarea>
 				<br>
-<%-- 				<c:if test="${is_logged }"> --%>
+				<c:if test="${is_logged }">
 					<h4>Bình luận</h4>
 					<form action="${pageContext.request.contextPath}/comment" method="post">
 						<textarea id="comment" name="comment"></textarea>
@@ -186,7 +182,7 @@
 							<input class="btn btn-primary" type="submit" value="Bình luận">
 						</div>
 					</form>
-<%-- 				</c:if> --%>
+				</c:if>
 				<br>
 				<%
 					int i = 0;

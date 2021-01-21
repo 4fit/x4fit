@@ -50,7 +50,7 @@ public class homeController extends HttpServlet {
 			}
 			else
 			{
-				skip+=2;
+				skip+=limit;
 			}
 			int page = Integer.parseInt(request.getParameter("page"));
 			request.setAttribute("page", page);

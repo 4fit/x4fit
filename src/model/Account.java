@@ -2,6 +2,8 @@ package model;
 
 import java.util.Iterator;
 
+import javax.servlet.http.Cookie;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -176,5 +178,18 @@ public final class Account extends Model {
 	public static boolean isUser(ObjectId accout_id)
 	{
 		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("USER");
+	}
+	
+	public static boolean isLogged(Cookie[] cookies)
+	{
+		if (cookies == null)
+			return false;
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("is_logged"))
+			{
+				return cookie.getValue().equals("true");
+			}
+		}
+		return false;
 	}
 }

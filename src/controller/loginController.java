@@ -108,21 +108,18 @@ public class loginController extends HttpServlet {
 				url = "login/status.jsp";
 			}
 			else 
-				{
-				url = request.getContextPath() + "/home";
-				
+			{
+			url = request.getContextPath() + "/home";
 			
-				session.setAttribute("is_logged", true); 
-				if (account.getUser_type().equals("ADMIN"))
-					url = request.getContextPath() + "/admin/all-users";
-				else if (account.getUser_type().equals("MOD"))
-					url = request.getContextPath() + "/mod/all-categories";
-				}
-			
-
+			if (account.getUser_type().equals("ADMIN"))
+				url = request.getContextPath() + "/admin/all-users";
+			else if (account.getUser_type().equals("MOD"))
+				url = request.getContextPath() + "/mod/all-categories";
+			}
 			response.sendRedirect(url);
-		} else {
-			
+		} 
+		else 
+		{
 			request.setAttribute("username", username);
 			request.setAttribute("password", password);
 			String url = "login/login.jsp";

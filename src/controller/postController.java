@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.bson.types.ObjectId;
+
+import model.Account;
 import model.Comment;
 import model.Post;
 import model.User;
@@ -46,8 +50,14 @@ public class postController extends HttpServlet {
 		Post post = Post.GetPost(p);
 		if (post != null)
 		{
+			ObjectId account_id = User.GetAccountIdFromCookies(request.getCookies());
 			GetAllComments(post);
-			boolean is_author = post.getAuthor_id() == User.GetAccountIdFromCookies(request.getCookies());
+			boolean is_author = post.getAuthor_id() == account_id;
+			if (account_id != null && Account.isLogged(request.getCookies()))
+			{
+				request.setAttribute("is_logged", true);
+			}
+			else request.setAttribute("is_logged", false);
 			request.setAttribute("post", post);
 			request.setAttribute("comments", listCmts);
 			request.setAttribute("listUserCmt", listUserCmt);
