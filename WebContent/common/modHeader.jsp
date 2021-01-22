@@ -48,8 +48,8 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span><img class="avata" src=""></span>
-                                    Van Cui
+                                    <span><img class="avata" src="${pageContext.request.contextPath}/images/${user.getAvatar()}"></span>
+                                   ${user.getFullname() }
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 <!--                                     <a class="dropdown-item" href="#">Setting</a> -->
