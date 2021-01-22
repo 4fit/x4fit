@@ -79,11 +79,12 @@
 
 
   <!-----------------------------BANNER PROFILE----------------------------------->
-  <div class="profile-banner container-fluid ">
+  <div class="profile-banner container-fluid " style="background-image:url('${pageContext.request.contextPath}/images/banner.jpg');">
     <div class="container  ml-2">
       <img class="img-profile-ban  float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }">
       <div class="info-ban">
-        <h5 class="name-ban">${curUser.getFullname()}</h5>
+      	<br>
+        <h5 class="name-ban" style="color: white;">${curUser.getFullname()}</h5>
         <p class="gmail-ban">${acc.getEmail()}</p>
       </div>
     </div>

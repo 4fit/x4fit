@@ -104,10 +104,6 @@ public final class User extends Model
 		this.status = status;
 	}
 
-//	public String getEmail(ObjectId userID) {
-//		return Account.GetAccountByUserID(userID).getEmail();
-//	}
-
 	public String getUsername(User user) {
 		Account acc = ACCOUNT.find(Filters.eq("_id", user.getAccount_id())).first();
 		if (acc == null)

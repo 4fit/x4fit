@@ -206,6 +206,13 @@ public final class Account extends Model {
 				validator = cookie.getValue();
 		}
 		ObjectId account_id = Model.Authenticator(selector, validator);
-		return (account_id!=null && is_logged.equals("true"));
+		if (account_id != null)
+		{
+			User user = User.GetUserByAccountID(account_id);
+			if (user.getStatus().equals("ACTIVE"))
+				if (is_logged.equals("true"))
+					return true;
+		}
+		return false;
 	}
 }
