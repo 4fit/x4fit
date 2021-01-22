@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.bson.types.ObjectId;
 
+import model.Account;
 import model.Post;
 import model.User;
 
@@ -65,12 +66,10 @@ public class homeController extends HttpServlet {
 			{
 				User user = User.GetUserByAccountID(accountID);
 				request.setAttribute("user", user);
+			}
+			if (Account.isLogged(request.getCookies()))
 				request.setAttribute("is_logged", true);
-			}
-			else
-			{
-				request.setAttribute("is_logged", false);
-			}
+			else request.setAttribute("is_logged", false);
 		}
 		else
 		{
@@ -79,7 +78,7 @@ public class homeController extends HttpServlet {
 		
 		request.setAttribute("topPosts", topPosts);
 		
-		String url = "/index.jsp";
+		String url = "/index2.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
 		dispatcher.forward(request, response);     
     }

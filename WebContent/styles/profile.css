@@ -214,13 +214,13 @@ z-index: 100000; */
 
 .profile-banner {
     height: 30vh;
-    background: rgb(255, 255, 255);
-    padding-top: 10px;
+		background-image:url("${pageContext.request.contextPath}/images/banner.jpg");
+    padding-top: 0px;
+    
 }
 
 .container {
-    max-width: 1200px!important;
-    padding-top: 25px;
+    padding-top: 0px;
 }
 
 .img-profile-ban {

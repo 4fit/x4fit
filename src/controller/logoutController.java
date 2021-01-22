@@ -51,6 +51,7 @@ public class logoutController extends HttpServlet {
 			}
 				
 		}
+		session.setAttribute("user", null);
 		Cookie cookieIsLogged = new Cookie("is_logged", "false");
 		cookieIsLogged.setMaxAge(604800);
 		response.addCookie(cookieIsLogged);

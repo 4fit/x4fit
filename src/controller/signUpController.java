@@ -32,6 +32,7 @@ public class signUpController extends HttpServlet {
 	protected void process(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, NoSuchAlgorithmException {
 		String url = "";
+		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
@@ -45,9 +46,11 @@ public class signUpController extends HttpServlet {
 					//TODO
 					User.updateUserStatusByAccountID(account_id, "ACTIVE");
 					url = "/login/success.jsp";
+					request.setAttribute("is_active", true);
 				} else {
 
 					url = "/login/confirm.jsp";
+					request.setAttribute("is_active", false);
 				}
 			}
 		} else {

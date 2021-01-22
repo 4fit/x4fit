@@ -22,6 +22,7 @@
 			<div class="img">
 				<img src="${pageContext.request.contextPath}/images/loginmain.jpg">
 			</div>
+			
 			<div class="login-content">
 			
 				<form action="${pageContext.request.contextPath}/login" method="post">

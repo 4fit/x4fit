@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Xác thực</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -54,14 +54,14 @@
                     
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">If you have any questions, just reply to this <b> ngocyen174308@gmail.com </b> we're always happy to help out.</p>
+                            <p style="margin: 0;">Mọi thắc mắc, xin vui lòng liên hệ mail <b> ngocyen174308@gmail.com </b> để được hỗ trợ. Chúng tôi rất vui lòng để hỗ trợ.</p>
                         </td>
                     </tr>
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Yen,<br>4XFIT Team</p>
+                            <p style="margin: 0;">Admin,<br>X4FIT Team</p>
                             <br/>
-       						 <a style = "color: #de6600; text-decoration: none; margin-left: 80%;" href = "${pageContext.request.contextPath}/home">Go to home</a>
+       						 <a style = "color: #de6600; text-decoration: none; margin-left: 80%;" href = "${pageContext.request.contextPath}/home">Về trang chủ</a>
 
                         </td>
                     </tr>

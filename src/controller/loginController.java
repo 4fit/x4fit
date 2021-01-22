@@ -68,6 +68,7 @@ public class loginController extends HttpServlet {
 		}
 		
 		ObjectId account_id = Login(username, password);
+		
 		if ( account_id != null) {
 			//Lưu cookie
 			String selector = RandomStringUtils.randomAlphanumeric(12);
