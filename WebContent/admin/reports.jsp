@@ -45,7 +45,7 @@
                                         <div class="card card-plain">
                                             <div class="card-header card-header-primary"
                                                 style="background-color: #007bff; color: #fff">
-                                                <h4 class="card-title mt-0">Quản lý báo cáo người dùng</h4>
+                                                <h4 class="card-title mt-0">Quản lý báo cáo người dùng - [Tổng: ${allReportsList.size()}]</h4>
                                             </div>
                                             <div class="card-body">
                                                 <form action="${pageContext.request.contextPath}/admin/filter-report">
