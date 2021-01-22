@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +49,26 @@ public class AdminController extends HttpServlet {
 			String url = "/login";
 			response.sendRedirect(request.getContextPath() + url);
 			return;
+		}
+		Cookie[] cookies = request.getCookies();
+		if (cookies!=null)
+		{
+			ObjectId accountID = User.GetAccountIdFromCookies(cookies);
+			
+			if (accountID != null)
+			{
+				User user = User.GetUserByAccountID(accountID);
+				request.setAttribute("user", user);
+				request.setAttribute("is_logged", true);
+			}
+			else
+			{
+				request.setAttribute("is_logged", false);
+			}
+		}
+		else
+		{
+			request.setAttribute("is_logged", false);
 		}
 		
 		String action = request.getServletPath();
