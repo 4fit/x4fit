@@ -1,5 +1,6 @@
 # X4FIT - "IT'S FOR FIT" WEB HỎI ĐÁP DÀNH CHO FIT
 
+[![HitCount](http://hits.dwyl.com/4fit/x4fit.svg)](http://hits.dwyl.com/4fit/x4fit)
 ![GitHub contributors](https://img.shields.io/github/contributors/4fit/x4fit)
 ![GitHub issues](https://img.shields.io/github/issues/4fit/x4fit?color=red)
 ![GitHub top language](https://img.shields.io/github/languages/top/4fit/x4fit?color=cyan)
