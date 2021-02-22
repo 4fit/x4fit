@@ -273,7 +273,7 @@ public final class User extends Model
 	}
 
 	@BsonIgnore
-	public List<Post> getBookmarkPost(User user) {
+	public static List<Post> getBookmarkPost(User user) {
 		if (user.getClips()==null) 
 			return null;
 		List<Post> lstPosts = new ArrayList<Post>();
@@ -405,7 +405,7 @@ public final class User extends Model
 		USER.insertOne(this);
 	}
 
-	public boolean getUserFromFollowing (User user)
+	public  boolean getUserFromFollowing (User user)
 	{
 		for(int i=0; i<this.getFollowing().size(); i++)
 			if(this.getFollowing().get(i).equals(user.getId()))	

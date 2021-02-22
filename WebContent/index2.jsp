@@ -19,6 +19,45 @@
 </head>
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
+	<!------------------------------THANH BAR------------------------------>
+	<div class="bg-dark py-md-1 py-05">
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-between">
+				<div class="feed-bar">
+					<div class="feedbar-wrapper">
+						<ul class="feed-links">
+							<li class="feedbar-item">
+							</li>
+							
+							<li class="feedbar-item nuxt-link-exact-active active">
+								<a href="#" class="feed-link posts-newest">
+									<div class="el-badge badge-has-new"> Newest 
+									<sup
+											class="el-badge__content el-badge__content--undefined is-fixed"
+											style="display: none;"></sup>
+									</div>
+							</a></li>
+
+							<!-- <li class="feedbar-item">
+								<a href="/followings" class="feed-link posts-subscriptions" aria-current="page">
+									<div class="el-badge badge-has-new"> Followings 
+										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;">
+										</sup>
+									</div>
+							</a>
+							</li>
+							<li class="feedbar-item">
+								<a href="/clip/posts" class="feed-link posts-clip">
+									<div class="el-badge badge-has-new"> My Clips 
+										<sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup>
+									</div>
+							</a></li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-9 content-main ">
 			<div id="Bookmarks" class="tabcontent">
@@ -29,7 +68,7 @@
 						  	<img class="img-pro-post float-left"
 									src="${pageContext.request.contextPath}/images/${p.GetAuthor().getAvatar() }" 
 									alt="${p.GetAuthor().getFullname()}">
-								<a style="margin: 10px;" href="#">
+								<a style="margin: 10px;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(p.getAuthor_id())}">
 									${p.GetAuthor().getFullname()}
 								</a>
 								<!--<c:if test="${user!=null}">-->

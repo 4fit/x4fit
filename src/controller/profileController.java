@@ -161,7 +161,7 @@ public class profileController extends HttpServlet {
 
 			}
 
-			System.out.print(changeAccount);
+			//System.out.print(changeAccount);
 		} else {
 			changeAccount = false;
 		}
