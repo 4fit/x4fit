@@ -13,3 +13,35 @@
 
 ## Link website
 https://x4fit.herokuapp.com/
+
+## Deploy
+
+- 1. Mở CMD/PowerShell
+- 2. Đăng nhập vào heroku
+
+```bash
+heroku login
+```
+
+- 2.1. Cài thêm plugin java (nếu lần đầu deploy)
+
+```bash
+heroku plugins:install java
+```
+
+- 3. Export project ra file *.war
+
+- 4. Deploy file war lên heroku
+
+  - Cú pháp:
+  
+```bash
+heroku war:deploy <path đến file *.war> -a <tên app heroku>
+```
+
+  - Cụ thể:
+  
+```bash
+heroku war:deploy x4fit.war -a x4fit
+```
+
