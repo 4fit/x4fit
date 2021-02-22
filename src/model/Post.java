@@ -181,7 +181,9 @@ public final class Post extends Model {
 	// Duyệt bài post
 	public static boolean acceptPost(ObjectId postId) {
 		try {
-			POST.updateOne(Filters.eq("_id", postId), new Document("$set", new Document("status", "Đã duyệt")));
+//			POST.updateOne(Filters.eq("_id", postId), new Document("$set", new Document("status", "Đã duyệt")));
+			POST.updateOne(Filters.eq("_id", postId), 
+					Updates.combine(Updates.set("status", "Đã duyệt"), Updates.set("is_public", true)));
 			System.out.println("Accepted post!");
 			return true;
 		} catch (Exception ex) {
@@ -267,8 +269,9 @@ public final class Post extends Model {
 	
 	public static ArrayList<Post> GetLastestPost(int skip, int lim)
 	{
-		System.out.println("Hello");
-		FindIterable<Post> cursor = POST.find().sort(new BasicDBObject("_id", -1)).skip(skip).limit(lim);
+		FindIterable<Post> cursor = POST.find(Filters.eq("is_public", true))
+										.sort(new BasicDBObject("_id", -1))
+										.skip(skip).limit(lim);
 		Iterator<Post> it = cursor.iterator();
 		ArrayList<Post> topPost = new ArrayList<Post>();
 		if (it.hasNext()) {
@@ -284,7 +287,7 @@ public final class Post extends Model {
 		POST.findOneAndUpdate(Filters.eq("_id", id), Updates.inc("points", point));
 	}
 	
-	public static List<Post> GetAllPostByUserID(ObjectId account_id) {
+	public static List<Post> GetAllPostByAccountID(ObjectId account_id) {
 		FindIterable<Post> cursor = POST.find(new BasicDBObject("author_id", account_id));
 		Iterator<Post> it = cursor.iterator();
 		List<Post> lstPost = new ArrayList<Post>();

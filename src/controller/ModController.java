@@ -5,15 +5,18 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 
+import model.Account;
 import model.Category;
 import model.Model;
 import model.Post;
+import model.User;
 import x4fit.Utilities;
 
 @WebServlet(urlPatterns = {
@@ -39,6 +42,41 @@ public class ModController extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		Cookie[] cookies = request.getCookies();
+		if (cookies!=null)
+		{
+			ObjectId accountID = User.GetAccountIdFromCookies(cookies);
+			
+			if (accountID != null)
+			{
+				User user = User.GetUserByAccountID(accountID);
+				request.setAttribute("user", user);
+				request.setAttribute("is_logged", true);
+			}
+			else
+			{
+				request.setAttribute("is_logged", false);
+			}
+		}
+		else
+		{
+			request.setAttribute("is_logged", false);
+		}
+		
 		String action = request.getServletPath();
 		switch (action) {
 			case "/mod/all-posts":

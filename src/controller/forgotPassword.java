@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 
-@WebServlet("/forgotPassword")
+@WebServlet("/forgot")
 public class forgotPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +46,7 @@ public class forgotPassword extends HttpServlet {
         	String subject = "Change you password to X4FIT";
         	String newPass = "123456@"; // Viết hàm tạo pass mới
         	String body = "Dear " + username + ",\n\n"
-        	+ "new password for you: " + newPass;
+        	+ "new password for you: " + newPass + "\n\n\n login: " + "https://x4fit.herokuapp.com/login/login.jsp" ;
         	boolean isBodyHTML = false;
         	
         	try {
@@ -55,7 +55,7 @@ public class forgotPassword extends HttpServlet {
         		String hashedPassword = DigestUtils.sha256Hex(newPass);
         		Account.updateNewPassword(hashedPassword, username);
         		System.out.println("sSend ddc mail");
-        		url = "/login/login.jsp";
+        		url = "/login/success.jsp";
         	}catch(MessagingException e)
         	{
         		System.out.println("Khong send ddc mail");
@@ -88,7 +88,7 @@ public class forgotPassword extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		process(request, response);
 	}
 
 }

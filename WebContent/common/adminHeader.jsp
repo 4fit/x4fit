@@ -1,6 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="model.Account"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% boolean is_logged = Account.isLogged(request.getCookies()); %>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <div class="row">
+    
+    <% if (is_logged) { %>
+	<div class="row">
         <div class="col-sm-0 col-md-2" style="border-right: 1px solid #ccc;">
             <div class="logo" style="border-bottom: 1px solid #ccc">
                 <a href="${pageContext.request.contextPath}/admin/all-users">
@@ -20,7 +26,7 @@
                     <li id="report">
                         <a id="a3" href="${pageContext.request.contextPath}/admin/all-reports">
                             <i class="fa fa-book" aria-hidden="true"></i>
-                            <span>REPORT</span>
+                            <span>Báo cáo</span>
                         </a>
                     </li>
                 </ul>
@@ -41,8 +47,8 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span><img class="avata"
-                                            src="https://global-uploads.webflow.com/5ef5480befd392489dacf544/5f9f5e5943de7e69a1339242_5f44a7398c0cdf460857e744_img-image.jpeg"></span>
-                                    Nguyen Huynh Minh Tien
+                                            src="${pageContext.request.contextPath}/images/${user.getAvatar()}"></span>
+                                    ${user.getFullname() }
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <!--                             <a class="dropdown-item" href="#">Setting</a> -->
@@ -54,3 +60,8 @@
                     </div>
                 </nav>
             </div>
+		<% } else {%>
+				
+		<% } %>
+    
+    

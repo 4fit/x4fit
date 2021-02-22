@@ -104,10 +104,6 @@ public final class User extends Model
 		this.status = status;
 	}
 
-//	public String getEmail(ObjectId userID) {
-//		return Account.GetAccountByUserID(userID).getEmail();
-//	}
-
 	public String getUsername(User user) {
 		Account acc = ACCOUNT.find(Filters.eq("_id", user.getAccount_id())).first();
 		if (acc == null)
@@ -351,7 +347,7 @@ public final class User extends Model
 
 	public int countTotalPostView(ObjectId account_id) {
 		int total = 0;
-		List<Post> posts = Post.GetAllPostByUserID(account_id);
+		List<Post> posts = Post.GetAllPostByAccountID(account_id);
 		for (Post k : posts) {
 			total += k.getViews_count();
 		}
@@ -392,13 +388,16 @@ public final class User extends Model
 
 	}
 
-	public static void updateUserStatusByAccountID(ObjectId account_id, String newStatus) {
-		USER.updateOne(Filters.eq("_id", account_id), Updates.set("status", newStatus));
+	@BsonIgnore
+	public static void updateUserStatusByAccountID(ObjectId userId, String newStatus) {
+	
+		USER.updateOne(Filters.eq("_id", userId), Updates.set("status", newStatus));
+		System.out.println("update thanh cong");
 	}
 	
-	public static void InsertImage(ObjectId userID, String filePath)
+	public static void InsertImage(ObjectId account_id, String filePath)
 	{
-		USER.updateOne(Filters.eq("_id", userID), Updates.addToSet("images", filePath));
+		USER.updateOne(Filters.eq("account_id", account_id), Updates.addToSet("images", filePath));
 	}
 
 	public void Insert()

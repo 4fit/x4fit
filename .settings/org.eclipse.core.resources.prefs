@@ -5,5 +5,7 @@ encoding//WebContent/common/modHeader.jsp=UTF-8
 encoding//WebContent/detailPost/detailPost.jsp=UTF-8
 encoding//WebContent/detailPost/search.jsp=UTF-8
 encoding//WebContent/home.jsp=UTF-8
+encoding//WebContent/login/notactive.jsp=UTF-8
 encoding//WebContent/modals/addCategoryModal.jsp=UTF-8
+encoding//WebContent/modals/createModModal.jsp=UTF-8
 encoding/<project>=UTF-8

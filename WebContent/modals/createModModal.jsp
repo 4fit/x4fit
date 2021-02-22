@@ -1,42 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!-- Create Mod Modal -->
 <div class="modal fade" id="create-mod">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Create Mod</h3>
+                <h3 class="modal-title">Tạo mod</h3>
             </div>
             <div class="modal-body">
                 <form action="${pageContext.request.contextPath}/admin/create-mod" method="post">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input class="form-control" id="username" required type="username" placeholder="Enter Username"
+                        <label for="username">Tên đăng nhập</label>
+                        <input class="form-control" id="username" required type="username" placeholder="Tên đăng nhập"
                             name="username">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input class="form-control" id="email" required type="email" placeholder="Enter Email"
+                        <input class="form-control" id="email" required type="email" placeholder="Nhập email của mod"
                             name="email">
                     </div>
                     <div class="form-group">
-                        <label for="fullname">Full Name</label>
-                        <input class="form-control" id="fullname" required type="name" placeholder="Enter Full Name"
+                        <label for="fullname">Họ Tên</label>
+                        <input class="form-control" id="fullname" required type="name" placeholder="Nhập họ tên"
                             name="fullname">
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input class="form-control" id="password" required type="password" placeholder="Enter Password"
+                        <label for="password">Mật khẩu</label>
+                        <input class="form-control" id="password" required type="password" placeholder="Nhập mật khẩu"
                             minlength="8" name="password">
                     </div>
                     <div class="alert alert-danger d-none" id="alert" role="alert">
-                        Password not match!
+                        Mật khẩu không khớp
                     </div>
                     <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
+                        <label for="confirm-password">Nhập lại mật khẩu</label>
                         <input class="form-control" id="confirm-password" required type="password" minlength="8"
-                            placeholder="Enter Confirm Password">
+                            placeholder="Nhập lại mật khẩu">
                     </div>
                     <button type="button" id="btnCreateMod" onclick="createMod()"
-                        class="btn btn-primary text-xs-center">Create</button>
+                        class="btn btn-primary text-xs-center">Tạo mod ngay!</button>
                 </form>
             </div>
         </div>

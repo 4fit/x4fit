@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 
+import model.Account;
 import model.Comment;
 import model.Post;
 
@@ -25,8 +26,14 @@ public class voteController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
+		if (Account.isLogged(request.getCookies())== false)
+		{
+			String url = "/login";
+			response.sendRedirect(request.getContextPath() + url);
+			return;
+		}
+		
 		ObjectId id = new ObjectId(request.getParameter("id"));
-		System.out.println(id);
 		String type = request.getParameter("type");
 		int point = Integer.parseInt((String)request.getParameter("point"));
 		

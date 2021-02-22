@@ -20,7 +20,7 @@
                 <img src="../images/forgotmain.jpg">
             </div>
             <div class="login-content">
-                <form action="forgot" method = "post">
+                <form action="${pageContext.request.contextPath}/forgot" method = "post">
                     
                     <h3 class="title"> Forgot password</h3>
                     <div class="input-div one">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <a href="signup.jsp"> Sign up</a>
-                    <input type="submit" class="btn" value="send mail" name = "forgot_password">
+                    <input type="submit" style = "background-color: #625bff;" class="btn" value="send mail" name = "forgot_password">
                     <a href="login.jsp" class = "btn-signup">Login</a>
                 </form>
                 

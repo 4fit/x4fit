@@ -9,6 +9,8 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.FindIterable;
 
+import x4fit.Utilities;
+
 public class UserAccount extends Model {
 	protected ObjectId userID;
 	protected String username;
@@ -111,7 +113,42 @@ public class UserAccount extends Model {
 					user.getAvatar(), 
 					user.getUrl(), 
 					user.getStatus());
-			data.add(userAccount);
+			if (!userAccount.getUser_type().equals("ADMIN")) {
+				data.add(userAccount);
+			}
+		}
+		return data;
+	}
+	
+	public static List<UserAccount> SearchUser(String query) {
+		query = Utilities.removeAccent(query).toLowerCase();
+		List<User> allUserList = User.getAllUsers();
+		ArrayList<UserAccount> data = new ArrayList<UserAccount>();
+		for (int i = 0; i < allUserList.size(); i++) {
+			User user = allUserList.get(i);
+			Account account = Account.GetAccountByID(user.getAccount_id());
+			UserAccount userAccount = new UserAccount(
+					user.getId(),
+					account.getUsername(), 
+					account.getEmail(), 
+					account.getUser_type(), 
+					user.getFullname(), 
+					user.getAvatar(), 
+					user.getUrl(), 
+					user.getStatus());
+			String id = Utilities.removeAccent(userAccount.getUserID().toString()).toLowerCase();
+			String username = Utilities.removeAccent(userAccount.getUsername()).toLowerCase();
+			String email = Utilities.removeAccent(userAccount.getEmail()).toString();
+			String accountType = Utilities.removeAccent(userAccount.getUser_type()).toLowerCase();
+			String status = Utilities.removeAccent(userAccount.getStatus()).toLowerCase();
+			
+			if (id.indexOf(query) != -1 
+					|| username.indexOf(query) != -1
+					|| email.indexOf(query) != -1
+					|| accountType.indexOf(query) != -1
+					|| status.indexOf(query) != -1) {
+				data.add(userAccount);
+			}
 		}
 		return data;
 	}
@@ -131,8 +168,14 @@ public class UserAccount extends Model {
 					user.getAvatar(), 
 					user.getUrl(), 
 					user.getStatus());
-			if (userAccount.getUser_type().equals(accountType) && userAccount.getStatus().equals(status)) {
-				data.add(userAccount);
+			if (accountType.equals("ALL")) {
+				if (userAccount.getStatus().equals(status)) {
+					data.add(userAccount);
+				}
+			} else {
+				if (userAccount.getUser_type().equals(accountType) && userAccount.getStatus().equals(status)) {
+					data.add(userAccount);
+				}
 			}
 		}
 		return data;

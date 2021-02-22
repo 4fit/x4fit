@@ -2,6 +2,9 @@ package model;
 
 import java.util.Iterator;
 
+import javax.servlet.http.Cookie;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -97,7 +100,8 @@ public final class Account extends Model {
 	
 	public static void createNewMod(String username, String password, String email, String fullname)
 	{
-		Account mod = new Account(username, password, email, "MOD");
+		String hashPass = DigestUtils.sha256Hex(password);
+		Account mod = new Account(username, hashPass, email, "MOD");
 		mod.Insert();
 		
 		ObjectId account_id = ACCOUNT.find(
@@ -107,6 +111,14 @@ public final class Account extends Model {
 				).first().getId();
 		User user = new User(fullname, account_id, username);
 		user.Insert();
+	}
+	
+	public static void deleteAccountByUsername(String username)
+	{
+		ObjectId userId = User.GetUserByUsername(username).getId();
+		USER.deleteOne(Filters.eq("_id", userId));
+		ACCOUNT.deleteOne(Filters.eq("username", username));
+		System.out.println("delete thanh cong");
 	}
 	
 	public static boolean checkExitUsername(String username)
@@ -138,15 +150,6 @@ public final class Account extends Model {
 		return true;
 	}
 	
-	{
-//	public static Document getDocumentAccountByUserId(int user_id)
-//	{
-//		Document cursor = ACCOUNT.find(Filters.eq("user_id", user_id)).first();
-//		return cursor;
-//		
-//	}
-	}
-	
 	public static void updateNewPassword(String newPassword, String username) 
 	{
 		ACCOUNT.updateOne(Filters.eq("username", username), Updates.set("password", newPassword));
@@ -155,5 +158,61 @@ public final class Account extends Model {
 	public void Insert()
 	{
 		ACCOUNT.insertOne(this);
+	}
+	
+	public boolean isMod()
+	{
+		return this.getUser_type().equals("MOD");
+	}
+	
+	public boolean isAdmin()
+	{
+		return this.getUser_type().equals("ADMIN");
+	}
+	
+	public boolean isUser()
+	{
+		return this.getUser_type().equals("USER");
+	}
+	
+	public static boolean isMod(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("MOD");
+	}
+	
+	public static boolean isAdmin(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("ADMIN");
+	}
+	
+	public static boolean isUser(ObjectId accout_id)
+	{
+		return ACCOUNT.find(Filters.eq("_id", accout_id)).first().getUser_type().equals("USER");
+	}
+	
+	public static boolean isLogged(Cookie[] cookies)
+	{
+		if (cookies == null)
+			return false;
+		String is_logged = "";
+		String selector ="";
+		String validator = "";
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("is_logged"))
+				is_logged = cookie.getValue();
+			else if (cookie.getName().equals("selector"))
+				selector = cookie.getValue();
+			else if (cookie.getName().equals("validator"))
+				validator = cookie.getValue();
+		}
+		ObjectId account_id = Model.Authenticator(selector, validator);
+		if (account_id != null)
+		{
+			User user = User.GetUserByAccountID(account_id);
+			if (user.getStatus().equals("ACTIVE"))
+				if (is_logged.equals("true"))
+					return true;
+		}
+		return false;
 	}
 }
