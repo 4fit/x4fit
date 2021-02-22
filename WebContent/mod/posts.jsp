@@ -29,7 +29,7 @@
 						<div class="card card-plain">
 							<div class="card-header card-header-primary"
 								style="background-color: #007bff; color: #fff">
-								<h4 class="card-title mt-0">Quản lý bài viết</h4>
+								<h4 class="card-title mt-0">Quản lý bài viết - [Tổng: ${allPosts.size()}]</h4>
 							</div>
 							<div class="card-body">
 								<c:choose>

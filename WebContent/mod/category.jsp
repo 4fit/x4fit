@@ -49,7 +49,7 @@
                                 <div class="card card-plain">
                                     <div class="card-header card-header-primary"
                                         style="background-color: #007bff; color: #fff">
-                                        <h4 class="card-title mt-0">Quản lý thể loại</h4>
+                                        <h4 class="card-title mt-0">Quản lý thể loại - [Tổng: ${allCategories.size()}]</h4>
                                     </div>
                                     <div class="card-body">
                                         <c:choose>

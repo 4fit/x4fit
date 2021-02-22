@@ -45,7 +45,7 @@
                                 <div class="card card-plain">
                                     <div class="card-header card-header-primary"
                                         style="background-color: #007bff; color: #fff">
-                                        <h4 class="card-title mt-0">Quản lý người dùng</h4>
+                                        <h4 class="card-title mt-0">Quản lý người dùng - [Tổng: ${userInfoList.size()}]</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="filter">
