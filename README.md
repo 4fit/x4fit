@@ -19,13 +19,13 @@ https://x4fit.herokuapp.com/
 - 1. Mở CMD/PowerShell
 - 2. Đăng nhập vào heroku
 
-```bash
+```console
 heroku login
 ```
 
 - 2.1. Cài thêm plugin java (nếu lần đầu deploy)
 
-```bash
+```console
 heroku plugins:install java
 ```
 
@@ -35,23 +35,23 @@ heroku plugins:install java
 
   - Cú pháp:
   
-```bash
+```console
 heroku war:deploy <path đến file *.war> -a <tên app heroku>
 ```
 
   - Cụ thể:
   
-```bash
+```console
 heroku war:deploy x4fit.war -a x4fit
 ```
 
 ## Project Structure
 
-```bash
+```console
 tree \F > output.txt
 ```
 
-```bash
+```console
 x4fit
     │   .classpath
     │   .project
