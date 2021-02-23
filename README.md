@@ -48,6 +48,10 @@ heroku war:deploy x4fit.war -a x4fit
 ## Project Structure
 
 ```bash
+tree \F > output.txt
+```
+
+```bash
 x4fit
     │   .classpath
     │   .project
