@@ -11,6 +11,17 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/4fit/x4fit?color=yellow)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/4fit/x4fit)
 
+![](https://img.icons8.com/color/48/000000/html-5.png)
+![](https://img.icons8.com/color/48/000000/css3.png)
+![](https://img.icons8.com/color/48/000000/javascript.png)
+![](https://img.icons8.com/color/48/000000/bootstrap.png)
+![](https://img.icons8.com/color/48/000000/java-coffee-cup-logo.png)
+![](https://img.icons8.com/color/48/000000/tomcat.png)
+![](https://img.icons8.com/color/48/000000/mongodb.png)
+![](https://img.icons8.com/color/48/000000/heroku.png)
+![](https://img.icons8.com/color/48/000000/trello.png)
+![](https://img.icons8.com/color/48/000000/jsp.png)
+
 ## Link website
 https://x4fit.herokuapp.com/
 
@@ -23,7 +34,7 @@ https://x4fit.herokuapp.com/
 heroku login
 ```
 
-- 2.1. Cài thêm plugin java (nếu lần đầu deploy)
+  - Cài thêm plugin java (nếu lần đầu deploy)
 
 ```console
 heroku plugins:install java
