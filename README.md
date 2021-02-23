@@ -50,11 +50,8 @@ heroku war:deploy x4fit.war -a x4fit
 ```bash
 x4fit
     │   .classpath
-    │   .gitattributes
-    │   .gitignore
     │   .project
     │   pom.xml
-    │   README.md
     │   x4fit.war
     │   
     ├───.settings
@@ -120,14 +117,6 @@ x4fit
     │   │               
     │   ├───m2e-wtp
     │   │   └───web-resources
-    │   │       └───META-INF
-    │   │           │   MANIFEST.MF
-    │   │           │   
-    │   │           └───maven
-    │   │               └───com
-    │   │                   └───fit
-    │   │                           pom.properties
-    │   │                           pom.xml
     │   │                           
     │   ├───maven-archiver
     │   │       pom.properties
