@@ -11,6 +11,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/4fit/x4fit?color=yellow)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/4fit/x4fit)
 
+
 ## Công nghệ sử dụng
 ![](https://img.icons8.com/color/48/000000/html-5.png)
 ![](https://img.icons8.com/color/48/000000/css3.png)
@@ -68,12 +69,7 @@ x4fit
     │   .classpath
     │   .project
     │   pom.xml
-    │   x4fit.war
-    │   
-    ├───.settings
-    │       
-    ├───bin
-    │           
+    ├───bin   
     ├───src
     │   ├───controller
     │   │       adminController.java
@@ -89,7 +85,6 @@ x4fit
     │   │       saveController.java
     │   │       signUpController.java
     │   │       uploadController.java
-    │   │       
     │   ├───model
     │   │       Account.java
     │   │       Address.java
@@ -100,15 +95,12 @@ x4fit
     │   │       Gallery.java
     │   │       Model.java
     │   │       Post.java
-    │   │       User.java
-    │   │       
+    │   │       User.java    
     │   └───x4fit
     │           HibernateUtil.java
     │           Utilities.java
-    │           
     ├───target
-    │   ├───classes
-    │   │           
+    │   ├───classes 
     │   ├───dependency
     │   │       bson-3.8.2.jar
     │   │       hamcrest-core-1.3.jar
@@ -116,65 +108,45 @@ x4fit
     │   │       mongo-java-driver-3.8.2.jar
     │   │       mongodb-driver-3.8.2.jar
     │   │       mongodb-driver-core-3.8.2.jar
-    │   │       servlet-api-2.5.jar
-    │   │       
+    │   │       servlet-api-2.5.jar  
     │   ├───fit
     │   │   └───WEB-INF
     │   │       │   persistence.xml
     │   │       │   web.xml
-    │   │       │   
     │   │       └───lib
     │   │               bson-3.8.2.jar
     │   │               javax.persistence-api-2.2.jar
     │   │               mongo-java-driver-3.8.2.jar
     │   │               mongodb-driver-3.8.2.jar
     │   │               mongodb-driver-core-3.8.2.jar
-    │   │               servlet-api-2.5.jar
-    │   │               
-    │   ├───m2e-wtp
-    │   │   └───web-resources
-    │   │                           
-    │   ├───maven-archiver
-    │   │       pom.properties
-    │   │       
+    │   │               servlet-api-2.5.jar   
     │   └───test-classes
     └───WebContent
         │   404.jsp
         │   about.jsp
         │   index.jsp
         │   upload.jsp
-        │   
         ├───admin
         │       posts.jsp
         │       users.jsp
-        │       
         ├───common
         │       footer.jsp
         │       header.jsp
-        │       
         ├───detailPost
         │       detailPost.jsp
-        │       
-        ├───images
-        │       
+        ├───images  
         ├───login
         │       forgot.jsp
         │       login.jsp
-        │       signup.jsp
-        │       
+        │       signup.jsp   
         ├───META-INF
         │       MANIFEST.MF
-        │       
         ├───posts
         │       create.jsp
         │       edit.jsp
         │       post.jsp
-        │       
         ├───scripts
-        │       marked.min.js
-        │       post.js
-        │       Wiki.Behavior.Markdown.js
-        │       
+        │       post.js   
         ├───styles
         │       create-post.css
         │       home.css
@@ -183,15 +155,12 @@ x4fit
         │       post_editor.css
         │       profile.css
         │       signup.css
-        │       style.css
-        │       
+        │       style.css 
         ├───upload
         ├───users
         │       profile.jsp
-        │       
         └───WEB-INF
             │   web.xml
-            │   
             └───lib
                     bson-3.12.0.jar
                     commons-codec-1.15.jar
