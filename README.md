@@ -11,6 +11,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/4fit/x4fit?color=yellow)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/4fit/x4fit)
 
+## Công nghệ sử dụng
 ![](https://img.icons8.com/color/48/000000/html-5.png)
 ![](https://img.icons8.com/color/48/000000/css3.png)
 ![](https://img.icons8.com/color/48/000000/javascript.png)
