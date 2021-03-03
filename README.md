@@ -36,7 +36,7 @@ https://x4fit.herokuapp.com/
 heroku login
 ```
 
-  - Cài thêm plugin java (nếu lần đầu deploy)
+  *Cài thêm plugin java (nếu lần đầu deploy)*
 
 ```console
 heroku plugins:install java
@@ -63,6 +63,8 @@ heroku war:deploy x4fit.war -a x4fit
 ```console
 tree \F > output.txt
 ```
+<details>
+  <summary> Chi tiết </summary>
 
 ```console
 x4fit
@@ -178,3 +180,4 @@ x4fit
                     slf4j-api-1.7.30.jar
                     slf4j-jdk14-1.7.30.jar
 ```
+</details>
