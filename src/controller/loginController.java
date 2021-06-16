@@ -79,12 +79,15 @@ public class loginController extends HttpServlet {
 			auth.Update();
 			
 			Cookie cookieSelector = new Cookie("selector", selector);
+			cookieSelector.setHttpOnly(true);
 			cookieSelector.setMaxAge(604800);
 			 
 			Cookie cookieValidator = new Cookie("validator", hashedValidator);
+			cookieValidator.setHttpOnly(true);
 			cookieValidator.setMaxAge(604800);
 			
 			Cookie cookieIsLogged = new Cookie("is_logged", "true");
+			cookieIsLogged.setHttpOnly(true);
 			cookieValidator.setMaxAge(604800);
 			
 			response.addCookie(cookieSelector);

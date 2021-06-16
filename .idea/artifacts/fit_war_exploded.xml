@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="fit:war exploded">
+    <output-path>$PROJECT_DIR$/target/fit</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>fit</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="fit" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
+          <element id="library" level="project" name="Maven: org.mongodb:bson:3.8.2" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongodb-driver:3.8.2" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongo-java-driver:3.8.2" />
+          <element id="library" level="project" name="Maven: org.mongodb:mongodb-driver-core:3.8.2" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/fit/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="fit/web/Web" />
+    </root>
+  </artifact>
+</component>
