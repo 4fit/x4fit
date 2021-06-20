@@ -92,6 +92,9 @@
    document.getElementById('password').onkeyup=function(){
       
 	   var format = /[!@#$%^&*()_+\-=\[\]{}:\\|,.<>\/?]+/;
+	   var formatAlphabetCap = /[ABCDEFGHIJKLMNOPQRSTUVWXYZ]+/;
+	   var formatAlphabet = /[abcdefghijklmnopqrstuvwxyz]+/;
+	   var formatNumber = /[1234567890]+/;
        var pw = document.getElementById("password").value;  
        //check empty password field  
        if(pw == "") {  
@@ -102,21 +105,64 @@
        else
     
       //minimum password length validation  
-       if(pw.length < 6) {  
-          document.getElementById("message").innerHTML = "**Mật khẩu tối đa 6 kí tự";  
+       if(pw.length < 8) {  
+          document.getElementById("message").innerHTML = "**Mật khẩu tối thiểu 8 kí tự";  
           document.getElementById("btnSignup").disabled = true;
          
        }
-       else
-       if(format.test(pw) == false){
+       
+     else
+       if(formatNumber.test(pw) == false){
     	 
-    	   document.getElementById("message").innerHTML = "**Cần có một ký tự đặc biệt ";  
+    	   document.getElementById("message").innerHTML = "**Cần có ít nhất một chữ số ";  
            document.getElementById("btnSignup").disabled = true;
        }
        
+       else if(pw.length > 15) {  
+           document.getElementById("message").innerHTML = "**Độ dài mật khẩu tối đa là 15 ký tự";  
+           document.getElementById("btnSignup").disabled = true;
+          
+        }
+     
+       else
+           if(formatAlphabet.test(pw) == false){
+        	 
+        	   document.getElementById("message").innerHTML = "**Cần có ít nhất một chữ cái ";  
+               document.getElementById("btnSignup").disabled = true;
+           }
+       
+           else if(pw.length > 15) {  
+               document.getElementById("message").innerHTML = "**Độ dài mật khẩu tối đa là 15 ký tự";  
+               document.getElementById("btnSignup").disabled = true;
+              
+            }
+         
+  
+       else
+         if(formatAlphabetCap.test(pw) == false){
+      	 
+      	   document.getElementById("message").innerHTML = "**Cần có ít nhất một chữ cái in hoa ";  
+             document.getElementById("btnSignup").disabled = true;
+         }
+       
+         else if(pw.length > 15) {  
+             document.getElementById("message").innerHTML = "**Độ dài mật khẩu tối đa là 15 ký tự";  
+             document.getElementById("btnSignup").disabled = true;
+            
+          }
+       
+         else
+             if(format.test(pw) == false){
+          	 
+          	   document.getElementById("message").innerHTML = "**Cần có một ký tự đặc biệt ";  
+                 document.getElementById("btnSignup").disabled = true;
+             }
+            
+          
+       
        //maximum length of password validation  
-       else if(pw.length > 10) {  
-           document.getElementById("message").innerHTML = "**Độ dài mật khẩu tối đa là 10 ký tự";  
+       else if(pw.length > 15) {  
+           document.getElementById("message").innerHTML = "**Độ dài mật khẩu tối đa là 15 ký tự";  
            document.getElementById("btnSignup").disabled = true;
           
         }
