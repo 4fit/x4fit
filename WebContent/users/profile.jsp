@@ -79,205 +79,7 @@
 
 
   <!-----------------------------BANNER PROFILE----------------------------------->
-  <div class="profile-banner container-fluid " style="background-image:url('${pageContext.request.contextPath}/images/banner.jpg');">
-    <div class="container  ml-2">
-      <img class="img-profile-ban  float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }">
-      <div class="info-ban">
-      	<br>
-        <h5 class="name-ban" style="color: white;">${curUser.getFullname()}</h5>
-        <p class="gmail-ban">${acc.getEmail()}</p>
-      </div>
-    </div>
-  </div>
-
-
-  <!-----------------------CONTENT----------------------------->
-
-
-  <div class="container-fluid">
-  	
-    <div class="row">
-      <div class="col-lg-9 content-main ">
-        <c:choose>
-          <c:when test="${updateSuccess==true or updateSuccess==null}">
-            <button class="tablink" onclick="openPage('Post',this)" id="defaultOpen"> Post</button>
-            <button class="tablink" onclick="openPage('Bookmarks', this)">Bookmarks</button>
-            <button class="tablink" onclick="openPage('Following', this)">Following</button>
-            <button class="tablink" onclick="openPage('Follower',this)">Follower</button>
-            <button class="tablink" 
-            	<c:if test="${ curUser.getId()== usermain.getId() }">
-	            			onclick="openPage('Setting',this)"
-	            </c:if>>	Setting
-            </button>
-          </c:when>
-          <c:when test="${updateSuccess==false}">
-                <button class="tablink" onclick="openPage('Post',this)"> Post</button>
-                <button class="tablink" onclick="openPage('Bookmarks', this)">Bookmarks</button>
-                <button class="tablink" onclick="openPage('Following', this)">Following</button>
-                <button class="tablink" onclick="openPage('Follower',this)">Follower</button>
-                <button class="tablink" id="defaultOpen" <c:if test="${ curUser.getId()== usermain.getId() }">
-             		 onclick="openPage('Setting',this)" 
-            </c:if>>Setting
-            </button>
-              </c:when>
-        </c:choose>
-
-
-        <!---------------------------------POSTS------------------------------->
-			
-        <div id="Post" class="tabcontent">
-<!--         	<div class=" filter"> -->
-<!-- 						  		<div class="dropdown "> -->
-<!-- 									  <button class="dropbtn">Tất cả -->
-<!-- 									    <i class="fa fa-caret-down"></i> -->
-<!-- 									  </button> -->
-<!-- 									  <div class="dropdown-content"> -->
-<!-- 									    <a href="#">Tất cả</a> -->
-<!-- 									    <a href="#">Công khai</a> -->
-<!-- 									    <a href="#">Riêng tư</a> -->
-<!-- 									  </div> -->
-<!-- 						  			</div>  -->
-<!-- 						  	</div> -->
-           <div class="jumbotron jumbotron-fluid" id="list-post">
-             <c:forEach items="${listpost}" var="post">
-               <div class="post-div container">
-                 <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }" alt="${curUser.getFullname() }">
-                 <a class="name-pro-post display-9">${curUser.getFullname()}</a>
-                 <p class="postime">${post.getPublished_at()}</p>
-                 <p class="lead ml-2 title-post">
-                 	<a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
-                 	<br>
-                 	<c:if test="${post.getIs_public()==true}">
-                 	<span class="badge badge-primary">Public</span>
-                 </c:if>
-                 <c:if test="${post.getIs_public()==false}">
-                 	<span class="badge badge-secondary">Private</span>
-                 </c:if>
-                 <span class="badge badge-danger">${post.getCategory() }</span>
-                 
-                 <span class="viewtag t ml-20">
-	                 <i class="far fa-eye"></i><label class="view">${post.getViews_count()} </label>
-	               	</span>
-                 <span class="viewtag t ">
-	                 <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
-	               </span>
-                 <span class="viewtag t">
-	                 <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
-	               </span>
-                 </p>
-                 
-               </div>
-               <p class="card-text">${post.getShortContent()}</p>
-               <div class="divider ml-5 mr-5"></div>
-             </c:forEach>
-
-           </div>
-        </div>
-        <script>
-          function openPage(nampage, element) {
-            var i, tabcontent, tablink;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-              tabcontent[i].style.display = "none";
-            }
-
-            tablink = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablink.length; i++) {
-              tablink[i].style.backgroundColor = "rgb(161, 161, 161)";
-            }
-
-            document.getElementById(nampage).style.display = "block";
-
-            element.style.backgroundColor = "rgb(20, 20, 20)";
-          }
-          // openPage('Post',document.getElementById("defaultOpen"));   
-          document.getElementById("defaultOpen").onclick();
-        </script>
-
-        <!----------------------------------BOOKMARKS--------------------------------------->
-
-        <div id="Bookmarks" class="tabcontent">
-          <div class="jumbotron jumbotron-fluid">
-            <c:forEach items="${clipspost}" var="post">
-              <div class="post-div container">
-                <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${post.GetAuthor().getAvatar() }" alt="">
-                <a class="name-pro-post display-9" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${User.getEmail(post.GetAuthor().getAccount_id())}">${post.GetAuthor().getFullname()}</a>
-                <c:if test="${post.getIs_public()==true}">
-                	<span class="status">Public</span>
-                </c:if>
-                <c:if test="${post.getIs_public()==false}">
-                	<span class="status">Private</span>
-                </c:if>
-                <p class="postime">Create at :  ${post.getPublished_at()}</p>
-                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
-                </p>
-                <p class="card-text">${post.getShortContent()}...</p>
-                <div class="tag d-flex">
-                  <button class="btn-secondary">${post.getCategory() }</button>
-
-                </div>
-                <span class="viewtag t ml-20">
-                <i class="far fa-eye"></i><label class="view">${post.getViews_count()} </label>
-              </span>
-                <span class="viewtag t ">
-                <i class="fas fa-paperclip"></i><label class="view">${post.getClips_count(post) }</label>
-              </span>
-                <span class="viewtag t">
-                <i class="far fa-comment"></i><label class="view">${post.getComments_Count()}</label>
-              </span>
-              </div>
-              <div class="divider ml-5 mr-5"></div>
-            </c:forEach>
-
-          </div>
-        </div>
-        <!----------------------------FOLLOWING----------------------------------------->
-        <div id="Following" class="tabcontent">
-          <div class="row following-row">
-            <c:forEach items="${following}" var="user">
-              <div class="col-sm-6 col-md-4 anuser">
-                <div class="d-flex exhibition-item user mt-4">
-                  <a class="d-flex img-user-div pt-1" href="#">
-                    <img class="avatar-user float-left img-fluid" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
-                  </a>
-                  <div class="user-info overflow-hidden">
-
-                    <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
-                    <div class="user-icon">
-                      <span class="viewtag t ">
-                      <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
-                    </span>
-                      <span class="viewtag t">
-                      <i class="far fa-edit"></i><label class="view">${user.countPost(user.getId())}</label>
-                    </span>
-                    </div>
-                    <div class="follow">
-                    	<input type="hidden" class="mainuser" value="${usermain.getId()}">
-                      <input type="hidden" class="id-author" value="${user.getId()}">
-                       <c:if test="${ curUser.getId() != usermain.getId() }">
-	                      	 <c:if test="${usermain.getUserFromFollowing(user)==false }">
-	                      	<button class="btn btn-follow" style="background: white; color: blue;" type="button">
-	                       			 Follow+
-	                    		</button>
-	                    	</c:if>
-	                    	<c:if test="${usermain.getUserFromFollowing(user)==true }">
-	                      	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
-	                       			 Following
-	                    		</button>
-	                    	</c:if>
-                    	</c:if>
-                    	<c:if test="${ curUser.getId() == usermain.getId() }">
-                    		<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
-                       			 Following
-                    		</button>
-                    	</c:if>
-                    	
-                    </div>
-                  </div>
-
-<<<<<<< HEAD
-    <!-----------------------------BANNER PROFILE----------------------------------->
-    <div class="profile-banner container-fluid ">
+   <div class="profile-banner container-fluid ">
         <div class="container  ml-2">
             <img class="img-profile-ban  float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }">
             <div class="info-ban">
@@ -431,97 +233,106 @@
                             <div class="divider ml-5 mr-5"></div>
                         </c:forEach>
 
-=======
-                </div>
-              </div>
-            </c:forEach>
-          </div>
-        </div>
-        <!--------------------------FOLLOWER-------------------------------------->
-        <div id="Follower" class="tabcontent">
-          <div class="row following-row">
-            <c:forEach items="${follower}" var="user">
-              <div class="col-sm-6 col-md-4 anuser">
-                <div class="d-flex exhibition-item user mt-2">
-                  <a class="d-flex img-user-div pt-1" href="#">
-                    <img class="avatar-user float-left img-fluid" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
-                  </a>
-                  <div class="user-info overflow-hidden">
-                    <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
-                    <div class="user-icon">
-                      <span class="viewtag t ">
-                      <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
-                    </span>
-                      <span class="viewtag t">
-                      <i class="far fa-edit"></i><label class="view">${user.countPost(user.getId())}</label>
-                    </span>
                     </div>
-                    <div class="follow">
-                    	<input type="hidden" name="email" value="${user.getEmail(user.getAccount_id())}">
-                      <input type="hidden" class="mainuser" value="${usermain.getId()}">
-                      <input type="hidden" class="id-author" value="${user.getId()}">
-                      <c:if test="${usermain.getUserFromFollowing(user)==true }">
-                      	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
-                      			  Following
-                    			  </button>
-                      </c:if>
-                      <c:if test="${usermain.getUserFromFollowing(user)==false }">
-                      	<button class="btn btn-follow" style="background: white; color: blue;" type="button">
-                      			  Follow+
-                    			  </button>
-                      </c:if>
-                      
->>>>>>> master
-                    </div>
-                  </div>
-
                 </div>
-              </div>
-            </c:forEach>
+                <!----------------------------FOLLOWING----------------------------------------->
+                <div id="Following" class="tabcontent">
+                    <div class="row following-row">
+                        <c:forEach items="${following}" var="user">
+                            <div class="col-sm-6 col-md-4 anuser">
+                                <div class="d-flex exhibition-item user mt-4">
+                                    <a class="d-flex img-user-div pt-1" href="#">
+                                        <img class="avatar-user float-left img-fluid" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
+                                    </a>
+                                    <div class="user-info overflow-hidden">
 
-          </div>
-        </div>
-        <div id="Setting" class="tabcontent">
-          <div class="row content">
-            <div class="col-md-2 setting-btn">
-              <button type="button" class="btn profile">PROFILE </button>
-              <button type="button" class="btn account">ACCOUNT </button>
-            </div>
-            <div class="col-md-10 setting-row">
-              <input type="radio" name="name" id="profile" checked="checked" />
-              <div class="container">
+                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
+                                        <div class="user-icon">
+                                            <span class="viewtag t ">
+                                            <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
+                                        </span>
+                                            <span class="viewtag t">
+                                            <i class="far fa-edit"></i><label class="view">${user.countPost(user.getId())}</label>
+                                        </span>
+                                        </div>
+                                        <div class="follow">
+                                        	<input type="hidden" class="mainuser" value="${usermain.getId()}">
+                                            <input type="hidden" class="id-author" value="${user.getId()}">
+                                           <c:if test="${ curUser.getId() != usermain.getId() }">
+	                                          	 <c:if test="${usermain.getUserFromFollowing(user)==false }">
+	                                            	<button class="btn btn-follow" style="background: white; color: blue;" type="button">
+	                                           			 Follow+
+	                                        		</button>
+	                                        	</c:if>
+	                                        	<c:if test="${usermain.getUserFromFollowing(user)==true }">
+	                                            	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+	                                           			 Following
+	                                        		</button>
+	                                        	</c:if>
+                                        	</c:if>
+                                        	<c:if test="${ curUser.getId() == usermain.getId() }">
+                                        		<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+                                           			 Following
+                                        		</button>
+                                        	</c:if>
+                                        	
+                                        </div>
+                                    </div>
 
-                <div class="row">
-                  <div class="col-md-3 avatar">
-                    <img src="${pageContext.request.contextPath}/images/${usermain.getAvatar() }">
-                    <button class="btn-light"> Upload</button>
-                  </div>
-                  <div class="col-md-9">
-                    <h3 style="margin-bottom: 10px;">Your information</h3>
-                    <button class="permit-edit btn-primary">Edit</button>
-                    <c:if test="${updateSuccess==true}">
-                      <h4>Cập nhật thông tin thành công</h4>
-                    </c:if>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+                <!--------------------------FOLLOWER-------------------------------------->
+                <div id="Follower" class="tabcontent">
+                    <div class="row following-row">
+                        <c:forEach items="${follower}" var="user">
+                            <div class="col-sm-6 col-md-4 anuser">
+                                <div class="d-flex exhibition-item user mt-2">
+                                    <a class="d-flex img-user-div pt-1" href="#">
+                                        <img class="avatar-user float-left img-fluid" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
+                                    </a>
+                                    <div class="user-info overflow-hidden">
+                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
+                                        <div class="user-icon">
+                                            <span class="viewtag t ">
+                                            <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
+                                        </span>
+                                            <span class="viewtag t">
+                                            <i class="far fa-edit"></i><label class="view">${user.countPost(user.getId())}</label>
+                                        </span>
+                                        </div>
+                                        <div class="follow">
+                                        	<input type="hidden" name="email" value="${user.getEmail(user.getAccount_id())}">
+                                            <input type="hidden" class="mainuser" value="${usermain.getId()}">
+                                            <input type="hidden" class="id-author" value="${user.getId()}">
+                                            <c:if test="${usermain.getUserFromFollowing(user)==true }">
+                                            	<button class="btn btn-follow" style="background: rgb(68, 68, 231);color: white; " type="button">
+                                          			  Following
+                                      			  </button>
+                                            </c:if>
+                                            <c:if test="${usermain.getUserFromFollowing(user)==false }">
+                                            	<button class="btn btn-follow" style="background: white; color: blue;" type="button">
+                                          			  Follow+
+                                      			  </button>
+                                            </c:if>
+                                            
+                                        </div>
+                                    </div>
 
-                    <form action="${pageContext.request.contextPath}/profile?action=editaccount" method="POST">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Full name</label>
-                        <input type="text" class="form-control" name="fullname" placeholder="Enter fullname" value="${usermain.getFullname()}" disabled>
-                        <label>${nameError}</label>
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="${acc.getEmail() }" disabled>
-                        <label>${emailError}</label>
-                      </div>
-                      <label class="advance">Change login information</label>
-                      <div id="advance">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Username</label>
-                          <input type="text" class="form-control" name="username" placeholder="username" value="${acc.getUsername() }" disabled>
-                          <label>${usernameError}</label>
+                                </div>
+                            </div>
+                        </c:forEach>
+
+                    </div>
+                </div>
+                <div id="Setting" class="tabcontent">
+                    <div class="row content">
+                        <div class="col-md-2 setting-btn">
+                            <button type="button" class="btn profile">PROFILE </button>
+                            <button type="button" class="btn account">ACCOUNT </button>
                         </div>
-<<<<<<< HEAD
                         <div class="col-md-10 setting-row">
                             <input type="radio" name="name" id="profile" checked="checked" />
                             <div class="container">
@@ -538,7 +349,7 @@
 
                                         <form action="${pageContext.request.contextPath}/profile?action=editaccount" method="POST">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Họ tên </label>
+                                                <%--@declare id="exampleinputemail1"--%><label for="exampleInputEmail1">Họ tên </label>
                                                 <input type="text" class="form-control" name="fullname" placeholder="Enter fullname" value="${usermain.getFullname()}" >
                                                 <label>${nameError}</label>
                                             </div>
@@ -594,51 +405,11 @@
                                     
                                 </div>
                             </div>
-=======
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Current password</label>
-                          <input type="password" class="form-control" name="currentpass"  placeholder="current password" value="${acc.getPassword() }" disabled>
 
                         </div>
-
-                        <span> <label class="changepass">Change your password</label> or  <label class="forgotpass">Forgot your password ?</label></span>
->>>>>>> master
-
-                      </div>
-                      <button class="btnsave" type="submit">Save change</button>
-                    </form>
-                  </div>
+                    </div>
                 </div>
-              </div>
-              <input type="radio" id="account" name="name" />
-              <div class="container">
-                <div id="changepass">
-                  <h3>Change your password</h3>
-                  <form  action="${pageContext.request.contextPath}/profile?action=editpass" method="post">
-                  	<div class="form-group">
-	                    <label for="exampleInputEmail1">Old password</label>
-	                    <input type="password" class="form-control" name="oldpass" placeholder="type your old password">
-	                    <label>${oldpassError}</label>
-	                  </div>
-	                  <div class="form-group">
-	                    <label for="exampleInputEmail1">New password</label>
-	                    <input type="password" class="form-control" name="newpass" placeholder="type new password">
-	                    <label>${newpassError}</label>
-	                  </div>
-	                  <div class="form-group">
-	                    <label for="exampleInputEmail1">Confirm new password</label>
-	                    <input type="password" class="form-control" name="confirmnewpass" placeholder="confirm new password">
-	                    <label>${confirmError}</label>
-	                  </div>
-	                  <button class="btnsave" type="submit">Save change</button>
-                  	
-                  </form>
-                  
-                </div>
-              </div>
-
             </div>
-<<<<<<< HEAD
             <div class="list-static col-lg-3 hidden-md-down float-right">
                 <ul class="list-group ">
                     <li class="list-group-item  d-flex justify-content-between align-items-center">
@@ -663,39 +434,12 @@
                     </li>
                 </ul>
             </div>
-=======
-          </div>
+
+
         </div>
-      </div>
-      <div class="list-static col-lg-3 hidden-md-down float-right">
-        <ul class="list-group ">
-          <li class="list-group-item  d-flex justify-content-between align-items-center">
-            Total post view
-            <span class="badge badge-primary badge-pill">${curUser.countTotalPostView(curUser.getAccount_id())}</span>
-          </li>
-          <li class="list-group-item d-flex w-100 justify-content-between align-items-center">
-            Following user
-            <span class="badge badge-primary badge-pill">${curUser.countFollowing(curUser)}</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Follower
-            <span class="badge badge-primary badge-pill">${curUser.countFollower(curUser)}</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Post
-            <span class="badge badge-primary badge-pill">${listpost.size()}</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            Clip
-            <span class="badge badge-primary badge-pill">${curUser.countClips(curUser) }</span>
-          </li>
-        </ul>
-      </div>
->>>>>>> master
-
-
     </div>
   </div>
+
   <jsp:include page="../common/footer.jsp"/>
   <script>
   

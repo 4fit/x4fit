@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 
 import com.mongodb.client.model.Filters;
 
+import filter.HttpService;
 import model.User;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 @WebServlet("/login")
 public class loginController extends HttpServlet {
@@ -80,19 +82,30 @@ public class loginController extends HttpServlet {
 			
 			Cookie cookieSelector = new Cookie("selector", selector);
 			cookieSelector.setHttpOnly(true);
+			//cookieSelector.setComment(SAME_SITE_STRICT_COMMENT);
 			cookieSelector.setMaxAge(604800);
+	
 			 
 			Cookie cookieValidator = new Cookie("validator", hashedValidator);
 			cookieValidator.setHttpOnly(true);
+			//cookieValidator.setComment(SAME_SITE_STRICT_COMMENT);
 			cookieValidator.setMaxAge(604800);
+
 			
 			Cookie cookieIsLogged = new Cookie("is_logged", "true");
 			cookieIsLogged.setHttpOnly(true);
+			//cookieIsLogged.setComment(SAME_SITE_STRICT_COMMENT);
 			cookieValidator.setMaxAge(604800);
 			
-			response.addCookie(cookieSelector);
-			response.addCookie(cookieValidator);
-			response.addCookie(cookieIsLogged);
+//			response.addCookie(cookieSelector);
+//			response.addCookie(cookieValidator);
+//			response.addCookie(cookieIsLogged);
+			
+			HttpService.addCookie(response, cookieSelector, "Strict");
+			HttpService.addCookie(response, cookieValidator, "Strict");
+			HttpService.addCookie(response, cookieIsLogged, "Strict");
+			
+
 			
 			Account account = Account.GetAccountByID(account_id);
 			User user = User.GetUserByAccountID(account_id);
