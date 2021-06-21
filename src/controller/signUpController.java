@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 @WebServlet("/signUp")
 public class signUpController extends HttpServlet {
@@ -54,10 +55,10 @@ public class signUpController extends HttpServlet {
 				}
 			}
 		} else {
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			String email = request.getParameter("email");
-			String fullname = request.getParameter("fullname");
+			String username = escapeHtml4(request.getParameter("username"));
+			String password = escapeHtml4(request.getParameter("password"));
+			String email = escapeHtml4(request.getParameter("email"));
+			String fullname = escapeHtml4(request.getParameter("fullname"));
 
 			int error = 0;
 			if (username.equals("")) {

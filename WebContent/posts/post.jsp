@@ -98,7 +98,7 @@
 			<!-- Content -->
 			<div class="col-sm-8">
 				<h1 align="center" style="margin: 20px;">
-					<b>${post.getTitle()}</b>
+					<b><c:out value="${post.getTitle()}" /></b>
 				</h1>
 				<div class="mb-05">
 							<div class="d-sm-flex align-items-start mb-2">
@@ -115,7 +115,7 @@
 									<div class="post-author__info overflow-hidden mr-1">
 										<div class="d-flex">
 											<div class="overflow-hidden flex-fix mr-05">
-												<a class="text-bold post-author__name" href="#">${post.GetAuthor().getFullname()}</a>
+												<a class="text-bold post-author__name" href="#"><c:out value="${post.GetAuthor().getFullname()}"/></a>
 												<br>
 												<span class="text-muted">@${post.GetAuthor().getUsername()}</span>
 											</div>
@@ -162,7 +162,7 @@
 							</div>
 						</div>
 						
-				<textarea id="content" name="content">${post.getContent()}</textarea>
+				<textarea id="content" name="content"><c:out value="${post.getContent()}"/></textarea>
 				<br>
 				<c:if test="${is_logged }">
 					<h4>Bình luận</h4>
@@ -208,7 +208,7 @@
 							</div>
 
 							<div class="content_comment" >
-								<textarea id="comment" name="comment" rows="5">${cmt.getContent()}</textarea>
+								<textarea id="comment" name="comment" rows="5"><c:out value="${ cmt.getContent()}" escapeXml="true"/></textarea>
 							</div>
 
 							<div class="vote_comment">

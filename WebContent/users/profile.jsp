@@ -83,7 +83,7 @@
         <div class="container  ml-2">
             <img class="img-profile-ban  float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }">
             <div class="info-ban">
-                <h5 class="name-ban">${curUser.getFullname()}</h5>
+                <h5 class="name-ban"><c:out value="${curUser.getFullname()}"/></h5>
                 <p class="gmail-ban">${acc.getEmail()}</p>
                 <div class="follow">
                 <c:if test="${curUser.getId()!=usermain.getId()}">
@@ -146,7 +146,7 @@
                         <c:forEach items="${listpost}" var="post">
                             <div class="post-div container">
                                 <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${curUser.getAvatar() }" alt="${curUser.getFullname() }">
-                                <a class="name-pro-post display-9">${curUser.getFullname()}</a>
+                                <a class="name-pro-post display-9"><c:out  value="${curUser.getFullname()}"/></a>
                                 <c:if test="${post.getIs_public()==true}">
                                 	<span class="status">Public</span>
                                 </c:if>
@@ -155,9 +155,9 @@
                                 </c:if>
                                  
                                 <p class="postime">Create at: ${post.getPublished_at()}</p>
-                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
+                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}"><c:out value=" ${post.getTitle() }"/></a>
                                 </p>
-                                <p class="card-text">${post.getShortContent()}...</p>
+                                <p class="card-text"><c:out value=" ${post.getShortContent()}..."/></p>
                                 <div class="tag d-flex">
                                     <button class="btn-secondary">${post.getCategory() }</button>
 
@@ -205,7 +205,9 @@
                         <c:forEach items="${clipspost}" var="post">
                             <div class="post-div container">
                                 <img class="img-pro-post float-left" src="${pageContext.request.contextPath}/images/${post.GetAuthor().getAvatar() }" alt="">
-                                <a class="name-pro-post display-9" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(post.getAuthor_id())}">${post.GetAuthor().getFullname()}</a>
+                                <a class="name-pro-post display-9" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(post.getAuthor_id())}">
+                                      <c:out value="${post.GetAuthor().getFullname()}"/>
+                                </a>
                                 <c:if test="${post.getIs_public()==true}">
                                 	<span class="status">Public</span>
                                 </c:if>
@@ -213,9 +215,10 @@
                                 	<span class="status">Private</span>
                                 </c:if>
                                 <p class="postime">Create at :  ${post.getPublished_at()}</p>
-                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">${post.getTitle() }</a>
+                                <p class="lead ml-2 title-post"><a href="${pageContext.request.contextPath}/post?p=${post.getUrl()}">
+                                        <c:out value="${post.getTitle() }"/></a>
                                 </p>
-                                <p class="card-text">${post.getShortContent()}...</p>
+                                <p class="card-text"><c:out value=" ${post.getShortContent()}..."/></p>
                                 <div class="tag d-flex">
                                     <button class="btn-secondary">${post.getCategory() }</button>
 
@@ -246,7 +249,8 @@
                                     </a>
                                     <div class="user-info overflow-hidden">
 
-                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
+                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">
+                                                <c:out value="${user.getFullname()}"/></a>
                                         <div class="user-icon">
                                             <span class="viewtag t ">
                                             <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
@@ -294,7 +298,8 @@
                                         <img class="avatar-user float-left img-fluid" src="${pageContext.request.contextPath}/images/${user.getAvatar() }">
                                     </a>
                                     <div class="user-info overflow-hidden">
-                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">${user.getFullname()}</a>
+                                        <a class="username" style="cursor: pointer;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(user.getAccount_id())}">
+                                                <c:out value="${user.getFullname()}"/></a>
                                         <div class="user-icon">
                                             <span class="viewtag t ">
                                             <i class="fas fa-user-plus"></i><label class="view">${user.countFollowing(user)}</label>
@@ -350,19 +355,19 @@
                                         <form action="${pageContext.request.contextPath}/profile?action=editaccount" method="POST">
                                             <div class="form-group">
                                                 <%--@declare id="exampleinputemail1"--%><label for="exampleInputEmail1">Họ tên </label>
-                                                <input type="text" class="form-control" name="fullname" placeholder="Enter fullname" value="${usermain.getFullname()}" >
+                                                <input type="text" class="form-control" maxlength="50" name="fullname" placeholder="Enter fullname" value="<c:out value="${usermain.getFullname()}"/>" >
                                                 <label>${nameError}</label>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email</label>
-                                                <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="${acc.getEmail() }" >
+                                                <input type="email" class="form-control" maxlength="50" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="<c:out value="${acc.getEmail() }"/>" >
                                                 <label>${emailError}</label>
                                             </div>
                                             <label class="advance">Thay đổi thông tin đăng nhập</label>
                                             <div id="advance">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Tên đăng nhập</label>
-                                                    <input type="text" class="form-control" name="username" placeholder="username" value="${acc.getUsername() }" >
+                                                    <input type="text" class="form-control" maxlength="30" name="username" placeholder="username" value="<c:out value="${acc.getUsername() }"/>" >
                                                     <label>${usernameError}</label>
                                                 </div>
                                                 <div class="form-group">
@@ -391,12 +396,12 @@
 	                                    </div>
 	                                    <div class="form-group">
 	                                        <label for="exampleInputEmail1">Mật khẩu mới</label>
-	                                        <input type="password" class="form-control" name="newpass" placeholder="type new password">
+	                                        <input type="password" maxlength="30" class="form-control" name="newpass" placeholder="type new password">
 	                                        <label>${newpassError}</label>
 	                                    </div>
 	                                    <div class="form-group">
 	                                        <label for="exampleInputEmail1">Xác nhận mật khẩu</label>
-	                                        <input type="password" class="form-control" name="confirmnewpass" placeholder="confirm new password">
+	                                        <input type="password" maxlength="30" class="form-control" name="confirmnewpass" placeholder="confirm new password">
 	                                        <label>${confirmError}</label>
 	                                    </div>
 	                                    <button class="btnsave" type="submit">Lưu thay đổi</button>

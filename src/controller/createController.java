@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.bson.types.ObjectId;
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 @WebServlet("/create")
 public class createController extends HttpServlet {
@@ -33,7 +34,7 @@ public class createController extends HttpServlet {
     	//account_id
 		ObjectId accout_id = User.GetAccountIdFromCookies(request.getCookies());
 		//title
-		String title = request.getParameter("title");
+		String title = escapeHtml4(request.getParameter("title"));
 		//is_public
 		boolean is_public = request.getParameter("is_public") != null;
 		//category
@@ -41,7 +42,7 @@ public class createController extends HttpServlet {
 		//image
 		String thumbnail_url = request.getParameter("thumbnail_url");
 		//contents
-		String content = request.getParameter("content");
+		String content =escapeHtml4(request.getParameter("content"));
 		
 		//Tạo đối tượng postController
 		Post post = new Post(title, accout_id, content, is_public, thumbnail_url, category);

@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Post;
 
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+
+
 @WebServlet("/save")
 public class saveController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,9 +39,9 @@ public class saveController extends HttpServlet {
 		
 		String p = (String) request.getParameter("p"); // để biết bài viết nào được saveController
 		// title
-		String title = request.getParameter("title");
+		String title = escapeHtml4(request.getParameter("title"));
 		// new title
-		String new_title = request.getParameter("new_title");
+		String new_title = escapeHtml4(request.getParameter("new_title"));
 		// is_public
 		boolean is_public = request.getParameter("is_public") != null;
 		
@@ -47,7 +50,7 @@ public class saveController extends HttpServlet {
 		// image
 		String thumbnail_url = request.getParameter("thumbnail_url");
 		// content
-		String content = request.getParameter("content");
+		String content = escapeHtml4(request.getParameter("content"));
 
 		String post_URL = Post.Update(p, title, new_title, content, is_public, thumbnail_url, category);
 //		if (is_public)

@@ -69,7 +69,7 @@
 									src="${pageContext.request.contextPath}/images/${p.GetAuthor().getAvatar() }" 
 									alt="${p.GetAuthor().getFullname()}">
 								<a style="margin: 10px;" href="${pageContext.request.contextPath}/viewprofile?email=${user.getEmail(p.getAuthor_id())}">
-									${p.GetAuthor().getFullname()}
+									<c:out value="${p.GetAuthor().getFullname()}"/>
 								</a>
 								<!--<c:if test="${user!=null}">-->
 									<!--<c:if test="${user.getId()!=p.GetAuthor().getId()} ">-->
@@ -98,7 +98,7 @@
 						  <div class="card-body">
 						    <h4 class="card-title">
 						    	<a href="${pageContext.request.contextPath}/post?p=${p.getUrl()}">
-								 			${p.getTitle() }
+									<c:out value="${p.getTitle() }"/>
 									</a>
 									<br>
 									<h6>
@@ -117,7 +117,7 @@
 									<a class="badge badge-info" style="margin-left: 20px;" href="#">${p.getCategory() }</a>
 									</h6>
 						    </h4>
-						    <p class="card-text">${p.getShortContent()}...</p>
+						    <p class="card-text"><c:out  value="${p.getShortContent()}..." /></p>
 						    <a href="${pageContext.request.contextPath}/post?p=${p.getUrl()}" 
 						    		class="btn btn-primary">Đọc tiếp...</a>
 						  </div>

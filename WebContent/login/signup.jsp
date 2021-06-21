@@ -35,16 +35,16 @@
 			<div class="agileits-top">
 				<form action="${pageContext.request.contextPath}/signUp" method = "post">
 					
-					<input  class="text" type="text" value = "${fullname}" name="fullname" placeholder="Họ và tên" required="">
+					<input  class="text" type="text" value = "<c:out value = "${fullname}"/>" maxlength="50" name="fullname" placeholder="Họ và tên" required="">
 					<span class = "error_signup"> <c:out value = "${errName}"></c:out></span>
-					<input id = "txtFullname" class="text" type="text"name = "username" value = "${username}" placeholder="Tên đăng nhập" required="">
+					<input id = "txtFullname" class="text" type="text"name = "username" maxlength="30" value = "<c:out value = "${username}"/>" placeholder="Tên đăng nhập" required="">
 					<span class = "error_signup"> <c:out value = "${errUsername}"></c:out></span>
 					
-					<input class="text email" type="email" name = "email" value = "${email}"placeholder="Email" required="">
+					<input class="text email" type="email" name = "email" value = "<c:out value = "${email}"/>" maxlength="50" placeholder="Email" required="">
 					 <span class = "error_signup"> <c:out value = "${errEmail}"></c:out></span>
-					<input id = "password" class="text" type="password" name = "password" value = "${password}"  placeholder="Mật khẩu" required="">
+					<input id = "password" class="text" type="password" name = "password" maxlength="30" value = "<c:out value = "${password}"/>"  placeholder="Mật khẩu" required="">
 					<span id = "message"> </span>  
-					<input id = "password2"  class="text w3lpass" type="password" name="password2" placeholder="Nhập lại mật khẩu" required="">
+					<input id = "password2"  class="text w3lpass" type="password" maxlength="30" name="password2" placeholder="Nhập lại mật khẩu" required="">
 					
 					<input id = "btnSignup" type="submit" value="SIGNUP">
 				</form>

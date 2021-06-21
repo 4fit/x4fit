@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 
 @WebServlet("/login")
@@ -59,8 +60,8 @@ public class loginController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = request.getSession();
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String username = escapeHtml4(request.getParameter("username"));
+		String password = escapeHtml4(request.getParameter("password"));
 		
 		if (username==null || password == null)
 		{

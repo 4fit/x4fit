@@ -33,7 +33,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">Tiêu đề</span>
 					</div>
-					<input type="text" class="form-control" name="new_title" value="${title}">
+					<input type="text" class="form-control" name="new_title" value="<c:out value="${title}" />">
 					<!-- Status -->
 						<div class="input-group-prepend">
 							<span class="" id="basic-addon1">
@@ -60,7 +60,7 @@
 					  </select>
 					</div>
 				</div>
-				<textarea name="content" id="content">${content}</textarea>
+				<textarea name="content" id="content"><c:out value="${content} "/></textarea>
 				<input class="btn btn-primary btn-sm btn-block" type="submit" value="LƯU">
 			</div>
 		</form>

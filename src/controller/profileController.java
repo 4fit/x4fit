@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Post;
 import model.User;
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 @WebServlet("/profile")
 public class profileController extends HttpServlet {
@@ -79,9 +80,9 @@ public class profileController extends HttpServlet {
 
 	@SuppressWarnings("static-access")
 	public boolean updateInfo(HttpServletRequest request) {
-		String fullname = request.getParameter("fullname") == null ? "" : request.getParameter("fullname").toString();
-		String email = request.getParameter("email") == null ? "" : request.getParameter("email").toString();
-		String username = request.getParameter("username") == null ? "" : request.getParameter("username").toString();
+		String fullname = escapeHtml4(request.getParameter("fullname")) == null ? "" : escapeHtml4(request.getParameter("fullname")).toString();
+		String email = escapeHtml4(request.getParameter("email")) == null ? "" : escapeHtml4(request.getParameter("email")).toString();
+		String username = escapeHtml4(request.getParameter("username")) == null ? "" : escapeHtml4(request.getParameter("username")).toString();
 
 		User currentuser = ValidateUser(request);
 		boolean valid = true;
@@ -122,10 +123,10 @@ public class profileController extends HttpServlet {
 	}
 
 	public boolean updateAccount(HttpServletRequest request) {
-		String newpass = request.getParameter("newpass") == null ? "" : request.getParameter("newpass").toString();
-		String oldpass = request.getParameter("oldpass") == null ? "" : request.getParameter("oldpass").toString();
-		String confirm = request.getParameter("confirmnewpass") == null ? ""
-				: request.getParameter("confirmnewpass").toString();
+		String newpass = escapeHtml4(request.getParameter("newpass")) == null ? "" :escapeHtml4( request.getParameter("newpass")).toString();
+		String oldpass = escapeHtml4(request.getParameter("oldpass")) == null ? "" : escapeHtml4(request.getParameter("oldpass")).toString();
+		String confirm = escapeHtml4(request.getParameter("confirmnewpass")) == null ? ""
+				: escapeHtml4(request.getParameter("confirmnewpass")).toString();
 		User currentuser = ValidateUser(request);
 
 		boolean changeAccount = true;

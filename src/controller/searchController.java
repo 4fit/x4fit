@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import model.Post;
 import model.User;
 
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+
+
 /**
  * Servlet implementation class searchController
  */
@@ -67,9 +70,9 @@ public class searchController extends HttpServlet {
     		String textSearch  = "";
     		
     		if(request.getParameter("textSearchHidden")!= null)
-    			textSearch = request.getParameter("textSearchHidden");
+    			textSearch = escapeHtml4(request.getParameter("textSearchHidden"));
     		else
-    		 textSearch = request.getParameter("textSearch");
+    		 textSearch = escapeHtml4(request.getParameter("textSearch"));
     		
     		List<Post> listPost = getListPostForSearch( textSearch);
     		List<User> listAuthor = getListAuthorForSearch(textSearch);
